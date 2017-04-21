@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="missions">
+        <item>@string/mission_waypoint</item>
+        <item>@string/mission_orbit</item>
+        <item>@string/mission_follow</item>
+    </string-array>
+    <string-array name="mission_finish_action">
+        <item>@string/mission_finish_hover</item>
+        <item>@string/mission_finish_return</item>
+    </string-array>
+</resources>

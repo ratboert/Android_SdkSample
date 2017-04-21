@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RCActivity">
+
+    <RadioGroup
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/async"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="异步" />
+
+        <RadioButton
+            android:id="@+id/synch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="同步" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/log_output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getLowBatteryThreshold"
+                android:padding="@dimen/text_padding"
+                android:text="getLowBatteryThreshold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="setLowBatteryNotifyThreshold"
+                android:padding="@dimen/text_padding"
+                android:text="setLowBatteryNotifyThreshold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getCriticalBatteryNotifyThreshold"
+                android:padding="@dimen/text_padding"
+                android:text="getCriticalBatteryNotifyThreshold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="setCriticalBatteryNotifyThreshold"
+                android:padding="@dimen/text_padding"
+                android:text="setCriticalBatteryNotifyThreshold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getBatteryDischargeDay"
+                android:padding="@dimen/text_padding"
+                android:text="getBatteryDischargeDay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="setBatteryDischargeDay"
+                android:padding="@dimen/text_padding"
+                android:text="setBatteryDischargeDay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getBatteryHistory"
+                android:padding="@dimen/text_padding"
+                android:text="getBatteryHistory" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="setBatteryRealTimeDataListener" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="setBatteryRealTimeDataListener"
+                    android:padding="@dimen/text_padding"
+                    android:text="set" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="resetBatteryRealTimeDataListener"
+                    android:padding="@dimen/text_padding"
+                    android:text="reset" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="setAutelBatteryWarningListener"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="setAutelBatteryWarningListener"
+                    android:padding="@dimen/text_padding"
+                    android:text="set" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="resetAutelBatteryWarningListener"
+                    android:padding="@dimen/text_padding"
+                    android:text="reset" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getCells"
+                android:padding="@dimen/text_padding"
+                android:text="getCells" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getVoltage"
+                android:padding="@dimen/text_padding"
+                android:text="getVoltage" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getCapacity"
+                android:padding="@dimen/text_padding"
+                android:text="getCapacity" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getCurrent"
+                android:padding="@dimen/text_padding"
+                android:text="getCurrent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getTemperature"
+                android:padding="@dimen/text_padding"
+                android:text="getTemperature" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getTimesOfDischarges"
+                android:padding="@dimen/text_padding"
+                android:text="getTimesOfDischarges" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getFullChargeCapacity"
+                android:padding="@dimen/text_padding"
+                android:text="getFullChargeCapacity" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getRemainingPercent"
+                android:padding="@dimen/text_padding"
+                android:text="getRemainingPercent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getSerialNumber"
+                android:padding="@dimen/text_padding"
+                android:text="getSerialNumber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getVersion"
+                android:padding="@dimen/text_padding"
+                android:text="getVersion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getDesignCap"
+                android:padding="@dimen/text_padding"
+                android:text="getDesignCap" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="isOverHeated"
+                android:padding="@dimen/text_padding"
+                android:text="isOverHeated"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

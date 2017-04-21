@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.autel.sdksample">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- Support devices without USB host mode since there are other connection types -->
+
+    <application
+        android:name=".TestApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:label="@string/app_name"
+        tools:replace="android:label"
+        android:theme="@style/AppTheme">
+        <uses-library android:name="com.android.future.usb.accessory" />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RCActivity" />
+        <activity android:name=".FCActivity" />
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".CameraParamsActivity" />
+        <activity android:name=".DspActivity" />
+        <activity android:name=".BatteryActivity" />
+        <activity android:name=".GimbalActivity" />
+        <activity android:name=".AlbumActivity" />
+        <activity android:name=".FirmwareActivity" />
+        <activity android:name=".MissionActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".view.mission.AMapMissionActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".view.mission.GMapMissionActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity
+            android:name=".CodecActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensorLandscape" />
+        <receiver android:name=".UsbBroadCastReceiver">
+            <intent-filter>
+                <action android:name="com.autel.sdk.action.USB_ACCESSORY_ATTACHED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="5756dc4dcc4a63ccb8a999c93d503be0"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDQbPdnNBGtzSjdPtQaO3F_EmVHX4EttKE"/>
+
+        <!--<meta-data-->
+            <!--android:name="com.amap.api.v2.apikey"-->
+            <!--android:value="7410a12aed059c3cf001de204885af03" />-->
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyCXNyM0KYGjOrKuAXpFjXdBzQG_xaC0GhQ" />-->
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+    </application>
+
+</manifest>

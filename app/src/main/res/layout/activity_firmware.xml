@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RCActivity">
+
+    <RadioGroup
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/async"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="异步" />
+
+        <RadioButton
+            android:id="@+id/synch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="同步" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/fw_log_output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getAutelAircraftComponentVersion"
+                android:padding="@dimen/text_padding"
+                android:text="getAutelAircraftComponentVersion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getAutelAircraftComponentSerialNumberVersion"
+                android:padding="@dimen/text_padding"
+                android:text="getAutelAircraftComponentSerialNumberVersion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getAutelRCVersion"
+                android:padding="@dimen/text_padding"
+                android:text="getAutelRCVersion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getAutelRCSerialNumberVersion"
+                android:padding="@dimen/text_padding"
+                android:text="getAutelRCSerialNumberVersion" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

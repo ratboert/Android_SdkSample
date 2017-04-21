@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RCActivity">
+
+    <RadioGroup
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/async"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="异步" />
+
+        <RadioButton
+            android:id="@+id/synch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="同步" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/dsp_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="getRFList" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="getRFListStart"
+                    android:padding="@dimen/text_padding"
+                    android:text="Start" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="getRFListCancel"
+                    android:padding="@dimen/text_padding"
+                    android:text="Cancel" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="getCurrentRF" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="getCurrentRFStart"
+                    android:padding="@dimen/text_padding"
+                    android:text="Start" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="getCurrentRFCancel"
+                    android:padding="@dimen/text_padding"
+                    android:text="Cancel" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setCurrentRF" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/dsp_set_rf_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="100px"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_background"
+                        android:gravity="center"
+                        android:hint="rf hz"
+                        android:inputType="number"
+                        android:padding="@dimen/text_padding" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="100px"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_background"
+                        android:gravity="center"
+                        android:onClick="setCurrentRFAStart"
+                        android:padding="@dimen/text_padding"
+                        android:text="Start" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="100px"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_background"
+                        android:gravity="center"
+                        android:onClick="setCurrentRFACancel"
+                        android:padding="@dimen/text_padding"
+                        android:text="Cancel" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/SSIDName"
+                        android:layout_width="match_parent"
+                        android:layout_height="100px"
+                        android:layout_weight="1"
+                        android:hint="SSID name" />
+
+                    <EditText
+                        android:id="@+id/SSIDPwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="100px"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:hint="SSID password" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:onClick="updateNewSSIDInfo"
+                    android:padding="@dimen/text_padding"
+                    android:text="updateNewSSIDInfo" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getCurrentSSIDInfo"
+                android:padding="@dimen/text_padding"
+                android:text="getCurrentSSIDInfo" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
