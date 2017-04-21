@@ -8,32 +8,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RCActivity">
-
-    <RadioGroup
-        android:id="@+id/type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <RadioButton
-            android:id="@+id/async"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="异步" />
-
-        <RadioButton
-            android:id="@+id/synch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="同步" />
-    </RadioGroup>
-
+    tools:context=".GimbalActivity">
     <TextView
         android:id="@+id/gb_log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/log_text_min_height"
         android:layout_margin="5dp" />
 
     <ScrollView
