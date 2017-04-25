@@ -5,12 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.autel.common.CallbackWithNoParam;
-import com.autel.common.error.AutelError;
-import com.autel.sdk.Autel;
-import com.autel.sdksample.view.mission.AMapMissionActivity;
-import com.autel.sdksample.view.mission.GMapMissionActivity;
-
 
 /**
  * Created by A16343 on 2016/11/15.
@@ -22,12 +16,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void rcTest(View view) {
-        startActivity(new Intent(this, RCActivity.class));
+        startActivity(new Intent(this, RemoteControllerCActivity.class));
 
     }
 
     public void fcTest(View view) {
-        startActivity(new Intent(this, FCActivity.class));
+        startActivity(new Intent(this, FlyControllerActivity.class));
     }
 
     public void cameraTest(View view) {

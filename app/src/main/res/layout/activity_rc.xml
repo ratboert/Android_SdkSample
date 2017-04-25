@@ -8,13 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RCActivity">
+    tools:context=".RemoteControllerCActivity">
+
     <TextView
         android:id="@+id/log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/log_text_min_height"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,106 +27,136 @@
             android:orientation="vertical"
             android:padding="20px">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setRCLanguage"
-                android:padding="@dimen/text_padding"
-                android:text="setRCLanguage" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:gravity="center"
+                    android:onClick="setRCLanguage"
+                    android:padding="@dimen/text_padding"
+                    android:textAllCaps="false"
+                    android:text="setRCLanguage" />
+
+                <Spinner
+                    android:id="@+id/languageSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:entries="@array/rc_languages" />
+            </LinearLayout>
+
+
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getRCLanguage"
                 android:padding="@dimen/text_padding"
+                android:textAllCaps="false"
                 android:text="getRCLanguage" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="enterBinding"
                 android:padding="@dimen/text_padding"
+                android:textAllCaps="false"
                 android:text="enterBinding" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="exitBinding"
                 android:padding="@dimen/text_padding"
+                android:textAllCaps="false"
                 android:text="exitBinding" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getRCBindMode"
-                android:padding="@dimen/text_padding"
-                android:text="getRCBindMode"
-                android:visibility="gone" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setRFPower"
-                android:padding="@dimen/text_padding"
-                android:text="setRFPower" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:gravity="center"
+                    android:onClick="setRFPower"
+                    android:padding="@dimen/text_padding"
+                    android:textAllCaps="false"
+                    android:text="setRFPower" />
 
-            <TextView
+                <Spinner
+                    android:id="@+id/rfSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/rc_rfs" />
+            </LinearLayout>
+
+
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getRFPower"
                 android:padding="@dimen/text_padding"
+                android:textAllCaps="false"
                 android:text="getRFPower" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setTeacherStudentMode"
-                android:padding="@dimen/text_padding"
-                android:text="setTeacherStudentMode" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:gravity="center"
+                    android:onClick="setTeacherStudentMode"
+                    android:padding="@dimen/text_padding"
+                    android:textAllCaps="false"
+                    android:text="setTeacherStudentMode" />
+
+                <Spinner
+                    android:id="@+id/teachingModeSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:entries="@array/rc_teach_mode" />
+            </LinearLayout>
+
+
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getTeacherStudentMode"
+                android:textAllCaps="false"
                 android:padding="@dimen/text_padding"
                 android:text="getTeacherStudentMode" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
+                    android:layout_height="@dimen/text_height"
                     android:background="@drawable/text_background"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
@@ -139,80 +170,98 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="startCalibration"
-                        android:text="开始校准" />
+                        android:textAllCaps="false"
+                        android:text="startCalibration" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="saveCalibration"
-                        android:text="保存校准" />
+                        android:textAllCaps="false"
+                        android:text="saveCalibration" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="exitCalibration"
-                        android:text="退出校准" />
+                        android:textAllCaps="false"
+                        android:text="exitCalibration" />
                 </LinearLayout>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setRCLengthUnit"
-                android:padding="@dimen/text_padding"
-                android:text="setRCLengthUnit" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getRCLengthUnit"
-                android:padding="@dimen/text_padding"
-                android:text="getRCLengthUnit" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setRCCommandStickMode"
-                android:padding="@dimen/text_padding"
-                android:text="setRCCommandStickMode" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="resetWifi"
-                android:padding="@dimen/text_padding"
-                android:text="resetWifi" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="uploadPhoneCompassAngle"
-                android:padding="@dimen/text_padding"
-                android:text="uploadPhoneCompassAngle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10px"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:gravity="center"
+                    android:onClick="setRCLengthUnit"
+                    android:padding="@dimen/text_padding"
+                    android:textAllCaps="false"
+                    android:text="setRCLengthUnit" />
+
+                <Spinner
+                    android:id="@+id/lengthUnitSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:entries="@array/rc_length_unit" />
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="getRCLengthUnit"
+                android:padding="@dimen/text_padding"
+                android:textAllCaps="false"
+                android:text="getRCLengthUnit" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:gravity="center"
+                    android:onClick="setRCCommandStickMode"
+                    android:padding="@dimen/text_padding"
+                    android:textAllCaps="false"
+                    android:text="setRCCommandStickMode" />
+
+                <Spinner
+                    android:id="@+id/commandStickModeSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:entries="@array/rc_command_stick" />
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="resetWifi"
+                android:padding="@dimen/text_padding"
+                android:textAllCaps="false"
+                android:text="resetWifi" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -236,14 +285,12 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="setRemoteButtonControllerMonitor"
                         android:text="set" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="resetRemoteButtonControllerMonitor"
                         android:text="reset" />
                 </LinearLayout>
@@ -252,47 +299,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10px"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
-                        android:padding="@dimen/text_padding"
-                        android:text="setRCUploadDataMonitor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
-                        android:onClick="setRCUploadDataMonitor"
-                        android:text="set" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
-                        android:onClick="resetRCUploadDataMonitor"
-                        android:text="reset" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10px"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -316,23 +323,21 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="setRCInfoDataMonitor"
                         android:text="set" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
                         android:onClick="resetRCInfoDataMonitor"
-                        android:text="reset" />
+                        android:text="reset"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
+                android:layout_height="@dimen/text_height"
                 android:background="@drawable/text_background"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
@@ -341,19 +346,17 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/text_background"
                     android:onClick="setRemoteControllerConnectStateListener"
                     android:text="set" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/text_background"
                     android:onClick="resetRemoteControllerConnectStateListener"
                     android:text="reset" />
             </LinearLayout>

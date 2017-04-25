@@ -44,6 +44,10 @@ public abstract class MapActivity extends FragmentActivity {
         void locationChanged(Location location);
     }
 
+    public interface WaypointHeightListener {
+        int fetchHeight();
+    }
+
     public static final float MapInitZoomSize = 18.0f;
     final String TAG = getClass().getSimpleName();
     LocationManager mLocationManager;
@@ -58,6 +62,7 @@ public abstract class MapActivity extends FragmentActivity {
     MissionType missionType = MissionType.WAYPOINT;
 
     private LocationChangeListener locationChangeListener;
+    private WaypointHeightListener waypointHeightListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,6 +239,10 @@ public abstract class MapActivity extends FragmentActivity {
         this.locationChangeListener = locationChangeListener;
     }
 
+    public void setWaypointHeightListener(WaypointHeightListener waypointHeightListener) {
+        this.waypointHeightListener = waypointHeightListener;
+    }
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -250,13 +259,34 @@ public abstract class MapActivity extends FragmentActivity {
     List<Waypoint> wayPointList = new ArrayList<>();
 
     public List<Waypoint> getWaypointList() {
-        return wayPointList;
+        /**
+         * 深度复制
+         */
+
+        List<Waypoint> wpList = new ArrayList<>();
+        Waypoint temp = null;
+        for (Waypoint waypoint : wayPointList) {
+            temp = waypoint.clone();
+            AutelCoord3D coord3D = temp.getAutelCoord3D();
+            if (null != coord3D) {
+                AutelLatLng latLng = MapRectifyUtil.gcj2wgs(new AutelLatLng(coord3D.getLatitude(), coord3D.getLongitude()));
+                temp.getAutelCoord3D().setLatitude(latLng.getLatitude());
+                temp.getAutelCoord3D().setLongitude(latLng.getLongitude());
+            }
+            wpList.add(temp);
+        }
+
+        for (Waypoint waypoint : wpList) {
+            Log.v("waypoint", "value test " + waypoint.getAutelCoord3D().getAltitude());
+        }
+        return wpList;
     }
 
     AutelLatLng autelLatLng = null;
 
     public AutelLatLng getOrbitPoint() {
-        return autelLatLng;
+        AutelLatLng latLng = MapRectifyUtil.gcj2wgs(autelLatLng);
+        return latLng;
     }
 
     protected void onAbsMapClick(double lat, double lot) {
@@ -268,6 +298,18 @@ public abstract class MapActivity extends FragmentActivity {
                 updateOrbit(lat, lot);
             default:
         }
+    }
+
+    private int getMaxWaypointHeight() {
+        return waypointHeightListener == null ? 40 : waypointHeightListener.fetchHeight();
+    }
+
+    protected int addWaypoint(AutelLatLng latLng) {
+//        AutelLatLng latLng1 = MapRectifyUtil.gcj2wgs(latLng);
+        AutelCoord3D cd = new AutelCoord3D(latLng.latitude, latLng.longitude, getMaxWaypointHeight());
+        Waypoint wp = new Waypoint(cd);
+        wayPointList.add(wp);
+        return wayPointList.indexOf(wp);
     }
 
     private Handler handler = new Handler() {

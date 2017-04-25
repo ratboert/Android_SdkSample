@@ -77,10 +77,6 @@ public class OrbitMissionFragment extends MissionFragment {
         return orbitMission;
     }
 
-    private boolean isEmpty(String value) {
-        return null == value || "".equals(value);
-    }
-
     public void onDestroy() {
         super.onDestroy();
         Autel.getMissionManager().setRealTimeInfoListener(null);

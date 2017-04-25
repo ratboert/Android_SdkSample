@@ -9,4 +9,30 @@
         <item>@string/mission_finish_hover</item>
         <item>@string/mission_finish_return</item>
     </string-array>
+    <string-array name="rc_languages">
+        <item>@string/rc_language_e</item>
+        <item>@string/rc_language_c</item>
+    </string-array>
+
+    <string-array name="rc_rfs">
+        <item>@string/rc_rf_fcc</item>
+        <item>@string/rc_rf_ce</item>
+    </string-array>
+
+    <string-array name="rc_teach_mode">
+        <item>@string/rc_teach_mode_disable</item>
+        <item>@string/rc_teach_mode_teacher</item>
+        <item>@string/rc_teach_mode_student</item>
+    </string-array>
+
+    <string-array name="rc_length_unit">
+        <item>@string/rc_length_unit_metric</item>
+        <item>@string/rc_length_unit_imperial</item>
+    </string-array>
+
+    <string-array name="rc_command_stick">
+        <item>@string/rc_command_stick_usa</item>
+        <item>@string/rc_command_stick_china</item>
+        <item>@string/rc_command_stick_japan</item>
+    </string-array>
 </resources>

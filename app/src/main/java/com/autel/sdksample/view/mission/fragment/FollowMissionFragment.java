@@ -35,6 +35,7 @@ public class FollowMissionFragment extends MissionFragment {
                 if (null != followMission) {
                     followMission.update(location);
                 }
+                Log.v("followTest", "location "+location);
             }
         });
 

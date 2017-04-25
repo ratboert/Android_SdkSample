@@ -3,7 +3,7 @@
 buildscript {
     repositories {
         maven(){
-            /*
+            //*
             url "http://10.240.12.2:8081/artifactory/autel-snapshot"
             /*/
             url "https://dl.bintray.com/fmworld/maven"
@@ -22,7 +22,7 @@ buildscript {
 allprojects {
     repositories {
         maven(){
-            /*
+            //*
             url "http://10.240.12.2:8081/artifactory/autel-snapshot"
             /*/
             url "https://dl.bintray.com/fmworld/maven"

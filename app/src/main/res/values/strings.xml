@@ -23,10 +23,30 @@
     <string name="mission_speed_notify">飞行速度</string>
     <string name="mission_notify_return_height">返航高度</string>
     <string name="mission_notify_count">环绕圈数</string>
+    <string name="mission_notify_waypoint_height">执行高度</string>
     <string name="mission_notify_radius">环绕半径</string>
 
     <string name="fc_max_height">飞行最大高度</string>
 
     <string name="mission_map_google">Google地图</string>
     <string name="mission_map_a">高德地图</string>
+
+
+    <!--  remote controller -->
+    <string name="rc_language_c">CHINESE</string>
+    <string name="rc_language_e">ENGLISH</string>
+    <string name="rc_rf_ce">CE</string>
+    <string name="rc_rf_fcc">FCC</string>
+
+
+    <string name="rc_teach_mode_disable">DISABLE</string>
+    <string name="rc_teach_mode_teacher">TEACHER</string>
+    <string name="rc_teach_mode_student">STUDENT</string>
+
+    <string name="rc_length_unit_metric">METRIC</string>
+    <string name="rc_length_unit_imperial">IMPERIAL</string>
+
+    <string name="rc_command_stick_usa">USA</string>
+    <string name="rc_command_stick_china">CHINA</string>
+    <string name="rc_command_stick_japan">JAPAN</string>
 </resources>

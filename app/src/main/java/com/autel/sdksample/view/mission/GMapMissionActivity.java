@@ -104,27 +104,20 @@ public class GMapMissionActivity extends MapActivity {
     }
 
 
-    private int getMaxWaypointHeight() {
-        return 60;
-    }
+
 
 
     protected ArrayList<Marker> mMarkerList = new ArrayList<>();
 
     @Override
     protected void addWayPointMarker(double lat, double lot) {
-        AutelCoord3D cd = new AutelCoord3D(lat, lot, getMaxWaypointHeight());
         LatLng latlng = new LatLng(lat, lot);
         int size = wayPointList.size();
         if (size > 0) {
             addWayPointLine(wayPointList.get(size - 1), latlng);
         }
 
-        Waypoint wp = new Waypoint(cd);
-        wayPointList.add(wp);
-        mIndex++;
-
-        Marker temp = addMarkerWithLabel(latlng, wayPointList.indexOf(wp));
+        Marker temp = addMarkerWithLabel(latlng, addWaypoint(new AutelLatLng(lat, lot)));
         temp.setDraggable(true);
         mMarkerList.add(temp);
     }

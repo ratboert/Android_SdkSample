@@ -24,39 +24,14 @@ import com.autel.sdk.AModuleRemoteController;
 public class RCTest {
     private final static String TAG = "RCTest";
 
-    public static void setRCLanguage(int cType,final Handler handler) {
+    public static void setRCLanguage(final Handler handler) {
 
-        if (cType == 1) {
 
-            AModuleRemoteController.remoteController().setLanguage(RemoteControllerLanguage.ENGLISH, new CallbackWithNoParam() {
 
-                @Override
-                public void onFailure(AutelError rcError) {
-                    logOut(handler, "setLanguage RCError " + rcError.getDescription());
-                }
-
-                @Override
-                public void onSuccess() {
-                    logOut(handler, "setLanguage onSuccess ");
-                }
-            });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCLanguageResult result = AModuleRemoteController.sync().setLanguage(RemoteControllerLanguage.ENGLISE);
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "setLanguage RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "setLanguage onSuccess " + result.getRcLanguage());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void getRCLanguage(int cType,final Handler handler) {
+    public static void getRCLanguage(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().getLanguage(new CallbackWithOneParam<RemoteControllerLanguage>() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -68,51 +43,10 @@ public class RCTest {
                     logOut(handler, "getLanguage onSuccess " + rcLanguage.toString());
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCLanguageResult result = AModuleRemoteController.sync().getLanguage();
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "getLanguage RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "getLanguage onSuccess " + result.getRcLanguage());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void getRCBindMode(int cType,final Handler handler) {
+    public static void startRCBinding(final Handler handler) {
 
-//        if (cType == 1) {
-//            AModuleRemoteController.remoteController().getBindState(new CallbackWithOneParam<RemoteControllerBindState>() {
-//                @Override
-//                public void onFailure(AutelError rcError) {
-//                    logOut(handler, "getBindState RCError " + rcError.getDescription());
-//                }
-//
-//                @Override
-//                public void onSuccess(RemoteControllerBindState rcBindMode) {
-//                    logOut(handler, "getBindState onSuccess " + rcBindMode);
-//                }
-//            });
-//        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCBindModeResult result = AModuleRemoteController.sync().getBindState();
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "getBindState RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "getBindState onSuccess " + result.getRcBindMode());
-//                    }
-//                }
-//            }.start();
-//        }
-    }
-
-    public static void startRCBinding(int cType,final Handler handler) {
-
-        if (cType == 1) {
             AModuleRemoteController.remoteController().enterBinding(new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -124,26 +58,13 @@ public class RCTest {
                     logOut(handler, "enterBinding onSuccess ");
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCBindingResult result = AModuleRemoteController.sync().enterBinding();
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "enterBinding RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "enterBinding onSuccess " + result.isStartSuccessful());
-//                    }
-//                }
-//            }.start();
-        }
     }
     public static void exitBinding(final Handler handler) {
         AModuleRemoteController.remoteController().exitBinding();
     }
 
-    public static void setRFPower(int cType,final Handler handler) {
+    public static void setRFPower(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().setRFPower(RFPower.CE, new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -155,23 +76,10 @@ public class RCTest {
                     logOut(handler, "setRFPower onSuccess " );
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCPowerResult result = AModuleRemoteController.sync().setRFPower(RFPower.CE);
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "setRFPower RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "setRFPower onSuccess " + result.getAutelRFPower());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void getRFPower(int cType,final Handler handler) {
+    public static void getRFPower(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().getRFPower(new CallbackWithOneParam<RFPower>() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -183,23 +91,10 @@ public class RCTest {
                     logOut(handler, "getRFPower onSuccess " + autelRFPower);
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCPowerResult result = AModuleRemoteController.sync().getRFPower();
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "getRFPower RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "getRFPower onSuccess " + result.getAutelRFPower());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void getTeacherStudentMode(int cType,final Handler handler) {
+    public static void getTeacherStudentMode(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().getTeachingMode(new CallbackWithOneParam<TeachingMode>() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -211,23 +106,10 @@ public class RCTest {
                     logOut(handler, "getTeachingMode onSuccess " + autelTeachingMode);
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCTeacherStudentModeResult result = AModuleRemoteController.sync().getTeachingMode();
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "getTeachingMode RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "getTeachingMode onSuccess " + result.getAutelTeacherStudentMode());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void setTeacherStudentMode(int cType,final Handler handler) {
+    public static void setTeacherStudentMode(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().setTeachingMode(TeachingMode.TEACHER, new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -239,24 +121,11 @@ public class RCTest {
                     logOut(handler, "setTeachingMode onSuccess ");
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCTeacherStudentModeResult result = AModuleRemoteController.sync().setTeachingMode(TeachingMode.STUDENT);
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "setTeachingMode RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "setTeachingMode onSuccess " + result.getAutelTeacherStudentMode());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
 
-    public static void setRCCalibrationStep(int cType, final RemoteControllerStickCalibration step,final Handler handler) {
+    public static void setRCCalibrationStep( final RemoteControllerStickCalibration step,final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().setStickCalibration(step, new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -274,23 +143,10 @@ public class RCTest {
 
 
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCCalibrationStepResult result = AModuleRemoteController.sync().setStickCalibration(step);
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "setStickCalibration RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "setStickCalibration onSuccess [0] " + result.getCalibrationStep()[0]);
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void setRCLengthUnit(int cType,final Handler handler) {
+    public static void setRCLengthUnit(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().setParameterUnit(RemoteControllerParameterUnit.IMPERIAL, new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -304,23 +160,10 @@ public class RCTest {
 
 
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCLengthUnitResult result = AModuleRemoteController.sync().setParameterUnit(RemoteControllerParameterUnit.IMPERIAL);
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "setParameterUnit RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "setParameterUnit onSuccess  " + result.getAutelRCLengthUnit());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void getRCLengthUnit(int cType,final Handler handler) {
+    public static void getRCLengthUnit(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().getLengthUnit(new CallbackWithOneParam<RemoteControllerParameterUnit>() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -332,23 +175,10 @@ public class RCTest {
                     logOut(handler, "getLengthUnit onSuccess " + autelRCLengthUnit);
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCLengthUnitResult result = AModuleRemoteController.sync().getLengthUnit();
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "getLengthUnit RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "getLengthUnit onSuccess " + result.getAutelRCLengthUnit());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void setRCCommandStickMode(int cType,final Handler handler) {
+    public static void setRCCommandStickMode(final Handler handler) {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().setCommandStickMode(RemoteControllerCommandStickMode.CHINA, new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError rcError) {
@@ -360,44 +190,11 @@ public class RCTest {
                     logOut(handler, "setCommandStickMode onSuccess ");
                 }
             });
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    RCCommandStickModeResult result = AModuleRemoteController.sync().setCommandStickMode(RemoteControllerCommandStickMode.CHINA);
-//                    if (null != result.getRcError()) {
-//                        logOut(handler, "setCommandStickMode RCError " + result.getRcError());
-//                    } else {
-//                        logOut(handler, "setCommandStickMode onSuccess " + result.getAutelRCCommandStickMode());
-//                    }
-//                }
-//            }.start();
-        }
     }
 
-    public static void resetWifi(int cType) {
+    public static void resetWifi() {
 
-        if (cType == 1) {
             AModuleRemoteController.remoteController().resetWifi();
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    AModuleRemoteController.sync().resetWifi();
-//                }
-//            }.start();
-        }
-    }
-
-    public static void uploadPhoneCompassAngle(int cType) {
-
-        if (cType == 1) {
-//            AModuleRemoteController.remoteController().uploadPhoneCompassAngle(3);
-        } else {
-//            new Thread() {
-//                public void run() {
-//                    AModuleRemoteController.sync().uploadPhoneCompassAngle(3);
-//                }
-//            }.start();
-        }
     }
 
     public static void setRemoteButtonControllerListener(final Handler handler) {
@@ -417,31 +214,6 @@ public class RCTest {
 
     public static void resetRemoteButtonControllerListener() {
         AModuleRemoteController.remoteController().setRemoteButtonControllerListener(null);
-    }
-
-    public static void setRCUploadDataListener(final Handler handler) {
-//        AModuleRemoteController.remoteController().setUploadDataListener(new CallbackWithOneParam<int[]>() {
-//            @Override
-//            public void onFailure(AutelError rcError) {
-//                logOut(handler, "setUploadDataListener rcError " + rcError.getDescription());
-//            }
-//
-//            @Override
-//            public void onSuccess(int[] data) {
-//                int size = data.length;
-//                StringBuffer stringBuffer = new StringBuffer();
-//                for (int i = 0; i < size; i++) {
-//                    stringBuffer.append("   "+i);
-//                    stringBuffer.append(":");
-//                    stringBuffer.append(data[i]);
-//                }
-//                logOut(handler, "setUploadDataListener onSuccess " + stringBuffer.toString());
-//            }
-//        });
-    }
-
-    public static void resetRCUploadDataListener() {
-//        AModuleRemoteController.remoteController().setUploadDataListener(null);
     }
 
     public static void setRCInfoDataListener(final Handler handler) {

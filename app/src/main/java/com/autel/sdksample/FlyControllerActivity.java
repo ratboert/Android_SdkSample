@@ -13,7 +13,7 @@ import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.sdksample.util.FCTest;
 
 
-public class FCActivity extends AppCompatActivity {
+public class FlyControllerActivity extends AppCompatActivity {
     final String TAG = getClass().getSimpleName();
     private TextView log_output;
     Handler handler = new Handler() {

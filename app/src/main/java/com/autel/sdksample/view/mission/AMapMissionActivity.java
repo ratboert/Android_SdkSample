@@ -15,7 +15,6 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
-import com.autel.common.mission.AutelCoord3D;
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
 
@@ -27,7 +26,6 @@ public class AMapMissionActivity extends MapActivity {
     MapView aMapView;
     private AMap mAmap;
     boolean isFirstChangeToPhone = true;
-    private int mIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +58,7 @@ public class AMapMissionActivity extends MapActivity {
         mAmap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                AutelLatLng latLng1 = MapRectifyUtil.gcj2wgs(new AutelLatLng(latLng.latitude, latLng.longitude));
-                onAbsMapClick(latLng1.latitude, latLng1.longitude);
+                onAbsMapClick(latLng.latitude, latLng.longitude);
             }
         });
     }
@@ -93,27 +90,17 @@ public class AMapMissionActivity extends MapActivity {
     }
 
 
-    private int getMaxWaypointHeight() {
-        return 60;
-    }
-
-
     protected ArrayList<Marker> mMarkerList = new ArrayList<>();
 
     @Override
     protected void addWayPointMarker(double lat, double lot) {
-        AutelCoord3D cd = new AutelCoord3D(lat, lot, getMaxWaypointHeight());
         LatLng latlng = new LatLng(lat, lot);
         int size = wayPointList.size();
         if (size > 0) {
             addWayPointLine(wayPointList.get(size - 1), latlng);
         }
 
-        Waypoint wp = new Waypoint(cd);
-        wayPointList.add(wp);
-        mIndex++;
-
-        Marker temp = addMarkerWithLabel(latlng, wayPointList.indexOf(wp));
+        Marker temp = addMarkerWithLabel(latlng, addWaypoint(new AutelLatLng(lat, lot)));
         temp.setDraggable(true);
         mMarkerList.add(temp);
     }

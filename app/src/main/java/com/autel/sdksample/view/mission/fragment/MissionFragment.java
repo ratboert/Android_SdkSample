@@ -215,5 +215,9 @@ public abstract class MissionFragment extends Fragment {
         });
     }
 
+    protected boolean isEmpty(String value) {
+        return null == value || "".equals(value);
+    }
+
     protected abstract AutelMission createAutelMission();
 }
