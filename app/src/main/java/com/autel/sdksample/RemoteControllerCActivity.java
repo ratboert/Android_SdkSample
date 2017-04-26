@@ -1,10 +1,5 @@
 package com.autel.sdksample;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -24,21 +19,11 @@ import com.autel.common.remotecontroller.RemoteControllerStickCalibration;
 import com.autel.common.remotecontroller.TeachingMode;
 import com.autel.sdk.Autel;
 import com.autel.sdk.remotecontroller.AutelRemoteController;
-import com.autel.sdksample.util.RCTest;
 
 
-public class RemoteControllerCActivity extends AppCompatActivity {
+public class RemoteControllerCActivity extends BaseActivity {
     final static String TAG = RemoteControllerCActivity.class.getSimpleName();
     private TextView log_output;
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            String text = (String) msg.obj;
-            if (null != log_output) {
-                log_output.setText(text);
-            }
-        }
-    };
 
     AutelRemoteController controller;
 
@@ -55,11 +40,8 @@ public class RemoteControllerCActivity extends AppCompatActivity {
     private RemoteControllerCommandStickMode commandStickMode = RemoteControllerCommandStickMode.CHINA;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initOnCreate() {
         setContentView(R.layout.activity_rc);
-        log_output = (TextView) findViewById(R.id.log_output);
-
         controller = Autel.getRemoteController();
         /**
          * or controller = AModuleRemoteController.remoteController()
@@ -158,17 +140,18 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         });
     }
 
+
     public void setRCLanguage(View view) {
         controller.setLanguage(remoteControllerLanguage, new CallbackWithNoParam() {
 
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setLanguage RCError " + rcError.getDescription());
+                logOut( "setLanguage RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setLanguage onSuccess ");
+                logOut( "setLanguage onSuccess ");
             }
         });
     }
@@ -177,12 +160,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.getLanguage(new CallbackWithOneParam<RemoteControllerLanguage>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "getLanguage RCError " + rcError.getDescription());
+                logOut( "getLanguage RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerLanguage rcLanguage) {
-                logOut(handler, "getLanguage onSuccess " + rcLanguage.toString());
+                logOut( "getLanguage onSuccess " + rcLanguage.toString());
             }
         });
     }
@@ -191,12 +174,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.enterBinding(new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "enterBinding RCError " + rcError.getDescription());
+                logOut( "enterBinding RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "enterBinding onSuccess ");
+                logOut( "enterBinding onSuccess ");
             }
         });
     }
@@ -209,12 +192,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setRFPower(rfPower, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setRFPower RCError " + rcError.getDescription());
+                logOut( "setRFPower RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setRFPower onSuccess ");
+                logOut( "setRFPower onSuccess ");
             }
         });
     }
@@ -223,12 +206,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.getRFPower(new CallbackWithOneParam<RFPower>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "getRFPower RCError " + rcError.getDescription());
+                logOut( "getRFPower RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RFPower autelRFPower) {
-                logOut(handler, "getRFPower onSuccess " + autelRFPower);
+                logOut( "getRFPower onSuccess " + autelRFPower);
             }
         });
     }
@@ -237,12 +220,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.getTeachingMode(new CallbackWithOneParam<TeachingMode>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "getTeachingMode RCError " + rcError.getDescription());
+                logOut( "getTeachingMode RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(TeachingMode autelTeachingMode) {
-                logOut(handler, "getTeachingMode onSuccess " + autelTeachingMode);
+                logOut( "getTeachingMode onSuccess " + autelTeachingMode);
             }
         });
     }
@@ -251,12 +234,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setTeachingMode(teachingMode, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setTeachingMode RCError " + rcError.getDescription());
+                logOut( "setTeachingMode RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setTeachingMode onSuccess ");
+                logOut( "setTeachingMode onSuccess ");
             }
         });
     }
@@ -265,12 +248,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setStickCalibration(RemoteControllerStickCalibration.CALIBRATE, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setStickCalibration CALIBRATE RCError " + rcError.getDescription());
+                logOut( "setStickCalibration CALIBRATE RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setStickCalibration CALIBRATE onSuccess  ");
+                logOut( "setStickCalibration CALIBRATE onSuccess  ");
             }
         });
     }
@@ -279,12 +262,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setStickCalibration(RemoteControllerStickCalibration.COMPLETE, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setStickCalibration COMPLETE RCError " + rcError.getDescription());
+                logOut( "setStickCalibration COMPLETE RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setStickCalibration COMPLETE onSuccess  ");
+                logOut( "setStickCalibration COMPLETE onSuccess  ");
             }
         });
     }
@@ -293,12 +276,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setStickCalibration(RemoteControllerStickCalibration.EXIT, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setStickCalibration EXIT RCError " + rcError.getDescription());
+                logOut( "setStickCalibration EXIT RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setStickCalibration EXIT onSuccess  ");
+                logOut( "setStickCalibration EXIT onSuccess  ");
             }
         });
     }
@@ -307,12 +290,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.getLengthUnit(new CallbackWithOneParam<RemoteControllerParameterUnit>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "getLengthUnit RCError " + rcError.getDescription());
+                logOut( "getLengthUnit RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerParameterUnit autelRCLengthUnit) {
-                logOut(handler, "getLengthUnit onSuccess " + autelRCLengthUnit);
+                logOut( "getLengthUnit onSuccess " + autelRCLengthUnit);
             }
         });
     }
@@ -321,12 +304,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setParameterUnit(parameterUnit, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setParameterUnit RCError " + rcError.getDescription());
+                logOut( "setParameterUnit RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setParameterUnit onSuccess  ");
+                logOut( "setParameterUnit onSuccess  ");
             }
 
         });
@@ -336,12 +319,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setCommandStickMode(commandStickMode, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setCommandStickMode RCError " + rcError.getDescription());
+                logOut( "setCommandStickMode RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut(handler, "setCommandStickMode onSuccess ");
+                logOut( "setCommandStickMode onSuccess ");
             }
         });
     }
@@ -350,12 +333,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.getCommandStickMode(new CallbackWithOneParam<RemoteControllerCommandStickMode>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "getRCCommandStickMode RCError " + rcError.getDescription());
+                logOut( "getRCCommandStickMode RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerCommandStickMode mode) {
-                logOut(handler, "getRCCommandStickMode onSuccess " + mode);
+                logOut( "getRCCommandStickMode onSuccess " + mode);
             }
         });
     }
@@ -369,12 +352,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setRemoteButtonControllerListener(new CallbackWithOneParam<RemoteControllerNavigateButtonEvent>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setRemoteButtonControllerListener rcError " + rcError.getDescription());
+                logOut( "setRemoteButtonControllerListener rcError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerNavigateButtonEvent rcControlBtnEvent) {
-                logOut(handler, "setRemoteButtonControllerListener onSuccess " + rcControlBtnEvent);
+                logOut( "setRemoteButtonControllerListener onSuccess " + rcControlBtnEvent);
             }
         });
     }
@@ -387,12 +370,12 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setInfoDataListener(new CallbackWithOneParam<RemoteControllerInfo>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut(handler, "setInfoDataListener rcError " + rcError.getDescription());
+                logOut( "setInfoDataListener rcError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerInfo data) {
-                logOut(handler, "setInfoDataListener onSuccess " + data);
+                logOut( "setInfoDataListener onSuccess " + data);
             }
         });
     }
@@ -405,11 +388,11 @@ public class RemoteControllerCActivity extends AppCompatActivity {
         controller.setConnectStateListener(new CallbackWithOneParam<RemoteControllerConnectState>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut(handler, "setConnectStateListener error " + error.getDescription());
+                logOut( "setConnectStateListener error " + error.getDescription());
             }
 
             public void onSuccess(RemoteControllerConnectState state) {
-                logOut(handler, "setConnectStateListener " + state);
+                logOut( "setConnectStateListener " + state);
             }
         });
     }
@@ -417,12 +400,4 @@ public class RemoteControllerCActivity extends AppCompatActivity {
     public void resetRemoteControllerConnectStateListener(View view) {
         controller.setConnectStateListener(null);
     }
-
-    private static void logOut(Handler handler, String log) {
-        Log.v(TAG, log);
-        Message msg = handler.obtainMessage();
-        msg.obj = log;
-        handler.sendMessage(msg);
-    }
-
 }

@@ -31,8 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DspActivity extends AppCompatActivity {
-    final String TAG = getClass().getSimpleName();
+public class DspActivity extends BaseActivity {
     private TextView dsp_log;
     private EditText dsp_set_rf_value;
     private EditText ssidName;
@@ -47,26 +46,13 @@ public class DspActivity extends AppCompatActivity {
     private RFListAdapter rfListAdapter;
     private int selectedRFHz = -1;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            String text = (String) msg.obj;
-            if (null != dsp_log) {
-                dsp_log.setText(text);
-            }
-        }
-    };
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dsp);
+    protected void initOnCreate() {
         autelDsp = AModuleDsp.dsp();
+
+        setContentView(R.layout.activity_dsp);
         ssidName = (EditText) findViewById(R.id.SSIDName);
         ssidPwd = (EditText) findViewById(R.id.SSIDPwd);
-        dsp_log = (TextView) findViewById(R.id.dsp_log);
-        dsp_log.requestFocus();
 
         rfListAdapter = new RFListAdapter(this);
         dspRFList = (Spinner) findViewById(R.id.dspRFList);
@@ -82,7 +68,6 @@ public class DspActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void setCurrentRFAStart(View v) {
@@ -207,12 +192,5 @@ public class DspActivity extends AppCompatActivity {
 
             return convertView;
         }
-    }
-
-    private void logOut(String log) {
-        Log.v(TAG,log);
-        Message msg = handler.obtainMessage();
-        msg.obj = log;
-        handler.sendMessage(msg);
     }
 }
