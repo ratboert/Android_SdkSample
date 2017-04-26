@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DspActivity">
 
@@ -15,8 +15,11 @@
         android:id="@+id/dsp_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:minHeight="@dimen/log_text_min_height"
-        android:layout_margin="5dp" />
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,122 +31,129 @@
             android:orientation="vertical"
             android:padding="20px">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="getRFList" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="getRFListStart"
-                    android:padding="@dimen/text_padding"
-                    android:text="Start" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="getRFListCancel"
-                    android:padding="@dimen/text_padding"
-                    android:text="Cancel" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="getCurrentRF" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
+                    android:layout_height="@dimen/text_height"
                     android:gravity="center"
-                    android:onClick="getCurrentRFStart"
                     android:padding="@dimen/text_padding"
-                    android:text="Start" />
+                    android:text="getRFList" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="getCurrentRFCancel"
-                    android:padding="@dimen/text_padding"
-                    android:text="Cancel" />
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:onClick="getRFListStart"
+                        android:padding="@dimen/text_padding"
+                        android:text="Start" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:onClick="getRFListCancel"
+                        android:padding="@dimen/text_padding"
+                        android:text="Cancel" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:layout_marginTop="@dimen/item_margin_top"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
+                    android:layout_height="@dimen/text_height"
 
-                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="getCurrentRF" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:onClick="getCurrentRFStart"
+                        android:padding="@dimen/text_padding"
+                        android:text="Start" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:onClick="getCurrentRFCancel"
+                        android:padding="@dimen/text_padding"
+                        android:text="Cancel" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:layout_marginTop="@dimen/item_margin_top"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/text_height"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
                     android:text="setCurrentRF" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/dsp_set_rf_value"
+                    <Spinner
+                        android:id="@+id/dspRFList"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/text_background"
                         android:gravity="center"
-                        android:hint="rf hz"
-                        android:inputType="number"
-                        android:padding="@dimen/text_padding" />
+                        android:hint="select a rf hz"
+                        />
 
-                    <TextView
+                    <Button
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
-                        android:background="@drawable/text_background"
                         android:gravity="center"
                         android:onClick="setCurrentRFAStart"
                         android:padding="@dimen/text_padding"
                         android:text="Start" />
 
-                    <TextView
+                    <Button
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
-                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
                         android:layout_weight="2"
-                        android:background="@drawable/text_background"
                         android:gravity="center"
                         android:onClick="setCurrentRFACancel"
                         android:padding="@dimen/text_padding"
@@ -155,49 +165,47 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:layout_marginTop="@dimen/item_margin_top"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
-
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/SSIDName"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="SSID name" />
 
                     <EditText
                         android:id="@+id/SSIDPwd"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:hint="SSID password" />
                 </LinearLayout>
-
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
+                    android:layout_height="@dimen/text_height"
                     android:gravity="center"
                     android:onClick="updateNewSSIDInfo"
+                    android:textAllCaps="false"
                     android:padding="@dimen/text_padding"
                     android:text="updateNewSSIDInfo" />
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
+                android:layout_height="@dimen/text_height"
+                android:layout_marginTop="@dimen/item_margin_top"
                 android:gravity="center"
                 android:onClick="getCurrentSSIDInfo"
+                android:textAllCaps="false"
                 android:padding="@dimen/text_padding"
                 android:text="getCurrentSSIDInfo" />
         </LinearLayout>
