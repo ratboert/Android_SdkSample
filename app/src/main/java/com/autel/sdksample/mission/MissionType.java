@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.mission;
+package com.autel.sdksample.mission;
 
 /**
  */

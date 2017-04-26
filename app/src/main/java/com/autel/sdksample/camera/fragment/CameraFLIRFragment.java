@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.fragment;
+package com.autel.sdksample.camera.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +14,8 @@ import com.autel.common.camera.flir.IRColorMode;
 import com.autel.common.camera.flir.IRFileFormat;
 import com.autel.common.camera.flir.IRMSXSetting;
 import com.autel.sdk.camera.AutelFLIR;
-import com.autel.sdksample.CameraActivity;
 import com.autel.sdksample.R;
+import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.util.CameraFlirTest;
 
 /**

@@ -1,25 +1,21 @@
-package com.autel.sdksample.view.mission.fragment;
+package com.autel.sdksample.mission.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.autel.common.CallbackWithOneParam;
 import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
-import com.autel.common.flycontroller.FlyControllerInfo;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.CurrentMissionState;
 import com.autel.common.mission.RealTimeInfo;
 import com.autel.common.mission.WaypointMission;
-import com.autel.common.mission.WaypointRealTimeInfo;
 import com.autel.sdk.Autel;
 import com.autel.sdksample.R;
-import com.autel.sdksample.view.mission.MapActivity;
+import com.autel.sdksample.mission.MapActivity;
 
 /**
  * Created by A16343 on 2017/4/18.

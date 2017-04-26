@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.autel.sdksample.camera.CameraActivity;
+
 
 /**
  * Created by A16343 on 2016/11/15.

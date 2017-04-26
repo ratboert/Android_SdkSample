@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.mission.fragment;
+package com.autel.sdksample.mission.fragment;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.autel.common.mission.CurrentMissionState;
 import com.autel.common.mission.FollowMission;
 import com.autel.common.mission.RealTimeInfo;
 import com.autel.sdk.Autel;
-import com.autel.sdksample.view.mission.MapActivity;
+import com.autel.sdksample.mission.MapActivity;
 
 /**
  * Created by A16343 on 2017/4/18.

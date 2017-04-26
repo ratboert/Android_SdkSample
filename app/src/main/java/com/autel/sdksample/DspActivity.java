@@ -16,6 +16,9 @@ public class DspActivity extends AppCompatActivity {
 //    RadioGroup group;
     private TextView dsp_log;
     private EditText dsp_set_rf_value;
+    private EditText ssidName;
+    private EditText ssidPwd;
+
 
     Handler handler = new Handler() {
         @Override
@@ -26,12 +29,8 @@ public class DspActivity extends AppCompatActivity {
             }
         }
     };
-    /**
-     * 1 异步 ， 2同步
-     */
-    int cType = 1;
-    private EditText ssidName;
-    private EditText ssidPwd;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

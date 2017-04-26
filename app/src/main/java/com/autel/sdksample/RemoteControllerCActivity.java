@@ -120,10 +120,10 @@ public class RemoteControllerCActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        parameterUnit = RemoteControllerParameterUnit.IMPERIAL;
+                        parameterUnit = RemoteControllerParameterUnit.METRIC;
                         break;
                     case 1:
-                        parameterUnit = RemoteControllerParameterUnit.METRIC;
+                        parameterUnit = RemoteControllerParameterUnit.IMPERIAL;
                         break;
                 }
             }
@@ -134,7 +134,7 @@ public class RemoteControllerCActivity extends AppCompatActivity {
             }
         });
 
-        commandStickModeSpinner = (Spinner) findViewById(R.id.lengthUnitSpinner);
+        commandStickModeSpinner = (Spinner) findViewById(R.id.commandStickModeSpinner);
         commandStickModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -342,6 +342,20 @@ public class RemoteControllerCActivity extends AppCompatActivity {
             @Override
             public void onSuccess() {
                 logOut(handler, "setCommandStickMode onSuccess ");
+            }
+        });
+    }
+
+    public void getRCCommandStickMode(View view) {
+        controller.getCommandStickMode(new CallbackWithOneParam<RemoteControllerCommandStickMode>() {
+            @Override
+            public void onFailure(AutelError rcError) {
+                logOut(handler, "getRCCommandStickMode RCError " + rcError.getDescription());
+            }
+
+            @Override
+            public void onSuccess(RemoteControllerCommandStickMode mode) {
+                logOut(handler, "getRCCommandStickMode onSuccess " + mode);
             }
         });
     }

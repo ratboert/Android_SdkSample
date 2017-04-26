@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.mission;
+package com.autel.sdksample.mission;
 
 import android.Manifest;
 import android.content.Context;
@@ -30,9 +30,9 @@ import com.autel.common.mission.Waypoint;
 import com.autel.sdk.Autel;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdksample.R;
-import com.autel.sdksample.view.mission.fragment.FollowMissionFragment;
-import com.autel.sdksample.view.mission.fragment.OrbitMissionFragment;
-import com.autel.sdksample.view.mission.fragment.WaypointMissionFragment;
+import com.autel.sdksample.mission.fragment.FollowMissionFragment;
+import com.autel.sdksample.mission.fragment.OrbitMissionFragment;
+import com.autel.sdksample.mission.fragment.WaypointMissionFragment;
 import com.autel.util.log.AutelLog;
 
 import java.util.ArrayList;

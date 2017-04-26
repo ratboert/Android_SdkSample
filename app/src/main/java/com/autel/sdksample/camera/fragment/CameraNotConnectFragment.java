@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.fragment;
+package com.autel.sdksample.camera.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

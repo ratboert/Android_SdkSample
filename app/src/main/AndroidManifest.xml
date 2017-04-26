@@ -35,7 +35,7 @@
 
         <activity android:name=".RemoteControllerCActivity" />
         <activity android:name=".FlyControllerActivity" />
-        <activity android:name=".CameraActivity" />
+        <activity android:name=".camera.CameraActivity" />
         <activity android:name=".CameraParamsActivity" />
         <activity android:name=".DspActivity" />
         <activity android:name=".BatteryActivity" />
@@ -45,10 +45,10 @@
         <activity android:name=".MissionActivity"
             android:screenOrientation="landscape"
             />
-        <activity android:name=".view.mission.AMapMissionActivity"
+        <activity android:name=".mission.AMapMissionActivity"
             android:screenOrientation="landscape"
             />
-        <activity android:name=".view.mission.GMapMissionActivity"
+        <activity android:name=".mission.GMapMissionActivity"
             android:screenOrientation="landscape"
             />
         <activity

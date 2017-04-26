@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.fragment;
+package com.autel.sdksample.camera.fragment;
 
 import android.os.Handler;
 import android.os.Message;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.autel.common.camera.base.MediaMode;
 import com.autel.sdk.camera.AutelBaseCamera;
-import com.autel.sdksample.CameraActivity;
 import com.autel.sdksample.R;
+import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.util.CameraTest;
 
 /**

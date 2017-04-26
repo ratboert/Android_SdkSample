@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.mission.fragment;
+package com.autel.sdksample.mission.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

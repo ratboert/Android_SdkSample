@@ -1,61 +1,67 @@
-package com.autel.sdksample.view.mission;
+package com.autel.sdksample.mission;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.Polyline;
-import com.amap.api.maps.model.PolylineOptions;
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
 
-public class AMapMissionActivity extends MapActivity {
+public class GMapMissionActivity extends MapActivity {
     final String TAG = getClass().getSimpleName();
-    MapView aMapView;
-    private AMap mAmap;
+    MapView gMapView;
+    private GoogleMap mGmap;
     boolean isFirstChangeToPhone = true;
+    private int mIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MapsInitializer.initialize(this);
         super.onCreate(savedInstanceState);
-        setMapContentView(R.layout.activity_mission_amap);
-        aMapView = (MapView) findViewById(R.id.aMapView);
-        aMapView.onCreate(savedInstanceState);
-        mAmap = aMapView.getMap();
+        setMapContentView(R.layout.activity_mission_gmap);
+        gMapView = (MapView) findViewById(R.id.gMapView);
+        gMapView.onCreate(savedInstanceState);
+        mGmap = gMapView.getMap();
         attachTapListener();
     }
 
     public void onResume() {
         super.onResume();
-        aMapView.onResume();
+        gMapView.onResume();
     }
 
     public void onPause() {
         super.onPause();
-        aMapView.onPause();
+        gMapView.onPause();
     }
 
 
     public void onDestroy() {
         super.onDestroy();
         detachTapListener();
-        aMapView.onDestroy();
+        gMapView.onDestroy();
     }
 
     private void attachTapListener() {
-        mAmap.setOnMapClickListener(new AMap.OnMapClickListener() {
+        mGmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 onAbsMapClick(latLng.latitude, latLng.longitude);
@@ -64,19 +70,23 @@ public class AMapMissionActivity extends MapActivity {
     }
 
     private void detachTapListener() {
-        mAmap.setOnMapClickListener(null);
+        mGmap.setOnMapClickListener(null);
     }
 
     @Override
     protected void phoneLocationChanged(Location location) {
         AutelLatLng all = MapRectifyUtil.wgs2gcj(new AutelLatLng(location.getLatitude(), location.getLongitude()));
         LatLng latLng = new LatLng(all.getLatitude(), all.getLongitude());
-        if (mAmap == null || mAmap.getCameraPosition() == null) {
+//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        if (mGmap == null || mGmap.getCameraPosition() == null) {
             return;
         }
         if (isFirstChangeToPhone) {
-            mAmap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
-            mAmap.moveCamera(com.amap.api.maps.CameraUpdateFactory.zoomTo(MapInitZoomSize));
+            CameraPosition cp = new CameraPosition(latLng,
+                    MapInitZoomSize,
+                    0,
+                    0);
+            mGmap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
             isFirstChangeToPhone = false;
         }
         drawPhoneMarker(latLng);
@@ -86,8 +96,14 @@ public class AMapMissionActivity extends MapActivity {
     protected void updateAircraftLocation(double lat, double lot) {
         AutelLatLng latLng = MapRectifyUtil.wgs2gcj(new AutelLatLng(lat, lot));
         LatLng lng = new LatLng(latLng.latitude, latLng.longitude);
-        drawDroneMarker(lng);
+//        drawDroneMarker(lng);
+        Message msg = handler.obtainMessage();
+        msg.obj = lng;
+        handler.sendMessage(msg);
     }
+
+
+
 
 
     protected ArrayList<Marker> mMarkerList = new ArrayList<>();
@@ -120,7 +136,7 @@ public class AMapMissionActivity extends MapActivity {
             markerOption.draggable(false);
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.favor_marker_point);
             markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-            mOrbitMarker = mAmap.addMarker(markerOption);
+            mOrbitMarker = mGmap.addMarker(markerOption);
         }
     }
 
@@ -131,7 +147,7 @@ public class AMapMissionActivity extends MapActivity {
         mPhoneMarker = null;
         autelLatLng = null;
 
-        mAmap.clear();
+        mGmap.clear();
         wayPointList.clear();
     }
 
@@ -143,11 +159,11 @@ public class AMapMissionActivity extends MapActivity {
         markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 //        float anchorWidth = getAnchorWidth(mIndex, bitmap);
 //        markerOption.anchor(anchorWidth, 1.0f);
-        return mAmap.addMarker(markerOption);
+        return mGmap.addMarker(markerOption);
     }
 
     private Polyline addWayPointLine(Waypoint start, LatLng end) {
-        Polyline a = mAmap.addPolyline((new PolylineOptions()).add(new LatLng(start.getAutelCoord3D().getLatitude(), start.getAutelCoord3D().getLongitude()), end));
+        Polyline a = mGmap.addPolyline((new PolylineOptions()).add(new LatLng(start.getAutelCoord3D().getLatitude(), start.getAutelCoord3D().getLongitude()), end));
         a.setColor(Color.GREEN);
         a.setWidth(10);
         return a;
@@ -160,15 +176,13 @@ public class AMapMissionActivity extends MapActivity {
             MarkerOptions markerOption = new MarkerOptions();
             markerOption.position(dronell);
             markerOption.draggable(false);
-            markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.drone_location_icon)));
+            markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.drone_location_icon));
             markerOption.anchor(0.5f, 0.5f);
-            if (null != mAmap) {
-                mDroneMarker = mAmap.addMarker(markerOption);
+            if (null != mGmap) {
+                mDroneMarker = mGmap.addMarker(markerOption);
             }
         } else {
             mDroneMarker.setPosition(dronell);
-            mDroneMarker.setToTop();
         }
     }
 
@@ -182,9 +196,16 @@ public class AMapMissionActivity extends MapActivity {
 //            markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
 //                    R.mipmap.drone_location_icon)));
 //            markerOption.anchor(0.5f, 0.5f);
-            mPhoneMarker = mAmap.addMarker(markerOption);
+            mPhoneMarker = mGmap.addMarker(markerOption);
         } else {
             mPhoneMarker.setPosition(phonell);
         }
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            drawDroneMarker((LatLng) msg.obj);
+        }
+    };
 }

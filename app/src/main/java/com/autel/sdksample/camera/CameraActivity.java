@@ -1,4 +1,4 @@
-package com.autel.sdksample;
+package com.autel.sdksample.camera;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,9 +13,10 @@ import com.autel.common.camera.CameraProduct;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.AModuleCamera;
 import com.autel.sdk.camera.AutelBaseCamera;
-import com.autel.sdksample.view.fragment.CameraFLIRFragment;
-import com.autel.sdksample.view.fragment.CameraNotConnectFragment;
-import com.autel.sdksample.view.fragment.CameraXb004Fragment;
+import com.autel.sdksample.R;
+import com.autel.sdksample.camera.fragment.CameraFLIRFragment;
+import com.autel.sdksample.camera.fragment.CameraNotConnectFragment;
+import com.autel.sdksample.camera.fragment.CameraXb004Fragment;
 
 
 public class CameraActivity extends FragmentActivity {

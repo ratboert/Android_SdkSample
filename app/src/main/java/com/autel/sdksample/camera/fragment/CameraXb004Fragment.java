@@ -1,4 +1,4 @@
-package com.autel.sdksample.view.fragment;
+package com.autel.sdksample.camera.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,8 +20,8 @@ import com.autel.common.camera.media.VideoResolution;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
 import com.autel.sdk.camera.AutelR12;
-import com.autel.sdksample.CameraActivity;
 import com.autel.sdksample.R;
+import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.util.CameraTest;
 
 /**
