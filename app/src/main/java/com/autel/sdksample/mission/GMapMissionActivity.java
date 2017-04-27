@@ -58,6 +58,14 @@ public class GMapMissionActivity extends MapActivity {
         super.onDestroy();
         detachTapListener();
         gMapView.onDestroy();
+        resetUI();
+    }
+
+    private void resetUI(){
+        mMarkerList.clear();
+        mOrbitMarker = null;
+        mDroneMarker = null;
+        mPhoneMarker = null;
     }
 
     private void attachTapListener() {

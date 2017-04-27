@@ -73,6 +73,11 @@ public abstract class MapActivity extends FragmentActivity {
         initAircraftListener();
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+        Autel.getFlyController().setFlyControllerInfoListener(null);
+    }
+
 
     private void initUi() {
         missionTypeSpinner = (Spinner) findViewById(R.id.missionTypeSpinner);

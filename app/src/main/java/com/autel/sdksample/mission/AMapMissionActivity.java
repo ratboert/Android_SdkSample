@@ -52,6 +52,14 @@ public class AMapMissionActivity extends MapActivity {
         super.onDestroy();
         detachTapListener();
         aMapView.onDestroy();
+        resetUI();
+    }
+
+    private void resetUI(){
+        mMarkerList.clear();
+        mOrbitMarker = null;
+        mDroneMarker = null;
+        mPhoneMarker = null;
     }
 
     private void attachTapListener() {
