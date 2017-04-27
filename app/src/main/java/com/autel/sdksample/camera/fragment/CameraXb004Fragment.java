@@ -33,7 +33,7 @@ public class CameraXb004Fragment extends CameraBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_camera_xb04, null);
+        View view = inflater.inflate(R.layout.activity_camera_r12, null);
         autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
         initClick(view);
         initR12Click(view);

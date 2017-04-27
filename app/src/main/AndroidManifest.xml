@@ -35,7 +35,8 @@
 
         <activity android:name=".RemoteControllerCActivity" />
         <activity android:name=".FlyControllerActivity" />
-        <activity android:name=".camera.CameraActivity" />
+        <activity android:name=".camera.CameraActivity"
+            android:screenOrientation="landscape"/>
         <activity android:name=".CameraParamsActivity" />
         <activity android:name=".DspActivity" />
         <activity android:name=".BatteryActivity" />

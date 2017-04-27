@@ -12,7 +12,9 @@ import com.autel.common.camera.CameraParameterSupport;
 import com.autel.common.camera.CameraProduct;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.AModuleCamera;
+import com.autel.sdk.Autel;
 import com.autel.sdk.camera.AutelBaseCamera;
+import com.autel.sdk.camera.AutelCameraManager;
 import com.autel.sdksample.R;
 import com.autel.sdksample.camera.fragment.CameraFLIRFragment;
 import com.autel.sdksample.camera.fragment.CameraNotConnectFragment;
@@ -20,24 +22,27 @@ import com.autel.sdksample.camera.fragment.CameraXb004Fragment;
 
 
 public class CameraActivity extends FragmentActivity {
+    private final String TAG = getClass().getSimpleName();
     TextView cameraType;
     AutelBaseCamera camera;
+    AutelCameraManager autelCameraManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         cameraType = (TextView) findViewById(R.id.camera_type);
+        autelCameraManager = Autel.getCameraManager();
         changePage(CameraNotConnectFragment.class);
         initListener();
     }
 
     private void initListener() {
         final RequestResultWithOneParam<CameraParameterSupport> requestResult = AModuleCamera.cameraManager().getParameterSupport();
-        AModuleCamera.cameraManager().setConnectStateListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
+        autelCameraManager.setConnectStateListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
             @Override
             public void onSuccess(CameraProduct data1, AutelBaseCamera data2) {
-                Log.v("camera_connect1", "initListener onSuccess connect " + data1);
+                Log.v(TAG, "initListener onSuccess connect " + data1);
                 camera = data2;
 
                 if (null != requestResult.getError()) {
@@ -57,7 +62,7 @@ public class CameraActivity extends FragmentActivity {
 
             @Override
             public void onFailure(AutelError error) {
-                Log.v("camera_connect1", "initListener onFailure error " + error.getDescription());
+                Log.v(TAG, "initListener onFailure error " + error.getDescription());
                 cameraType.setText("camera connect broken  " + error.getDescription());
             }
         });
@@ -75,6 +80,11 @@ public class CameraActivity extends FragmentActivity {
 
     public AutelBaseCamera getCamera() {
         return camera;
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        autelCameraManager.setConnectStateListener(null);
     }
 
 }
