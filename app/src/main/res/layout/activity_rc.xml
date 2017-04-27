@@ -30,17 +30,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/item_margin_bottom"
                     android:gravity="center"
                     android:onClick="setRCLanguage"
                     android:padding="@dimen/text_padding"
-                    android:textAllCaps="false"
-                    android:text="setRCLanguage" />
+                    android:text="setRCLanguage"
+                    android:textAllCaps="false" />
 
                 <Spinner
                     android:id="@+id/languageSpinner"
@@ -53,48 +54,49 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getRCLanguage"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getRCLanguage" />
+                android:text="getRCLanguage"
+                android:textAllCaps="false" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="enterBinding"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="enterBinding" />
+                android:text="enterBinding"
+                android:textAllCaps="false" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="exitBinding"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="exitBinding" />
+                android:text="exitBinding"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/item_margin_bottom"
                     android:gravity="center"
                     android:onClick="setRFPower"
                     android:padding="@dimen/text_padding"
-                    android:textAllCaps="false"
-                    android:text="setRFPower" />
+                    android:text="setRFPower"
+                    android:textAllCaps="false" />
 
                 <Spinner
                     android:id="@+id/rfSpinner"
@@ -106,28 +108,29 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getRFPower"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getRFPower" />
+                android:text="getRFPower"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/item_margin_bottom"
                     android:gravity="center"
                     android:onClick="setTeacherStudentMode"
                     android:padding="@dimen/text_padding"
-                    android:textAllCaps="false"
-                    android:text="setTeacherStudentMode" />
+                    android:text="setTeacherStudentMode"
+                    android:textAllCaps="false" />
 
                 <Spinner
                     android:id="@+id/teachingModeSpinner"
@@ -140,24 +143,25 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getTeacherStudentMode"
-                android:textAllCaps="false"
                 android:padding="@dimen/text_padding"
-                android:text="getTeacherStudentMode" />
+                android:text="getTeacherStudentMode"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_height"
-                    android:background="@drawable/text_background"
+                    android:layout_height="wrap_content"
+
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
                     android:text="setRCCalibrationStep" />
@@ -171,39 +175,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="startCalibration"
-                        android:textAllCaps="false"
-                        android:text="startCalibration" />
+                        android:text="startCalibration"
+                        android:textAllCaps="false" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="saveCalibration"
-                        android:textAllCaps="false"
-                        android:text="saveCalibration" />
+                        android:text="saveCalibration"
+                        android:textAllCaps="false" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="exitCalibration"
-                        android:textAllCaps="false"
-                        android:text="exitCalibration" />
+                        android:text="exitCalibration"
+                        android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/item_margin_bottom"
                     android:gravity="center"
                     android:onClick="setRCLengthUnit"
                     android:padding="@dimen/text_padding"
-                    android:textAllCaps="false"
-                    android:text="setRCLengthUnit" />
+                    android:text="setRCLengthUnit"
+                    android:textAllCaps="false" />
 
                 <Spinner
                     android:id="@+id/lengthUnitSpinner"
@@ -216,28 +221,29 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getRCLengthUnit"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getRCLengthUnit" />
+                android:text="getRCLengthUnit"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/text_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/item_margin_bottom"
                     android:gravity="center"
                     android:onClick="setRCCommandStickMode"
                     android:padding="@dimen/text_padding"
-                    android:textAllCaps="false"
-                    android:text="setRCCommandStickMode" />
+                    android:text="setRCCommandStickMode"
+                    android:textAllCaps="false" />
 
                 <Spinner
                     android:id="@+id/commandStickModeSpinner"
@@ -250,42 +256,70 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getRCCommandStickMode"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getRCCommandStickMode" />
+                android:text="getRCCommandStickMode"
+                android:textAllCaps="false" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="resetWifi"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="resetWifi" />
+                android:text="resetWifi"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:gravity="center"
+                    android:onClick="setYawCoefficient"
+                    android:padding="@dimen/text_padding"
+                    android:text="setYawCoefficient"
+                    android:textAllCaps="false" />
+
+                <EditText
+                    android:id="@+id/yawCoefficientValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/rc_yaw_coefficient" />
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="getYawCoefficient"
+                android:text="getYawCoefficient"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
-                        android:padding="@dimen/text_padding"
-                        android:text="setRemoteButtonControllerMonitor" />
-                </LinearLayout>
+                    android:padding="@dimen/text_padding"
+                    android:text="setRemoteButtonControllerMonitor" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -310,20 +344,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/text_background"
-                        android:padding="@dimen/text_padding"
-                        android:text="setRCInfoDataMonitor" />
-                </LinearLayout>
+                    android:padding="@dimen/text_padding"
+                    android:text="setRCInfoDataMonitor" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -340,35 +368,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="resetRCInfoDataMonitor"
-                        android:text="reset"
-                        />
+                        android:text="reset" />
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_height"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setRemoteControllerConnectStateListener" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="vertical">
 
-                <Button
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="setRemoteControllerConnectStateListener"
-                    android:text="set" />
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setRemoteControllerConnectStateListener" />
 
-                <Button
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="resetRemoteControllerConnectStateListener"
-                    android:text="reset" />
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="setRemoteControllerConnectStateListener"
+                        android:text="set" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="resetRemoteControllerConnectStateListener"
+                        android:text="reset" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

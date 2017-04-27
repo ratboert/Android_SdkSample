@@ -25,11 +25,18 @@
     <string name="mission_notify_count">环绕圈数</string>
     <string name="mission_notify_waypoint_height">执行高度</string>
     <string name="mission_notify_radius">环绕半径</string>
-
-    <string name="fc_max_height">飞行最大高度</string>
-
     <string name="mission_map_google">Google地图</string>
     <string name="mission_map_a">高德地图</string>
+
+    <string name="fc_max_height">飞行最大高度</string>
+    <string name="fc_max_range">飞行最远范围</string>
+    <string name="fc_return_height">飞行返航高度</string>
+    <string name="fc_horizontal_speed">飞行水平速度</string>
+    <string name="fc_ascend_speed">上升速度</string>
+    <string name="fc_descend_speed">下降速度</string>
+
+    <string name="rc_yaw_coefficient">yaw coefficient</string>
+
 
 
     <!--  remote controller -->
@@ -49,4 +56,14 @@
     <string name="rc_command_stick_usa">USA</string>
     <string name="rc_command_stick_china">CHINA</string>
     <string name="rc_command_stick_japan">JAPAN</string>
+
+
+    <!--  fly controller controller -->
+    <string name="fc_beginner_on">enabled</string>
+    <string name="fc_beginner_off">disabled</string>
+
+    <string name="fc_led_pilot_lamp_all_off">ALL_OFF</string>
+    <string name="fc_led_pilot_lamp_back_only">BACK_ONLY</string>
+    <string name="fc_led_pilot_lamp_front_only">FRONT_ONLY</string>
+    <string name="fc_led_pilot_lamp_all_on">ALL_ON</string>
 </resources>

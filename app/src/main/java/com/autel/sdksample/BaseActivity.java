@@ -48,4 +48,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         view.setFocusableInTouchMode(true);
         view.requestFocus();
     }
+
+    protected boolean isEmpty(String value) {
+        if (null == value || "".equals(value)) {
+            return true;
+        }
+        return false;
+    }
 }

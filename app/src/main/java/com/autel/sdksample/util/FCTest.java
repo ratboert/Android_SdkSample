@@ -9,9 +9,8 @@ import com.autel.common.CallbackWithOneParam;
 import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
 import com.autel.common.flycontroller.ARMWarning;
-import com.autel.common.flycontroller.FlyControllerInfo;
-import com.autel.common.flycontroller.BeginnerMode;
 import com.autel.common.flycontroller.CalibrateCompassStatus;
+import com.autel.common.flycontroller.FlyControllerInfo;
 import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.common.flycontroller.MagnetometerState;
 import com.autel.sdk.AModuleFlyController;
@@ -26,7 +25,7 @@ public class FCTest {
 
     public static void setBeginnerModeState(final Handler handler, int cType) {
         if (cType == 1) {
-            AModuleFlyController.flyController().setBeginnerModeState(BeginnerMode.ENABLED, new CallbackWithNoParam() {
+            AModuleFlyController.flyController().setBeginnerModeEnable(true, new CallbackWithNoParam() {
                 @Override
                 public void onFailure(AutelError flycontrollerError) {
                     logOut(handler, "setBeginnerModeState AutelError " + flycontrollerError.getDescription());
@@ -53,14 +52,14 @@ public class FCTest {
 
     public static void getBeginnerModeState(final Handler handler, int cType) {
         if (cType == 1) {
-            AModuleFlyController.flyController().getBeginnerModeState(new CallbackWithOneParam<BeginnerMode>() {
+            AModuleFlyController.flyController().isBeginnerModeEnable(new CallbackWithOneParam<Boolean>() {
                 @Override
-                public void onFailure(AutelError flycontrollerError) {
-                    logOut(handler, "getBeginnerModeState AutelError " + flycontrollerError.getDescription());
+                public void onFailure(AutelError error) {
+                    logOut(handler, "getBeginnerModeState AutelError " + error.getDescription());
                 }
 
                 @Override
-                public void onSuccess(BeginnerMode autelBeginnerMode) {
+                public void onSuccess(Boolean autelBeginnerMode) {
                     logOut(handler, "getBeginnerModeState onSuccess " + autelBeginnerMode);
                 }
             });
