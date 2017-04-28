@@ -24,7 +24,7 @@
             android:padding="20px">
 
             <include
-                android:id="@+id/basecameraLayout"
+                android:id="@+id/baseCameraLayout"
                 layout="@layout/activity_camera_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

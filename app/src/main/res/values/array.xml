@@ -42,4 +42,29 @@
         <item>@string/fc_led_pilot_lamp_front_only</item>
         <item>@string/fc_led_pilot_lamp_all_on</item>
     </string-array>
+
+    <string-array name="camera_color_type">
+        <item>@string/camera_color_none</item>
+        <item>@string/camera_color_vivid</item>
+        <item>@string/camera_color_black_white</item>
+        <item>@string/camera_color_art</item>
+        <item>@string/camera_color_file</item>
+        <item>@string/camera_color_beach</item>
+        <item>@string/camera_color_dream</item>
+        <item>@string/camera_color_classic</item>
+        <item>@string/camera_color_log</item>
+        <item>@string/camera_color_nostalgic</item>
+    </string-array>
+
+    <string-array name="camera_media_modes">
+        <item>@string/camera_media_mode_single</item>
+        <item>@string/camera_media_mode_video</item>
+        <item>@string/camera_media_mode_timelapse</item>
+        <item>@string/camera_media_mode_burst</item>
+        <item>@string/camera_media_mode_aeb</item>
+    </string-array>
+    <string-array name="camera_exposure_modes">
+        <item>@string/camera_exposure_mode_auto</item>
+        <item>@string/camera_exposure_mode_manual</item>
+    </string-array>
 </resources>

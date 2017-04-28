@@ -38,7 +38,6 @@
     <string name="rc_yaw_coefficient">yaw coefficient</string>
 
 
-
     <!--  remote controller -->
     <string name="rc_language_c">CHINESE</string>
     <string name="rc_language_e">ENGLISH</string>
@@ -66,4 +65,30 @@
     <string name="fc_led_pilot_lamp_back_only">BACK_ONLY</string>
     <string name="fc_led_pilot_lamp_front_only">FRONT_ONLY</string>
     <string name="fc_led_pilot_lamp_all_on">ALL_ON</string>
+
+    <!--  camera controller controller -->
+    <string name="camera_color_none">None</string>
+    <string name="camera_color_vivid">Vivid</string>
+    <string name="camera_color_black_white">BlackAndWhite</string>
+    <string name="camera_color_art">Art</string>
+    <string name="camera_color_file">Film</string>
+    <string name="camera_color_beach">Beach</string>
+    <string name="camera_color_dream">Dream</string>
+    <string name="camera_color_classic">Classic</string>
+    <string name="camera_color_log">Log</string>
+    <string name="camera_color_nostalgic">Nostalgic</string>
+
+    <string name="camera_media_mode_single">SINGLE</string>
+    <string name="camera_media_mode_video">VIDEO</string>
+    <string name="camera_media_mode_timelapse">TIMELAPSE</string>
+    <string name="camera_media_mode_burst">BURST</string>
+    <string name="camera_media_mode_aeb">AEB</string>
+
+    <string name="camera_spot_metering_x">No.x</string>
+    <string name="camera_spot_metering_y">No.y</string>
+
+    <string name="camera_exposure_mode_auto">Auto</string>
+    <string name="camera_exposure_mode_manual">Manual</string>
+
+
 </resources>
