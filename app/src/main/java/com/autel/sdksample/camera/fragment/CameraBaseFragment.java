@@ -20,7 +20,6 @@ import com.autel.common.error.AutelError;
 import com.autel.sdk.camera.AutelBaseCamera;
 import com.autel.sdksample.R;
 import com.autel.sdksample.camera.CameraActivity;
-import com.autel.sdksample.util.CameraTest;
 
 /**
  * Created by A16343 on 2017/2/22.

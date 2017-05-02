@@ -1,21 +1,12 @@
 package com.autel.sdksample;
 
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
@@ -25,9 +16,7 @@ import com.autel.common.dsp.RFData;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.AModuleDsp;
 import com.autel.sdk.dsp.AutelDsp;
-import com.autel.sdksample.util.DspTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -40,8 +40,8 @@
         <activity android:name=".CameraParamsActivity" />
         <activity android:name=".DspActivity" />
         <activity android:name=".BatteryActivity" />
-        <activity android:name=".GimbalActivity" />
-        <activity android:name=".AlbumActivity" />
+        <activity android:name=".gimbal.GimbalActivity" />
+        <activity android:name=".album.AlbumActivity" />
         <activity android:name=".FirmwareActivity" />
         <activity android:name=".MissionActivity"
             android:screenOrientation="landscape"

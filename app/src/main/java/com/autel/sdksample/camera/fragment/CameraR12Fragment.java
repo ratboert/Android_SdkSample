@@ -344,7 +344,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.is3DNoiseReductionEnable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.is3DDenoiseEnable(new CallbackWithOneParam<Boolean>() {
+                autelR12.is3DNoiseReductionEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("is3DNoiseReductionEnable  description  " + error.getDescription());
@@ -555,7 +555,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.isSubtitleEnable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.isSubtitleSwitchEnable(new CallbackWithOneParam<Boolean>() {
+                autelR12.isSubtitleEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
                         logOut("isSubtitleEnable " + data);
@@ -589,7 +589,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoBurstCount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getBurstCount(new CallbackWithOneParam<PhotoBurstCount>() {
+                autelR12.getPhotoBurstCount(new CallbackWithOneParam<PhotoBurstCount>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getPhotoBurstCount  description  " + error.getDescription());
@@ -862,7 +862,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getVideoResolutionAndFps(new CallbackWithOneParam<VideoResolutionAndFps>() {
+                autelR12.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getVideoResolutionAndFrameRate  description  " + error.getDescription());

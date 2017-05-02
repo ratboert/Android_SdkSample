@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    final String TAG = getClass().getSimpleName();
+    protected final String TAG = getClass().getSimpleName();
     private TextView log_output;
 
     Handler handler = new Handler() {

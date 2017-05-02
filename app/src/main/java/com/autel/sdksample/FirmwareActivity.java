@@ -1,67 +1,78 @@
 package com.autel.sdksample;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
-import com.autel.sdksample.util.FirmwareTest;
+import com.autel.common.CallbackWithOneParam;
+import com.autel.common.error.AutelError;
+import com.autel.common.firmware.AircraftComponentSerialNumberVersionInfo;
+import com.autel.common.firmware.AircraftComponentVersionInfo;
+import com.autel.common.firmware.RemoteControllerSerialNumberVersionInfo;
+import com.autel.common.firmware.RemoteControllerVersionInfo;
+import com.autel.sdk.AModuleFirmware;
+import com.autel.sdk.firmware.AutelFirmwareInfo;
 
 
-public class FirmwareActivity extends AppCompatActivity {
-    final String TAG = getClass().getSimpleName();
-//    RadioGroup group;
-    private TextView log_output;
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            String text = (String) msg.obj;
-            if (null != log_output) {
-                log_output.setText(text);
-            }
-        }
-    };
-    /**
-     * 1 异步 ， 2同步
-     */
-    int cType = 1;
-
+public class FirmwareActivity extends BaseActivity {
+    AutelFirmwareInfo firmwareInfo;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initOnCreate() {
         setContentView(R.layout.activity_firmware);
-//        group = (RadioGroup) findViewById(R.id.type);
-//        log_output = (TextView) findViewById(R.id.fw_log_output);
-//        RadioButton radioGroup = (RadioButton) findViewById(R.id.async);
-//        radioGroup.toggle();
-//        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (R.id.async == checkedId) {
-//                    cType = 1;
-//                } else {
-//                    cType = 2;
-//                }
-//
-//            }
-//        });
+        firmwareInfo = AModuleFirmware.firmware();
     }
 
-    public void getAutelAircraftComponentVersion(View view) {
-        FirmwareTest.getAutelAircraftComponentVersion(handler);
+    public void getAircraftComponentVersion(View view) {
+        firmwareInfo.getAircraftComponentVersion(new CallbackWithOneParam<AircraftComponentVersionInfo>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getAircraftComponentVersion  error  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(AircraftComponentVersionInfo data) {
+                logOut("getAircraftComponentVersion  data  " + data);
+            }
+        });
     }
 
-    public void getAutelAircraftComponentSerialNumberVersion(View view) {
-        FirmwareTest.getAutelAircraftComponentSerialNumberVersion(handler);
+    public void getAircraftComponentSerialNumberVersion(View view) {
+        firmwareInfo.getAircraftComponentSerialNumberVersion(new CallbackWithOneParam<AircraftComponentSerialNumberVersionInfo>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getAircraftComponentSerialNumberVersion  error  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(AircraftComponentSerialNumberVersionInfo data) {
+                logOut("getAircraftComponentSerialNumberVersion  data  " + data);
+            }
+        });
     }
 
-    public void getAutelRCVersion(View view) {
-        FirmwareTest.getAutelRCVersion(handler);
+    public void getRemoteControllerVersion(View view) {
+        firmwareInfo.getRemoteControllerVersion(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getRemoteControllerVersion  error  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(RemoteControllerVersionInfo data) {
+                logOut("getRemoteControllerVersion  data  " + data);
+            }
+        });
     }
 
-    public void getAutelRCSerialNumberVersion(View view) {
-        FirmwareTest.getAutelRCSerialNumberVersion(handler);
+    public void getRemoteControllerSerialNumberVersion(View view) {
+        firmwareInfo.getRemoteControllerSerialNumberVersion(new CallbackWithOneParam<RemoteControllerSerialNumberVersionInfo>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getRemoteControllerSerialNumberVersion  error  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(RemoteControllerSerialNumberVersionInfo data) {
+                logOut("getRemoteControllerSerialNumberVersion  data  " + data);
+            }
+        });
     }
 }

@@ -8,14 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AlbumActivity">
+    tools:context=".album.AlbumActivity">
+
     <TextView
         android:id="@+id/log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:minHeight="@dimen/log_text_min_height"
-        />
+        android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,51 +27,91 @@
             android:orientation="vertical"
             android:padding="20px">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="getAlbumMedia"
+                android:onClick="getMedia"
                 android:padding="@dimen/text_padding"
-                android:text="getAlbumMedia" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="deleteAlbumMedia"
-                android:padding="@dimen/text_padding"
-                android:text="deleteAlbumMedia" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getVideoResolutionFromHttpHeader"
-                android:padding="@dimen/text_padding"
-                android:text="getVideoResolutionFromHttpHeader" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getVideoResolutionFromLocalFile"
-                android:padding="@dimen/text_padding"
-                android:text="getVideoResolutionFromLocalFile" />
+                android:text="getMedia"
+                android:textAllCaps="false" />
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:onClick="testAuthor"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="deleteAllMedia"
+                android:padding="@dimen/text_padding"
+                android:text="deleteAllMedia"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="deleteMedia"
+                    android:padding="@dimen/text_padding"
+                    android:text="deleteMedia"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/mediaList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="getVideoResolutionFromHttpHeader"
+                    android:padding="@dimen/text_padding"
+                    android:text="getVideoResolutionFromHttpHeader"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/videoResolutionFromHttpHeaderList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="getVideoResolutionFromLocalFile"
+                    android:padding="@dimen/text_padding"
+                    android:text="getVideoResolutionFromLocalFile"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/videoResolutionFromLocalFileList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

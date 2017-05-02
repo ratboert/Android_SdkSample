@@ -1,177 +1,371 @@
 package com.autel.sdksample;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 
-import com.autel.sdksample.util.BatteryTest;
+import com.autel.common.CallbackWithNoParam;
+import com.autel.common.CallbackWithOneParam;
+import com.autel.common.battery.BatteryRecordState;
+import com.autel.common.battery.BatteryStatus;
+import com.autel.common.error.AutelError;
+import com.autel.sdk.AModuleBattery;
+import com.autel.sdk.battery.AutelBattery;
+
+import java.util.List;
 
 
-public class BatteryActivity extends AppCompatActivity {
-    final String TAG = getClass().getSimpleName();
-//    RadioGroup group;
-    private TextView log_output;
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            String text = (String) msg.obj;
-            if (null != log_output) {
-                log_output.setText(text);
-            }
-        }
-    };
-    /**
-     * 1 异步 ， 2同步
-     */
-    int cType = 1;
+public class BatteryActivity extends BaseActivity {
+    private AutelBattery autelBattery;
+
+    private EditText lowBatteryNotifyThreshold;
+    private EditText criticalBatteryNotifyThreshold;
+    private EditText dischargeDay;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initOnCreate() {
         setContentView(R.layout.activity_battery);
-        log_output = (TextView) findViewById(R.id.log_output);
-//        group = (RadioGroup) findViewById(R.id.type);
-//        RadioButton radioGroup = (RadioButton) findViewById(R.id.async);
-//        radioGroup.toggle();
-//        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if (R.id.async == checkedId) {
-//                    cType = 1;
-//                } else {
-//                    cType = 2;
-//                }
-//            }
-//        });
+        autelBattery = AModuleBattery.battery();
+        lowBatteryNotifyThreshold = (EditText) findViewById(R.id.lowBatteryNotifyThreshold);
+        criticalBatteryNotifyThreshold = (EditText) findViewById(R.id.criticalBatteryNotifyThreshold);
+        dischargeDay = (EditText) findViewById(R.id.dischargeDay);
+
     }
 
-    public void getLowBatteryThreshold(View view) {
-        BatteryTest.getLowBatteryThreshold(handler);
+    public void getLowBatteryNotifyThreshold(View view) {
+        autelBattery.getLowBatteryNotifyThreshold(new CallbackWithOneParam<Float>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getLowBatteryNotifyThreshold  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(Float data) {
+                logOut("getLowBatteryNotifyThreshold  data :  " + data);
+            }
+        });
     }
 
     public void setLowBatteryNotifyThreshold(View view) {
-        BatteryTest.setLowBatteryNotifyThreshold(handler);
+        String value = lowBatteryNotifyThreshold.getText().toString();
+        autelBattery.setLowBatteryNotifyThreshold(isEmpty(value) ? 0.25f : Float.valueOf(value), new CallbackWithNoParam() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setLowBatteryNotifyThreshold  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess() {
+                logOut("setLowBatteryNotifyThreshold   onSuccess ");
+            }
+        });
     }
 
     public void getCriticalBatteryNotifyThreshold(View view) {
-        BatteryTest.getCriticalBatteryNotifyThreshold(handler);
+        autelBattery.getCriticalBatteryNotifyThreshold(new CallbackWithOneParam<Float>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getCriticalBatteryNotifyThreshold  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(Float data) {
+                logOut("getCriticalBatteryNotifyThreshold  data :  " + data);
+            }
+        });
     }
 
     public void setCriticalBatteryNotifyThreshold(View view) {
-        BatteryTest.setCriticalBatteryNotifyThreshold(handler);
+        String value = criticalBatteryNotifyThreshold.getText().toString();
+        autelBattery.setCriticalBatteryNotifyThreshold(isEmpty(value) ? 0.25f : Float.valueOf(value), new CallbackWithNoParam() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setCriticalBatteryNotifyThreshold  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess() {
+                logOut("setCriticalBatteryNotifyThreshold  onSuccess  ");
+            }
+        });
     }
 
-    public void getBatteryDischargeDay(View view) {
-        BatteryTest.getBatteryDischargeDay(handler);
+    public void getDischargeDay(View view) {
+        autelBattery.getDischargeDay(new CallbackWithOneParam<Integer>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getDischargeDay  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(Integer data) {
+                logOut("getDischargeDay  data :  " + data);
+            }
+        });
     }
 
-    public void setBatteryDischargeDay(View view) {
-        BatteryTest.setBatteryDischargeDay(handler);
+    public void setDischargeDay(View view) {
+        String value = dischargeDay.getText().toString();
+        autelBattery.setDischargeDay(isEmpty(value) ? 2 : Integer.valueOf(value), new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+
+                logOut("setDischargeDay  onSuccess  ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("setDischargeDay  error :  " + autelError.getDescription());
+            }
+        });
     }
 
-    public void getBatteryHistory(View view) {
-        BatteryTest.getBatteryHistory(handler);
+    public void getHistory(View view) {
+        autelBattery.getHistory(new CallbackWithOneParam<List<BatteryRecordState>>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getHistory  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(List<BatteryRecordState> data) {
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int i = 0; i < data.size(); i++) {
+                    stringBuffer.append(i);
+                    stringBuffer.append(" = ");
+                    stringBuffer.append(data.get(i));
+                    stringBuffer.append(";");
+                }
+                logOut("getHistory  data :  " + stringBuffer.toString());
+            }
+        });
     }
-
-    public void setBatteryRealTimeDataListener(View view) {
-        BatteryTest.setBatteryRealTimeDataListener(handler);
-    }
-
-    public void resetBatteryRealTimeDataListener(View view) {
-        BatteryTest.resetBatteryRealTimeDataListener(handler);
-    }
-
-//    public void setAutelBatteryWarningListener(View view) {
-//        BatteryTest.setAutelBatteryWarningListener(handler);
-//    }
-//
-//    public void resetAutelBatteryWarningListener(View view) {
-//        BatteryTest.resetAutelBatteryWarningListener(handler);
-//    }
-
-//    public void getBatteryStatus(View view) {
-//        BatteryTest.getBatteryStatus(handler);
-//    }
 
     /**
      * Get voltage of battery cells
      */
     public void getCells(View view) {
-        BatteryTest.getCells(handler);
+        autelBattery.getCells(new CallbackWithOneParam<int[]>() {
+            @Override
+            public void onSuccess(int[] data) {
+                StringBuffer sb = new StringBuffer();
+                for (int i = 0; i < data.length; i++) {
+                    sb.append("index ");
+                    sb.append(i);
+                    sb.append(" = ");
+                    sb.append(data[i]);
+                    sb.append("   ");
+                }
+                logOut("getCells  " + sb.toString());
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getCells  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get battery voltage (the sum of cell1 to cell4)
      */
     public void getVoltage(View view) {
-        BatteryTest.getVoltage(handler);
+        autelBattery.getVoltage(new CallbackWithOneParam<Double>() {
+            @Override
+            public void onSuccess(Double data) {
+                logOut("getVoltage  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getVoltage  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get battery capacity
      */
     public void getCapacity(View view) {
-        BatteryTest.getCapacity(handler);
+        autelBattery.getCapacity(new CallbackWithOneParam<Float>() {
+            @Override
+            public void onSuccess(Float data) {
+                logOut("getCapacity  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getCapacity  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get battery current
      */
     public void getCurrent(View view) {
-        BatteryTest.getCurrent(handler);
-    }
+        autelBattery.getCurrent(new CallbackWithOneParam<Float>() {
+            @Override
+            public void onSuccess(Float data) {
+                logOut("getCurrent  " + data);
+            }
 
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getCurrent  " + error.getDescription());
+            }
+        });
+    }
     /**
      * Get battery temperature
      */
     public void getTemperature(View view) {
-        BatteryTest.getTemperature(handler);
+        autelBattery.getTemperature(new CallbackWithOneParam<Float>() {
+            @Override
+            public void onSuccess(Float data) {
+                logOut("getTemperature  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getTemperature  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get charged times of battery
      */
-    public void getTimesOfDischarges(View view) {
-        BatteryTest.getTimesOfDischarges(handler);
+    public void getDischargeCount(View view) {
+        autelBattery.getDischargeCount(new CallbackWithOneParam<Float>() {
+            @Override
+            public void onSuccess(Float data) {
+                logOut("getDischargeCount  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getDischargeCount  " + error.getDescription());
+            }
+        });
     }
+
 
     /**
      * Get full charged capacity of battery
      */
     public void getFullChargeCapacity(View view) {
-        BatteryTest.getFullChargeCapacity(handler);
+        autelBattery.getFullChargeCapacity(new CallbackWithOneParam<Integer>() {
+            @Override
+            public void onSuccess(Integer data) {
+                logOut("getFullChargeCapacity  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getFullChargeCapacity  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get battery level
      */
     public void getRemainingPercent(View view) {
-        BatteryTest.getRemainingPercent(handler);
+        autelBattery.getVoltage(new CallbackWithOneParam<Double>() {
+            @Override
+            public void onSuccess(Double data) {
+                logOut("getRemainingPercent  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getRemainingPercent  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get sn of battery
      */
     public void getSerialNumber(View view) {
-        BatteryTest.getSerialNumber(handler);
+        autelBattery.getSerialNumber(new CallbackWithOneParam<String>() {
+            @Override
+            public void onSuccess(String data) {
+                logOut("getSerialNumber  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getSerialNumber  " + error.getDescription());
+            }
+        });
     }
 
     /**
      * Get firmware version of battery
      */
     public void getVersion(View view) {
-        BatteryTest.getVersion(handler);
+        autelBattery.getVersion(new CallbackWithOneParam<String>() {
+            @Override
+            public void onSuccess(String data) {
+                logOut("getVersion  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getVersion  " + error.getDescription());
+            }
+        });
     }
+
 
     /**
      * Get designed capacity of battery
      */
-    public void getDesignCap(View view) {
-        BatteryTest.getDesignCap(handler);
+    public void getDesignCapacity(View view) {
+        autelBattery.getDesignCapacity(new CallbackWithOneParam<Integer>() {
+            @Override
+            public void onSuccess(Integer data) {
+                logOut("getDesignCapacity  " + data);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("getDesignCapacity  " + error.getDescription());
+            }
+        });
     }
+
+    public void setBatteryRealTimeDataListener(View view) {
+        autelBattery.setAutelBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setAutelBatteryStatusListener  error :  " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(BatteryStatus data) {
+                logOut("setAutelBatteryStatusListener  data current battery :  " + data);
+            }
+        });
+    }
+
+    public void resetBatteryRealTimeDataListener(View view) {
+        autelBattery.setAutelBatteryStatusListener(null);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    /**
 //     * 是否电池过热

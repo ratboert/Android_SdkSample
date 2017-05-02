@@ -18,7 +18,6 @@ import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.common.flycontroller.MagnetometerState;
 import com.autel.sdk.AModuleFlyController;
 import com.autel.sdk.flycontroller.AutelFlyController;
-import com.autel.sdksample.util.FCTest;
 
 
 public class FlyControllerActivity extends BaseActivity {

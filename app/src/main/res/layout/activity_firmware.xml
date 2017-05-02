@@ -11,7 +11,7 @@
     tools:context=".FirmwareActivity">
 
     <TextView
-        android:id="@+id/fw_log_output"
+        android:id="@+id/log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/log_text_min_height"
@@ -27,45 +27,45 @@
             android:orientation="vertical"
             android:padding="20px">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="getAutelAircraftComponentVersion"
+                android:onClick="getAircraftComponentVersion"
                 android:padding="@dimen/text_padding"
-                android:text="getAutelAircraftComponentVersion" />
+                android:textAllCaps="false"
+                android:text="getAircraftComponentVersion" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="getAutelAircraftComponentSerialNumberVersion"
+                android:onClick="getAircraftComponentSerialNumberVersion"
                 android:padding="@dimen/text_padding"
-                android:text="getAutelAircraftComponentSerialNumberVersion" />
+                android:textAllCaps="false"
+                android:text="getAircraftComponentSerialNumberVersion" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="getAutelRCVersion"
+                android:onClick="getRemoteControllerVersion"
                 android:padding="@dimen/text_padding"
-                android:text="getAutelRCVersion" />
+                android:textAllCaps="false"
+                android:text="getRemoteControllerVersion" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="getAutelRCSerialNumberVersion"
+                android:textAllCaps="false"
+                android:onClick="getRemoteControllerSerialNumberVersion"
                 android:padding="@dimen/text_padding"
-                android:text="getAutelRCSerialNumberVersion" />
+                android:text="getRemoteControllerSerialNumberVersion" />
         </LinearLayout>
     </ScrollView>
 

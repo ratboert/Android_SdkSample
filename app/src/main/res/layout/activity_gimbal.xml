@@ -8,13 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".GimbalActivity">
+    tools:context=".gimbal.GimbalActivity">
+
     <TextView
-        android:id="@+id/gb_log_output"
+        android:id="@+id/log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/log_text_min_height"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,260 +24,206 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setGimbalWheelAdjustSpeed"
-                android:padding="@dimen/text_padding"
-                android:text="setGimbalWheelAdjustSpeed" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="10px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getGimbalWheelAdjustSpeed"
-                android:padding="@dimen/text_padding"
-                android:text="getGimbalWheelAdjustSpeed" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setGimbalAngleSpeed"
-                android:padding="@dimen/text_padding"
-                android:text="setGimbalAngleSpeed" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setGimbalAngle"
-                android:padding="@dimen/text_padding"
-                android:text="setGimbalAngle" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setGimbalWorkMode" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="setGimbalWorkModeFREE"
+                    android:onClick="setGimbalAngleWithFineTuning"
                     android:padding="@dimen/text_padding"
-                    android:text="FREE" />
+                    android:text="setGimbalAngleWithFineTuning"
+                    android:textAllCaps="false" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/gimbalAngleWithFineTuning"
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="setGimbalWorkModeFPV"
-                    android:padding="@dimen/text_padding"
-                    android:text="FPV" />
+                    android:hint="angle with fine tuning"
+                    android:inputType="numberSigned" />
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="setGimbalAngle"
+                    android:padding="@dimen/text_padding"
+                    android:text="setGimbalAngle"
+                    android:textAllCaps="false" />
+
+                <EditText
+                    android:id="@+id/gimbalAngle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="gimbal angle"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="setGimbalWorkMode"
+                    android:padding="@dimen/text_padding"
+                    android:text="setGimbalWorkMode"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/gimbalWorkModeList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:onClick="getGimbalWorkMode"
-                android:padding="@dimen/text_padding"
-                android:text="getGimbalWorkMode" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setRollAdjustData" />
+                android:text="getGimbalWorkMode"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="setRollAdjustDataPLUS"
+                    android:onClick="setRollAdjustData"
                     android:padding="@dimen/text_padding"
-                    android:text="PLUS" />
+                    android:text="setRollAdjustData"
+                    android:textAllCaps="false" />
 
-                <TextView
+                <Spinner
+                    android:id="@+id/rollAdjustList"
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="setRollAdjustDataMINUS"
-                    android:padding="@dimen/text_padding"
-                    android:text="MINUS" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="setRollAdjustDataRESET"
-                    android:padding="@dimen/text_padding"
-                    android:text="RESET" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="setRollAdjustDataQUERY"
-                    android:padding="@dimen/text_padding"
-                    android:text="QUERY" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setGimbalAngleListener" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="setGimbalAngleListener"
+                    android:onClick="setGimbalDialAdjustSpeed"
                     android:padding="@dimen/text_padding"
-                    android:text="set" />
+                    android:text="setGimbalDialAdjustSpeed"
+                    android:textAllCaps="false" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/dialAdjustSpeed"
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="resetGimbalAngleListener"
-                    android:padding="@dimen/text_padding"
-                    android:text="reset" />
+                    android:hint="dial adjust speed" />
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setGimbalStateListener" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:onClick="getGimbalDialAdjustSpeed"
+                android:text="getGimbalDialAdjustSpeed"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:orientation="horizontal">
+                android:background="@drawable/text_background"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="setGimbalStateListener"
-                    android:padding="@dimen/text_padding"
-                    android:text="set" />
+                    android:layout_height="wrap_content"
+                    android:text="setGimbalAngleListener" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="resetGimbalStateListener"
-                    android:padding="@dimen/text_padding"
-                    android:text="reset" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="setGimbalAngleListener"
+                        android:text="set" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="resetGimbalAngleListener"
+                        android:text="reset" />
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:layout_height="wrap_content"
                 android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getRollAdjust"
-                android:padding="@dimen/text_padding"
-                android:text="getRollAdjust"
-                android:visibility="gone" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getRoll"
-                android:padding="@dimen/text_padding"
-                android:text="getRoll"
-                android:visibility="gone" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="setGimbalStateListener" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getPitch"
-                android:padding="@dimen/text_padding"
-                android:text="getPitch"
-                android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getYaw"
-                android:padding="@dimen/text_padding"
-                android:text="getYaw"
-                android:visibility="gone" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="setGimbalStateListener"
+                        android:text="set" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="resetGimbalStateListener"
+                        android:text="reset" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

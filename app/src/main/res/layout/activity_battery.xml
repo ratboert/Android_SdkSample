@@ -4,18 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".BatteryActivity">
 
     <TextView
         android:id="@+id/log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/log_text_min_height"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,268 +23,267 @@
             android:orientation="vertical"
             android:padding="20px">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getLowBatteryThreshold"
-                android:padding="@dimen/text_padding"
-                android:text="getLowBatteryThreshold" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setLowBatteryNotifyThreshold"
-                android:padding="@dimen/text_padding"
-                android:text="setLowBatteryNotifyThreshold" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="setLowBatteryNotifyThreshold"
+                    android:padding="@dimen/text_padding"
+                    android:text="setLowBatteryNotifyThreshold"
+                    android:textAllCaps="false" />
 
-            <TextView
+                <EditText
+                    android:id="@+id/lowBatteryNotifyThreshold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:hint="low battery notify"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="getLowBatteryNotifyThreshold"
+                android:padding="@dimen/text_padding"
+                android:text="getLowBatteryNotifyThreshold"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="setCriticalBatteryNotifyThreshold"
+                    android:padding="@dimen/text_padding"
+                    android:text="setCriticalBatteryNotifyThreshold"
+                    android:textAllCaps="false" />
+
+                <EditText
+                    android:id="@+id/criticalBatteryNotifyThreshold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="critical battery notify"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getCriticalBatteryNotifyThreshold"
                 android:padding="@dimen/text_padding"
-                android:text="getCriticalBatteryNotifyThreshold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setCriticalBatteryNotifyThreshold"
-                android:padding="@dimen/text_padding"
-                android:text="setCriticalBatteryNotifyThreshold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getBatteryDischargeDay"
-                android:padding="@dimen/text_padding"
-                android:text="getBatteryDischargeDay" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="setBatteryDischargeDay"
-                android:padding="@dimen/text_padding"
-                android:text="setBatteryDischargeDay" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getBatteryHistory"
-                android:padding="@dimen/text_padding"
-                android:text="getBatteryHistory" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setBatteryRealTimeDataListener" />
+                android:text="getCriticalBatteryNotifyThreshold"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="setBatteryRealTimeDataListener"
+                    android:onClick="setDischargeDay"
                     android:padding="@dimen/text_padding"
-                    android:text="set" />
+                    android:text="setDischargeDay"
+                    android:textAllCaps="false" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/dischargeDay"
                     android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="resetBatteryRealTimeDataListener"
-                    android:padding="@dimen/text_padding"
-                    android:text="reset" />
+                    android:layout_height="wrap_content"
+                    android:hint="discharge day"
+                    android:inputType="number"
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setAutelBatteryWarningListener"
-                android:visibility="gone" />
-
-            <LinearLayout
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:gravity="center"
+                android:onClick="getDischargeDay"
+                android:padding="@dimen/text_padding"
+                android:text="getDischargeDay"
+                android:textAllCaps="false" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="setAutelBatteryWarningListener"
-                    android:padding="@dimen/text_padding"
-                    android:text="set" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="100px"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/text_background"
-                    android:gravity="center"
-                    android:onClick="resetAutelBatteryWarningListener"
-                    android:padding="@dimen/text_padding"
-                    android:text="reset" />
-            </LinearLayout>
-
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
+                android:gravity="center"
+                android:onClick="getHistory"
+                android:padding="@dimen/text_padding"
+                android:text="getHistory"
+                android:textAllCaps="false" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:onClick="getCells"
                 android:padding="@dimen/text_padding"
-                android:text="getCells" />
+                android:text="getCells"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getVoltage"
                 android:padding="@dimen/text_padding"
-                android:text="getVoltage" />
+                android:text="getVoltage"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getCapacity"
                 android:padding="@dimen/text_padding"
-                android:text="getCapacity" />
+                android:text="getCapacity"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getCurrent"
                 android:padding="@dimen/text_padding"
-                android:text="getCurrent" />
+                android:text="getCurrent"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getTemperature"
                 android:padding="@dimen/text_padding"
-                android:text="getTemperature" />
+                android:text="getTemperature"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="getTimesOfDischarges"
+                android:onClick="getDischargeCount"
                 android:padding="@dimen/text_padding"
-                android:text="getTimesOfDischarges" />
+                android:text="getDischargeCount"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getFullChargeCapacity"
                 android:padding="@dimen/text_padding"
-                android:text="getFullChargeCapacity" />
+                android:text="getFullChargeCapacity"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getRemainingPercent"
                 android:padding="@dimen/text_padding"
-                android:text="getRemainingPercent" />
+                android:text="getRemainingPercent"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getSerialNumber"
                 android:padding="@dimen/text_padding"
-                android:text="getSerialNumber" />
+                android:text="getSerialNumber"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
                 android:gravity="center"
                 android:onClick="getVersion"
                 android:padding="@dimen/text_padding"
-                android:text="getVersion" />
+                android:text="getVersion"
+                android:textAllCaps="false" />
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="100px"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="getDesignCapacity"
+                android:padding="@dimen/text_padding"
+                android:text="getDesignCapacity"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="getDesignCap"
-                android:padding="@dimen/text_padding"
-                android:text="getDesignCap" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setBatteryRealTimeDataListener" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100px"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:gravity="center"
-                android:onClick="isOverHeated"
-                android:padding="@dimen/text_padding"
-                android:text="isOverHeated"
-                android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setBatteryRealTimeDataListener"
+                        android:padding="@dimen/text_padding"
+                        android:text="set" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:onClick="resetBatteryRealTimeDataListener"
+                        android:padding="@dimen/text_padding"
+                        android:text="reset" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
