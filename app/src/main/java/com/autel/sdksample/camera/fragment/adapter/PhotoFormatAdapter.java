@@ -7,14 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.camera.base.PhotoFormat;
-import com.autel.common.camera.media.PhotoStyleType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class PhotoFormatAdapter extends BaseAdapter {
     private List<PhotoFormat> photoFormats = new ArrayList<>();

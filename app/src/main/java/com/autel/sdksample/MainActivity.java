@@ -9,10 +9,6 @@ import com.autel.sdksample.album.AlbumActivity;
 import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.gimbal.GimbalActivity;
 
-
-/**
- * Created by A16343 on 2016/11/15.
- */
 public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

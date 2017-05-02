@@ -8,9 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-/**
- * Created by A16343 on 2017/4/26.
- */
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();

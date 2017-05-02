@@ -7,14 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.gimbal.GimbalRollAngleAdjust;
-import com.autel.common.gimbal.GimbalWorkMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class RollAdjustAdapter extends BaseAdapter {
     private List<GimbalRollAngleAdjust> gimbalRollAngleAdjusts = new ArrayList<>();

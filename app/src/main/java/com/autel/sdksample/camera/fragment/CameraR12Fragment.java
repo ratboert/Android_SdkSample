@@ -50,14 +50,9 @@ import com.autel.sdksample.camera.fragment.adapter.PhotoBurstAdapter;
 import com.autel.sdksample.camera.fragment.adapter.PhotoFormatAdapter;
 import com.autel.sdksample.camera.fragment.adapter.PhotoStyleAdapter;
 import com.autel.sdksample.camera.fragment.adapter.PhotoTimelapseIntervalAdapter;
-import com.autel.sdksample.camera.fragment.adapter.ShutterValueAdapter;
 import com.autel.sdksample.camera.fragment.adapter.VideoFormatAdapter;
 import com.autel.sdksample.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.camera.fragment.adapter.WhiteBalanceTypeAdapter;
-
-/**
- * Created by A16343 on 2017/2/22.
- */
 
 public class CameraR12Fragment extends CameraBaseFragment {
     AutelR12 autelR12;

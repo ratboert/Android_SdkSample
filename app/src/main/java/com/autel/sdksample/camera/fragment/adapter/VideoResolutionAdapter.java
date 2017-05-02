@@ -11,9 +11,6 @@ import com.autel.common.camera.media.CameraAspectRatio;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class VideoResolutionAdapter extends BaseAdapter {
     private List<CameraAspectRatio> cameraAspectRatios = new ArrayList<>();

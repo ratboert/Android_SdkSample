@@ -6,15 +6,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.autel.common.camera.media.CameraExposureCompensation;
 import com.autel.common.camera.media.CameraShutterSpeed;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class ShutterValueAdapter extends BaseAdapter {
     private List<CameraShutterSpeed> cameraShutterSpeeds = new ArrayList<>();

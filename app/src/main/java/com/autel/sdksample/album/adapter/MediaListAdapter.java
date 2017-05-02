@@ -7,14 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.album.MediaInfo;
-import com.autel.common.camera.media.CameraExposureCompensation;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class MediaListAdapter extends BaseAdapter {
     private List<MediaInfo> mediaInfos = new ArrayList<>();

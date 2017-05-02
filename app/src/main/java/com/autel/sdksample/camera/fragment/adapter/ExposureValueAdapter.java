@@ -11,10 +11,6 @@ import com.autel.common.camera.media.CameraExposureCompensation;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
-
 public class ExposureValueAdapter extends BaseAdapter {
     private List<CameraExposureCompensation> exposureCompensations = new ArrayList<>();
     private Context mContext;

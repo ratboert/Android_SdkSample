@@ -367,11 +367,4 @@ public class BatteryActivity extends BaseActivity {
 
 
 
-//    /**
-//     * 是否电池过热
-//     * Tests  whether the battery is over-heated
-//     */
-//    public void isOverHeated(View view) {
-//        BatteryTest.isOverHeated(handler);
-//    }
 }

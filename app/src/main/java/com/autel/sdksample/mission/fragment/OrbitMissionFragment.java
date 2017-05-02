@@ -18,9 +18,6 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.mission.AutelLatLng;
 import com.autel.sdksample.mission.MapActivity;
 
-/**
- * Created by A16343 on 2017/4/18.
- */
 
 public class OrbitMissionFragment extends MissionFragment {
     EditText orbitSpeed;

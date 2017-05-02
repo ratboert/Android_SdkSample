@@ -6,15 +6,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.autel.common.album.MediaInfo;
 import com.autel.common.gimbal.GimbalWorkMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class GimbalModeAdapter extends BaseAdapter {
     private List<GimbalWorkMode> gimbalWorkModes = new ArrayList<>();

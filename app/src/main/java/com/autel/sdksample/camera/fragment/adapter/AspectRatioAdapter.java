@@ -7,25 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.camera.media.CameraAspectRatio;
-import com.autel.common.camera.media.CameraColorStyle;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.autel.common.camera.media.CameraColorStyle.Art;
-import static com.autel.common.camera.media.CameraColorStyle.Beach;
-import static com.autel.common.camera.media.CameraColorStyle.BlackAndWhite;
-import static com.autel.common.camera.media.CameraColorStyle.Classic;
-import static com.autel.common.camera.media.CameraColorStyle.Dream;
-import static com.autel.common.camera.media.CameraColorStyle.Film;
-import static com.autel.common.camera.media.CameraColorStyle.Log;
-import static com.autel.common.camera.media.CameraColorStyle.None;
-import static com.autel.common.camera.media.CameraColorStyle.Nostalgic;
-import static com.autel.common.camera.media.CameraColorStyle.Vivid;
-
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class AspectRatioAdapter extends BaseAdapter {
     private List<CameraAspectRatio> cameraAspectRatios = new ArrayList<>();

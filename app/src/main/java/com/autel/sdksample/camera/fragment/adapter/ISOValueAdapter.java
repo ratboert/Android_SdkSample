@@ -6,15 +6,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.autel.common.camera.media.CameraExposureCompensation;
 import com.autel.common.camera.media.CameraISO;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class ISOValueAdapter extends BaseAdapter {
     private List<CameraISO> cameraISOs = new ArrayList<>();

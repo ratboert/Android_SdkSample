@@ -13,9 +13,7 @@ import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.AModuleCamera;
 
-/**
- * Created by A16343 on 2017/1/3.
- */
+
 public class CameraParamsTest {
     private static final String TAG = "CameraParamsTest";
 

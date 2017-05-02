@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 
 import com.autel.sdksample.R;
 
-/**
- * Created by A16343 on 2017/2/22.
- */
 
 public class CameraNotConnectFragment extends Fragment{
 

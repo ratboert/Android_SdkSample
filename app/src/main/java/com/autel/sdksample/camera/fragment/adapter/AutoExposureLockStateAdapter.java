@@ -7,14 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.camera.media.CameraAutoExposureLockState;
-import com.autel.common.camera.media.CameraISO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class AutoExposureLockStateAdapter extends BaseAdapter {
     private List<CameraAutoExposureLockState> cameraAutoExposureLockStates = new ArrayList<>();

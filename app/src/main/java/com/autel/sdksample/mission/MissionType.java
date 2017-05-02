@@ -1,8 +1,5 @@
 package com.autel.sdksample.mission;
 
-/**
- */
-
 public enum MissionType {
     WAYPOINT(0),
     ORBIT(1),

@@ -1,9 +1,6 @@
 package com.autel.sdksample.util;
 
 
-/**
- * Created by A16343 on 2016/11/11.
- */
 public class CameraTestXb008 {
 //    private final static String TAG = "FCTest";
 //

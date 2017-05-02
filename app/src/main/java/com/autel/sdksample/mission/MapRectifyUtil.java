@@ -1,22 +1,10 @@
 package com.autel.sdksample.mission;
 
-/**
- * ClassName:MapRectify
- * Function: 用来进行坐标纠偏
- * Reason: TODO ADD REASON
- *
- * @author A13063
- * @Date 2014-12-27 上午10:46:57
- * @see
- */
 public class MapRectifyUtil {
 
     private static Rectangle[] exclude;
     private static Rectangle[] region;
 
-    /**
-     * 画出了中国的大致范围，用来判断是否在国内
-     */
     static {
         Rectangle[] arrayOfRectangle1 = new Rectangle[6];
         arrayOfRectangle1[0] = new Rectangle(49.220399999999998D, 79.446200000000005D, 42.889899999999997D,
@@ -50,12 +38,6 @@ public class MapRectifyUtil {
                 && (paramRectangle.South <= paramAutelLatLng.latitude);
     }
 
-    /**
-     * 判断当前坐标是否在国内
-     *
-     * @param autelLatLng
-     * @return
-     */
     public static boolean IsInsideChina(AutelLatLng autelLatLng) {
 
         boolean isInChina = false;

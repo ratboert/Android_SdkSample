@@ -17,9 +17,6 @@ import com.autel.common.mission.RealTimeInfo;
 import com.autel.sdk.Autel;
 import com.autel.sdksample.mission.MapActivity;
 
-/**
- * Created by A16343 on 2017/4/18.
- */
 
 public class FollowMissionFragment extends MissionFragment {
     FollowMission followMission;

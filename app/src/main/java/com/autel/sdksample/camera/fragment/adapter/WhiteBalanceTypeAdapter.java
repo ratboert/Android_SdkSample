@@ -6,15 +6,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.autel.common.camera.media.CameraISO;
 import com.autel.common.camera.media.CameraWhiteBalanceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class WhiteBalanceTypeAdapter extends BaseAdapter {
     private List<CameraWhiteBalanceType> whiteBalanceTypes = new ArrayList<>();

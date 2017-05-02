@@ -6,15 +6,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.VideoFormat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
 
 public class VideoFormatAdapter extends BaseAdapter {
     private List<VideoFormat> videoFormats = new ArrayList<>();

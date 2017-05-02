@@ -18,10 +18,6 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.util.CameraFlirTest;
 
-/**
- * Created by A16343 on 2017/2/22.
- */
-
 public class CameraFLIRFragment extends CameraBaseFragment {
     AutelFLIR autelFLIR;
 

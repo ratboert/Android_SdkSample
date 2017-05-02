@@ -23,8 +23,6 @@ import com.autel.sdk.Autel;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdksample.R;
 
-/**
- */
 
 public abstract class MissionFragment extends Fragment {
     Button missionPrepare;

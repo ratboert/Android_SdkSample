@@ -21,10 +21,6 @@ import com.autel.sdk.camera.AutelBaseCamera;
 import com.autel.sdksample.R;
 import com.autel.sdksample.camera.CameraActivity;
 
-/**
- * Created by A16343 on 2017/2/22.
- */
-
 public class CameraBaseFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     protected TextView log_output;

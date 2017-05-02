@@ -16,9 +16,7 @@ import com.autel.common.camera.flir.RadiometrySetting;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.camera.AutelFLIR;
 
-/**
- * Created by A16343 on 2017/02/27.
- */
+
 public class CameraFlirTest {
     private final static String TAG = "CameraFlirTest";
 

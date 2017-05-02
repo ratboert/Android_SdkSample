@@ -22,10 +22,6 @@ import static com.autel.common.camera.media.CameraColorStyle.None;
 import static com.autel.common.camera.media.CameraColorStyle.Nostalgic;
 import static com.autel.common.camera.media.CameraColorStyle.Vivid;
 
-/**
- * Created by A16343 on 2017/4/28.
- */
-
 public class ColorStyleAdapter extends BaseAdapter {
     private List<CameraColorStyle> cameraColorStyles = new ArrayList<>();
     private Context mContext;
