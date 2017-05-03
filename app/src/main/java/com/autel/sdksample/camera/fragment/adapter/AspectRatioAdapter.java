@@ -6,19 +6,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.media.CameraAspectRatio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AspectRatioAdapter extends BaseAdapter {
     private List<CameraAspectRatio> cameraAspectRatios = new ArrayList<>();
     private Context mContext;
-
-    public AspectRatioAdapter(Context context) {
+    private CameraProduct cameraProduct;
+    public AspectRatioAdapter(Context context, CameraProduct cameraProduct) {
         mContext = context;
-        cameraAspectRatios.add(CameraAspectRatio.Aspect_4_3);
-        cameraAspectRatios.add(CameraAspectRatio.Aspect_16_9);
+        this.cameraProduct = cameraProduct;
+        cameraAspectRatios.addAll(Arrays.asList(cameraProduct.supportAspectRatio()));
     }
 
     @Override

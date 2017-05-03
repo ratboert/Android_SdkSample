@@ -82,6 +82,10 @@ public class CameraActivity extends FragmentActivity {
         return camera;
     }
 
+    public RequestResultWithOneParam<CameraParameterSupport> getRequestResultWithOneParam(){
+        return autelCameraManager.getParameterSupport();
+    }
+
     public void onDestroy() {
         super.onDestroy();
         autelCameraManager.setConnectStateListener(null);

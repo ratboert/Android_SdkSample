@@ -7,32 +7,30 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.camera.CameraProduct;
-import com.autel.common.camera.media.CameraWhiteBalanceType;
+import com.autel.common.camera.media.CameraExposureMode;
+import com.autel.common.camera.media.CameraISO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-public class WhiteBalanceTypeAdapter extends BaseAdapter {
-    private List<CameraWhiteBalanceType> whiteBalanceTypes = new ArrayList<>();
+public class ExposureModeAdapter extends BaseAdapter {
+    private List<CameraExposureMode> cameraExposureModes = new ArrayList<>();
     private Context mContext;
     private CameraProduct cameraProduct;
-
-    public WhiteBalanceTypeAdapter(Context context, CameraProduct cameraProduct) {
+    public ExposureModeAdapter(Context context, CameraProduct cameraProduct) {
         mContext = context;
-        this.cameraProduct = cameraProduct;
-        whiteBalanceTypes.addAll(Arrays.asList(cameraProduct.supportedWhiteBalanceType()));
+        cameraExposureModes.addAll(Arrays.asList(cameraProduct.supportedExposureMode()));
     }
 
     @Override
     public int getCount() {
-        return null == whiteBalanceTypes ? 0 : whiteBalanceTypes.size();
+        return null == cameraExposureModes ? 0 : cameraExposureModes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return whiteBalanceTypes.get(position);
+        return cameraExposureModes.get(position);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class WhiteBalanceTypeAdapter extends BaseAdapter {
             textView = (TextView)convertView;
         }
 
-        textView.setText(whiteBalanceTypes.get(position).toString());
+        textView.setText(cameraExposureModes.get(position).toString());
 
         return convertView;
     }

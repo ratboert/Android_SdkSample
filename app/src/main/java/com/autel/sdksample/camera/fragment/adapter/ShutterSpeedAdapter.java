@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShutterValueAdapter extends BaseAdapter {
+public class ShutterSpeedAdapter extends BaseAdapter {
     private List<CameraShutterSpeed> cameraShutterSpeeds = new ArrayList<>();
     private Context mContext;
 
-    public ShutterValueAdapter(Context context) {
+    public ShutterSpeedAdapter(Context context) {
         mContext = context;
         /*** 15s ***/
         cameraShutterSpeeds.add(CameraShutterSpeed.ShutterSpeed_15);

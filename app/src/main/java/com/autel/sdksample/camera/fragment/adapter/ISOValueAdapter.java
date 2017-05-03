@@ -6,26 +6,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.media.CameraISO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ISOValueAdapter extends BaseAdapter {
     private List<CameraISO> cameraISOs = new ArrayList<>();
     private Context mContext;
-
-    public ISOValueAdapter(Context context) {
+    private CameraProduct cameraProduct;
+    public ISOValueAdapter(Context context,  CameraProduct cameraProduct) {
         mContext = context;
-        cameraISOs.add(CameraISO.ISO_100);
-        cameraISOs.add(CameraISO.ISO_200);
-        cameraISOs.add(CameraISO.ISO_400);
-        cameraISOs.add(CameraISO.ISO_800);
-        cameraISOs.add(CameraISO.ISO_1600);
-        cameraISOs.add(CameraISO.ISO_3200);
-        cameraISOs.add(CameraISO.ISO_6400);
-        cameraISOs.add(CameraISO.ISO_12800);
-        cameraISOs.add(CameraISO.ISO_25600);
+        cameraISOs.addAll(Arrays.asList(cameraProduct.supportedISO()));
     }
 
     @Override
