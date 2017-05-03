@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:inputType="number"
                     android:hint="@string/camera_spot_metering_x" />
 
                 <EditText
@@ -58,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:inputType="number"
                     android:hint="@string/camera_spot_metering_y" />
             </LinearLayout>
 

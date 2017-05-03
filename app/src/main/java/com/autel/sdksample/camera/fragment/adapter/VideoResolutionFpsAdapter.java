@@ -6,30 +6,31 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.autel.common.camera.media.CameraAspectRatio;
+import com.autel.common.camera.media.VideoResolutionAndFps;
+import com.autel.common.camera.media.VideoStandard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
-public class VideoResolutionAdapter extends BaseAdapter {
-    private List<CameraAspectRatio> cameraAspectRatios = new ArrayList<>();
+public class VideoResolutionFpsAdapter extends BaseAdapter {
+    private List<VideoResolutionAndFps> videoResolutionAndFpses = new ArrayList<>();
     private Context mContext;
 
-    public VideoResolutionAdapter(Context context) {
+    public VideoResolutionFpsAdapter(Context context, VideoStandard videoStandard) {
         mContext = context;
-        cameraAspectRatios.add(CameraAspectRatio.Aspect_4_3);
-        cameraAspectRatios.add(CameraAspectRatio.Aspect_16_9);
+        videoResolutionAndFpses.addAll(Arrays.asList(videoStandard.supportedElements()));
     }
 
     @Override
     public int getCount() {
-        return null == cameraAspectRatios ? 0 : cameraAspectRatios.size();
+        return null == videoResolutionAndFpses ? 0 : videoResolutionAndFpses.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return cameraAspectRatios.get(position);
+        return videoResolutionAndFpses.get(position);
     }
 
     @Override
@@ -43,11 +44,11 @@ public class VideoResolutionAdapter extends BaseAdapter {
         if (null == convertView) {
             textView = new TextView(mContext);
             convertView = textView;
-        }else{
-            textView = (TextView)convertView;
+        } else {
+            textView = (TextView) convertView;
         }
 
-        textView.setText(cameraAspectRatios.get(position).toString());
+        textView.setText(videoResolutionAndFpses.get(position).toString());
 
         return convertView;
     }

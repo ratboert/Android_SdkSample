@@ -13,7 +13,6 @@ import android.widget.Switch;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.RequestResultWithOneParam;
 import com.autel.common.camera.CameraParameterSupport;
 import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.base.PhotoFormat;
@@ -56,6 +55,7 @@ import com.autel.sdksample.camera.fragment.adapter.PhotoStyleAdapter;
 import com.autel.sdksample.camera.fragment.adapter.PhotoTimelapseIntervalAdapter;
 import com.autel.sdksample.camera.fragment.adapter.ShutterSpeedAdapter;
 import com.autel.sdksample.camera.fragment.adapter.VideoFormatAdapter;
+import com.autel.sdksample.camera.fragment.adapter.VideoResolutionFpsAdapter;
 import com.autel.sdksample.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.camera.fragment.adapter.WhiteBalanceTypeAdapter;
 
@@ -76,6 +76,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     EditText photoCustomStyleSharpness;
 
     Spinner exposureValueList;
+    Spinner videoResolutionAndFrameRateList;
 
     CameraColorStyle cameraColorStyle = CameraColorStyle.None;
     CameraExposureMode cameraExposureMode = CameraExposureMode.Auto;
@@ -90,9 +91,11 @@ public class CameraR12Fragment extends CameraBaseFragment {
     PhotoTimelapseInterval photoTimelapseInterval = PhotoTimelapseInterval.SECOND_5;
     PhotoAEBCount photoAEBCount = PhotoAEBCount.CAPTURE_3;
     VideoFormat videoFormat = VideoFormat.MOV;
-    VideoStandard videoStandard = VideoStandard.NTSC;
+    VideoStandard selectedVideoStandard = VideoStandard.NTSC;
+    VideoStandard currentVideoStandard = VideoStandard.NTSC;
     PhotoFormat photoFormat = PhotoFormat.JPEG;
     CameraAspectRatio aspectRatio = CameraAspectRatio.Aspect_16_9;
+    VideoResolutionAndFps videoResolutionAndFps = null;
 
     private CameraProduct currentCameraProduct;
 
@@ -764,7 +767,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setVideoStandard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setVideoStandard(videoStandard, new CallbackWithNoParam() {
+                autelR12.setVideoStandard(selectedVideoStandard, new CallbackWithNoParam() {
 
                     @Override
                     public void onFailure(AutelError error) {
@@ -774,6 +777,8 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess() {
                         logOut("setVideoStandard state onSuccess");
+                        currentVideoStandard = selectedVideoStandard;
+                        initVideoResolutionFpsList();
                     }
                 });
             }
@@ -791,6 +796,8 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(VideoStandard data) {
                         logOut("getVideoStandard " + data);
+                        currentVideoStandard = data;
+                        initVideoResolutionFpsList();
                     }
                 });
             }
@@ -864,6 +871,23 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
+        view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setVideoResolutionAndFrameRate  description  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("setVideoResolutionAndFrameRate onSuccess" );
+                    }
+                });
+            }
+        });
+
         view.findViewById(R.id.getVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -880,9 +904,30 @@ public class CameraR12Fragment extends CameraBaseFragment {
                 });
             }
         });
+
+        videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
+        view.findViewById(R.id.getVideoStandard).callOnClick();
+    }
+
+    private void initVideoResolutionFpsList(){
+
+        videoResolutionAndFrameRateList.setAdapter(new VideoResolutionFpsAdapter(getContext(), currentVideoStandard));
+        videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initView(View view) {
+
+
         Spinner aspectRatioList = (Spinner) view.findViewById(R.id.aspectRatioList);
         aspectRatioList.setAdapter(new AspectRatioAdapter(getContext(), currentCameraProduct));
         aspectRatioList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -916,7 +961,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         videoStandardList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                videoStandard = (VideoStandard) parent.getAdapter().getItem(position);
+                selectedVideoStandard = (VideoStandard) parent.getAdapter().getItem(position);
             }
 
             @Override
