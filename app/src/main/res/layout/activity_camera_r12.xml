@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="#88888888"
+        android:background="#aaffffff"
         android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
@@ -85,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="setExposure" />
+                    android:text="setExposure"
+                    android:textAllCaps="false"/>
 
                 <Spinner
                     android:id="@+id/exposureValueList"

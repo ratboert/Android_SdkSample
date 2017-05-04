@@ -38,25 +38,18 @@ public class CameraActivity extends FragmentActivity {
     }
 
     private void initListener() {
-        final RequestResultWithOneParam<CameraParameterSupport> requestResult = AModuleCamera.cameraManager().getParameterSupport();
         autelCameraManager.setConnectStateListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
             @Override
             public void onSuccess(CameraProduct data1, AutelBaseCamera data2) {
                 Log.v(TAG, "initListener onSuccess connect " + data1);
                 camera = data2;
-
-                if (null != requestResult.getError()) {
-                    cameraType.setText(requestResult.getError().getDescription());
-                } else {
-                    cameraType.setText(data1.toString());
-                    if (data1 == CameraProduct.FLIR_DUO) {
-                        changePage(CameraFLIRFragment.class);
-                    } else if (data1 == CameraProduct.R12) {
-                        changePage(CameraR12Fragment.class);
-                    } else if (data1 == CameraProduct.UNKNOWN) {
-                        cameraType.setText("camera disconnected");
-                        changePage(CameraNotConnectFragment.class);
-                    }
+                cameraType.setText(data1.toString());
+                if (data1 == CameraProduct.FLIR_DUO) {
+                    changePage(CameraFLIRFragment.class);
+                } else if (data1 == CameraProduct.R12) {
+                    changePage(CameraR12Fragment.class);
+                } else if (data1 == CameraProduct.UNKNOWN) {
+                    changePage(CameraNotConnectFragment.class);
                 }
             }
 
@@ -80,10 +73,6 @@ public class CameraActivity extends FragmentActivity {
 
     public AutelBaseCamera getCamera() {
         return camera;
-    }
-
-    public RequestResultWithOneParam<CameraParameterSupport> getRequestResultWithOneParam(){
-        return autelCameraManager.getParameterSupport();
     }
 
     public void onDestroy() {

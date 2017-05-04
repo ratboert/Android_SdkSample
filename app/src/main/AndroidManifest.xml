@@ -37,7 +37,6 @@
         <activity android:name=".FlyControllerActivity" />
         <activity android:name=".camera.CameraActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".CameraParamsActivity" />
         <activity android:name=".DspActivity" />
         <activity android:name=".BatteryActivity" />
         <activity android:name=".gimbal.GimbalActivity" />

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
 
@@ -18,9 +19,16 @@ public class VideoResolutionFpsAdapter extends BaseAdapter {
     private List<VideoResolutionAndFps> videoResolutionAndFpses = new ArrayList<>();
     private Context mContext;
 
-    public VideoResolutionFpsAdapter(Context context, VideoStandard videoStandard) {
+    public VideoResolutionFpsAdapter(Context context) {
         mContext = context;
-        videoResolutionAndFpses.addAll(Arrays.asList(videoStandard.supportedElements()));
+
+    }
+
+    public void setData(CameraProduct product, VideoStandard videoStandard) {
+        if (null != product) {
+            videoResolutionAndFpses.clear();
+            videoResolutionAndFpses.addAll(Arrays.asList(product.supportedVideoResolutionAndFps(videoStandard)));
+        }
     }
 
     @Override

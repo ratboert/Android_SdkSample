@@ -57,8 +57,4 @@ public class MainActivity extends AppCompatActivity {
     public void FirmwareTest(View view) {
         startActivity(new Intent(this, FirmwareActivity.class));
     }
-
-    public void CameraParamsTest(View view) {
-        startActivity(new Intent(this, CameraParamsActivity.class));
-    }
 }

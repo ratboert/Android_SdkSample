@@ -76,6 +76,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     EditText photoCustomStyleSharpness;
 
     Spinner exposureValueList;
+    VideoResolutionFpsAdapter videoResolutionFpsAdapter;
     Spinner videoResolutionAndFrameRateList;
 
     CameraColorStyle cameraColorStyle = CameraColorStyle.None;
@@ -103,8 +104,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
         autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
-        CameraParameterSupport cameraParameterSupport = ((CameraActivity) getActivity()).getRequestResultWithOneParam().getResult();
-        currentCameraProduct = null == cameraParameterSupport ? CameraProduct.UNKNOWN : cameraParameterSupport.getCurrentProduct();
+        currentCameraProduct = autelR12.getProduct();
 
         initView(view);
         initClick(view);
@@ -906,12 +906,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
         });
 
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
+        videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
         view.findViewById(R.id.getVideoStandard).callOnClick();
     }
 
     private void initVideoResolutionFpsList(){
 
-        videoResolutionAndFrameRateList.setAdapter(new VideoResolutionFpsAdapter(getContext(), currentVideoStandard));
+        videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
+        videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
         videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
