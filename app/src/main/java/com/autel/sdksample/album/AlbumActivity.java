@@ -88,7 +88,7 @@ public class AlbumActivity extends BaseActivity {
 
             @Override
             public void onSuccess(List<MediaInfo> data) {
-                logOut("getMedia  data size  " + data.size());
+                logOut("getMedia  data  " + data);
                 mediaItems = data;
                 for (MediaInfo item : data) {
                     Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
@@ -152,7 +152,7 @@ public class AlbumActivity extends BaseActivity {
     }
 
     public void getVideoResolutionFromLocalFile(View view) {
-        VideoResolutionAndFps data = autelAlbum.getVideoResolutionFromLocalFile(resolutionFromLocalFile, null);
+        VideoResolutionAndFps data = autelAlbum.getVideoResolutionFromLocalFile(null);
         if(null != data){
             logOut("getVideoResolutionFromLocalFile  data size " + data);
         }else{

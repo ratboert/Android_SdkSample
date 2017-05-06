@@ -20,7 +20,7 @@ public class AspectRatioAdapter extends BaseAdapter {
     public AspectRatioAdapter(Context context, CameraProduct cameraProduct) {
         mContext = context;
         this.cameraProduct = cameraProduct;
-        cameraAspectRatios.addAll(Arrays.asList(cameraProduct.supportAspectRatio()));
+        cameraAspectRatios.addAll(Arrays.asList(cameraProduct.supportedAspectRatio()));
     }
 
     @Override
