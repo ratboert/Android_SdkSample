@@ -14,7 +14,6 @@ public class TestApplication extends Application {
         super.onCreate();
         AutelConfig.AUTEL_DEBUG_LOG = false;
         String appKey = "<SDK license should be input>";
-//        String appKey = "cdb4fcbe62ca8daa51d5af019dc87173";
         Autel.init(this, appKey, new CallbackWithNoParam() {
             @Override
             public void onSuccess() {

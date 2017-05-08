@@ -66,13 +66,6 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDQbPdnNBGtzSjdPtQaO3F_EmVHX4EttKE"/>
 
-        <!--<meta-data-->
-            <!--android:name="com.amap.api.v2.apikey"-->
-            <!--android:value="7410a12aed059c3cf001de204885af03" />-->
-        <!--<meta-data-->
-            <!--android:name="com.google.android.maps.v2.API_KEY"-->
-            <!--android:value="AIzaSyCXNyM0KYGjOrKuAXpFjXdBzQG_xaC0GhQ" />-->
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
