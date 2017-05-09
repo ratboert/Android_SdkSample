@@ -1,13 +1,18 @@
 package com.autel.sdksample.gimbal;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.RangePair;
 import com.autel.common.error.AutelError;
+import com.autel.common.gimbal.GimbalParameterRangeManager;
 import com.autel.common.gimbal.GimbalRollAngleAdjust;
 import com.autel.common.gimbal.GimbalState;
 import com.autel.common.gimbal.GimbalWorkMode;
@@ -68,6 +73,97 @@ public class GimbalActivity extends BaseActivity {
 
             }
         });
+        final TextView angleWithFineTuningRange = (TextView) findViewById(R.id.angleWithFineTuningRange);
+        gimbalAngleWithFineTuning.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(angleWithFineTuningRange.getText().toString())) {
+                    autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(GimbalParameterRangeManager gimbalParameterRangeManager) {
+                            RangePair<Integer> support = gimbalParameterRangeManager.getAngleWithFineTuning();
+                            angleWithFineTuningRange.setText("angle with fine tuning from " + support.getValueFrom() + " to " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        final TextView gimbalAngleRange = (TextView) findViewById(R.id.gimbalAngleRange);
+        gimbalAngle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(gimbalAngleRange.getText().toString())) {
+                    autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(GimbalParameterRangeManager gimbalParameterRangeManager) {
+                            RangePair<Integer> support = gimbalParameterRangeManager.getAngle();
+                            gimbalAngleRange.setText("angle from " + support.getValueFrom() + " to " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        final TextView dialAdjustSpeedRange = (TextView) findViewById(R.id.dialAdjustSpeedRange);
+        dialAdjustSpeed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(dialAdjustSpeedRange.getText().toString())) {
+                    autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(GimbalParameterRangeManager gimbalParameterRangeManager) {
+                            RangePair<Integer> support = gimbalParameterRangeManager.getDialAdjustSpeed();
+                            dialAdjustSpeedRange.setText("dial adjust speed from " + support.getValueFrom() + " to " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     public void setGimbalAngleWithFineTuning(View view) {

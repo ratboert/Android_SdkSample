@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initOnCreate();
         log_output = (TextView) findViewById(R.id.log_output);
+        log_output.setMovementMethod(ScrollingMovementMethod.getInstance());
         requestFocus(log_output);
     }
 

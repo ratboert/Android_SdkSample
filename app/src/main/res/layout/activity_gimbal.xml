@@ -31,24 +31,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/angleWithFineTuningRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setGimbalAngleWithFineTuning"
-                    android:padding="@dimen/text_padding"
-                    android:text="setGimbalAngleWithFineTuning"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/gimbalAngleWithFineTuning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="angle with fine tuning"
-                    android:inputType="numberSigned" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setGimbalAngleWithFineTuning"
+                        android:padding="@dimen/text_padding"
+                        android:text="setGimbalAngleWithFineTuning"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/gimbalAngleWithFineTuning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="angle with fine tuning"
+                        android:inputType="numberSigned" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -56,24 +67,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/gimbalAngleRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setGimbalAngle"
-                    android:padding="@dimen/text_padding"
-                    android:text="setGimbalAngle"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/gimbalAngle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="gimbal angle"
-                    android:inputType="number" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setGimbalAngle"
+                        android:padding="@dimen/text_padding"
+                        android:text="setGimbalAngle"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/gimbalAngle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="gimbal angle"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -135,23 +157,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/dialAdjustSpeedRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setGimbalDialAdjustSpeed"
-                    android:padding="@dimen/text_padding"
-                    android:text="setGimbalDialAdjustSpeed"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/dialAdjustSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="dial adjust speed" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setGimbalDialAdjustSpeed"
+                        android:text="setGimbalDialAdjustSpeed"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/dialAdjustSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="number"
+                        android:hint="dial adjust speed" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
