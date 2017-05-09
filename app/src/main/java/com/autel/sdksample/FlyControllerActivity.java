@@ -1,19 +1,24 @@
 package com.autel.sdksample;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.CallbackWithTwoParams;
+import com.autel.common.RangePair;
 import com.autel.common.error.AutelError;
 import com.autel.common.flycontroller.ARMWarning;
 import com.autel.common.flycontroller.CalibrateCompassStatus;
 import com.autel.common.flycontroller.FlyControllerInfo;
+import com.autel.common.flycontroller.FlyControllerParameterRangeManager;
 import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.common.flycontroller.MagnetometerState;
 import com.autel.sdk.AModuleFlyController;
@@ -87,6 +92,70 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        final TextView maxHeightRange = (TextView) findViewById(R.id.maxHeightRange);
+        fcMaxHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String value = maxHeightRange.getText().toString();
+                if (isEmpty(value)) {
+                    autelFlyController.getParameterRangeManager(new CallbackWithOneParam<FlyControllerParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(FlyControllerParameterRangeManager flyControllerParameterRangeManager) {
+                            RangePair<Float> support = flyControllerParameterRangeManager.getMaxHeight();
+                            maxHeightRange.setText("max height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final TextView maxRangeRange = (TextView) findViewById(R.id.maxRangeRange);
+        fcMaxHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String value = maxRangeRange.getText().toString();
+                if (isEmpty(value)) {
+                    autelFlyController.getParameterRangeManager(new CallbackWithOneParam<FlyControllerParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(FlyControllerParameterRangeManager flyControllerParameterRangeManager) {
+                            RangePair<Float> support = flyControllerParameterRangeManager.getMaxRange();
+                            maxRangeRange.setText("max Range range from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
@@ -267,12 +336,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setAscendSpeed(isEmpty(value) ? 5 : Integer.valueOf(value), new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setAscendSpeed AutelError " + error.getDescription());
+                logOut("setAscendSpeed AutelError " + error.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut( "setAscendSpeed onSuccess ");
+                logOut("setAscendSpeed onSuccess ");
             }
 
         });
@@ -282,12 +351,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getDescendSpeed(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "getDescendSpeed AutelError " + error.getDescription());
+                logOut("getDescendSpeed AutelError " + error.getDescription());
             }
 
             @Override
             public void onSuccess(Float horizontalSpeed) {
-                logOut( "getDescendSpeed onSuccess " + horizontalSpeed);
+                logOut("getDescendSpeed onSuccess " + horizontalSpeed);
             }
 
         });
@@ -298,12 +367,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setDescendSpeed(isEmpty(value) ? 5 : Integer.valueOf(value), new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setDescendSpeed AutelError " + error.getDescription());
+                logOut("setDescendSpeed AutelError " + error.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut( "setDescendSpeed onSuccess ");
+                logOut("setDescendSpeed onSuccess ");
             }
 
         });
@@ -342,12 +411,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getLedPilotLamp(new CallbackWithOneParam<LedPilotLamp>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "getLedPilotLamp AutelError " + error);
+                logOut("getLedPilotLamp AutelError " + error);
             }
 
             @Override
             public void onSuccess(LedPilotLamp ledPilotLamp) {
-                logOut( "getLedPilotLamp onSuccess " + ledPilotLamp);
+                logOut("getLedPilotLamp onSuccess " + ledPilotLamp);
             }
         });
     }
@@ -356,12 +425,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setLedPilotLamp(ledPilotLamp, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setLedPilotLamp AutelError " + error);
+                logOut("setLedPilotLamp AutelError " + error);
             }
 
             @Override
             public void onSuccess() {
-                logOut( "setLedPilotLamp onSuccess ");
+                logOut("setLedPilotLamp onSuccess ");
             }
         });
     }
@@ -374,12 +443,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setCalibrateCompassListener(new CallbackWithOneParam<CalibrateCompassStatus>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setCalibrateCompassListener " + error.getDescription());
+                logOut("setCalibrateCompassListener " + error.getDescription());
             }
 
             @Override
             public void onSuccess(CalibrateCompassStatus result) {
-                logOut( "setCalibrateCompassListener onSuccess " + result);
+                logOut("setCalibrateCompassListener onSuccess " + result);
             }
         });
     }
@@ -392,12 +461,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setUltraSonicHeightInfoListener(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setUltraSonicHeightInfoListener error " + error.getDescription());
+                logOut("setUltraSonicHeightInfoListener error " + error.getDescription());
             }
 
             @Override
             public void onSuccess(Float result) {
-                logOut( "setUltraSonicHeightInfoListener onSuccess " + result);
+                logOut("setUltraSonicHeightInfoListener onSuccess " + result);
             }
         });
     }
@@ -411,12 +480,12 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setWarningListener " + error.getDescription());
+                logOut("setWarningListener " + error.getDescription());
             }
 
             @Override
             public void onSuccess(ARMWarning data1, MagnetometerState data2) {
-                logOut( "setWarningListener ARMWarning " + data1 + " MagnetometerState " + data2);
+                logOut("setWarningListener ARMWarning " + data1 + " MagnetometerState " + data2);
             }
         });
     }
@@ -429,12 +498,12 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setFlyControllerInfoListener(new CallbackWithOneParam<FlyControllerInfo>() {
             @Override
             public void onSuccess(FlyControllerInfo data) {
-                logOut( "setFlyControllerListener data " + data);
+                logOut("setFlyControllerListener data " + data);
             }
 
             @Override
             public void onFailure(AutelError error) {
-                logOut( "setFlyControllerListener " + error);
+                logOut("setFlyControllerListener " + error);
             }
         });
     }

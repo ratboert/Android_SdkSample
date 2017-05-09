@@ -65,23 +65,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/maxHeightRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setMaxHeight"
-                    android:text="setMaxHeight"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/fcMaxHeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/fc_max_height"
-                    android:inputType="number" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setMaxHeight"
+                        android:text="setMaxHeight"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/fcMaxHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="@string/fc_max_height"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -99,23 +110,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <Button
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/maxRangeRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setMaxRange"
-                    android:text="setMaxRange"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/fcMaxRange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/fc_max_range"
-                    android:inputType="number" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setMaxRange"
+                        android:text="setMaxRange"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/fcMaxRange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="@string/fc_max_range"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
@@ -292,7 +312,6 @@
                 android:onClick="isAttiModeEnable"
                 android:text="isAttiModeEnable"
                 android:textAllCaps="false" />
-
 
 
             <LinearLayout

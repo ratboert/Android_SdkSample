@@ -1,10 +1,15 @@
 package com.autel.sdksample;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.RangePair;
+import com.autel.common.battery.BatteryParameterRangeManager;
 import com.autel.common.battery.BatteryRecordState;
 import com.autel.common.battery.BatteryStatus;
 import com.autel.common.error.AutelError;
@@ -29,6 +34,97 @@ public class BatteryActivity extends BaseActivity {
         criticalBatteryNotifyThreshold = (EditText) findViewById(R.id.criticalBatteryNotifyThreshold);
         dischargeDay = (EditText) findViewById(R.id.dischargeDay);
 
+        final TextView lowBatteryRange = (TextView) findViewById(R.id.lowBatteryRange);
+        lowBatteryNotifyThreshold.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(lowBatteryRange.getText().toString())) {
+                    autelBattery.getParameterSupportManager(new CallbackWithOneParam<BatteryParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(BatteryParameterRangeManager batteryParameterRangeManager) {
+                            RangePair<Float> support = batteryParameterRangeManager.getLowBattery();
+                            lowBatteryRange.setText("low battery range from " + support.getValueFrom() + " to " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final TextView criticalBatteryRange = (TextView) findViewById(R.id.criticalBatteryRange);
+        criticalBatteryNotifyThreshold.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(criticalBatteryRange.getText().toString())) {
+                    autelBattery.getParameterSupportManager(new CallbackWithOneParam<BatteryParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(BatteryParameterRangeManager batteryParameterRangeManager) {
+                            RangePair<Float> support = batteryParameterRangeManager.getCriticalBattery();
+                            criticalBatteryRange.setText("critical battery range from " + support.getValueFrom() + " to " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        final TextView dischargeDayRange = (TextView) findViewById(R.id.dischargeDayRange);
+        dischargeDay.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(dischargeDayRange.getText().toString())) {
+                    autelBattery.getParameterSupportManager(new CallbackWithOneParam<BatteryParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(BatteryParameterRangeManager batteryParameterRangeManager) {
+                            RangePair<Integer> support = batteryParameterRangeManager.getDischargeDay();
+                            dischargeDayRange.setText("discharge day range from " + support.getValueFrom() + " to " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void getLowBatteryNotifyThreshold(View view) {
@@ -215,6 +311,7 @@ public class BatteryActivity extends BaseActivity {
             }
         });
     }
+
     /**
      * Get battery temperature
      */
@@ -353,18 +450,6 @@ public class BatteryActivity extends BaseActivity {
     public void resetBatteryRealTimeDataListener(View view) {
         autelBattery.setAutelBatteryStatusListener(null);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

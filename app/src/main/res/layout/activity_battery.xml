@@ -28,24 +28,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/lowBatteryRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setLowBatteryNotifyThreshold"
-                    android:padding="@dimen/text_padding"
-                    android:text="setLowBatteryNotifyThreshold"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/lowBatteryNotifyThreshold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="low battery notify"
-                    android:layout_marginLeft="10dp" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setLowBatteryNotifyThreshold"
+                        android:padding="@dimen/text_padding"
+                        android:text="setLowBatteryNotifyThreshold"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/lowBatteryNotifyThreshold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="low battery notify"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
@@ -63,24 +74,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/criticalBatteryRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setCriticalBatteryNotifyThreshold"
-                    android:padding="@dimen/text_padding"
-                    android:text="setCriticalBatteryNotifyThreshold"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/criticalBatteryNotifyThreshold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="critical battery notify"
-                    android:inputType="numberDecimal"
-                    android:layout_marginLeft="10dp" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setCriticalBatteryNotifyThreshold"
+                        android:padding="@dimen/text_padding"
+                        android:text="setCriticalBatteryNotifyThreshold"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/criticalBatteryNotifyThreshold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="critical battery notify"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
@@ -98,24 +120,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <Button
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/dischargeDayRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setDischargeDay"
-                    android:padding="@dimen/text_padding"
-                    android:text="setDischargeDay"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/dischargeDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="discharge day"
-                    android:inputType="number"
-                    android:layout_marginLeft="10dp" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setDischargeDay"
+                        android:padding="@dimen/text_padding"
+                        android:text="setDischargeDay"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/dischargeDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="discharge day"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
@@ -254,6 +285,7 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
