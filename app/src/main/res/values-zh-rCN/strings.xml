@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">SDKSample</string>
-    <string name="mission_to_waypoint">generate waypoint mission</string>
-    <string name="mission_download">download mission</string>
-    <string name="mission_prepare">prepare</string>
-    <string name="mission_start">start</string>
-    <string name="mission_pause">pause</string>
-    <string name="mission_resume">resume</string>
-    <string name="mission_cancel">cancel</string>
+
+    <string name="mission_to_waypoint">生成航点任务</string>
+    <string name="mission_download">任务下载</string>
+    <string name="mission_prepare">准备</string>
+    <string name="mission_start">开始</string>
+    <string name="mission_pause">暂停</string>
+    <string name="mission_resume">继续</string>
+    <string name="mission_cancel">取消</string>
     <string name="mission_waypoint">航点</string>
     <string name="mission_orbit">环绕</string>
     <string name="mission_follow">跟随</string>

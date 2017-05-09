@@ -36,7 +36,9 @@
                 android:id="@+id/missionPrepare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mission_prepare" />
+                android:text="@string/mission_prepare"
+                android:textAllCaps="false"
+                />
 
             <ProgressBar
                 android:id="@+id/progressBarPrepare"
@@ -51,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
+            android:textAllCaps="false"
             android:text="@string/mission_start" />
 
         <Button
@@ -60,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/missionStart"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:text="@string/mission_pause" />
 
         <Button
@@ -67,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:text="@string/mission_resume" />
 
         <Button
@@ -74,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textAllCaps="false"
             android:text="@string/mission_cancel" />
     </LinearLayout>
 
@@ -86,6 +91,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/missionOperate"
         android:text="@string/mission_download"
+        android:textAllCaps="false"
         />
 
     <ProgressBar

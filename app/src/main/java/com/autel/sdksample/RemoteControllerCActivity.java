@@ -1,5 +1,7 @@
 package com.autel.sdksample;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.RangePair;
 import com.autel.common.error.AutelError;
 import com.autel.common.remotecontroller.RFPower;
 import com.autel.common.remotecontroller.RemoteControllerCommandStickMode;
@@ -15,6 +18,7 @@ import com.autel.common.remotecontroller.RemoteControllerConnectState;
 import com.autel.common.remotecontroller.RemoteControllerInfo;
 import com.autel.common.remotecontroller.RemoteControllerLanguage;
 import com.autel.common.remotecontroller.RemoteControllerNavigateButtonEvent;
+import com.autel.common.remotecontroller.RemoteControllerParameterRangeManager;
 import com.autel.common.remotecontroller.RemoteControllerParameterUnit;
 import com.autel.common.remotecontroller.RemoteControllerStickCalibration;
 import com.autel.common.remotecontroller.TeachingMode;
@@ -141,7 +145,38 @@ public class RemoteControllerCActivity extends BaseActivity {
             }
         });
 
+        final TextView yawCoefficientRange = (TextView) findViewById(R.id.yawCoefficientRange);
         yawCoefficientValue = (EditText) findViewById(R.id.yawCoefficientValue);
+        yawCoefficientValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String value = yawCoefficientRange.getText().toString();
+                if (isEmpty(value)) {
+                    controller.getParameterSupport(new CallbackWithOneParam<RemoteControllerParameterRangeManager>() {
+                        @Override
+                        public void onSuccess(RemoteControllerParameterRangeManager remoteControllerParameterRangeManager) {
+                            RangePair<Float> support = remoteControllerParameterRangeManager.getYawCoefficient();
+                            yawCoefficientRange.setText("yawCoefficient from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
