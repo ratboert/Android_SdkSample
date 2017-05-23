@@ -12,7 +12,7 @@ public class TestApplication extends Application {
     private final String TAG = getClass().getSimpleName();
     public void onCreate() {
         super.onCreate();
-        AutelConfig.AUTEL_DEBUG_LOG = false;
+        AutelConfig.AUTEL_DEBUG_LOG = true;
         String appKey = "<SDK license should be input>";
         Autel.init(this, appKey, new CallbackWithNoParam() {
             @Override

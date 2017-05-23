@@ -18,7 +18,7 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.util.CameraFlirTest;
 
-public class CameraFLIRFragment extends CameraBaseFragment {
+public class CameraFLIR_R_Fragment extends CameraBaseFragment {
     AutelFlirDuo autelFLIR;
 
     @Override

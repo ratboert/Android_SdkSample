@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void rcTest(View view) {
         startActivity(new Intent(this, RemoteControllerCActivity.class));
-
     }
 
     public void fcTest(View view) {
@@ -37,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void missionTest(View view) {
-//        startActivity(new Intent(this, MissionActivity.class));
-//        startActivity(new Intent(this, AMapMissionActivity.class));
         startActivity(new Intent(this, MissionActivity.class));
     }
 
