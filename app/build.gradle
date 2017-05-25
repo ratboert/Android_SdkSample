@@ -12,6 +12,14 @@ android {
             v1SigningEnabled true
             v2SigningEnabled true
         }
+        release {
+            keyAlias 'dronekey'
+            keyPassword 'autel123,./'
+            storeFile file('auteldrone.keystore')
+            storePassword 'autel123,./'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
     }
     defaultConfig {
         /*/
@@ -22,7 +30,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "V2.0.9.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
     }
@@ -30,10 +38,29 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            applicationVariants.all{
+                variant ->
+                    variant.outputs.each{
+                        output->
+                            def newName = output.outputFile.name
+                            if(newName.contains("-release")){
+                                newName = newName.replace("app-", "SDK_Sample_" + "-");
+                                newName = newName.replace("-release", defaultConfig.versionName);
+                                output.outputFile = new File(output.outputFile.parent, newName)
+                            }
+                    }
+            }
         }
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config
             signingConfig signingConfigs.config
         }
+    }
+    lintOptions{
+        abortOnError false
     }
     productFlavors {
     }
