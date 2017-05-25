@@ -19,6 +19,7 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.camera.fragment.CameraFLIRFragment;
 import com.autel.sdksample.camera.fragment.CameraNotConnectFragment;
 import com.autel.sdksample.camera.fragment.CameraR12Fragment;
+import com.autel.sdksample.camera.fragment.CameraXb008Fragment;
 
 
 public class CameraActivity extends FragmentActivity {
@@ -48,6 +49,8 @@ public class CameraActivity extends FragmentActivity {
                     changePage(CameraFLIRFragment.class);
                 } else if (data1 == CameraProduct.R12) {
                     changePage(CameraR12Fragment.class);
+                } else if (data1 == CameraProduct.XB008) {
+                    changePage(CameraXb008Fragment.class);
                 } else if (data1 == CameraProduct.UNKNOWN) {
                     changePage(CameraNotConnectFragment.class);
                 }

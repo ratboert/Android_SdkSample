@@ -12,15 +12,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MediaListAdapter extends BaseAdapter {
+    public enum MediaType {
+        Video,
+        Photo,
+        Media
+    }
+
+    public static String[] videos = new String[]{"mp4", "mov", "MP4", "MOV", ".video"};
+    public static String[] photos = new String[]{"jpg", "JPG", "dng", "DNG", "png", "PNG", ".photo"};
     private List<MediaInfo> mediaInfos = new ArrayList<>();
     private Context mContext;
+
+    private MediaType mediaType = MediaType.Media;
 
     public MediaListAdapter(Context context) {
         mContext = context;
     }
 
-    public void setRfData(List<MediaInfo> mediaInfos) {
-        this.mediaInfos = mediaInfos;
+    public MediaListAdapter(Context context, MediaType mediaType) {
+        this.mContext = context;
+        this.mediaType = mediaType;
+    }
+
+
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
+    }
+
+
+    public void setRfData(List<MediaInfo> data) {
+        if (mediaType == MediaType.Media) {
+            this.mediaInfos = data;
+        } else if (mediaType == MediaType.Video) {
+            this.mediaInfos = new ArrayList<>();
+            for (MediaInfo item : data) {
+                for (String tag : videos) {
+                    if (item.getOriginalMedia().endsWith(tag)) {
+                        mediaInfos.add(item);
+                        break;
+                    }
+                }
+            }
+        } else if (mediaType == MediaType.Photo) {
+            this.mediaInfos = new ArrayList<>();
+            for (MediaInfo item : data) {
+                for (String tag : photos) {
+                    if (item.getOriginalMedia().endsWith(tag)) {
+                        mediaInfos.add(item);
+                        break;
+                    }
+                }
+            }
+        }
+
         notifyDataSetInvalidated();
     }
 

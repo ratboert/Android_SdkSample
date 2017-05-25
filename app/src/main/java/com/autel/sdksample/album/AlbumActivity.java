@@ -1,5 +1,6 @@
 package com.autel.sdksample.album;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,9 +14,14 @@ import com.autel.sdk.AModuleAlbum;
 import com.autel.sdk.album.AutelAlbum;
 import com.autel.sdksample.BaseActivity;
 import com.autel.sdksample.R;
+import com.autel.sdksample.album.adapter.LocalVideoListAdapter;
 import com.autel.sdksample.album.adapter.MediaListAdapter;
+import com.autel.util.okhttp.OkHttpManager;
+import com.autel.util.okhttp.callback.ResponseCallBack;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -24,14 +30,19 @@ public class AlbumActivity extends BaseActivity {
     private List<MediaInfo> mediaItems;
     private MediaInfo deleteMedia;
     private MediaInfo resolutionFromHttpHeader;
-    private MediaInfo resolutionFromLocalFile;
+    private File resolutionFromLocalFile;
+    private MediaInfo media2Download;
     private MediaListAdapter videoResolutionFromHttpHeaderAdapter = new MediaListAdapter(this);
-    private MediaListAdapter videoResolutionFromLocalFileAdapter = new MediaListAdapter(this);
+    private LocalVideoListAdapter videoResolutionFromLocalFileAdapter = new LocalVideoListAdapter(this);
     private MediaListAdapter mediaListAdapter = new MediaListAdapter(this);
+    private MediaListAdapter videoList = new MediaListAdapter(this, MediaListAdapter.MediaType.Video);
 
     Spinner mediaList;
     Spinner videoResolutionFromHttpHeaderList;
     Spinner videoResolutionFromLocalFileList;
+    Spinner videoDownloadList;
+
+    private OkHttpManager okHttpManager;
 
     @Override
     protected void initOnCreate() {
@@ -40,7 +51,7 @@ public class AlbumActivity extends BaseActivity {
         mediaList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                deleteMedia = (MediaInfo)parent.getAdapter().getItem(position);
+                deleteMedia = (MediaInfo) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -53,7 +64,7 @@ public class AlbumActivity extends BaseActivity {
         videoResolutionFromHttpHeaderList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                resolutionFromHttpHeader = (MediaInfo)parent.getAdapter().getItem(position);
+                resolutionFromHttpHeader = (MediaInfo) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -65,7 +76,20 @@ public class AlbumActivity extends BaseActivity {
         videoResolutionFromLocalFileList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                resolutionFromLocalFile = (MediaInfo)parent.getAdapter().getItem(position);
+                resolutionFromLocalFile = (File) parent.getAdapter().getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        videoDownloadList = (Spinner) findViewById(R.id.videoDownloadList);
+        videoDownloadList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                media2Download = (MediaInfo) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -77,6 +101,8 @@ public class AlbumActivity extends BaseActivity {
 
         autelAlbum = AModuleAlbum.album();
         mediaItems = new ArrayList<>();
+
+        initLocalFileList();
     }
 
     public void getMedia(View view) {
@@ -98,8 +124,8 @@ public class AlbumActivity extends BaseActivity {
                 mediaList.setAdapter(mediaListAdapter);
                 videoResolutionFromHttpHeaderAdapter.setRfData(data);
                 videoResolutionFromHttpHeaderList.setAdapter(videoResolutionFromHttpHeaderAdapter);
-                videoResolutionFromLocalFileAdapter.setRfData(data);
-                videoResolutionFromLocalFileList.setAdapter(videoResolutionFromLocalFileAdapter);
+                videoList.setRfData(data);
+                videoDownloadList.setAdapter(videoList);
             }
         });
     }
@@ -120,6 +146,7 @@ public class AlbumActivity extends BaseActivity {
             }
         });
     }
+
     public void deleteMedia(View view) {
         autelAlbum.deleteMedia(deleteMedia, new CallbackWithOneParam<List<MediaInfo>>() {
             @Override
@@ -151,14 +178,44 @@ public class AlbumActivity extends BaseActivity {
         });
     }
 
+    public void downloadVideo(View view) {
+        if (null == okHttpManager) {
+            okHttpManager = new OkHttpManager.Builder().build();
+        }
+        if (null != media2Download) {
+            okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/test.photo", new ResponseCallBack<File>() {
+                @Override
+                public void onSuccess(File file) {
+                    Log.v("albumtest", "file " + file.getPath());
+                    initLocalFileList();
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    Log.v("albumtest", "download onFailure " + throwable.getMessage());
+                }
+            });
+        }
+    }
+
+    private void initLocalFileList() {
+        File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/album/albumtest");
+        if (dir.exists()) {
+            Log.v("albumtest", "files " + dir.listFiles());
+            if(dir.listFiles() != null){
+                videoResolutionFromLocalFileAdapter.setRfData(Arrays.asList(dir.listFiles()));
+                videoResolutionFromLocalFileList.setAdapter(videoResolutionFromLocalFileAdapter);
+            }
+        }
+    }
+
     public void getVideoResolutionFromLocalFile(View view) {
-        VideoResolutionAndFps data = autelAlbum.getVideoResolutionFromLocalFile(null);
-        if(null != data){
+        VideoResolutionAndFps data = autelAlbum.getVideoResolutionFromLocalFile(resolutionFromLocalFile);
+        if (null != data) {
             logOut("getVideoResolutionFromLocalFile  data size " + data);
-        }else{
+        } else {
             logOut("getVideoResolutionFromLocalFile  data == null ");
         }
-
     }
 }
 

@@ -15,10 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:scrollbars="vertical"
         android:fadeScrollbars="false"
         android:maxHeight="100dp"
-        android:minHeight="@dimen/log_text_min_height" />
+        android:minHeight="@dimen/log_text_min_height"
+        android:scrollbars="vertical" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -93,6 +93,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="downloadVideo"
+                    android:padding="@dimen/text_padding"
+                    android:text="downloadVideo"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/videoDownloadList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
