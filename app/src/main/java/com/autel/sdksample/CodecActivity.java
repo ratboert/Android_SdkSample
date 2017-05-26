@@ -28,10 +28,14 @@ public class CodecActivity extends AppCompatActivity {
         isCodecing = false;
     }
 
+    public void testAutelCodecView(View v) {
+
+    }
+
     /**
      * Use AutelCodecView to display the video stream from camera simply.
      */
-    private void initClick() {
+    private void initClick(){
         findViewById(R.id.testAutelCodecView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

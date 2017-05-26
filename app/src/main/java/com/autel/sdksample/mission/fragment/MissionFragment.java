@@ -19,9 +19,14 @@ import com.autel.common.CallbackWithOneParamProgress;
 import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.MissionFinishedAction;
+import com.autel.common.mission.OrbitMission;
+import com.autel.common.mission.Waypoint;
+import com.autel.common.mission.WaypointMission;
 import com.autel.sdk.Autel;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdksample.R;
+
+import java.util.List;
 
 
 public abstract class MissionFragment extends Fragment {
@@ -183,6 +188,13 @@ public abstract class MissionFragment extends Fragment {
                         public void onSuccess(AutelMission autelMission) {
                             Toast.makeText(applicationContext, R.string.mission_download_notify, Toast.LENGTH_SHORT).show();
                             progressBarDownload.setVisibility(View.GONE);
+
+                            if(autelMission instanceof WaypointMission){
+
+                                List<Waypoint> wplist = ((WaypointMission)autelMission).wplist;
+                            }else if(autelMission instanceof OrbitMission){
+
+                            }
                         }
 
                         @Override
