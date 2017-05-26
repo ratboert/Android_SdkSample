@@ -51,19 +51,18 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/getRFListStart"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:onClick="getRFListStart"
                         android:padding="@dimen/text_padding"
                         android:text="Start" />
 
-                    <Button
+                    <Button android:id="@+id/getRFListCancel"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:gravity="center"
-                        android:onClick="getRFListCancel"
                         android:padding="@dimen/text_padding"
                         android:text="Cancel" />
                 </LinearLayout>
@@ -90,20 +89,18 @@
                     android:layout_marginBottom="@dimen/item_margin_bottom"
                     android:orientation="horizontal">
 
-                    <Button
+                    <Button android:id="@+id/getCurrentRFStart"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:onClick="getCurrentRFStart"
                         android:padding="@dimen/text_padding"
                         android:text="Start" />
 
-                    <Button
+                    <Button android:id="@+id/getCurrentRFCancel"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:gravity="center"
-                        android:onClick="getCurrentRFCancel"
                         android:padding="@dimen/text_padding"
                         android:text="Cancel" />
                 </LinearLayout>
@@ -139,23 +136,21 @@
                         android:hint="select a rf hz"
                         />
 
-                    <Button
+                    <Button android:id="@+id/setCurrentRFAStart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:onClick="setCurrentRFAStart"
                         android:padding="@dimen/text_padding"
                         android:text="Start" />
 
-                    <Button
+                    <Button android:id="@+id/setCurrentRFACancel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:layout_weight="2"
                         android:gravity="center"
-                        android:onClick="setCurrentRFACancel"
                         android:padding="@dimen/text_padding"
                         android:text="Cancel" />
                 </LinearLayout>
@@ -189,22 +184,20 @@
                         android:layout_weight="1"
                         android:hint="SSID password" />
                 </LinearLayout>
-                <Button
+                <Button android:id="@+id/updateNewSSIDInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="updateNewSSIDInfo"
                     android:textAllCaps="false"
                     android:padding="@dimen/text_padding"
                     android:text="updateNewSSIDInfo" />
             </LinearLayout>
 
-            <Button
+            <Button android:id="@+id/getCurrentSSIDInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin_top"
                 android:gravity="center"
-                android:onClick="getCurrentSSIDInfo"
                 android:textAllCaps="false"
                 android:padding="@dimen/text_padding"
                 android:text="getCurrentSSIDInfo" />

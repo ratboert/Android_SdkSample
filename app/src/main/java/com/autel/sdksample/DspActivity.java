@@ -57,90 +57,110 @@ public class DspActivity extends BaseActivity {
 
             }
         });
+        initClick();
     }
 
-    public void setCurrentRFAStart(View v) {
-        if (-1 == selectedRFHz) {
-            logOut("setCurrentRFData  error  has not select a RF Hz");
-            return;
-        }
-        setCurrentRF = autelDsp.setCurrentRFData(selectedRFHz, 3, new CallbackWithNoParam() {
+    private void initClick() {
+        findViewById(R.id.setCurrentRFAStart).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("setCurrentRFData  error  " + error.getDescription());
-            }
+            public void onClick(View v) {
+                if (-1 == selectedRFHz) {
+                    logOut("setCurrentRFData  error  has not select a RF Hz");
+                    return;
+                }
+                setCurrentRF = autelDsp.setCurrentRFData(selectedRFHz, 3, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setCurrentRFData  error  " + error.getDescription());
+                    }
 
-            @Override
-            public void onSuccess() {
-                logOut("setCurrentRFData  onSuccess");
-            }
-        });
-    }
-
-    public void setCurrentRFACancel(View v) {
-        if (null != setCurrentRF) {
-            setCurrentRF.cancel();
-        }
-    }
-
-    public void getCurrentRFStart(View v) {
-        getCurrentRF = autelDsp.getCurrentRFData(3, new CallbackWithOneParam<RFData>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("getCurrentRFData  error  " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(RFData data) {
-                logOut("getCurrentRFData  " + data);
+                    @Override
+                    public void onSuccess() {
+                        logOut("setCurrentRFData  onSuccess");
+                    }
+                });
             }
         });
-    }
-
-    public void getCurrentRFCancel(View v) {
-        if (null != getCurrentRF) {
-            getCurrentRF.cancel();
-        }
-    }
-
-    public void getRFListStart(View v) {
-        getRFList = autelDsp.getRFDataList(3, new CallbackWithOneParam<List<RFData>>() {
+        findViewById(R.id.setCurrentRFACancel).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("getRFDataList  error  " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(List<RFData> data) {
-                rfListAdapter.setRfData(data);
-                dspRFList.setAdapter(rfListAdapter);
-                logOut("getRFDataList  data  " + data);
+            public void onClick(View v) {
+                if (null != setCurrentRF) {
+                    setCurrentRF.cancel();
+                }
             }
         });
-    }
-
-    public void getRFListCancel(View v) {
-        if (null != getRFList) {
-            getRFList.cancel();
-        }
-    }
-
-    public void updateNewSSIDInfo(View v) {
-        autelDsp.updateNewSSIDInfo(ssidName.getText().toString(), ssidPwd.getText().toString(), new CallbackWithNoParam() {
+        findViewById(R.id.getCurrentRFStart).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("updateNewSSIDInfo  error  " + error.getDescription());
-            }
+            public void onClick(View v) {
+                getCurrentRF = autelDsp.getCurrentRFData(3, new CallbackWithOneParam<RFData>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getCurrentRFData  error  " + error.getDescription());
+                    }
 
-            @Override
-            public void onSuccess() {
-                logOut("updateNewSSIDInfo  onSuccess");
+                    @Override
+                    public void onSuccess(RFData data) {
+                        logOut("getCurrentRFData  " + data);
+                    }
+                });
             }
         });
-    }
+        findViewById(R.id.getCurrentRFCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != getCurrentRF) {
+                    getCurrentRF.cancel();
+                }
+            }
+        });
+        findViewById(R.id.getRFListStart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getRFList = autelDsp.getRFDataList(3, new CallbackWithOneParam<List<RFData>>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getRFDataList  error  " + error.getDescription());
+                    }
 
-    public void getCurrentSSIDInfo(View v) {
-        logOut("getCurrentSSIDInfo  " + autelDsp.getCurrentSSIDInfo());
+                    @Override
+                    public void onSuccess(List<RFData> data) {
+                        rfListAdapter.setRfData(data);
+                        dspRFList.setAdapter(rfListAdapter);
+                        logOut("getRFDataList  data  " + data);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getRFListCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != getRFList) {
+                    getRFList.cancel();
+                }
+            }
+        });
+        findViewById(R.id.updateNewSSIDInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelDsp.updateNewSSIDInfo(ssidName.getText().toString(), ssidPwd.getText().toString(), new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("updateNewSSIDInfo  error  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("updateNewSSIDInfo  onSuccess");
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getCurrentSSIDInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut("getCurrentSSIDInfo  " + autelDsp.getCurrentSSIDInfo());
+            }
+        });
     }
 
     static class RFListAdapter extends BaseAdapter {

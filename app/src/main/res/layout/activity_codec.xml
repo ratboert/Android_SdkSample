@@ -15,22 +15,22 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
+            android:id="@+id/testAutelCodecView"
             android:layout_width="wrap_content"
             android:layout_height="100px"
             android:layout_marginBottom="@dimen/item_margin_bottom"
             android:background="@drawable/text_background"
             android:gravity="center"
-            android:onClick="testAutelCodecView"
             android:padding="@dimen/text_padding"
             android:text="AutelCodecView" />
 
         <TextView
+            android:id="@+id/testAutelCodec"
             android:layout_width="wrap_content"
             android:layout_height="100px"
             android:layout_marginBottom="@dimen/item_margin_bottom"
             android:background="@drawable/text_background"
             android:gravity="center"
-            android:onClick="testAutelCodec"
             android:padding="@dimen/text_padding"
             android:text="AutelCodec" />
 

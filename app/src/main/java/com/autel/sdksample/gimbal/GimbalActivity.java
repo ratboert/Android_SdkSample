@@ -163,127 +163,149 @@ public class GimbalActivity extends BaseActivity {
 
             }
         });
+        initClick();
 
     }
-
-    public void setGimbalAngleWithFineTuning(View view) {
-        String value = gimbalAngleWithFineTuning.getText().toString();
-        autelGimbal.setGimbalAngleWithFineTuning(isEmpty(value) ? -10 : Integer.valueOf(value));
-    }
-
-    public void setGimbalAngle(View view) {
-        String value = gimbalAngle.getText().toString();
-        autelGimbal.setGimbalAngle(isEmpty(value) ? 10 : Integer.valueOf(value));
-    }
-
-    public void setGimbalWorkMode(View view) {
-        autelGimbal.setGimbalWorkMode(gimbalWorkMode, new CallbackWithNoParam() {
+    private void initClick(){
+        findViewById(R.id.setGimbalAngleWithFineTuning).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("setGimbalWorkMode error " + error.getDescription());
+            public void onClick(View v) {
+                String value = gimbalAngleWithFineTuning.getText().toString();
+                autelGimbal.setGimbalAngleWithFineTuning(isEmpty(value) ? -10 : Integer.valueOf(value));
             }
-
+        });
+        findViewById(R.id.setGimbalAngle).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess() {
-                logOut("setGimbalWorkMode result   onSuccess");
+            public void onClick(View v) {
+                String value = gimbalAngle.getText().toString();
+                autelGimbal.setGimbalAngle(isEmpty(value) ? 10 : Integer.valueOf(value));
+            }
+        });
+        findViewById(R.id.setGimbalWorkMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.setGimbalWorkMode(gimbalWorkMode, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setGimbalWorkMode error " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("setGimbalWorkMode result   onSuccess");
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getGimbalWorkMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.getGimbalWorkMode(new CallbackWithOneParam<GimbalWorkMode>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getGimbalWorkMode error " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(GimbalWorkMode data) {
+                        logOut("getGimbalWorkMode data " + data);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.setRollAdjustData).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.setRollAdjustData(gimbalRollAngleAdjust, new CallbackWithOneParam<Double>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setRollAdjustData error " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(Double data) {
+                        logOut("setRollAdjustData data " + data);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.setGimbalDialAdjustSpeed).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String value = dialAdjustSpeed.getText().toString();
+                autelGimbal.setGimbalDialAdjustSpeed(isEmpty(value) ? 10 : Integer.valueOf(value), new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError rcError) {
+                        logOut("setGimbalDialAdjustSpeed RCError " + rcError.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("setGimbalDialAdjustSpeed onSuccess ");
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getGimbalDialAdjustSpeed).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.getGimbalDialAdjustSpeed(new CallbackWithOneParam<Integer>() {
+
+                    @Override
+                    public void onFailure(AutelError rcError) {
+                        logOut("getGimbalDialAdjustSpeed RCError " + rcError.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(Integer speed) {
+                        logOut("getGimbalDialAdjustSpeed onSuccess " + speed);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.setGimbalStateListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.setGimbalStateListener(new CallbackWithOneParam<GimbalState>() {
+                    @Override
+                    public void onSuccess(GimbalState gimbalState) {
+                        logOut("setGimbalStateListener onSuccess " + gimbalState);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setGimbalStateListener error " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+        findViewById(R.id.resetGimbalStateListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.setGimbalStateListener(null);
+            }
+        });
+        findViewById(R.id.setGimbalAngleListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.setGimbalAngleListener(new CallbackWithOneParam<Integer>() {
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        logOut("setGimbalAngleListener onSuccess " + integer);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setGimbalAngleListener error " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+        findViewById(R.id.resetGimbalAngleListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.setGimbalAngleListener(null);
             }
         });
     }
-
-    public void getGimbalWorkMode(View view) {
-        autelGimbal.getGimbalWorkMode(new CallbackWithOneParam<GimbalWorkMode>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("getGimbalWorkMode error " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(GimbalWorkMode data) {
-                logOut("getGimbalWorkMode data " + data);
-            }
-        });
-    }
-
-    public void setRollAdjustData(View view) {
-        autelGimbal.setRollAdjustData(gimbalRollAngleAdjust, new CallbackWithOneParam<Double>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("setRollAdjustData error " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(Double data) {
-                logOut("setRollAdjustData data " + data);
-            }
-        });
-    }
-
-    public void setGimbalDialAdjustSpeed(View view) {
-        String value = dialAdjustSpeed.getText().toString();
-        autelGimbal.setGimbalDialAdjustSpeed(isEmpty(value) ? 10 : Integer.valueOf(value), new CallbackWithNoParam() {
-            @Override
-            public void onFailure(AutelError rcError) {
-                logOut("setGimbalDialAdjustSpeed RCError " + rcError.getDescription());
-            }
-
-            @Override
-            public void onSuccess() {
-                logOut("setGimbalDialAdjustSpeed onSuccess ");
-            }
-        });
-    }
-
-    public void getGimbalDialAdjustSpeed(View view) {
-        autelGimbal.getGimbalDialAdjustSpeed(new CallbackWithOneParam<Integer>() {
-
-            @Override
-            public void onFailure(AutelError rcError) {
-                logOut("getGimbalDialAdjustSpeed RCError " + rcError.getDescription());
-            }
-
-            @Override
-            public void onSuccess(Integer speed) {
-                logOut("getGimbalDialAdjustSpeed onSuccess " + speed);
-            }
-        });
-    }
-
-    public void setGimbalStateListener(View view) {
-        autelGimbal.setGimbalStateListener(new CallbackWithOneParam<GimbalState>() {
-            @Override
-            public void onSuccess(GimbalState gimbalState) {
-                logOut("setGimbalStateListener onSuccess " + gimbalState);
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                logOut("setGimbalStateListener error " + autelError.getDescription());
-            }
-        });
-    }
-
-    public void resetGimbalStateListener(View view) {
-        autelGimbal.setGimbalStateListener(null);
-    }
-
-
-    public void setGimbalAngleListener(View view) {
-        autelGimbal.setGimbalAngleListener(new CallbackWithOneParam<Integer>() {
-            @Override
-            public void onSuccess(Integer integer) {
-                logOut("setGimbalAngleListener onSuccess " + integer);
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                logOut("setGimbalAngleListener error " + autelError.getDescription());
-            }
-        });
-    }
-
-    public void resetGimbalAngleListener(View view) {
-        autelGimbal.setGimbalAngleListener(null);
-    }
-
-
 }

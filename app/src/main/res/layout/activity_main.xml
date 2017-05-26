@@ -18,6 +18,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/rcTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -32,12 +33,12 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/fcTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="fcTest"
                 android:padding="@dimen/text_padding"
                 android:text="FlyController" />
         </LinearLayout>
@@ -49,12 +50,12 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/cameraTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="cameraTest"
                 android:padding="@dimen/text_padding"
                 android:text="Camera" />
 
@@ -63,12 +64,12 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/codecTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="codecTest"
                 android:padding="@dimen/text_padding"
                 android:text="Codec" />
         </LinearLayout>
@@ -80,12 +81,12 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/FirmwareTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="FirmwareTest"
                 android:padding="@dimen/text_padding"
                 android:text="Firmware" />
 
@@ -94,12 +95,12 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/DSPTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="DSPTest"
                 android:padding="@dimen/text_padding"
                 android:text="DSP" />
         </LinearLayout>
@@ -111,12 +112,12 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/missionTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="missionTest"
                 android:padding="@dimen/text_padding"
                 android:text="Mission" />
 
@@ -125,12 +126,12 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/BatteryTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="BatteryTest"
                 android:padding="@dimen/text_padding"
                 android:text="Battery" />
         </LinearLayout>
@@ -142,12 +143,12 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/GimbalTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="GimbalTest"
                 android:padding="@dimen/text_padding"
                 android:text="Gimbal" />
 
@@ -156,12 +157,12 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/AlbumTest"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/text_background"
                 android:gravity="center"
-                android:onClick="AlbumTest"
                 android:padding="@dimen/text_padding"
                 android:text="Album" />
         </LinearLayout>

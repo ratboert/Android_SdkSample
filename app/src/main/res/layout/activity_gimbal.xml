@@ -44,10 +44,10 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/setGimbalAngleWithFineTuning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setGimbalAngleWithFineTuning"
                         android:padding="@dimen/text_padding"
                         android:text="setGimbalAngleWithFineTuning"
                         android:textAllCaps="false" />
@@ -80,10 +80,10 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/setGimbalAngle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setGimbalAngle"
                         android:padding="@dimen/text_padding"
                         android:text="setGimbalAngle"
                         android:textAllCaps="false" />
@@ -105,11 +105,10 @@
                 android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
-                <Button
+                <Button android:id="@+id/setGimbalWorkMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="setGimbalWorkMode"
                     android:padding="@dimen/text_padding"
                     android:text="setGimbalWorkMode"
                     android:textAllCaps="false" />
@@ -121,11 +120,10 @@
                     android:layout_marginLeft="10dp" />
             </LinearLayout>
 
-            <Button
+            <Button android:id="@+id/getGimbalWorkMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:onClick="getGimbalWorkMode"
                 android:text="getGimbalWorkMode"
                 android:textAllCaps="false" />
 
@@ -136,11 +134,10 @@
                 android:background="@drawable/text_background"
                 android:orientation="horizontal">
 
-                <Button
+                <Button android:id="@+id/setRollAdjustData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="setRollAdjustData"
                     android:padding="@dimen/text_padding"
                     android:text="setRollAdjustData"
                     android:textAllCaps="false" />
@@ -169,11 +166,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
+                    <Button android:id="@+id/setGimbalDialAdjustSpeed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setGimbalDialAdjustSpeed"
                         android:text="setGimbalDialAdjustSpeed"
                         android:textAllCaps="false" />
 
@@ -187,11 +183,10 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <Button
+            <Button android:id="@+id/getGimbalDialAdjustSpeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:onClick="getGimbalDialAdjustSpeed"
                 android:text="getGimbalDialAdjustSpeed"
                 android:textAllCaps="false" />
 
@@ -212,17 +207,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
+                    <Button android:id="@+id/setGimbalAngleListener"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="setGimbalAngleListener"
                         android:text="set" />
 
-                    <Button
+                    <Button android:id="@+id/resetGimbalAngleListener"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:onClick="resetGimbalAngleListener"
                         android:text="reset" />
                 </LinearLayout>
             </LinearLayout>
@@ -243,17 +236,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
+                    <Button android:id="@+id/setGimbalStateListener"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="setGimbalStateListener"
                         android:text="set" />
 
-                    <Button
+                    <Button android:id="@+id/resetGimbalStateListener"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:onClick="resetGimbalStateListener"
                         android:text="reset" />
                 </LinearLayout>
             </LinearLayout>

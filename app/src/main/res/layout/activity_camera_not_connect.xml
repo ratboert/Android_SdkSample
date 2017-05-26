@@ -15,6 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="暂无相机连接"
+        android:text="@string/camera_no_connect"
         />
 </LinearLayout>

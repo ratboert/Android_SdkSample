@@ -103,118 +103,133 @@ public class AlbumActivity extends BaseActivity {
         mediaItems = new ArrayList<>();
 
         initLocalFileList();
-    }
 
-    public void getMedia(View view) {
-        autelAlbum.getMedia(0, 10, new CallbackWithOneParam<List<MediaInfo>>() {
+        findViewById(R.id.getMedia).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("getMedia  error  " + error.getDescription());
-            }
+            public void onClick(View v) {
+                autelAlbum.getMedia(0, 10, new CallbackWithOneParam<List<MediaInfo>>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getMedia  error  " + error.getDescription());
+                    }
 
-            @Override
-            public void onSuccess(List<MediaInfo> data) {
-                logOut("getMedia  data  " + data);
-                mediaItems = data;
-                for (MediaInfo item : data) {
-                    Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
-                }
+                    @Override
+                    public void onSuccess(List<MediaInfo> data) {
+                        logOut("getMedia  data  " + data);
+                        mediaItems = data;
+                        for (MediaInfo item : data) {
+                            Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
+                        }
 
-                mediaListAdapter.setRfData(data);
-                mediaList.setAdapter(mediaListAdapter);
-                videoResolutionFromHttpHeaderAdapter.setRfData(data);
-                videoResolutionFromHttpHeaderList.setAdapter(videoResolutionFromHttpHeaderAdapter);
-                videoList.setRfData(data);
-                videoDownloadList.setAdapter(videoList);
-            }
-        });
-    }
-
-    public void deleteAllMedia(View view) {
-        autelAlbum.deleteMedia(mediaItems, new CallbackWithOneParam<List<MediaInfo>>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("deleteMedia  error  " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(List<MediaInfo> data) {
-                logOut("deleteMedia  size  " + data.size());
-                for (MediaInfo item : data) {
-                    Log.v(TAG, "deleteMedia  data  onFailure " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
-                }
+                        mediaListAdapter.setRfData(data);
+                        mediaList.setAdapter(mediaListAdapter);
+                        videoResolutionFromHttpHeaderAdapter.setRfData(data);
+                        videoResolutionFromHttpHeaderList.setAdapter(videoResolutionFromHttpHeaderAdapter);
+                        videoList.setRfData(data);
+                        videoDownloadList.setAdapter(videoList);
+                    }
+                });
             }
         });
-    }
 
-    public void deleteMedia(View view) {
-        autelAlbum.deleteMedia(deleteMedia, new CallbackWithOneParam<List<MediaInfo>>() {
+        findViewById(R.id.deleteAllMedia).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("deleteMedia  error  " + error.getDescription());
+            public void onClick(View v) {
+                autelAlbum.deleteMedia(mediaItems, new CallbackWithOneParam<List<MediaInfo>>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("deleteMedia  error  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(List<MediaInfo> data) {
+                        logOut("deleteMedia  size  " + data.size());
+                        for (MediaInfo item : data) {
+                            Log.v(TAG, "deleteMedia  data  onFailure " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
+                        }
+                    }
+                });
             }
-
+        });
+        findViewById(R.id.deleteMedia).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(List<MediaInfo> data) {
-                logOut("deleteMedia  size  " + data.size());
-                for (MediaInfo item : data) {
-                    Log.v(TAG, "deleteMedia  data  onFailure " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
+            public void onClick(View v) {
+                autelAlbum.deleteMedia(deleteMedia, new CallbackWithOneParam<List<MediaInfo>>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("deleteMedia  error  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(List<MediaInfo> data) {
+                        logOut("deleteMedia  size  " + data.size());
+                        for (MediaInfo item : data) {
+                            Log.v(TAG, "deleteMedia  data  onFailure " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
+                        }
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getVideoResolutionFromHttpHeader).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelAlbum.getVideoResolutionFromHttpHeader(resolutionFromHttpHeader, new CallbackWithOneParam<VideoResolutionAndFps>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getVideoResolutionFromHttpHeader  error  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(VideoResolutionAndFps data) {
+                        logOut("getVideoResolutionFromHttpHeader  data size " + data);
+                    }
+                });
+            }
+        });
+
+        findViewById(R.id.downloadVideo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null == okHttpManager) {
+                    okHttpManager = new OkHttpManager.Builder().build();
+                }
+                if (null != media2Download) {
+                    okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/test.photo", new ResponseCallBack<File>() {
+                        @Override
+                        public void onSuccess(File file) {
+                            Log.v("albumtest", "file " + file.getPath());
+                            initLocalFileList();
+                        }
+
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            Log.v("albumtest", "download onFailure " + throwable.getMessage());
+                        }
+                    });
                 }
             }
         });
-    }
-
-    public void getVideoResolutionFromHttpHeader(View view) {
-        autelAlbum.getVideoResolutionFromHttpHeader(resolutionFromHttpHeader, new CallbackWithOneParam<VideoResolutionAndFps>() {
+        findViewById(R.id.getVideoResolutionFromLocalFile).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(AutelError error) {
-                logOut("getVideoResolutionFromHttpHeader  error  " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(VideoResolutionAndFps data) {
-                logOut("getVideoResolutionFromHttpHeader  data size " + data);
+            public void onClick(View v) {
+                VideoResolutionAndFps data = autelAlbum.getVideoResolutionFromLocalFile(resolutionFromLocalFile);
+                if (null != data) {
+                    logOut("getVideoResolutionFromLocalFile  data size " + data);
+                } else {
+                    logOut("getVideoResolutionFromLocalFile  data == null ");
+                }
             }
         });
-    }
-
-    public void downloadVideo(View view) {
-        if (null == okHttpManager) {
-            okHttpManager = new OkHttpManager.Builder().build();
-        }
-        if (null != media2Download) {
-            okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/test.photo", new ResponseCallBack<File>() {
-                @Override
-                public void onSuccess(File file) {
-                    Log.v("albumtest", "file " + file.getPath());
-                    initLocalFileList();
-                }
-
-                @Override
-                public void onFailure(Throwable throwable) {
-                    Log.v("albumtest", "download onFailure " + throwable.getMessage());
-                }
-            });
-        }
     }
 
     private void initLocalFileList() {
         File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/album/albumtest");
         if (dir.exists()) {
             Log.v("albumtest", "files " + dir.listFiles());
-            if(dir.listFiles() != null){
+            if (dir.listFiles() != null) {
                 videoResolutionFromLocalFileAdapter.setRfData(Arrays.asList(dir.listFiles()));
                 videoResolutionFromLocalFileList.setAdapter(videoResolutionFromLocalFileAdapter);
             }
-        }
-    }
-
-    public void getVideoResolutionFromLocalFile(View view) {
-        VideoResolutionAndFps data = autelAlbum.getVideoResolutionFromLocalFile(resolutionFromLocalFile);
-        if (null != data) {
-            logOut("getVideoResolutionFromLocalFile  data size " + data);
-        } else {
-            logOut("getVideoResolutionFromLocalFile  data == null ");
         }
     }
 }

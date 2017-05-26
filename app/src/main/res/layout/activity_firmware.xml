@@ -14,8 +14,8 @@
         android:id="@+id/log_output"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/log_text_min_height"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,44 +28,44 @@
             android:padding="20px">
 
             <Button
+                android:id="@+id/getAircraftComponentVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getAircraftComponentVersion"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getAircraftComponentVersion" />
+                android:text="getAircraftComponentVersion"
+                android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getAircraftComponentSerialNumberVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getAircraftComponentSerialNumberVersion"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getAircraftComponentSerialNumberVersion" />
+                android:text="getAircraftComponentSerialNumberVersion"
+                android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getRemoteControllerVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getRemoteControllerVersion"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getRemoteControllerVersion" />
+                android:text="getRemoteControllerVersion"
+                android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getRemoteControllerSerialNumberVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:textAllCaps="false"
-                android:onClick="getRemoteControllerSerialNumberVersion"
                 android:padding="@dimen/text_padding"
-                android:text="getRemoteControllerSerialNumberVersion" />
+                android:text="getRemoteControllerSerialNumberVersion"
+                android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
 

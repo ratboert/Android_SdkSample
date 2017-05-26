@@ -90,6 +90,6 @@
 
     <string name="camera_exposure_mode_auto">Auto</string>
     <string name="camera_exposure_mode_manual">Manual</string>
-
+    <string name="camera_no_connect">暂无相机连接</string>
 
 </resources>

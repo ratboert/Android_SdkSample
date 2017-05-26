@@ -13,45 +13,64 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    public void rcTest(View view) {
-        startActivity(new Intent(this, RemoteControllerCActivity.class));
-    }
-
-    public void fcTest(View view) {
-        startActivity(new Intent(this, FlyControllerActivity.class));
-    }
-
-    public void cameraTest(View view) {
-        startActivity(new Intent(this, CameraActivity.class));
-    }
-
-    public void codecTest(View view) {
-        startActivity(new Intent(this, CodecActivity.class));
-    }
-
-    public void DSPTest(View view) {
-        startActivity(new Intent(this, DspActivity.class));
-    }
-
-    public void missionTest(View view) {
-        startActivity(new Intent(this, MissionActivity.class));
-    }
-
-    public void BatteryTest(View view) {
-        startActivity(new Intent(this, BatteryActivity.class));
-    }
-
-    public void GimbalTest(View view) {
-        startActivity(new Intent(this, GimbalActivity.class));
-    }
-
-    public void AlbumTest(View view) {
-        startActivity(new Intent(this, AlbumActivity.class));
-    }
-
-    public void FirmwareTest(View view) {
-        startActivity(new Intent(this, FirmwareActivity.class));
+        findViewById(R.id.rcTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RemoteControllerCActivity.class));
+            }
+        });  findViewById(R.id.fcTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, FlyControllerActivity.class));
+            }
+        });
+        findViewById(R.id.cameraTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CameraActivity.class));
+            }
+        });
+        findViewById(R.id.codecTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CodecActivity.class));
+            }
+        });
+        findViewById(R.id.DSPTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DspActivity.class));
+            }
+        });
+        findViewById(R.id.missionTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MissionActivity.class));
+            }
+        });
+        findViewById(R.id.BatteryTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BatteryActivity.class));
+            }
+        });
+        findViewById(R.id.GimbalTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GimbalActivity.class));
+            }
+        });
+        findViewById(R.id.AlbumTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AlbumActivity.class));
+            }
+        });
+        findViewById(R.id.FirmwareTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, FirmwareActivity.class));
+            }
+        });
     }
 }

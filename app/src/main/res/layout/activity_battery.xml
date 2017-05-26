@@ -41,10 +41,10 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/setLowBatteryNotifyThreshold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setLowBatteryNotifyThreshold"
                         android:padding="@dimen/text_padding"
                         android:text="setLowBatteryNotifyThreshold"
                         android:textAllCaps="false" />
@@ -60,11 +60,11 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/getLowBatteryNotifyThreshold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getLowBatteryNotifyThreshold"
                 android:padding="@dimen/text_padding"
                 android:text="getLowBatteryNotifyThreshold"
                 android:textAllCaps="false" />
@@ -87,10 +87,10 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/setCriticalBatteryNotifyThreshold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setCriticalBatteryNotifyThreshold"
                         android:padding="@dimen/text_padding"
                         android:text="setCriticalBatteryNotifyThreshold"
                         android:textAllCaps="false" />
@@ -106,11 +106,11 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/getCriticalBatteryNotifyThreshold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getCriticalBatteryNotifyThreshold"
                 android:padding="@dimen/text_padding"
                 android:text="getCriticalBatteryNotifyThreshold"
                 android:textAllCaps="false" />
@@ -121,20 +121,22 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/dischargeDayRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/setDischargeDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setDischargeDay"
                         android:padding="@dimen/text_padding"
                         android:text="setDischargeDay"
                         android:textAllCaps="false" />
@@ -150,131 +152,131 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/getDischargeDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getDischargeDay"
                 android:padding="@dimen/text_padding"
                 android:text="getDischargeDay"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getHistory"
                 android:padding="@dimen/text_padding"
                 android:text="getHistory"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getCells"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getCells"
                 android:padding="@dimen/text_padding"
                 android:text="getCells"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getVoltage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getVoltage"
                 android:padding="@dimen/text_padding"
                 android:text="getVoltage"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getCapacity"
                 android:padding="@dimen/text_padding"
                 android:text="getCapacity"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getCurrent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getCurrent"
                 android:padding="@dimen/text_padding"
                 android:text="getCurrent"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getTemperature"
                 android:padding="@dimen/text_padding"
                 android:text="getTemperature"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getDischargeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getDischargeCount"
                 android:padding="@dimen/text_padding"
                 android:text="getDischargeCount"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getFullChargeCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getFullChargeCapacity"
                 android:padding="@dimen/text_padding"
                 android:text="getFullChargeCapacity"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getRemainingPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getRemainingPercent"
                 android:padding="@dimen/text_padding"
                 android:text="getRemainingPercent"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getSerialNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getSerialNumber"
                 android:padding="@dimen/text_padding"
                 android:text="getSerialNumber"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getVersion"
                 android:padding="@dimen/text_padding"
                 android:text="getVersion"
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/getDesignCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getDesignCapacity"
                 android:padding="@dimen/text_padding"
                 android:text="getDesignCapacity"
                 android:textAllCaps="false" />
@@ -299,19 +301,19 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/setBatteryRealTimeDataListener"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:onClick="setBatteryRealTimeDataListener"
                         android:padding="@dimen/text_padding"
                         android:text="set" />
 
                     <Button
+                        android:id="@+id/resetBatteryRealTimeDataListener"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:gravity="center"
-                        android:onClick="resetBatteryRealTimeDataListener"
                         android:padding="@dimen/text_padding"
                         android:text="reset" />
                 </LinearLayout>
