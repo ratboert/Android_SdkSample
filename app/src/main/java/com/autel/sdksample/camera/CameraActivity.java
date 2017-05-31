@@ -44,6 +44,9 @@ public class CameraActivity extends FragmentActivity {
             @Override
             public void onSuccess(CameraProduct data1, AutelBaseCamera data2) {
                 Log.v(TAG, "initListener onSuccess connect " + data1);
+                if (camera == data2) {
+                    return;
+                }
                 camera = data2;
                 cameraType.setText(data1.toString());
                 if (data1 == CameraProduct.FLIR_DUO) {
