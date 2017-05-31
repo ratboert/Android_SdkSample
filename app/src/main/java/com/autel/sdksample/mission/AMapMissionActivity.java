@@ -17,6 +17,7 @@ import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
+import com.autel.sdksample.mission.widget.WaypointSettingDialog;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,25 @@ public class AMapMissionActivity extends MapActivity {
             @Override
             public void onMapClick(LatLng latLng) {
                 onAbsMapClick(latLng.latitude, latLng.longitude);
+            }
+        });
+        mAmap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                showWaypointSettingDialog(mMarkerList.indexOf(marker));
+                return true;
+            }
+        });
+    }
+
+    private void showWaypointSettingDialog(int position) {
+        final WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position);
+        waypointSettingDialog.showDialog();
+        waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
+            @Override
+            public void onDialogOkClick(double height, int delayTime, int position) {
+                wayPointList.get(position).getAutelCoord3D().setAltitude(height);
+                wayPointList.get(position).setDelay(delayTime);
             }
         });
     }

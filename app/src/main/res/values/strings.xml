@@ -32,6 +32,9 @@
     <string name="mission_notify_radius">orbit radius</string>
     <string name="mission_map_google">Google Map</string>
     <string name="mission_map_a">AMap</string>
+    <string name="mission_alititude">Altitude</string>
+    <string name="mission_hover_time">Hover Duration</string>
+    <string name="mission_yes">Yes</string>
 
     <string name="fc_max_height">max fly height</string>
     <string name="fc_max_range">max fly range</string>

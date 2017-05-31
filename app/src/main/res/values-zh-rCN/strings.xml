@@ -28,6 +28,9 @@
     <string name="mission_notify_radius">环绕半径</string>
     <string name="mission_map_google">Google地图</string>
     <string name="mission_map_a">高德地图</string>
+    <string name="mission_alititude">高度</string>
+    <string name="mission_hover_time">停留时间</string>
+    <string name="mission_yes">确定</string>
 
     <string name="fc_max_height">飞行最大高度</string>
     <string name="fc_max_range">飞行最远范围</string>

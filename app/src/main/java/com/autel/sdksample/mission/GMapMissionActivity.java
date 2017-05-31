@@ -10,6 +10,7 @@ import android.os.Message;
 
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
+import com.autel.sdksample.mission.widget.WaypointSettingDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -73,6 +74,25 @@ public class GMapMissionActivity extends MapActivity {
             @Override
             public void onMapClick(LatLng latLng) {
                 onAbsMapClick(latLng.latitude, latLng.longitude);
+            }
+        });
+        mGmap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                showWaypointSettingDialog(mMarkerList.indexOf(marker));
+                return true;
+            }
+        });
+    }
+
+    private void showWaypointSettingDialog(int position) {
+        WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position);
+        waypointSettingDialog.showDialog();
+        waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
+            @Override
+            public void onDialogOkClick(double height, int delayTime, int position) {
+                wayPointList.get(position).getAutelCoord3D().setAltitude(height);
+                wayPointList.get(position).setDelay(delayTime);
             }
         });
     }
