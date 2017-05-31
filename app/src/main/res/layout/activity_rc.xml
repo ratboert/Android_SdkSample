@@ -166,7 +166,7 @@
 
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCCalibrationStep" />
+                    android:text="setStickCalibration" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -177,21 +177,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="startCalibration"
-                        android:text="startCalibration"
+                        android:text="CALIBRATE"
                         android:textAllCaps="false" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="saveCalibration"
-                        android:text="saveCalibration"
+                        android:text="COMPLETE"
                         android:textAllCaps="false" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="exitCalibration"
-                        android:text="exitCalibration"
+                        android:text="EXIT"
                         android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
