@@ -11,6 +11,7 @@ import com.autel.common.error.AutelError;
 import com.autel.internal.sdk.AutelBaseApplication;
 import com.autel.internal.sdk.util.AutelDirPathUtils;
 import com.autel.sdk.Autel;
+import com.autel.sdk.product.BaseProduct;
 import com.autel.util.log.AutelConfig;
 
 import java.io.File;
@@ -24,6 +25,7 @@ import java.util.Locale;
 
 public class TestApplication extends Application {
     private final String TAG = getClass().getSimpleName();
+    private BaseProduct currentProduct;
 
     public void onCreate() {
         super.onCreate();
@@ -43,6 +45,14 @@ public class TestApplication extends Application {
                 Log.v(TAG, "checkAppKeyValidate " + error.getDescription());
             }
         });
+    }
+
+    public BaseProduct getCurrentProduct() {
+        return currentProduct;
+    }
+
+    public void setCurrentProduct(BaseProduct baseProduct) {
+        currentProduct = baseProduct;
     }
 
     public class EHandle implements Thread.UncaughtExceptionHandler {

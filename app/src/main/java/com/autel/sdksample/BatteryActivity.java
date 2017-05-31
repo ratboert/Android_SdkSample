@@ -13,8 +13,8 @@ import com.autel.common.battery.BatteryParameterRangeManager;
 import com.autel.common.battery.BatteryRecordState;
 import com.autel.common.battery.BatteryStatus;
 import com.autel.common.error.AutelError;
-import com.autel.sdk.AModuleBattery;
 import com.autel.sdk.battery.AutelBattery;
+import com.autel.sdk.product.BaseProduct;
 
 import java.util.List;
 
@@ -29,7 +29,10 @@ public class BatteryActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setContentView(R.layout.activity_battery);
-        autelBattery = AModuleBattery.battery();
+        BaseProduct product = getCurrentProduct();
+        if (null != product) {
+            autelBattery = product.getBattery();
+        }
         lowBatteryNotifyThreshold = (EditText) findViewById(R.id.lowBatteryNotifyThreshold);
         criticalBatteryNotifyThreshold = (EditText) findViewById(R.id.criticalBatteryNotifyThreshold);
         dischargeDay = (EditText) findViewById(R.id.dischargeDay);

@@ -7,15 +7,13 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.autel.common.CallbackWithTwoParams;
-import com.autel.common.RequestResultWithOneParam;
-import com.autel.common.camera.CameraParameterSupport;
 import com.autel.common.camera.CameraProduct;
 import com.autel.common.error.AutelError;
-import com.autel.sdk.AModuleCamera;
-import com.autel.sdk.Autel;
 import com.autel.sdk.camera.AutelBaseCamera;
 import com.autel.sdk.camera.AutelCameraManager;
+import com.autel.sdk.product.BaseProduct;
 import com.autel.sdksample.R;
+import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.camera.fragment.CameraFLIRFragment;
 import com.autel.sdksample.camera.fragment.CameraNotConnectFragment;
 import com.autel.sdksample.camera.fragment.CameraR12Fragment;
@@ -33,13 +31,16 @@ public class CameraActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         cameraType = (TextView) findViewById(R.id.camera_type);
-        autelCameraManager = Autel.getCameraManager();
+        BaseProduct product = ((TestApplication) getApplicationContext()).getCurrentProduct();
+        if (null != product) {
+            autelCameraManager = product.getCameraManager();
+        }
         changePage(CameraNotConnectFragment.class);
         initListener();
     }
 
     private void initListener() {
-        autelCameraManager.setConnectStateListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
+        autelCameraManager.setCameraChangeListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
             @Override
             public void onSuccess(CameraProduct data1, AutelBaseCamera data2) {
                 Log.v(TAG, "initListener onSuccess connect " + data1);
@@ -80,7 +81,7 @@ public class CameraActivity extends FragmentActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        autelCameraManager.setConnectStateListener(null);
+        autelCameraManager.setCameraChangeListener(null);
     }
 
 }

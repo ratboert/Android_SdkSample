@@ -23,6 +23,8 @@ import com.autel.common.remotecontroller.RemoteControllerParameterUnit;
 import com.autel.common.remotecontroller.RemoteControllerStickCalibration;
 import com.autel.common.remotecontroller.TeachingMode;
 import com.autel.sdk.Autel;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdk.remotecontroller.AutelRemoteController;
 
 
@@ -48,7 +50,10 @@ public class RemoteControllerCActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setContentView(R.layout.activity_rc);
-        controller = Autel.getRemoteController();
+        BaseProduct baseProduct = getCurrentProduct();
+        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
+            controller = ((XStarAircraft) baseProduct).getRemoteController();
+        }
         /**
          * or controller = AModuleRemoteController.remoteController()
          */

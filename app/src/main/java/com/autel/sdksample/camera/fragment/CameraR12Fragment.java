@@ -882,7 +882,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
                     @Override
                     public void onSuccess() {
-                        logOut("setVideoResolutionAndFrameRate onSuccess" );
+                        logOut("setVideoResolutionAndFrameRate onSuccess");
                     }
                 });
             }
@@ -905,12 +905,29 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
+        view.findViewById(R.id.getNickName).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.getNickName(new CallbackWithOneParam<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        logOut("getNickName " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getNickName " + error.getDescription());
+                    }
+                });
+            }
+        });
+
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
         view.findViewById(R.id.getVideoStandard).callOnClick();
     }
 
-    private void initVideoResolutionFpsList(){
+    private void initVideoResolutionFpsList() {
 
         videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
         videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
@@ -1170,6 +1187,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
         spotMeteringAreaX = (EditText) view.findViewById(R.id.spotMeteringAreaX);
         spotMeteringAreaY = (EditText) view.findViewById(R.id.spotMeteringAreaY);
+
 
     }
 }

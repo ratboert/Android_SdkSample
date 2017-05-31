@@ -26,19 +26,6 @@ public class WaypointMissionFragment extends MissionFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = createView(R.layout.fragment_mission_menu_waypoint);
-        Autel.getMissionManager().setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
-            @Override
-            public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
-                if (getActivity() != null)
-                    ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                if (getActivity() != null)
-                    ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
-            }
-        });
 
         ((MapActivity) getActivity()).setWaypointHeightListener(new MapActivity.WaypointHeightListener() {
             @Override
@@ -67,10 +54,4 @@ public class WaypointMissionFragment extends MissionFragment {
         waypointMission.wplist = ((MapActivity) getActivity()).getWaypointList();
         return waypointMission;
     }
-
-    public void onDestroy() {
-        super.onDestroy();
-        Autel.getMissionManager().setRealTimeInfoListener(null);
-    }
-
 }

@@ -32,21 +32,6 @@ public class OrbitMissionFragment extends MissionFragment {
         orbitReturnHeight = (EditText) view.findViewById(R.id.orbitReturnHeight);
         orbitCount = (EditText) view.findViewById(R.id.orbitCount);
         orbitRadius = (EditText) view.findViewById(R.id.orbitRadius);
-
-        Autel.getMissionManager().setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
-            @Override
-            public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
-                if(getActivity()!=null)
-                ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                if(getActivity()!=null)
-                ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
-            }
-        });
-
         return view;
     }
 
@@ -70,10 +55,5 @@ public class OrbitMissionFragment extends MissionFragment {
         String valueRadius = orbitRadius.getText().toString();
         orbitMission.radius = isEmpty(valueRadius) ? 3 : Short.valueOf(valueRadius);
         return orbitMission;
-    }
-
-    public void onDestroy() {
-        super.onDestroy();
-        Autel.getMissionManager().setRealTimeInfoListener(null);
     }
 }

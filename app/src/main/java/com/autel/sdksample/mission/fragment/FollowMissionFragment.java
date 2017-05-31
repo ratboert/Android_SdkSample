@@ -32,24 +32,9 @@ public class FollowMissionFragment extends MissionFragment {
                 if (null != followMission) {
                     followMission.update(location);
                 }
-                Log.v("followTest", "location "+location);
+                Log.v("followTest", "location " + location);
             }
         });
-
-        Autel.getMissionManager().setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
-            @Override
-            public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
-                if(getActivity()!=null)
-                ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                if(getActivity()!=null)
-                ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
-            }
-        });
-
         return view;
     }
 
@@ -65,6 +50,5 @@ public class FollowMissionFragment extends MissionFragment {
     public void onDestroy() {
         super.onDestroy();
         ((MapActivity) getActivity()).setLocationChangeListener(null);
-        Autel.getMissionManager().setRealTimeInfoListener(null);
     }
 }

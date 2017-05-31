@@ -16,15 +16,22 @@ import android.widget.Toast;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParamProgress;
+import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
+import com.autel.common.mission.CurrentMissionState;
 import com.autel.common.mission.MissionFinishedAction;
 import com.autel.common.mission.OrbitMission;
+import com.autel.common.mission.RealTimeInfo;
 import com.autel.common.mission.Waypoint;
 import com.autel.common.mission.WaypointMission;
 import com.autel.sdk.Autel;
 import com.autel.sdk.mission.MissionManager;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.R;
+import com.autel.sdksample.TestApplication;
+import com.autel.sdksample.mission.MapActivity;
 
 import java.util.List;
 
@@ -44,21 +51,45 @@ public abstract class MissionFragment extends Fragment {
     MissionFinishedAction missionFinishedAction = MissionFinishedAction.HOVER;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = createView(R.layout.fragment_mission_menu);
-
         return view;
     }
 
-    protected View createView(@LayoutRes int resource){
+    protected MissionManager getMissionManager() {
+        BaseProduct
+                product = ((TestApplication) getActivity().getApplicationContext()).getCurrentProduct();
+        if (null != product && product instanceof XStarAircraft) {
+            return ((XStarAircraft) product).getMissionManager();
+        }
+        return null;
+    }
+
+    protected View createView(@LayoutRes int resource) {
         View view = View.inflate(getContext(), resource, null);
         initUi(view);
         return view;
     }
-    private void initUi(View view){
-        missionManager = Autel.getMissionManager();
 
+    private void initUi(View view) {
+        missionManager = getMissionManager();
+        if (null != missionManager) {
+            missionManager.setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
+                @Override
+                public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
+                    if (getActivity() != null)
+                        ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
+                }
+
+                @Override
+                public void onFailure(AutelError autelError) {
+                    if (getActivity() != null)
+                        ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
+                }
+            });
+        }
 
         final Context applicationContext = getActivity().getApplicationContext();
         progressBarDownload = (ProgressBar) view.findViewById(R.id.progressBarDownload);
@@ -189,10 +220,10 @@ public abstract class MissionFragment extends Fragment {
                             Toast.makeText(applicationContext, R.string.mission_download_notify, Toast.LENGTH_SHORT).show();
                             progressBarDownload.setVisibility(View.GONE);
 
-                            if(autelMission instanceof WaypointMission){
+                            if (autelMission instanceof WaypointMission) {
 
-                                List<Waypoint> wplist = ((WaypointMission)autelMission).wplist;
-                            }else if(autelMission instanceof OrbitMission){
+                                List<Waypoint> wplist = ((WaypointMission) autelMission).wplist;
+                            } else if (autelMission instanceof OrbitMission) {
 
                             }
                         }
@@ -230,4 +261,11 @@ public abstract class MissionFragment extends Fragment {
     }
 
     protected abstract AutelMission createAutelMission();
+
+    public void onDestroy() {
+        super.onDestroy();
+        if (null != missionManager) {
+            missionManager.setRealTimeInfoListener(null);
+        }
+    }
 }

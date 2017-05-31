@@ -1,76 +1,70 @@
 package com.autel.sdksample;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
 
-import com.autel.sdksample.album.AlbumActivity;
-import com.autel.sdksample.camera.CameraActivity;
-import com.autel.sdksample.gimbal.GimbalActivity;
+import com.autel.common.product.AutelProductType;
+import com.autel.sdk.Autel;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdksample.adapter.ProductSelector;
+
 
 public class MainActivity extends AppCompatActivity {
+    private int index;
+    ProductSelector productSelector;
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.rcTest).setOnClickListener(new View.OnClickListener() {
+        productSelector = new ProductSelector(this);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.productSelector);
+        viewPager.setAdapter(productSelector);
+        Autel.setProductConnectListener(new Autel.ProductConnectListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RemoteControllerCActivity.class));
+            public void productConnected(boolean typeChanged, BaseProduct product) {
+                Log.v("productType", "product " + product.getType());
+
+                ((TestApplication) getApplicationContext()).setCurrentProduct(product);
+                if (product instanceof XStarAircraft) {
+                    productSelector.productConnected(AutelProductType.X_STAR);
+                }
             }
-        });  findViewById(R.id.fcTest).setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, FlyControllerActivity.class));
-            }
-        });
-        findViewById(R.id.cameraTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CameraActivity.class));
-            }
-        });
-        findViewById(R.id.codecTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CodecActivity.class));
-            }
-        });
-        findViewById(R.id.DSPTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DspActivity.class));
+            public void productDisconnected() {
+                Log.v("productType", "productDisconnected ");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        productSelector.productConnected(AutelProductType.UNKNOWN);
+                    }
+                });
             }
         });
-        findViewById(R.id.missionTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MissionActivity.class));
-            }
-        });
-        findViewById(R.id.BatteryTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BatteryActivity.class));
-            }
-        });
-        findViewById(R.id.GimbalTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, GimbalActivity.class));
-            }
-        });
-        findViewById(R.id.AlbumTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AlbumActivity.class));
-            }
-        });
-        findViewById(R.id.FirmwareTest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, FirmwareActivity.class));
-            }
-        });
+    }
+
+    private AutelProductType get(int i) {
+        switch (i) {
+            case 0:
+                return AutelProductType.X_STAR;
+            case 1:
+                return AutelProductType.CAM_PRO;
+            case 2:
+                return AutelProductType.HANDHELD;
+            case 3:
+                return AutelProductType.KESTREL;
+            default:
+                return AutelProductType.X_STAR;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        CameraConnection.instance().disconnect();
     }
 }

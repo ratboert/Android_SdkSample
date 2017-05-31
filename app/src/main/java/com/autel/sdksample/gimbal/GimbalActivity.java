@@ -16,8 +16,9 @@ import com.autel.common.gimbal.GimbalParameterRangeManager;
 import com.autel.common.gimbal.GimbalRollAngleAdjust;
 import com.autel.common.gimbal.GimbalState;
 import com.autel.common.gimbal.GimbalWorkMode;
-import com.autel.sdk.AModuleGimbal;
 import com.autel.sdk.gimbal.AutelGimbal;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.BaseActivity;
 import com.autel.sdksample.R;
 import com.autel.sdksample.gimbal.adapter.GimbalModeAdapter;
@@ -40,7 +41,10 @@ public class GimbalActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setContentView(R.layout.activity_gimbal);
-        autelGimbal = AModuleGimbal.gimbal();
+        BaseProduct product = getCurrentProduct();
+        if (null != product && product instanceof XStarAircraft) {
+            autelGimbal = ((XStarAircraft) product).getGimbal();
+        }
 
         gimbalAngleWithFineTuning = (EditText) findViewById(R.id.gimbalAngleWithFineTuning);
         gimbalAngle = (EditText) findViewById(R.id.gimbalAngle);
@@ -166,7 +170,8 @@ public class GimbalActivity extends BaseActivity {
         initClick();
 
     }
-    private void initClick(){
+
+    private void initClick() {
         findViewById(R.id.setGimbalAngleWithFineTuning).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

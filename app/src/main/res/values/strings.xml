@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">SDKSample</string>
+
+    <string name="product_not_connect">device not connected</string>
+    <string name="product_connect">enter the device</string>
+
+    <!--  mission controller -->
     <string name="mission_to_waypoint">generate waypoint mission</string>
     <string name="mission_download">download mission</string>
     <string name="mission_prepare">prepare</string>

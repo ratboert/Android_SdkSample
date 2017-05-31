@@ -164,22 +164,6 @@ public class CameraBaseFragment extends Fragment {
                 logOut("getProduct " + baseCamera.getProduct());
             }
         });
-        view.findViewById(R.id.getNickName).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baseCamera.getNickName(new CallbackWithOneParam<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        logOut("getNickName " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getNickName " + error.getDescription());
-                    }
-                });
-            }
-        });
         view.findViewById(R.id.getSdFreeSpace).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

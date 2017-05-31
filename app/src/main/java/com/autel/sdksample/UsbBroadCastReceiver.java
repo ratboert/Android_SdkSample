@@ -11,7 +11,7 @@ public class UsbBroadCastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.v(TAG, "action " + intent.getAction());
         Intent i = new Intent();
-        i.setClass(context, MainActivity.class);
+        i.setClass(context, XStarActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
     }

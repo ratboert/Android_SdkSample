@@ -21,13 +21,14 @@ import com.autel.common.flycontroller.FlyControllerInfo;
 import com.autel.common.flycontroller.FlyControllerParameterRangeManager;
 import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.common.flycontroller.MagnetometerState;
-import com.autel.sdk.AModuleFlyController;
-import com.autel.sdk.flycontroller.AutelFlyController;
+import com.autel.sdk.flycontroller.XStarFlyController;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 
 
 public class FlyControllerActivity extends BaseActivity {
     final String TAG = getClass().getSimpleName();
-    private AutelFlyController autelFlyController;
+    private XStarFlyController autelFlyController;
     private Switch beginnerSwitch;
 
     private EditText fcMaxHeight;
@@ -44,7 +45,10 @@ public class FlyControllerActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setContentView(R.layout.activity_fc);
-        autelFlyController = AModuleFlyController.flyController();
+        BaseProduct baseProduct = getCurrentProduct();
+        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
+            autelFlyController = ((XStarAircraft) baseProduct).getFlyController();
+        }
 
         beginnerSwitch = (Switch) findViewById(R.id.beginnerSwitch);
         beginnerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

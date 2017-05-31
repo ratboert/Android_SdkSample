@@ -28,8 +28,12 @@ import com.autel.common.flycontroller.FlyControllerInfo;
 import com.autel.common.mission.AutelCoord3D;
 import com.autel.common.mission.Waypoint;
 import com.autel.sdk.Autel;
+import com.autel.sdk.flycontroller.XStarFlyController;
 import com.autel.sdk.mission.MissionManager;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.R;
+import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.mission.fragment.FollowMissionFragment;
 import com.autel.sdksample.mission.fragment.OrbitMissionFragment;
 import com.autel.sdksample.mission.fragment.WaypointMissionFragment;
@@ -63,6 +67,7 @@ public abstract class MapActivity extends FragmentActivity {
 
     private LocationChangeListener locationChangeListener;
     private WaypointHeightListener waypointHeightListener;
+    XStarFlyController xStarFlyController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +78,11 @@ public abstract class MapActivity extends FragmentActivity {
         initAircraftListener();
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        Autel.getFlyController().setFlyControllerInfoListener(null);
+        if (null != xStarFlyController) {
+            xStarFlyController.setFlyControllerInfoListener(null);
+        }
     }
 
 
@@ -136,27 +143,31 @@ public abstract class MapActivity extends FragmentActivity {
     }
 
     private void initAircraftListener() {
-        Autel.getFlyController().setFlyControllerInfoListener(new CallbackWithOneParam<FlyControllerInfo>() {
-            @Override
-            public void onSuccess(FlyControllerInfo flyControllerInfo) {
-                Message msg = handler.obtainMessage();
-                msg.obj = flyControllerInfo.getFlyControllerStatus().getFlyMode();
-                handler.sendMessage(msg);
+        BaseProduct baseProduct = ((TestApplication) getApplicationContext()).getCurrentProduct();
+        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
+            xStarFlyController = ((XStarAircraft) baseProduct).getFlyController();
+            xStarFlyController.setFlyControllerInfoListener(new CallbackWithOneParam<FlyControllerInfo>() {
+                @Override
+                public void onSuccess(FlyControllerInfo flyControllerInfo) {
+                    Message msg = handler.obtainMessage();
+                    msg.obj = flyControllerInfo.getFlyControllerStatus().getFlyMode();
+                    handler.sendMessage(msg);
 
-                if (null != flyControllerInfo.getGPSInfo()) {
-                    AutelCoord3D coord3D = flyControllerInfo.getGPSInfo().getCoord();
-                    if (null != coord3D) {
-                        updateAircraftLocation(coord3D.getLatitude(), coord3D.getLongitude());
+                    if (null != flyControllerInfo.getGPSInfo()) {
+                        AutelCoord3D coord3D = flyControllerInfo.getGPSInfo().getCoord();
+                        if (null != coord3D) {
+                            updateAircraftLocation(coord3D.getLatitude(), coord3D.getLongitude());
+                        }
                     }
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                Log.v("initAircraftListener", " setFlyControllerInfoListener " + autelError.getDescription());
-            }
-        });
+                @Override
+                public void onFailure(AutelError autelError) {
+                    Log.v("initAircraftListener", " setFlyControllerInfoListener " + autelError.getDescription());
+                }
+            });
+        }
     }
 
     public String getLowAccuracyProvider() {
