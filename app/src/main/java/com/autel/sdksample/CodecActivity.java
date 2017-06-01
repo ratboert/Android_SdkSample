@@ -31,6 +31,7 @@ public class CodecActivity extends AppCompatActivity {
         content_layout = (RelativeLayout) findViewById(R.id.content_layout);
 
         isCodecing = false;
+        initClick();
     }
 
     public void testAutelCodecView(View v) {

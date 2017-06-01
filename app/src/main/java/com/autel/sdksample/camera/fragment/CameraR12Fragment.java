@@ -13,7 +13,6 @@ import android.widget.Switch;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.camera.CameraParameterSupport;
 import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;

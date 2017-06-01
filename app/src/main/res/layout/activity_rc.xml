@@ -41,7 +41,7 @@
                     android:onClick="setRCLanguage"
                     android:clickable="true"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCLanguage"
+                    android:text="setLanguage"
                     android:textAllCaps="false" />
 
                 <Spinner
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getRCLanguage"
+                android:onClick="getLanguage"
                 android:padding="@dimen/text_padding"
                 android:clickable="true"
                 android:text="getRCLanguage"
