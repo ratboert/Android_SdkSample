@@ -33,7 +33,7 @@
         </activity>
 
         <activity android:name=".XStarActivity" />
-        <activity android:name=".RemoteControllerCActivity" />
+        <activity android:name=".RemoteControllerActivity" />
         <activity android:name=".FlyControllerActivity" />
         <activity
             android:name=".camera.CameraActivity"

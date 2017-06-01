@@ -16,7 +16,7 @@ public class XStarActivity extends AppCompatActivity {
         findViewById(R.id.rcTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(XStarActivity.this, RemoteControllerCActivity.class));
+                startActivity(new Intent(XStarActivity.this, RemoteControllerActivity.class));
             }
         });
         findViewById(R.id.fcTest).setOnClickListener(new View.OnClickListener() {

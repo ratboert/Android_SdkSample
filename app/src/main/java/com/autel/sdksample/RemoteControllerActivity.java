@@ -22,14 +22,13 @@ import com.autel.common.remotecontroller.RemoteControllerParameterRangeManager;
 import com.autel.common.remotecontroller.RemoteControllerParameterUnit;
 import com.autel.common.remotecontroller.RemoteControllerStickCalibration;
 import com.autel.common.remotecontroller.TeachingMode;
-import com.autel.sdk.Autel;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdk.remotecontroller.AutelRemoteController;
 
 
-public class RemoteControllerCActivity extends BaseActivity {
-    final static String TAG = RemoteControllerCActivity.class.getSimpleName();
+public class RemoteControllerActivity extends BaseActivity {
+    final static String TAG = RemoteControllerActivity.class.getSimpleName();
     private TextView log_output;
 
     AutelRemoteController controller;
