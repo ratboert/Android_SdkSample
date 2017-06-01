@@ -51,7 +51,7 @@ public class BatteryActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(AutelError autelError) {
-
+                            logOut("getParameterSupportManager  error :  " + autelError.getDescription());
                         }
                     });
                 }
@@ -82,7 +82,7 @@ public class BatteryActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(AutelError autelError) {
-
+                            logOut("getParameterSupportManager  error :  " + autelError.getDescription());
                         }
                     });
                 }
@@ -112,7 +112,7 @@ public class BatteryActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(AutelError autelError) {
-
+                            logOut("getParameterSupportManager  error :  " + autelError.getDescription());
                         }
                     });
                 }
@@ -274,7 +274,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCells  " + error.getDescription());
+                        logOut("getCells  error : " + error.getDescription());
                     }
                 });
             }
@@ -290,7 +290,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getVoltage  " + error.getDescription());
+                        logOut("getVoltage  error : " + error.getDescription());
                     }
                 });
             }
@@ -306,7 +306,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCapacity  " + error.getDescription());
+                        logOut("getCapacity  error : " + error.getDescription());
                     }
                 });
             }
@@ -345,7 +345,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getDesignCapacity  " + error.getDescription());
+                        logOut("getDesignCapacity  error : " + error.getDescription());
                     }
                 });
             }
@@ -361,7 +361,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getVersion  " + error.getDescription());
+                        logOut("getVersion  error : " + error.getDescription());
                     }
                 });
             }
@@ -377,7 +377,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getSerialNumber  " + error.getDescription());
+                        logOut("getSerialNumber  error : " + error.getDescription());
                     }
                 });
             }
@@ -393,7 +393,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getRemainingPercent  " + error.getDescription());
+                        logOut("getRemainingPercent  error : " + error.getDescription());
                     }
                 });
             }
@@ -409,7 +409,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getFullChargeCapacity  " + error.getDescription());
+                        logOut("getFullChargeCapacity error : " + error.getDescription());
                     }
                 });
             }
@@ -425,7 +425,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getDischargeCount  " + error.getDescription());
+                        logOut("getDischargeCount error : " + error.getDescription());
                     }
                 });
             }
@@ -441,7 +441,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getTemperature  " + error.getDescription());
+                        logOut("getTemperature error : " + error.getDescription());
                     }
                 });
             }
@@ -457,7 +457,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCurrent  " + error.getDescription());
+                        logOut("getCurrent error : " + error.getDescription());
                     }
                 });
             }
