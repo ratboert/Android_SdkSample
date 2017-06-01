@@ -82,6 +82,10 @@ public class GimbalActivity extends BaseActivity {
         gimbalAngleWithFineTuning.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if(isEmpty(s.toString())){
+                    return;
+                }
+
                 if (isEmpty(angleWithFineTuningRange.getText().toString())) {
                     autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
                         @Override
@@ -112,6 +116,9 @@ public class GimbalActivity extends BaseActivity {
         gimbalAngle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if(isEmpty(s.toString())){
+                    return;
+                }
                 if (isEmpty(gimbalAngleRange.getText().toString())) {
                     autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
                         @Override
@@ -142,6 +149,10 @@ public class GimbalActivity extends BaseActivity {
         dialAdjustSpeed.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if(isEmpty(s.toString())){
+                    return;
+                }
+
                 if (isEmpty(dialAdjustSpeedRange.getText().toString())) {
                     autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
                         @Override
@@ -242,7 +253,7 @@ public class GimbalActivity extends BaseActivity {
                 autelGimbal.setGimbalDialAdjustSpeed(isEmpty(value) ? 10 : Integer.valueOf(value), new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError rcError) {
-                        logOut("setGimbalDialAdjustSpeed RCError " + rcError.getDescription());
+                        logOut("setGimbalDialAdjustSpeed error " + rcError.getDescription());
                     }
 
                     @Override
@@ -259,7 +270,7 @@ public class GimbalActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError rcError) {
-                        logOut("getGimbalDialAdjustSpeed RCError " + rcError.getDescription());
+                        logOut("getGimbalDialAdjustSpeed error " + rcError.getDescription());
                     }
 
                     @Override
