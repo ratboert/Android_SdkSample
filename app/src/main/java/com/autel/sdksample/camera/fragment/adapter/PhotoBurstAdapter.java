@@ -12,44 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PhotoBurstAdapter extends BaseAdapter {
-    private List<PhotoBurstCount> photoBurstCounts = new ArrayList<>();
-    private Context mContext;
+public class PhotoBurstAdapter extends SelectorAdapter<PhotoBurstCount> {
 
     public PhotoBurstAdapter(Context context) {
-        mContext = context;
-        photoBurstCounts.add(PhotoBurstCount.BURST_3);
-        photoBurstCounts.add(PhotoBurstCount.BURST_5);
-        photoBurstCounts.add(PhotoBurstCount.BURST_7);
-    }
-
-    @Override
-    public int getCount() {
-        return null == photoBurstCounts ? 0 : photoBurstCounts.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return photoBurstCounts.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView = null;
-        if (null == convertView) {
-            textView = new TextView(mContext);
-            convertView = textView;
-        }else{
-            textView = (TextView)convertView;
-        }
-
-        textView.setText(photoBurstCounts.get(position).toString());
-
-        return convertView;
+        super(context);
+        elementList.add(PhotoBurstCount.BURST_3);
+        elementList.add(PhotoBurstCount.BURST_5);
+        elementList.add(PhotoBurstCount.BURST_7);
     }
 }

@@ -13,42 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ISOValueAdapter extends BaseAdapter {
-    private List<CameraISO> cameraISOs = new ArrayList<>();
-    private Context mContext;
-    private CameraProduct cameraProduct;
+public class ISOValueAdapter extends SelectorAdapter<CameraISO> {
     public ISOValueAdapter(Context context,  CameraProduct cameraProduct) {
-        mContext = context;
-        cameraISOs.addAll(Arrays.asList(cameraProduct.supportedISO()));
-    }
-
-    @Override
-    public int getCount() {
-        return null == cameraISOs ? 0 : cameraISOs.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return cameraISOs.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView = null;
-        if (null == convertView) {
-            textView = new TextView(mContext);
-            convertView = textView;
-        }else{
-            textView = (TextView)convertView;
-        }
-
-        textView.setText(cameraISOs.get(position).toString());
-
-        return convertView;
+        super(context);
+        elementList.addAll(Arrays.asList(cameraProduct.supportedISO()));
     }
 }

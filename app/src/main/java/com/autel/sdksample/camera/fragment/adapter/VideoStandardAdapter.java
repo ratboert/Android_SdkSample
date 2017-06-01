@@ -12,43 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VideoStandardAdapter extends BaseAdapter {
-    private List<VideoStandard> videoStandards = new ArrayList<>();
-    private Context mContext;
+public class VideoStandardAdapter extends SelectorAdapter<VideoStandard> {
 
     public VideoStandardAdapter(Context context) {
-        mContext = context;
-        videoStandards.add(VideoStandard.NTSC);
-        videoStandards.add(VideoStandard.PAL);
+        super(context);
+        elementList.add(VideoStandard.NTSC);
+        elementList.add(VideoStandard.PAL);
     }
 
-    @Override
-    public int getCount() {
-        return null == videoStandards ? 0 : videoStandards.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return videoStandards.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView = null;
-        if (null == convertView) {
-            textView = new TextView(mContext);
-            convertView = textView;
-        }else{
-            textView = (TextView)convertView;
-        }
-
-        textView.setText(videoStandards.get(position).toString());
-
-        return convertView;
-    }
 }

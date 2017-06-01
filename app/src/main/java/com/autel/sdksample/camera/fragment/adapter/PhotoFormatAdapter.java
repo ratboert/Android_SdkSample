@@ -12,44 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PhotoFormatAdapter extends BaseAdapter {
-    private List<PhotoFormat> photoFormats = new ArrayList<>();
-    private Context mContext;
+public class PhotoFormatAdapter extends SelectorAdapter<PhotoFormat> {
 
     public PhotoFormatAdapter(Context context) {
-        mContext = context;
-        photoFormats.add(PhotoFormat.JPEG);
-        photoFormats.add(PhotoFormat.RAW);
-        photoFormats.add(PhotoFormat.RawAndJPEG);
+        super(context);
+        elementList.add(PhotoFormat.JPEG);
+        elementList.add(PhotoFormat.RAW);
+        elementList.add(PhotoFormat.RawAndJPEG);
     }
 
-    @Override
-    public int getCount() {
-        return null == photoFormats ? 0 : photoFormats.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return photoFormats.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView = null;
-        if (null == convertView) {
-            textView = new TextView(mContext);
-            convertView = textView;
-        }else{
-            textView = (TextView)convertView;
-        }
-
-        textView.setText(photoFormats.get(position).toString());
-
-        return convertView;
-    }
 }
