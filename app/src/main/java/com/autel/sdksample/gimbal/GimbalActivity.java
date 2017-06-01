@@ -40,6 +40,7 @@ public class GimbalActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("Gimbal");
         setContentView(R.layout.activity_gimbal);
         BaseProduct product = getCurrentProduct();
         if (null != product && product instanceof XStarAircraft) {

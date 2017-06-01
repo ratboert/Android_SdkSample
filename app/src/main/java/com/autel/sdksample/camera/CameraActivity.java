@@ -28,6 +28,7 @@ public class CameraActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Camera");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         cameraType = (TextView) findViewById(R.id.camera_type);

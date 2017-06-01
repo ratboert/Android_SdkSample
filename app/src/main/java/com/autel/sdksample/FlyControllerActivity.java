@@ -44,6 +44,7 @@ public class FlyControllerActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("FlyController");
         setContentView(R.layout.activity_fc);
         BaseProduct baseProduct = getCurrentProduct();
         if (null != baseProduct && baseProduct instanceof XStarAircraft) {

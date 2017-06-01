@@ -48,6 +48,7 @@ public class RemoteControllerActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("RemoteController");
         setContentView(R.layout.activity_rc);
         BaseProduct baseProduct = getCurrentProduct();
         if (null != baseProduct && baseProduct instanceof XStarAircraft) {

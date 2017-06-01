@@ -32,7 +32,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".XStarActivity" />
+        <activity android:name=".XStarActivity"
+            />
         <activity android:name=".RemoteControllerActivity" />
         <activity android:name=".FlyControllerActivity" />
         <activity

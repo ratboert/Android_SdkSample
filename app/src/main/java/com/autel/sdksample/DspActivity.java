@@ -37,6 +37,7 @@ public class DspActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("DSP");
         BaseProduct baseProduct = getCurrentProduct();
         if (baseProduct != null) {
             autelDsp = baseProduct.getDsp();

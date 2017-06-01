@@ -14,6 +14,7 @@ public class MissionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Mission");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
     }

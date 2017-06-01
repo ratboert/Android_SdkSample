@@ -17,6 +17,7 @@ public class FirmwareActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("Firmware");
         setContentView(R.layout.activity_firmware);
         firmwareInfo = AModuleFirmware.firmware();
         initClick();

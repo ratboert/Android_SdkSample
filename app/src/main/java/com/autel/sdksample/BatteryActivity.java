@@ -29,6 +29,7 @@ public class BatteryActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setContentView(R.layout.activity_battery);
+        setTitle("Battery");
         BaseProduct product = getCurrentProduct();
         if (null != product) {
             autelBattery = product.getBattery();

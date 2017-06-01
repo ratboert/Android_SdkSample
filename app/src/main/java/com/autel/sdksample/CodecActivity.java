@@ -23,6 +23,7 @@ public class CodecActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Codec");
         setContentView(R.layout.activity_codec);
         BaseProduct baseProduct = ((TestApplication) getApplicationContext()).getCurrentProduct();
         if (null != baseProduct) {

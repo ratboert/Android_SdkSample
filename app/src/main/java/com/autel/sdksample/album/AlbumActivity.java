@@ -47,6 +47,7 @@ public class AlbumActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("Album");
         setContentView(R.layout.activity_album);
         mediaList = (Spinner) findViewById(R.id.mediaList);
         mediaList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
