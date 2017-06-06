@@ -923,24 +923,29 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
-//        view.findViewById(R.id.getVideoStandard).callOnClick();
+        videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
     }
 
     private void initVideoResolutionFpsList() {
-
-        videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
-        videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
-        videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
-            }
+            public void run() {
+                videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
+                videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
+                videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
+                    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
 
+                    }
+                });
             }
         });
+
     }
 
     private void initView(View view) {

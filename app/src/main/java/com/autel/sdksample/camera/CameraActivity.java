@@ -37,28 +37,37 @@ public class CameraActivity extends FragmentActivity {
             autelCameraManager = product.getCameraManager();
         }
         changePage(CameraNotConnectFragment.class);
-        initListener();
+//        initListener();
     }
 
     private void initListener() {
+        if(null == autelCameraManager){
+            return;
+        }
         autelCameraManager.setCameraChangeListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
             @Override
-            public void onSuccess(CameraProduct data1, AutelBaseCamera data2) {
-                Log.v(TAG, "initListener onSuccess connect " + data1);
-                if (camera == data2) {
-                    return;
-                }
-                camera = data2;
-                cameraType.setText(data1.toString());
-                if (data1 == CameraProduct.FLIR_DUO) {
-                    changePage(CameraFLIRFragment.class);
-                } else if (data1 == CameraProduct.R12) {
-                    changePage(CameraR12Fragment.class);
-                } else if (data1 == CameraProduct.XB008) {
-                    changePage(CameraXb008Fragment.class);
-                } else if (data1 == CameraProduct.UNKNOWN) {
-                    changePage(CameraNotConnectFragment.class);
-                }
+            public void onSuccess(final CameraProduct data1, final AutelBaseCamera data2) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.v(TAG, "initListener onSuccess connect " + data1);
+                        if (camera == data2) {
+                            return;
+                        }
+                        camera = data2;
+                        cameraType.setText(data1.toString());
+                        if (data1 == CameraProduct.FLIR_DUO) {
+                            changePage(CameraFLIRFragment.class);
+                        } else if (data1 == CameraProduct.R12) {
+                            changePage(CameraR12Fragment.class);
+                        } else if (data1 == CameraProduct.XB008) {
+                            changePage(CameraXb008Fragment.class);
+                        } else if (data1 == CameraProduct.UNKNOWN) {
+                            changePage(CameraNotConnectFragment.class);
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -69,12 +78,23 @@ public class CameraActivity extends FragmentActivity {
         });
     }
 
+    public void onResume(){
+        super.onResume();
+        initListener();
+    }
+
+    public void onPause(){
+        if (null == autelCameraManager) {
+            return;
+        }
+        autelCameraManager.setCameraChangeListener(null);
+        super.onPause();
+    }
+
     private void changePage(Class page) {
         try {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, (Fragment) page.newInstance()).commit();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -85,7 +105,6 @@ public class CameraActivity extends FragmentActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        autelCameraManager.setCameraChangeListener(null);
     }
 
 }

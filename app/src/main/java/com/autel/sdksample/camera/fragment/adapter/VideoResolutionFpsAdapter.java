@@ -19,7 +19,6 @@ public class VideoResolutionFpsAdapter extends SelectorAdapter<VideoResolutionAn
 
     public VideoResolutionFpsAdapter(Context context) {
         super(context);
-
     }
 
     public void setData(CameraProduct product, VideoStandard videoStandard) {
