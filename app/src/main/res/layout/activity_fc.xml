@@ -111,10 +111,12 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/maxRangeRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -274,6 +276,38 @@
                     android:inputType="number" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="setLocationAsHomePoint"
+                    android:text="setLocationAsHomePoint"
+                    android:textAllCaps="false" />
+
+                <EditText
+                    android:id="@+id/locationAsHomePoint_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/fc_lat_notify"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/locationAsHomePoint_lon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/fc_lon_notify"
+                    android:inputType="numberDecimal" />
+            </LinearLayout>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -354,6 +388,55 @@
                 android:onClick="startCalibrateCompass"
                 android:text="startCalibrateCompass"
                 android:textAllCaps="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="takeOff"
+                android:text="takeOff"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="land"
+                android:text="land"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="goHome"
+                android:text="goHome"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="cancelReturn"
+                android:text="cancelReturn"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="cancelLand"
+                android:text="cancelLand"
+                android:textAllCaps="false" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="setAircraftLocationAsHomePoint"
+                android:text="setAircraftLocationAsHomePoint"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -389,6 +472,45 @@
                         android:layout_marginLeft="10dp"
                         android:gravity="center"
                         android:onClick="resetCalibrateCompassListener"
+                        android:text="reset"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setUltraSonicHeightInfoListener" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setUltraSonicHeightInfoListener"
+                        android:text="set"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:onClick="resetUltraSonicHeightInfoListener"
                         android:text="reset"
                         android:textAllCaps="false" />
                 </LinearLayout>
@@ -445,7 +567,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="setFlyControllerListener" />
+                    android:text="setFlyControllerInfoListener" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

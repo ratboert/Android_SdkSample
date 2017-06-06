@@ -37,6 +37,8 @@ public class FlyControllerActivity extends BaseActivity {
     private EditText fcHorizontalSpeed;
     private EditText fcAscendSpeed;
     private EditText fcDescendSpeed;
+    private EditText locationAsHomePoint_la;
+    private EditText locationAsHomePoint_lon;
     private Switch attiModeSwitch;
     private Spinner fcLedPilotLamp;
 
@@ -66,6 +68,8 @@ public class FlyControllerActivity extends BaseActivity {
         fcHorizontalSpeed = (EditText) findViewById(R.id.fcHorizontalSpeed);
         fcAscendSpeed = (EditText) findViewById(R.id.fcAscendSpeed);
         fcDescendSpeed = (EditText) findViewById(R.id.fcDescendSpeed);
+        locationAsHomePoint_la = (EditText) findViewById(R.id.locationAsHomePoint_la);
+        locationAsHomePoint_lon = (EditText) findViewById(R.id.locationAsHomePoint_lon);
 
         attiModeSwitch = (Switch) findViewById(R.id.attiModeSwitch);
         attiModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -231,7 +235,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getMaxRange(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("getMaxRange AutelError " + error);
+                logOut("getMaxRange AutelError "+ error.getDescription());
             }
 
             @Override
@@ -416,7 +420,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getLedPilotLamp(new CallbackWithOneParam<LedPilotLamp>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("getLedPilotLamp AutelError " + error);
+                logOut("getLedPilotLamp AutelError "+ error.getDescription());
             }
 
             @Override
@@ -430,7 +434,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setLedPilotLamp(ledPilotLamp, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("setLedPilotLamp AutelError " + error);
+                logOut("setLedPilotLamp AutelError " + error.getDescription());
             }
 
             @Override
@@ -440,8 +444,103 @@ public class FlyControllerActivity extends BaseActivity {
         });
     }
 
+    public void setLocationAsHomePoint(View view) {
+        long lat = isEmpty(locationAsHomePoint_la.getText().toString()) ? 0 : Long.valueOf(locationAsHomePoint_la.getText().toString());
+        long lon = isEmpty(locationAsHomePoint_lon.getText().toString()) ? 0 : Long.valueOf(locationAsHomePoint_lon.getText().toString());
+        autelFlyController.setLocationAsHomePoint(lat, lon, new CallbackWithNoParam() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setLocationAsHomePoint AutelError " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess() {
+                logOut("setLocationAsHomePoint onSuccess ");
+            }
+        });
+    }
+
+    public void setAircraftLocationAsHomePoint(View view) {
+        autelFlyController.setAircraftLocationAsHomePoint(new CallbackWithNoParam() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setAircraftLocationAsHomePoint AutelError " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess() {
+                logOut("setAircraftLocationAsHomePoint onSuccess ");
+            }
+        });
+    }
     public void startCalibrateCompass(View view) {
         autelFlyController.startCalibrateCompass();
+    }
+
+    public void takeOff(View view) {
+        autelFlyController.takeOff(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("takeOff onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("takeOff AutelError " + autelError.getDescription());
+            }
+        });
+    }
+    public void land(View view) {
+        autelFlyController.land(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("land onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("land AutelError " + autelError.getDescription());
+            }
+        });
+    }
+    public void goHome(View view) {
+        autelFlyController.goHome(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("goHome onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("goHome AutelError " + autelError.getDescription());
+            }
+        });
+    }
+    public void cancelReturn(View view) {
+        autelFlyController.cancelReturn(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("cancelReturn onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("cancelReturn AutelError " + autelError.getDescription());
+            }
+        });
+    }
+    public void cancelLand(View view) {
+        autelFlyController.cancelLand(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("cancelLand onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("cancelLand AutelError " + autelError.getDescription());
+            }
+        });
     }
 
     public void setCalibrateCompassListener(View view) {
@@ -462,7 +561,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setCalibrateCompassListener(null);
     }
 
-    public void setFCHeightInfoListener(View view) {
+    public void setUltraSonicHeightInfoListener(View view) {
         autelFlyController.setUltraSonicHeightInfoListener(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
@@ -474,6 +573,10 @@ public class FlyControllerActivity extends BaseActivity {
                 logOut("setUltraSonicHeightInfoListener onSuccess " + result);
             }
         });
+    }
+
+    public void resetUltraSonicHeightInfoListener(View view) {
+        autelFlyController.setUltraSonicHeightInfoListener(null);
     }
 
     public void resetFCHeightInfoListener(View view) {
@@ -508,7 +611,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void onFailure(AutelError error) {
-                logOut("setFlyControllerListener " + error);
+                logOut("setFlyControllerListener "+ error.getDescription());
             }
         });
     }

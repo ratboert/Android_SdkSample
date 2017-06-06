@@ -377,12 +377,12 @@ public class RemoteControllerActivity extends BaseActivity {
         controller.getCommandStickMode(new CallbackWithOneParam<RemoteControllerCommandStickMode>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut("getRCCommandStickMode RCError " + rcError.getDescription());
+                logOut("getCommandStickMode RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerCommandStickMode mode) {
-                logOut("getRCCommandStickMode onSuccess " + mode);
+                logOut("getCommandStickMode onSuccess " + mode);
             }
         });
     }
