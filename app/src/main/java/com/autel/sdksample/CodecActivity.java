@@ -49,6 +49,7 @@ public class CodecActivity extends AppCompatActivity {
                 isCodecing = true;
 
                 final AutelCodecView autelCodecView = new AutelCodecView(CodecActivity.this);
+                content_layout.setOnClickListener(null);
                 content_layout.setVisibility(View.VISIBLE);
                 content_layout.addView(autelCodecView);
 
@@ -99,6 +100,7 @@ public class CodecActivity extends AppCompatActivity {
                 isCodecing = true;
 
                 final TextView logTV = new TextView(CodecActivity.this);
+                content_layout.setOnClickListener(null);
                 content_layout.setVisibility(View.VISIBLE);
                 content_layout.addView(logTV);
                 if (null != codec) {
