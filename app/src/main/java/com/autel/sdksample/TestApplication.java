@@ -30,7 +30,7 @@ public class TestApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AutelBaseApplication.setAppContext(this);
-        Thread.setDefaultUncaughtExceptionHandler(new EHandle());
+//        Thread.setDefaultUncaughtExceptionHandler(new EHandle());
 
         AutelConfig.AUTEL_DEBUG_LOG = false;
         String appKey = "<SDK license should be input>";
@@ -57,7 +57,7 @@ public class TestApplication extends Application {
 
     public class EHandle implements Thread.UncaughtExceptionHandler {
         @Override
-        public void uncaughtException(Thread thread, Throwable ex) {
+        public void uncaughtException(Thread thread, final Throwable ex) {
             new ExceptionWriter(ex, getApplicationContext()).saveStackTraceToSD();
         }
     }

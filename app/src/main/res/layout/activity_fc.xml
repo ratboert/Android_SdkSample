@@ -183,30 +183,41 @@
                 android:text="getReturnHeight"
                 android:textAllCaps="false" />
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/fcHorizontalSpeedValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setHorizontalSpeed"
-                    android:text="setHorizontalSpeed"
-                    android:textAllCaps="false" />
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:background="@drawable/text_background"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/fcHorizontalSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/fc_horizontal_speed"
-                    android:inputType="number" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setHorizontalSpeed"
+                        android:text="setHorizontalSpeed"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/fcHorizontalSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="@string/fc_horizontal_speed"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
+
 
             <Button
                 android:layout_width="wrap_content"
@@ -217,29 +228,39 @@
                 android:text="getHorizontalSpeed"
                 android:textAllCaps="false" />
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/fcAscendSpeedValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setAscendSpeed"
-                    android:text="setAscendSpeed"
-                    android:textAllCaps="false" />
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:background="@drawable/text_background"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/fcAscendSpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/fc_ascend_speed"
-                    android:inputType="number" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setAscendSpeed"
+                        android:text="setAscendSpeed"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/fcAscendSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="@string/fc_ascend_speed"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
@@ -251,30 +272,43 @@
                 android:text="getAscendSpeed"
                 android:textAllCaps="false" />
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
+                <TextView
+                    android:id="@+id/fcDescendSpeedNotify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setDescendSpeed"
-                    android:text="setDescendSpeed"
-                    android:textAllCaps="false" />
 
-                <EditText
-                    android:id="@+id/fcDescendSpeed"
+                    />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/fc_descend_speed"
-                    android:inputType="number" />
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:background="@drawable/text_background"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setDescendSpeed"
+                        android:text="setDescendSpeed"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/fcDescendSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="@string/fc_descend_speed"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -388,6 +422,7 @@
                 android:onClick="startCalibrateCompass"
                 android:text="startCalibrateCompass"
                 android:textAllCaps="false" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -396,6 +431,7 @@
                 android:onClick="takeOff"
                 android:text="takeOff"
                 android:textAllCaps="false" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -404,6 +440,7 @@
                 android:onClick="land"
                 android:text="land"
                 android:textAllCaps="false" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -412,6 +449,7 @@
                 android:onClick="goHome"
                 android:text="goHome"
                 android:textAllCaps="false" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -420,6 +458,7 @@
                 android:onClick="cancelReturn"
                 android:text="cancelReturn"
                 android:textAllCaps="false" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

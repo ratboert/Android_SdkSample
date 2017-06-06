@@ -58,10 +58,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:onClick="getLanguage"
+                android:onClick="getRCLanguage"
                 android:padding="@dimen/text_padding"
                 android:clickable="true"
-                android:text="getRCLanguage"
+                android:text="getLanguage"
                 android:textAllCaps="false" />
 
             <Button

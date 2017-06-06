@@ -48,9 +48,9 @@ public class SelectorAdapter<T> extends BaseAdapter {
         }
         textView = (TextView) convertView.findViewById(R.id.spinner_item_text);
 
-
-        textView.setText(elementList.get(position).toString());
-
+        if (position < elementList.size() && position >= 0) {
+            textView.setText(elementList.get(position).toString());
+        }
         return convertView;
     }
 }

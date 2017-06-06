@@ -923,7 +923,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
-        view.findViewById(R.id.getVideoStandard).callOnClick();
+//        view.findViewById(R.id.getVideoStandard).callOnClick();
     }
 
     private void initVideoResolutionFpsList() {
