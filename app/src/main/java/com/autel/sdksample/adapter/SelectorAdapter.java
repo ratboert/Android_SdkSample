@@ -1,4 +1,4 @@
-package com.autel.sdksample.camera.fragment.adapter;
+package com.autel.sdksample.adapter;
 
 import android.content.Context;
 import android.view.View;

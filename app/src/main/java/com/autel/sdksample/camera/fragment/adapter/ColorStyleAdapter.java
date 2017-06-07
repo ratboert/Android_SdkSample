@@ -3,6 +3,7 @@ package com.autel.sdksample.camera.fragment.adapter;
 import android.content.Context;
 
 import com.autel.common.camera.media.CameraColorStyle;
+import com.autel.sdksample.adapter.SelectorAdapter;
 
 import static com.autel.common.camera.media.CameraColorStyle.Art;
 import static com.autel.common.camera.media.CameraColorStyle.Beach;

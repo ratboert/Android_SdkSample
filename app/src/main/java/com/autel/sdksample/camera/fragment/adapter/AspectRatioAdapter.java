@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.media.CameraAspectRatio;
+import com.autel.sdksample.adapter.SelectorAdapter;
 
 import java.util.Arrays;
 

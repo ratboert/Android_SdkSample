@@ -3,6 +3,7 @@ package com.autel.sdksample.camera.fragment.adapter;
 import android.content.Context;
 
 import com.autel.common.camera.media.CameraAntiFlicker;
+import com.autel.sdksample.adapter.SelectorAdapter;
 
 public class AntiFlickerAdapter extends SelectorAdapter<CameraAntiFlicker> {
 

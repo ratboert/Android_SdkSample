@@ -1,18 +1,12 @@
 package com.autel.sdksample.camera.fragment.adapter;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.media.CameraExposureMode;
-import com.autel.common.camera.media.CameraISO;
+import com.autel.sdksample.adapter.SelectorAdapter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ExposureModeAdapter extends SelectorAdapter<CameraExposureMode> {
     public ExposureModeAdapter(Context context, CameraProduct cameraProduct) {
