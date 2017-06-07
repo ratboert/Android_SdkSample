@@ -14,6 +14,7 @@ import android.widget.Switch;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.camera.CameraProduct;
+import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
 import com.autel.common.camera.media.CameraAspectRatio;
@@ -75,6 +76,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
     EditText photoCustomStyleSharpness;
 
     Spinner exposureValueList;
+
+    ShutterSpeedAdapter shutterSpeedAdapter;
+    Spinner shutterList;
+
     VideoResolutionFpsAdapter videoResolutionFpsAdapter;
     Spinner videoResolutionAndFrameRateList;
 
@@ -96,6 +101,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     PhotoFormat photoFormat = PhotoFormat.JPEG;
     CameraAspectRatio aspectRatio = CameraAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
+    VideoResolutionAndFps currentVideoResolutionAndFps = null;
 
     private CameraProduct currentCameraProduct;
 
@@ -882,6 +888,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess() {
                         logOut("setVideoResolutionAndFrameRate onSuccess");
+                        currentVideoResolutionAndFps = videoResolutionAndFps;
+                        initShuttleSpeedList();
+
                     }
                 });
             }
@@ -899,6 +908,8 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(VideoResolutionAndFps data) {
                         logOut("getVideoResolutionAndFrameRate " + data);
+                        currentVideoResolutionAndFps = data;
+                        initShuttleSpeedList();
                     }
                 });
             }
@@ -943,6 +954,28 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
                     }
                 });
+            }
+        });
+    }
+
+    private void initShuttleSpeedList() {
+        autelR12.getMediaMode(new CallbackWithOneParam<MediaMode>() {
+            @Override
+            public void onSuccess(final MediaMode mode) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (null != currentVideoResolutionAndFps) {
+                            shutterSpeedAdapter.setRfData(currentCameraProduct.supportedCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                            shutterList.setAdapter(shutterSpeedAdapter);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+
             }
         });
 
@@ -1090,8 +1123,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-        Spinner shutterList = (Spinner) view.findViewById(R.id.shutterList);
-        shutterList.setAdapter(new ShutterSpeedAdapter(getContext()));
+        shutterList = (Spinner) view.findViewById(R.id.shutterList);
+        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext());
+        shutterList.setAdapter(shutterSpeedAdapter);
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

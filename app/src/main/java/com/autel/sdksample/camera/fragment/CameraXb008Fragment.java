@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.autel.camera.protocol.protocol20.xb008.Xb008;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.camera.CameraProduct;
@@ -30,14 +31,12 @@ import com.autel.common.camera.media.PhotoAEBCount;
 import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.PhotoStyle;
 import com.autel.common.camera.media.PhotoStyleType;
-import com.autel.common.camera.media.PhotoSum;
 import com.autel.common.camera.media.PhotoTimelapseInterval;
 import com.autel.common.camera.media.VideoFormat;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
-import com.autel.common.camera.media.VideoSum;
 import com.autel.common.error.AutelError;
-import com.autel.sdk.camera.AutelR12;
+import com.autel.sdk.camera.AutelXB008;
 import com.autel.sdksample.R;
 import com.autel.sdksample.camera.CameraActivity;
 import com.autel.sdksample.camera.fragment.adapter.AntiFlickerAdapter;
@@ -59,7 +58,7 @@ import com.autel.sdksample.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.camera.fragment.adapter.WhiteBalanceTypeAdapter;
 
 public class CameraXb008Fragment extends CameraBaseFragment {
-    AutelR12 autelR12;
+    AutelXB008 xb008;
 
     Button setCameraColor;
     Spinner colorStyle;
@@ -102,8 +101,8 @@ public class CameraXb008Fragment extends CameraBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
-        autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
-        currentCameraProduct = autelR12.getProduct();
+        xb008 = (AutelXB008) ((CameraActivity) getActivity()).getCamera();
+        currentCameraProduct = xb008.getProduct();
 
         initView(view);
         initClick(view);
@@ -118,7 +117,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
             public void onClick(View v) {
                 String NoX = spotMeteringAreaX.getText().toString();
                 String NoY = spotMeteringAreaY.getText().toString();
-                autelR12.setSpotMeteringArea(isEmpty(NoX) ? 1 : Integer.valueOf(NoX), isEmpty(NoY) ? 1 : Integer.valueOf(NoY), new CallbackWithNoParam() {
+                xb008.setSpotMeteringArea(isEmpty(NoX) ? 1 : Integer.valueOf(NoX), isEmpty(NoY) ? 1 : Integer.valueOf(NoY), new CallbackWithNoParam() {
                     @Override
                     public void onSuccess() {
                         logOut("setSpotMeteringArea  onSuccess  ");
@@ -135,7 +134,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getSpotMeteringArea(new CallbackWithOneParam<CameraSpotMeteringArea>() {
+                        xb008.getSpotMeteringArea(new CallbackWithOneParam<CameraSpotMeteringArea>() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("getSpotMeteringArea  description  " + error.getDescription());
@@ -153,7 +152,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.setExposure(cameraExposureCompensation, new CallbackWithNoParam() {
+                        xb008.setExposure(cameraExposureCompensation, new CallbackWithNoParam() {
                             @Override
                             public void onSuccess() {
                                 logOut("setExposure  onSuccess  ");
@@ -172,7 +171,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getExposure(new CallbackWithOneParam<CameraExposureCompensation>() {
+                        xb008.getExposure(new CallbackWithOneParam<CameraExposureCompensation>() {
                             @Override
                             public void onSuccess(CameraExposureCompensation cameraExposureCompensation) {
                                 logOut("getExposure  onSuccess  " + cameraExposureCompensation);
@@ -191,7 +190,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.setISO(cameraISO, new CallbackWithNoParam() {
+                        xb008.setISO(cameraISO, new CallbackWithNoParam() {
                             @Override
                             public void onSuccess() {
                                 logOut("setISO  onSuccess  ");
@@ -209,7 +208,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getISO(new CallbackWithOneParam<CameraISO>() {
+                        xb008.getISO(new CallbackWithOneParam<CameraISO>() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("getISO  description  " + error.getDescription());
@@ -228,7 +227,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.setShutter(cameraShutterSpeed, new CallbackWithNoParam() {
+                        xb008.setShutter(cameraShutterSpeed, new CallbackWithNoParam() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("setShutter  description  " + error.getDescription());
@@ -246,7 +245,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getShutter(new CallbackWithOneParam<CameraShutterSpeed>() {
+                        xb008.getShutter(new CallbackWithOneParam<CameraShutterSpeed>() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("getShutter  description  " + error.getDescription());
@@ -263,7 +262,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setColorStyle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setColorStyle(cameraColorStyle, new CallbackWithNoParam() {
+                xb008.setColorStyle(cameraColorStyle, new CallbackWithNoParam() {
                     @Override
                     public void onSuccess() {
                         logOut("setColorStyle  onSuccess  ");
@@ -280,7 +279,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getColorStyle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getColorStyle(new CallbackWithOneParam<CameraColorStyle>() {
+                xb008.getColorStyle(new CallbackWithOneParam<CameraColorStyle>() {
                     @Override
                     public void onSuccess(CameraColorStyle cameraColorStyle) {
                         logOut("getColorStyle  onSuccess  " + cameraColorStyle);
@@ -300,7 +299,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                 CameraWhiteBalance cameraWhiteBalance = new CameraWhiteBalance();
                 cameraWhiteBalance.type = cameraWhiteBalanceType;
 
-                autelR12.setWhiteBalance(cameraWhiteBalance, new CallbackWithNoParam() {
+                xb008.setWhiteBalance(cameraWhiteBalance, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setWhiteBalance  description  " + error.getDescription());
@@ -317,7 +316,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getWhiteBalance).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getWhiteBalance(new CallbackWithOneParam<CameraWhiteBalance>() {
+                xb008.getWhiteBalance(new CallbackWithOneParam<CameraWhiteBalance>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getWhiteBalance  description  " + error.getDescription());
@@ -334,7 +333,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         ((Switch) view.findViewById(R.id.set3DNoiseReductionEnable)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                autelR12.set3DNoiseReductionEnable(isChecked, new CallbackWithNoParam() {
+                xb008.set3DNoiseReductionEnable(isChecked, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("set3DNoiseReductionEnable  description  " + error.getDescription());
@@ -351,7 +350,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.is3DNoiseReductionEnable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.is3DNoiseReductionEnable(new CallbackWithOneParam<Boolean>() {
+                xb008.is3DNoiseReductionEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("is3DNoiseReductionEnable  description  " + error.getDescription());
@@ -369,7 +368,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setAntiFlicker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setAntiFlicker(cameraAntiFlicker, new CallbackWithNoParam() {
+                xb008.setAntiFlicker(cameraAntiFlicker, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setAntiFlicker  description  " + error.getDescription());
@@ -386,7 +385,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAntiFlicker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getAntiFlicker(new CallbackWithOneParam<CameraAntiFlicker>() {
+                xb008.getAntiFlicker(new CallbackWithOneParam<CameraAntiFlicker>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getAntiFlicker  description  " + error.getDescription());
@@ -403,7 +402,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setAutoExposureLockState).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setAutoExposureLockState(cameraAutoExposureLockState, new CallbackWithNoParam() {
+                xb008.setAutoExposureLockState(cameraAutoExposureLockState, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setAutoExposureLockState  description  " + error.getDescription());
@@ -420,7 +419,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAutoExposureLockState).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getAutoExposureLockState(new CallbackWithOneParam<CameraAutoExposureLockState>() {
+                xb008.getAutoExposureLockState(new CallbackWithOneParam<CameraAutoExposureLockState>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getAutoExposureLockState  description  " + error.getDescription());
@@ -437,7 +436,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.isHistogramStatusEnable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.isHistogramStatusEnable(new CallbackWithOneParam<Boolean>() {
+                xb008.isHistogramStatusEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
                         logOut("isHistogramStatusEnable " + data);
@@ -454,7 +453,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setExposureMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setExposureMode(cameraExposureMode, new CallbackWithNoParam() {
+                xb008.setExposureMode(cameraExposureMode, new CallbackWithNoParam() {
                     @Override
                     public void onSuccess() {
                         logOut("setExposureMode  onSuccess  ");
@@ -471,7 +470,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getExposureMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getExposureMode(new CallbackWithOneParam<CameraExposureMode>() {
+                xb008.getExposureMode(new CallbackWithOneParam<CameraExposureMode>() {
                     @Override
                     public void onSuccess(CameraExposureMode cameraExposureMode) {
                         logOut("getExposureMode  onSuccess  " + cameraExposureMode);
@@ -496,7 +495,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                     String saturationValue = photoCustomStyleSaturation.getText().toString();
                     String sharpnessValue = photoCustomStyleSharpness.getText().toString();
 
-                    autelR12.setPhotoStyle(isEmpty(contrastValue) ? 1 : Integer.valueOf(contrastValue),
+                    xb008.setPhotoStyle(isEmpty(contrastValue) ? 1 : Integer.valueOf(contrastValue),
                             isEmpty(saturationValue) ? 2 : Integer.valueOf(saturationValue),
                             isEmpty(sharpnessValue) ? 3 : Integer.valueOf(sharpnessValue), new CallbackWithNoParam() {
                                 @Override
@@ -510,7 +509,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
                                 }
                             });
                 } else {
-                    autelR12.setPhotoStyle(photoStyleType, new CallbackWithNoParam() {
+                    xb008.setPhotoStyle(photoStyleType, new CallbackWithNoParam() {
                         @Override
                         public void onFailure(AutelError error) {
                             logOut("setPhotoStyle  description  " + error.getDescription());
@@ -528,7 +527,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoStyle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoStyle(new CallbackWithOneParam<PhotoStyle>() {
+                xb008.getPhotoStyle(new CallbackWithOneParam<PhotoStyle>() {
                     @Override
                     public void onSuccess(PhotoStyle data) {
                         logOut("getPhotoStyle " + data);
@@ -545,7 +544,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         ((Switch) view.findViewById(R.id.setVideoSubtitleEnable)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                autelR12.setVideoSubtitleEnable(isChecked, new CallbackWithNoParam() {
+                xb008.setVideoSubtitleEnable(isChecked, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setVideoSubtitleEnable  description  " + error.getDescription());
@@ -562,7 +561,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.isSubtitleEnable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.isSubtitleEnable(new CallbackWithOneParam<Boolean>() {
+                xb008.isSubtitleEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
                         logOut("isSubtitleEnable " + data);
@@ -579,7 +578,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setPhotoBurstCount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setPhotoBurstCount(photoBurstCount, new CallbackWithNoParam() {
+                xb008.setPhotoBurstCount(photoBurstCount, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setPhotoBurstCount  description  " + error.getDescription());
@@ -596,7 +595,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoBurstCount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoBurstCount(new CallbackWithOneParam<PhotoBurstCount>() {
+                xb008.getPhotoBurstCount(new CallbackWithOneParam<PhotoBurstCount>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getPhotoBurstCount  description  " + error.getDescription());
@@ -613,7 +612,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setPhotoTimelapseInterval).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setPhotoTimelapseInterval(photoTimelapseInterval, new CallbackWithNoParam() {
+                xb008.setPhotoTimelapseInterval(photoTimelapseInterval, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setPhotoTimelapseInterval  description  " + error.getDescription());
@@ -630,7 +629,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoTimelapseInterval).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoTimelapseInterval(new CallbackWithOneParam<PhotoTimelapseInterval>() {
+                xb008.getPhotoTimelapseInterval(new CallbackWithOneParam<PhotoTimelapseInterval>() {
                     @Override
                     public void onSuccess(PhotoTimelapseInterval data) {
                         logOut("getPhotoTimelapseInterval " + data);
@@ -647,7 +646,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setPhotoAEBCount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setPhotoAEBCount(photoAEBCount, new CallbackWithNoParam() {
+                xb008.setPhotoAEBCount(photoAEBCount, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setPhotoAEBCount  description  " + error.getDescription());
@@ -664,7 +663,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoAEBCount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoAEBCount(new CallbackWithOneParam<PhotoAEBCount>() {
+                xb008.getPhotoAEBCount(new CallbackWithOneParam<PhotoAEBCount>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getPhotoAEBCount  description  " + error.getDescription());
@@ -681,226 +680,226 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getVideoSum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getVideoSum(new CallbackWithOneParam<VideoSum>() {
-                    @Override
-                    public void onSuccess(VideoSum data) {
-                        logOut("getVideoSum " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getVideoSum " + error.getDescription());
-                    }
-                });
+//                xb008.getVideoSum(new CallbackWithOneParam<VideoSum>() {
+//                    @Override
+//                    public void onSuccess(VideoSum data) {
+//                        logOut("getVideoSum " + data);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getVideoSum " + error.getDescription());
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getPhotoSum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoSum(new CallbackWithOneParam<PhotoSum>() {
-                    @Override
-                    public void onSuccess(PhotoSum data) {
-                        logOut("getPhotoSum " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getPhotoSum " + error.getDescription());
-                    }
-                });
+//                xb008.getPhotoSum(new CallbackWithOneParam<PhotoSum>() {
+//                    @Override
+//                    public void onSuccess(PhotoSum data) {
+//                        logOut("getPhotoSum " + data);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getPhotoSum " + error.getDescription());
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getCurrentRecordTimeSeconds).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
-                    @Override
-                    public void onSuccess(Integer data) {
-                        logOut("getCurrentRecordTimeSeconds " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getCurrentRecordTimeSeconds " + error.getDescription());
-                    }
-                });
+//                xb008.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
+//                    @Override
+//                    public void onSuccess(Integer data) {
+//                        logOut("getCurrentRecordTimeSeconds " + data);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getCurrentRecordTimeSeconds " + error.getDescription());
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.setVideoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setVideoFormat(videoFormat, new CallbackWithNoParam() {
-                    @Override
-                    public void onSuccess() {
-                        logOut("setVideoFormat onSuccess");
-                    }
-
-                    @Override
-                    public void onFailure(AutelError autelError) {
-                        logOut("setVideoFormat " + autelError.getDescription());
-                    }
-                });
+//                xb008.setVideoFormat(videoFormat, new CallbackWithNoParam() {
+//                    @Override
+//                    public void onSuccess() {
+//                        logOut("setVideoFormat onSuccess");
+//                    }
+//
+//                    @Override
+//                    public void onFailure(AutelError autelError) {
+//                        logOut("setVideoFormat " + autelError.getDescription());
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getVideoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getVideoFormat(new CallbackWithOneParam<VideoFormat>() {
-                    @Override
-                    public void onSuccess(VideoFormat data) {
-                        logOut("getVideoFormat " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getVideoFormat " + error.getDescription());
-                    }
-                });
+//                xb008.getVideoFormat(new CallbackWithOneParam<VideoFormat>() {
+//                    @Override
+//                    public void onSuccess(VideoFormat data) {
+//                        logOut("getVideoFormat " + data);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getVideoFormat " + error.getDescription());
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.setVideoStandard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setVideoStandard(selectedVideoStandard, new CallbackWithNoParam() {
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setVideoStandard  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        logOut("setVideoStandard state onSuccess");
-                        currentVideoStandard = selectedVideoStandard;
-                        initVideoResolutionFpsList();
-                    }
-                });
+//                xb008.setVideoStandard(selectedVideoStandard, new CallbackWithNoParam() {
+//
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("setVideoStandard  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess() {
+//                        logOut("setVideoStandard state onSuccess");
+//                        currentVideoStandard = selectedVideoStandard;
+//                        initVideoResolutionFpsList();
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getVideoStandard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getVideoStandard  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(VideoStandard data) {
-                        logOut("getVideoStandard " + data);
-                        currentVideoStandard = data;
-                        initVideoResolutionFpsList();
-                    }
-                });
+//                xb008.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getVideoStandard  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(VideoStandard data) {
+//                        logOut("getVideoStandard " + data);
+//                        currentVideoStandard = data;
+//                        initVideoResolutionFpsList();
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.setPhotoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setPhotoFormat(photoFormat, new CallbackWithNoParam() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setPhotoFormat  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        logOut("setPhotoFormat state onSuccess");
-                    }
-                });
+//                xb008.setPhotoFormat(photoFormat, new CallbackWithNoParam() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("setPhotoFormat  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess() {
+//                        logOut("setPhotoFormat state onSuccess");
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getPhotoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getPhotoFormat  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(PhotoFormat data) {
-                        logOut("getPhotoFormat " + data);
-                    }
-                });
+//                xb008.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getPhotoFormat  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(PhotoFormat data) {
+//                        logOut("getPhotoFormat " + data);
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.setAspectRatio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setAspectRatio(aspectRatio, new CallbackWithNoParam() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setAspectRatio  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        logOut("setAspectRatio state onSuccess");
-                    }
-                });
+//                xb008.setAspectRatio(aspectRatio, new CallbackWithNoParam() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("setAspectRatio  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess() {
+//                        logOut("setAspectRatio state onSuccess");
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getAspectRatio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getAspectRatio(new CallbackWithOneParam<CameraAspectRatio>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getAspectRatio  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(CameraAspectRatio data) {
-                        logOut("getAspectRatio " + data);
-                    }
-                });
+//                xb008.getAspectRatio(new CallbackWithOneParam<CameraAspectRatio>() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getAspectRatio  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(CameraAspectRatio data) {
+//                        logOut("getAspectRatio " + data);
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setVideoResolutionAndFrameRate  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        logOut("setVideoResolutionAndFrameRate onSuccess" );
-                    }
-                });
+//                xb008.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("setVideoResolutionAndFrameRate  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess() {
+//                        logOut("setVideoResolutionAndFrameRate onSuccess" );
+//                    }
+//                });
             }
         });
 
         view.findViewById(R.id.getVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getVideoResolutionAndFrameRate  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(VideoResolutionAndFps data) {
-                        logOut("getVideoResolutionAndFrameRate " + data);
-                    }
-                });
+//                xb008.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getVideoResolutionAndFrameRate  description  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(VideoResolutionAndFps data) {
+//                        logOut("getVideoResolutionAndFrameRate " + data);
+//                    }
+//                });
             }
         });
 
