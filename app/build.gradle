@@ -25,7 +25,7 @@ android {
         /*/
         applicationId "com.autel.sdk.sdksample"
         /*/
-        applicationId "com.autel.maxlink"
+        applicationId "com.autel.maxlink1"
         //*/
         minSdkVersion 16
         targetSdkVersion 23

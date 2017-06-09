@@ -245,12 +245,13 @@ public class BatteryActivity extends BaseActivity {
                     @Override
                     public void onSuccess(List<BatteryRecordState> data) {
                         StringBuffer stringBuffer = new StringBuffer();
+                        stringBuffer.append("[");
                         for (int i = 0; i < data.size(); i++) {
-                            stringBuffer.append(i);
-                            stringBuffer.append(" = ");
-                            stringBuffer.append(data.get(i));
-                            stringBuffer.append(";");
+                            stringBuffer.append(i == 0 ? "{" + i : ", {" + i);
+                            stringBuffer.append(" : ");
+                            stringBuffer.append(data.get(i) + "}");
                         }
+                        stringBuffer.append("]");
                         logOut("getHistory  data :  " + stringBuffer.toString());
                     }
                 });
@@ -330,7 +331,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(BatteryStatus data) {
-                        logOut("setAutelBatteryStatusListener  data current battery :  " + data);
+                        logOut("setAutelBatteryStatusListener  data current battery :  " + data.toString());
                     }
                 });
             }
@@ -386,9 +387,9 @@ public class BatteryActivity extends BaseActivity {
         findViewById(R.id.getRemainingPercent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelBattery.getVoltage(new CallbackWithOneParam<Double>() {
+                autelBattery.getRemainingPercent(new CallbackWithOneParam<Integer>() {
                     @Override
-                    public void onSuccess(Double data) {
+                    public void onSuccess(Integer data) {
                         logOut("getRemainingPercent  " + data);
                     }
 

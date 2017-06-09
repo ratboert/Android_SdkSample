@@ -191,6 +191,13 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:text="getGimbalDialAdjustSpeed"
                 android:textAllCaps="false" />
+            <Button
+                android:id="@+id/getVersionInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:text="getVersionInfo"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -18,6 +18,7 @@ import com.autel.common.error.AutelError;
 import com.autel.common.flycontroller.ARMWarning;
 import com.autel.common.flycontroller.CalibrateCompassStatus;
 import com.autel.common.flycontroller.FlyControllerInfo;
+import com.autel.common.flycontroller.FlyControllerVersionInfo;
 import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.common.flycontroller.MagnetometerState;
 import com.autel.common.flycontroller.xstar.XStarParameterRangeManager;
@@ -704,5 +705,32 @@ public class FlyControllerActivity extends BaseActivity {
 
     public void resetFlyControllerListener(View view) {
         autelFlyController.setFlyControllerInfoListener(null);
+    }
+
+    public void getVersionInfo(View view) {
+        autelFlyController.getVersionInfo(new CallbackWithOneParam<FlyControllerVersionInfo>() {
+            @Override
+            public void onSuccess(FlyControllerVersionInfo flyControllerVersionInfo) {
+                logOut("getVersionInfo data {" + flyControllerVersionInfo+"}");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getVersionInfo onFailure : " + autelError.getDescription());
+            }
+        });
+    }
+    public void getSerialNumber(View view) {
+        autelFlyController.getSerialNumber(new CallbackWithOneParam<String >() {
+            @Override
+            public void onSuccess(String serialNumber) {
+                logOut("getSerialNumber data " + serialNumber);
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getSerialNumber onFailure : " + autelError.getDescription());
+            }
+        });
     }
 }

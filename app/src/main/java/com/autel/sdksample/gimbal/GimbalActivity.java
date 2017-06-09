@@ -15,6 +15,7 @@ import com.autel.common.error.AutelError;
 import com.autel.common.gimbal.GimbalParameterRangeManager;
 import com.autel.common.gimbal.GimbalRollAngleAdjust;
 import com.autel.common.gimbal.GimbalState;
+import com.autel.common.gimbal.GimbalVersionInfo;
 import com.autel.common.gimbal.GimbalWorkMode;
 import com.autel.sdk.gimbal.AutelGimbal;
 import com.autel.sdk.product.BaseProduct;
@@ -82,7 +83,7 @@ public class GimbalActivity extends BaseActivity {
         gimbalAngleWithFineTuning.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(isEmpty(s.toString())){
+                if (isEmpty(s.toString())) {
                     return;
                 }
 
@@ -116,7 +117,7 @@ public class GimbalActivity extends BaseActivity {
         gimbalAngle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(isEmpty(s.toString())){
+                if (isEmpty(s.toString())) {
                     return;
                 }
                 if (isEmpty(gimbalAngleRange.getText().toString())) {
@@ -149,7 +150,7 @@ public class GimbalActivity extends BaseActivity {
         dialAdjustSpeed.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(isEmpty(s.toString())){
+                if (isEmpty(s.toString())) {
                     return;
                 }
 
@@ -322,6 +323,22 @@ public class GimbalActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 autelGimbal.setGimbalAngleListener(null);
+            }
+        });
+        findViewById(R.id.getVersionInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelGimbal.getVersionInfo(new CallbackWithOneParam<GimbalVersionInfo>() {
+                    @Override
+                    public void onSuccess(GimbalVersionInfo gimbalVersionInfo) {
+                        logOut("getVersionInfo onSuccess {" + gimbalVersionInfo+"}");
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("getVersionInfo onFailure " + autelError.getDescription());
+                    }
+                });
             }
         });
     }

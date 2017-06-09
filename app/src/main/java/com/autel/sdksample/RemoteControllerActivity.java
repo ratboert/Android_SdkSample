@@ -21,6 +21,7 @@ import com.autel.common.remotecontroller.RemoteControllerNavigateButtonEvent;
 import com.autel.common.remotecontroller.RemoteControllerParameterRangeManager;
 import com.autel.common.remotecontroller.RemoteControllerParameterUnit;
 import com.autel.common.remotecontroller.RemoteControllerStickCalibration;
+import com.autel.common.remotecontroller.RemoteControllerVersionInfo;
 import com.autel.common.remotecontroller.TeachingMode;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
@@ -416,6 +417,34 @@ public class RemoteControllerActivity extends BaseActivity {
             @Override
             public void onFailure(AutelError autelError) {
                 logOut("getYawCoefficient RCError " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void getVersionInfo(View view) {
+        controller.getVersionInfo(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
+            @Override
+            public void onSuccess(RemoteControllerVersionInfo versionInfo) {
+                logOut("getVersionInfo onSuccess {"+versionInfo+"}");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getVersionInfo onFailure : " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void getSerialNumber(View view) {
+        controller.getSerialNumber(new CallbackWithOneParam<String>() {
+            @Override
+            public void onSuccess(String serialNumber) {
+                logOut("getSerialNumber onSuccess "+serialNumber);
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getSerialNumber onFailure : " + autelError.getDescription());
             }
         });
     }

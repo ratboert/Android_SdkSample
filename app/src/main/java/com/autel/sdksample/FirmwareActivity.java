@@ -7,7 +7,6 @@ import com.autel.common.error.AutelError;
 import com.autel.common.firmware.AircraftComponentSerialNumberVersionInfo;
 import com.autel.common.firmware.AircraftComponentVersionInfo;
 import com.autel.common.firmware.RemoteControllerSerialNumberVersionInfo;
-import com.autel.common.firmware.RemoteControllerVersionInfo;
 import com.autel.sdk.AModuleFirmware;
 import com.autel.sdk.firmware.AutelFirmwareInfo;
 
@@ -60,17 +59,17 @@ public class FirmwareActivity extends BaseActivity {
         findViewById(R.id.getRemoteControllerVersion).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firmwareInfo.getRemoteControllerVersion(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getRemoteControllerVersion  error  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(RemoteControllerVersionInfo data) {
-                        logOut("getRemoteControllerVersion  data  " + data);
-                    }
-                });
+//                firmwareInfo.getRemoteControllerVersion(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getRemoteControllerVersion  error  " + error.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(RemoteControllerVersionInfo data) {
+//                        logOut("getRemoteControllerVersion  data  " + data);
+//                    }
+//                });
             }
         });
         findViewById(R.id.getRemoteControllerSerialNumberVersion).setOnClickListener(new View.OnClickListener() {

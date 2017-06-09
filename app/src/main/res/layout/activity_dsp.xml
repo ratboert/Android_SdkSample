@@ -211,6 +211,15 @@
                 android:padding="@dimen/text_padding"
                 android:text="getCurrentSSIDInfo"
                 android:textAllCaps="false" />
+            <Button
+                android:id="@+id/getVersionInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_margin_top"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="getVersionInfo"
+                android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
 
