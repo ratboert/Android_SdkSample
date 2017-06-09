@@ -106,6 +106,35 @@ public class FlyControllerActivity extends BaseActivity {
             }
         });
 
+        final TextView returnHeightRangeNotify = (TextView) findViewById(R.id.returnHeightRangeNotify);
+        fcReturnHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
+
+                String value = returnHeightRangeNotify.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getReturnHeightRange();
+                        returnHeightRangeNotify.setText("return height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                    }
+                }
+            }
+        });
+
         final TextView maxHeightRange = (TextView) findViewById(R.id.maxHeightRange);
         fcMaxHeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,7 +157,7 @@ public class FlyControllerActivity extends BaseActivity {
                 if (isEmpty(value)) {
                     XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
-                        RangePair<Float> support = parameterRangeManager.getMaxHeight();
+                        RangePair<Float> support = parameterRangeManager.getHeightRange();
                         maxHeightRange.setText("max height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
                     }
                 }
@@ -157,7 +186,7 @@ public class FlyControllerActivity extends BaseActivity {
                 if (isEmpty(value)) {
                     XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
-                        RangePair<Float> support = parameterRangeManager.getMaxRange();
+                        RangePair<Float> support = parameterRangeManager.getRangeOfMaxRange();
                         maxRangeRange.setText("max Range range from " + support.getValueFrom() + "  to  " + support.getValueTo());
                     }
                 }

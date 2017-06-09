@@ -149,29 +149,39 @@
                 android:text="getMaxRange"
                 android:textAllCaps="false" />
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/returnHeightRangeNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-                <Button
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="setReturnHeight"
-                    android:text="setReturnHeight"
-                    android:textAllCaps="false" />
+                    android:layout_marginBottom="@dimen/item_margin_bottom"
+                    android:background="@drawable/text_background"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/fcReturnHeight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/fc_return_height"
-                    android:inputType="number" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="setReturnHeight"
+                        android:text="setReturnHeight"
+                        android:textAllCaps="false" />
+
+                    <EditText
+                        android:id="@+id/fcReturnHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:hint="@string/fc_return_height"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button

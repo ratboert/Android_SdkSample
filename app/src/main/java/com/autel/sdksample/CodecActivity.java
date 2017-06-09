@@ -106,11 +106,11 @@ public class CodecActivity extends AppCompatActivity {
                 if (null != codec) {
                     codec.setCodecListener(new AutelCodecListener() {
                         @Override
-                        public void onFrameStream(final boolean valid, byte[] videoBuffer, final int size, final long pts) {
+                        public void onFrameStream(final byte[] videoBuffer, final boolean isIFrame, final int size, final long pts) {
                             logTV.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    logTV.setText("valid == " + valid + "\n" + "size == " + size + "\n" + "pts == " + pts);
+                                    logTV.setText("isValid == " + (videoBuffer.length == size) + "\nisIFrame == " + isIFrame + "\nsize == " + size + "\npts == " + pts);
                                 }
                             });
                         }
@@ -134,7 +134,7 @@ public class CodecActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    });
+                    },null);
                 }
             }
         });
@@ -151,7 +151,7 @@ public class CodecActivity extends AppCompatActivity {
 
             if (null != codec) {
                 codec.cancel();
-                codec.setCodecListener(null);
+                codec.setCodecListener(null,null);
             }
 
             return;
