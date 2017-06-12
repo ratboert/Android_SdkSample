@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.album.MediaInfo;
+import com.autel.sdksample.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,13 +47,13 @@ public class LocalVideoListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView = null;
         if (null == convertView) {
-            textView = new TextView(mContext);
-            convertView = textView;
-        } else {
-            textView = (TextView) convertView;
+            convertView = View.inflate(mContext, R.layout.spinner_item, null);
         }
+        textView = (TextView) convertView.findViewById(R.id.spinner_item_text);
 
-        textView.setText(mediaInfos.get(position).getAbsolutePath());
+        if (position < mediaInfos.size() && position >= 0) {
+            textView.setText(mediaInfos.get(position).getAbsolutePath());
+        }
 
         return convertView;
     }

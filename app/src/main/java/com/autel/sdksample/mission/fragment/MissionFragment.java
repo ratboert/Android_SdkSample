@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -20,12 +19,10 @@ import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.CurrentMissionState;
-import com.autel.common.mission.MissionFinishedAction;
 import com.autel.common.mission.OrbitMission;
 import com.autel.common.mission.RealTimeInfo;
 import com.autel.common.mission.Waypoint;
 import com.autel.common.mission.WaypointMission;
-import com.autel.sdk.Autel;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
@@ -48,7 +45,6 @@ public abstract class MissionFragment extends Fragment {
     ProgressBar progressBarPrepare;
 
     MissionManager missionManager;
-    MissionFinishedAction missionFinishedAction = MissionFinishedAction.HOVER;
 
 
 
@@ -222,7 +218,7 @@ public abstract class MissionFragment extends Fragment {
 
                             if (autelMission instanceof WaypointMission) {
 
-                                List<Waypoint> wplist = ((WaypointMission) autelMission).wplist;
+                                List<Waypoint> wpList = ((WaypointMission) autelMission).wpList;
                             } else if (autelMission instanceof OrbitMission) {
 
                             }
@@ -239,21 +235,6 @@ public abstract class MissionFragment extends Fragment {
         });
 
         finishActionSpinner = (Spinner) view.findViewById(R.id.finishAction);
-        finishActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    missionFinishedAction = MissionFinishedAction.HOVER;
-                } else if (position == 1) {
-                    missionFinishedAction = MissionFinishedAction.RETURN_HOME;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     protected boolean isEmpty(String value) {

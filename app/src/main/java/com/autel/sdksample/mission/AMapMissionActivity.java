@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -183,21 +184,21 @@ public class AMapMissionActivity extends MapActivity {
 
     Marker mDroneMarker;
 
-    private void drawDroneMarker(LatLng dronell) {
-        if (mDroneMarker == null) {
-            MarkerOptions markerOption = new MarkerOptions();
-            markerOption.position(dronell);
-            markerOption.draggable(false);
-            markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
-                    R.mipmap.drone_location_icon)));
-            markerOption.anchor(0.5f, 0.5f);
-            if (null != mAmap) {
-                mDroneMarker = mAmap.addMarker(markerOption);
+    private synchronized void drawDroneMarker(LatLng dronell) {
+            if (mDroneMarker == null) {
+                MarkerOptions markerOption = new MarkerOptions();
+                markerOption.position(dronell);
+                markerOption.draggable(false);
+                markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.mipmap.drone_location_icon)));
+                markerOption.anchor(0.5f, 0.5f);
+                if (null != mAmap) {
+                    mDroneMarker = mAmap.addMarker(markerOption);
+                }
+            } else {
+                mDroneMarker.setPosition(dronell);
+                mDroneMarker.setToTop();
             }
-        } else {
-            mDroneMarker.setPosition(dronell);
-            mDroneMarker.setToTop();
-        }
     }
 
     Marker mPhoneMarker;

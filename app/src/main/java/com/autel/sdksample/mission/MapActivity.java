@@ -152,7 +152,6 @@ public abstract class MapActivity extends FragmentActivity {
                     Message msg = handler.obtainMessage();
                     msg.obj = flyControllerInfo.getFlyControllerStatus().getFlyMode();
                     handler.sendMessage(msg);
-
                     if (null != flyControllerInfo.getGPSInfo()) {
                         AutelCoord3D coord3D = flyControllerInfo.getGPSInfo().getCoord();
                         if (null != coord3D) {

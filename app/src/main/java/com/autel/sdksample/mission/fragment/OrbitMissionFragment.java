@@ -5,18 +5,23 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
 import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.CurrentMissionState;
+import com.autel.common.mission.OrbitFinishedAction;
 import com.autel.common.mission.OrbitMission;
 import com.autel.common.mission.RealTimeInfo;
+import com.autel.common.mission.WaypointFinishedAction;
 import com.autel.sdk.Autel;
 import com.autel.sdksample.R;
 import com.autel.sdksample.mission.AutelLatLng;
 import com.autel.sdksample.mission.MapActivity;
+import com.autel.sdksample.mission.adapter.OrbitFinishActionAdapter;
+import com.autel.sdksample.mission.adapter.WaypointFinishActionAdapter;
 
 
 public class OrbitMissionFragment extends MissionFragment {
@@ -24,6 +29,8 @@ public class OrbitMissionFragment extends MissionFragment {
     EditText orbitReturnHeight;
     EditText orbitCount;
     EditText orbitRadius;
+    private OrbitFinishActionAdapter finishActionAdapter = null;
+    private OrbitFinishedAction finishedAction = OrbitFinishedAction.HOVER;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,6 +39,21 @@ public class OrbitMissionFragment extends MissionFragment {
         orbitReturnHeight = (EditText) view.findViewById(R.id.orbitReturnHeight);
         orbitCount = (EditText) view.findViewById(R.id.orbitCount);
         orbitRadius = (EditText) view.findViewById(R.id.orbitRadius);
+
+        finishActionAdapter = new OrbitFinishActionAdapter(getContext());
+        finishActionSpinner.setAdapter(finishActionAdapter);
+        finishActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                finishedAction = (OrbitFinishedAction)parent.getAdapter().getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return view;
     }
 
@@ -47,7 +69,7 @@ public class OrbitMissionFragment extends MissionFragment {
 
         String valueHeight = orbitReturnHeight.getText().toString();
         orbitMission.finishReturnHeight = isEmpty(valueHeight) ? 20 : Integer.valueOf(valueHeight);
-        orbitMission.finishedAction = missionFinishedAction;
+        orbitMission.finishedAction = finishedAction;
         String valueSpeed = orbitSpeed.getText().toString();
         orbitMission.speed = isEmpty(valueSpeed) ? 1 : Float.valueOf(valueSpeed);
         String valueRound = orbitCount.getText().toString();

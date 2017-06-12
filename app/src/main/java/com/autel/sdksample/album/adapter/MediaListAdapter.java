@@ -7,11 +7,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.autel.common.album.MediaInfo;
+import com.autel.sdksample.R;
+import com.autel.sdksample.adapter.SelectorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MediaListAdapter extends BaseAdapter {
+public class MediaListAdapter extends SelectorAdapter<MediaInfo> {
     public enum MediaType {
         Video,
         Photo,
@@ -20,17 +22,16 @@ public class MediaListAdapter extends BaseAdapter {
 
     public static String[] videos = new String[]{"mp4", "mov", "MP4", "MOV", ".video"};
     public static String[] photos = new String[]{"jpg", "JPG", "dng", "DNG", "png", "PNG", ".photo"};
-    private List<MediaInfo> mediaInfos = new ArrayList<>();
     private Context mContext;
 
     private MediaType mediaType = MediaType.Media;
 
     public MediaListAdapter(Context context) {
-        mContext = context;
+        super(context);
     }
 
     public MediaListAdapter(Context context, MediaType mediaType) {
-        this.mContext = context;
+        super(context);
         this.mediaType = mediaType;
     }
 
@@ -42,23 +43,23 @@ public class MediaListAdapter extends BaseAdapter {
 
     public void setRfData(List<MediaInfo> data) {
         if (mediaType == MediaType.Media) {
-            this.mediaInfos = data;
+            this.elementList = data;
         } else if (mediaType == MediaType.Video) {
-            this.mediaInfos = new ArrayList<>();
+            this.elementList = new ArrayList<>();
             for (MediaInfo item : data) {
                 for (String tag : videos) {
                     if (item.getOriginalMedia().endsWith(tag)) {
-                        mediaInfos.add(item);
+                        elementList.add(item);
                         break;
                     }
                 }
             }
         } else if (mediaType == MediaType.Photo) {
-            this.mediaInfos = new ArrayList<>();
+            this.elementList = new ArrayList<>();
             for (MediaInfo item : data) {
                 for (String tag : photos) {
                     if (item.getOriginalMedia().endsWith(tag)) {
-                        mediaInfos.add(item);
+                        elementList.add(item);
                         break;
                     }
                 }
@@ -69,31 +70,17 @@ public class MediaListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        return null == mediaInfos ? 0 : mediaInfos.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mediaInfos.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView = null;
         if (null == convertView) {
-            textView = new TextView(mContext);
-            convertView = textView;
-        } else {
-            textView = (TextView) convertView;
-        }
+            convertView = View.inflate(mContext, R.layout.spinner_item, null);
 
-        textView.setText(mediaInfos.get(position).getOriginalMedia());
+        }
+        textView = (TextView) convertView.findViewById(R.id.spinner_item_text);
+
+        if (position < elementList.size() && position >= 0) {
+            textView.setText(elementList.get(position).getOriginalMedia());
+        }
 
         return convertView;
     }
