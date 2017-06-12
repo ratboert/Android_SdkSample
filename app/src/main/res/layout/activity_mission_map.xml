@@ -6,23 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mission.MapActivity">
+
     <TextView
         android:id="@+id/missionModeInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="25dp"
-        android:layout_toLeftOf="@+id/missionTypeLayout"
-        />
+        android:layout_toLeftOf="@+id/missionTypeLayout" />
 
     <TextView
         android:id="@+id/flyModeInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="25dp"
-        android:layout_toLeftOf="@+id/missionTypeLayout"
         android:layout_below="@+id/missionModeInfo"
+        android:layout_marginRight="25dp"
         android:layout_marginTop="5dp"
-        />
+        android:layout_toLeftOf="@+id/missionTypeLayout" />
+
     <LinearLayout
         android:id="@+id/missionTypeLayout"
         android:layout_width="wrap_content"
@@ -32,6 +32,7 @@
         android:clickable="true"
         android:orientation="horizontal"
         android:padding="15dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,5 +60,12 @@
         android:layout_alignParentLeft="true"
         android:background="#88ffffff" />
 
+    <TextView
+        android:id="@+id/logInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/mission_item_content"
+        />
 
 </RelativeLayout>

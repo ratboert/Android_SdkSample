@@ -47,7 +47,6 @@ public abstract class MissionFragment extends Fragment {
     MissionManager missionManager;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = createView(R.layout.fragment_mission_menu);
@@ -222,6 +221,7 @@ public abstract class MissionFragment extends Fragment {
                             } else if (autelMission instanceof OrbitMission) {
 
                             }
+                            showDownloadMission(autelMission.toString());
                         }
 
                         @Override
@@ -235,6 +235,10 @@ public abstract class MissionFragment extends Fragment {
         });
 
         finishActionSpinner = (Spinner) view.findViewById(R.id.finishAction);
+    }
+
+    private void showDownloadMission(String info) {
+        ((MapActivity) getActivity()).updateLogInfo(info);
     }
 
     protected boolean isEmpty(String value) {

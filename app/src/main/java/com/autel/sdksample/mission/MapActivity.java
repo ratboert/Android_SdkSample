@@ -62,12 +62,15 @@ public abstract class MapActivity extends FragmentActivity {
     Spinner missionTypeSpinner;
     TextView flyModeInfo;
     TextView missionModeInfo;
+    TextView logInfo;
 
     MissionType missionType = MissionType.WAYPOINT;
 
     private LocationChangeListener locationChangeListener;
     private WaypointHeightListener waypointHeightListener;
     XStarFlyController xStarFlyController;
+
+    long clickStamp = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,25 @@ public abstract class MapActivity extends FragmentActivity {
             }
         });
         flyModeInfo = (TextView) findViewById(R.id.flyModeInfo);
+        logInfo = (TextView) findViewById(R.id.logInfo);
+        logInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long current = System.currentTimeMillis();
+                if (current - clickStamp < 1500) {
+                    logInfo.setVisibility(View.GONE);
+                }
+                clickStamp = current;
+            }
+        });
         missionModeInfo = (TextView) findViewById(R.id.missionModeInfo);
+    }
+
+    public void updateLogInfo(String log) {
+        if (null != logInfo) {
+            logInfo.setVisibility(View.VISIBLE);
+            logInfo.setText(log);
+        }
     }
 
     public void updateMissionInfo(String info) {
@@ -275,7 +296,7 @@ public abstract class MapActivity extends FragmentActivity {
 
     public List<Waypoint> getWaypointList() {
         /**
-         * 深度复制
+         * 深度复制，放置坐标纠偏带来的影响
          */
 
         List<Waypoint> wpList = new ArrayList<>();
