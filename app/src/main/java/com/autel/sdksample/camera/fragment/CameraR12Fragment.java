@@ -721,15 +721,15 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getCurrentRecordTimeSeconds).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
+                autelR12.getCurrentRecordTime(new CallbackWithOneParam<Integer>() {
                     @Override
                     public void onSuccess(Integer data) {
-                        logOut("getCurrentRecordTimeSeconds " + data);
+                        logOut("getCurrentRecordTime " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCurrentRecordTimeSeconds " + error.getDescription());
+                        logOut("getCurrentRecordTime " + error.getDescription());
                     }
                 });
             }

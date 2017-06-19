@@ -12,6 +12,6 @@ public class GimbalModeAdapter extends SelectorAdapter<GimbalWorkMode> {
     public GimbalModeAdapter(Context context) {
         super(context);
         elementList.add(GimbalWorkMode.FPV);
-        elementList.add(GimbalWorkMode.FREE);
+        elementList.add(GimbalWorkMode.STABILIZED);
     }
 }

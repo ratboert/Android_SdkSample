@@ -5,15 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".camera.CameraActivity">
-
-    <TextView
-        android:id="@+id/camera_log_output"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#aaffffff"
-        android:minHeight="@dimen/log_text_min_height" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

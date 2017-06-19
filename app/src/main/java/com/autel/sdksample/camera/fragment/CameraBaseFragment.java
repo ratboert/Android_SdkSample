@@ -24,15 +24,7 @@ import com.autel.sdksample.camera.CameraActivity;
 public class CameraBaseFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     protected TextView log_output;
-    protected Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            String text = (String) msg.obj;
-            if (null != log_output) {
-                log_output.setText(text);
-            }
-        }
-    };
+
     AutelBaseCamera baseCamera;
 
     private Spinner mediaModeList;
@@ -376,14 +368,9 @@ public class CameraBaseFragment extends Fragment {
         });
     }
 
-
     protected void logOut(String log) {
-        Log.v(TAG, log);
-        Message msg = handler.obtainMessage();
-        msg.obj = log;
-        handler.sendMessage(msg);
+        ((CameraActivity) getActivity()).logOut(log);
     }
-
 
     protected boolean isEmpty(String value) {
         if (null == value || "".equals(value)) {

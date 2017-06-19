@@ -317,13 +317,13 @@ public class BatteryActivity extends BaseActivity {
         findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelBattery.setAutelBatteryStatusListener(null);
+                autelBattery.setBatteryStatusListener(null);
             }
         });
         findViewById(R.id.setBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelBattery.setAutelBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
+                autelBattery.setBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setAutelBatteryStatusListener  error :  " + error.getDescription());

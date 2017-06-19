@@ -1,6 +1,8 @@
 package com.autel.sdksample.camera;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -23,8 +25,18 @@ import com.autel.sdksample.camera.fragment.CameraXb008Fragment;
 public class CameraActivity extends FragmentActivity {
     private final String TAG = getClass().getSimpleName();
     TextView cameraType;
+    TextView cameraLogOutput;
     AutelBaseCamera camera;
     AutelCameraManager autelCameraManager;
+    protected Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            String text = (String) msg.obj;
+            if (null != cameraLogOutput) {
+                cameraLogOutput.setText(text);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +44,7 @@ public class CameraActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         cameraType = (TextView) findViewById(R.id.camera_type);
+        cameraLogOutput = (TextView) findViewById(R.id.camera_log_output);
         BaseProduct product = ((TestApplication) getApplicationContext()).getCurrentProduct();
         if (null != product) {
             autelCameraManager = product.getCameraManager();
@@ -105,6 +118,13 @@ public class CameraActivity extends FragmentActivity {
 
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public void logOut(String log) {
+        Log.v(TAG, log);
+        Message msg = handler.obtainMessage();
+        msg.obj = log;
+        handler.sendMessage(msg);
     }
 
 }
