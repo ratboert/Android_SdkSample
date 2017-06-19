@@ -203,16 +203,6 @@
 
 
     <Button
-        android:id="@+id/getNickName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/item_margin_bottom"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:text="getNickName" />
-
-
-    <Button
         android:id="@+id/getProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

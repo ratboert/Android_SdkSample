@@ -711,7 +711,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.getCurrentRecordTimeSeconds).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.getCurrentRecordTime).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                xb008.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
