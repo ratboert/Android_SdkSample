@@ -22,7 +22,6 @@ public class MediaListAdapter extends SelectorAdapter<MediaInfo> {
 
     public static String[] videos = new String[]{"mp4", "mov", "MP4", "MOV", ".video"};
     public static String[] photos = new String[]{"jpg", "JPG", "dng", "DNG", "png", "PNG", ".photo"};
-    private Context mContext;
 
     private MediaType mediaType = MediaType.Media;
 

@@ -7,7 +7,6 @@ import com.autel.sdksample.adapter.SelectorAdapter;
 
 
 public class GimbalModeAdapter extends SelectorAdapter<GimbalWorkMode> {
-    private Context mContext;
 
     public GimbalModeAdapter(Context context) {
         super(context);
