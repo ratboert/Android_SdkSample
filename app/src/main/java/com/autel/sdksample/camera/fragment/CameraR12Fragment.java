@@ -110,7 +110,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
         autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
         currentCameraProduct = autelR12.getProduct();
-
+        logOut("");
         initView(view);
         initClick(view);
         initR12Click(view);

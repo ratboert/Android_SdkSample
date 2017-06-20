@@ -43,7 +43,7 @@
         <activity android:name=".BatteryActivity" />
         <activity android:name=".gimbal.GimbalActivity" />
         <activity android:name=".album.AlbumActivity" />
-        <activity android:name=".FirmwareActivity" />
+        <activity android:name=".TesterEntry" />
         <activity
             android:name=".MissionActivity"
             android:screenOrientation="landscape" />

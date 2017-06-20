@@ -67,5 +67,11 @@ public class XStarActivity extends AppCompatActivity {
                 startActivity(new Intent(XStarActivity.this, AlbumActivity.class));
             }
         });
+        findViewById(R.id.testerEntry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(XStarActivity.this, TesterEntry.class));
+            }
+        });
     }
 }

@@ -103,7 +103,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
         xb008 = (AutelXB008) ((CameraActivity) getActivity()).getCamera();
         currentCameraProduct = xb008.getProduct();
-
+        logOut("");
         initView(view);
         initClick(view);
         initR12Click(view);

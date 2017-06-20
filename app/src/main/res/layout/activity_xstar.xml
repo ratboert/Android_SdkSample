@@ -157,6 +157,19 @@
                     android:padding="@dimen/text_padding"
                     android:text="Camera" />
 
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/testerEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="TesterEntry" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

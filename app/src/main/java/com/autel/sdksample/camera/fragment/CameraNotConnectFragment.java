@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import com.autel.sdksample.R;
 
 
-public class CameraNotConnectFragment extends Fragment{
+public class CameraNotConnectFragment extends CameraBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_not_connect, null);
+        logOut(getString(R.string.camera_no_connect));
         return view;
     }
 }
