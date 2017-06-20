@@ -326,12 +326,12 @@ public class BatteryActivity extends BaseActivity {
                 autelBattery.setBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("setAutelBatteryStatusListener  error :  " + error.getDescription());
+                        logOut("setBatteryStatusListener  error :  " + error.getDescription());
                     }
 
                     @Override
                     public void onSuccess(BatteryStatus data) {
-                        logOut("setAutelBatteryStatusListener  data current battery :  " + data.toString());
+                        logOut("setBatteryStatusListener  data current battery :  " + data.toString());
                     }
                 });
             }
