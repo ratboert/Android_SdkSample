@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
 
 /**
@@ -19,7 +20,7 @@ public class WaypointSettingDialog {
     private final Dialog waypointSettingDialog;
     private final int position;
 
-    public WaypointSettingDialog(Context context,int position){
+    public WaypointSettingDialog(Context context, int position, Waypoint waypoint){
         this.position = position;
         waypointSettingDialog = new Dialog(context,android.R.style.Theme_Translucent);
         waypointSettingDialog.setContentView(R.layout.dialog_waypoint_setting);
@@ -29,6 +30,9 @@ public class WaypointSettingDialog {
                 waypointSettingDialog.dismiss();
             }
         });
+        ((EditText)waypointSettingDialog.findViewById(R.id.edit_waypoint_height)).setText(""+(int)waypoint.getAutelCoord3D().getAltitude());
+        ((SeekBar)waypointSettingDialog.findViewById(R.id.seekbar_waypoint_delay_time)).setProgress((int)waypoint.getDelay());
+        ((TextView)waypointSettingDialog.findViewById(R.id.text_waypoint_delay_time)).setText((int)waypoint.getDelay() + " s");
         ((TextView)waypointSettingDialog.findViewById(R.id.text_waypoint_index)).setText((position + 1) + "");
         ((SeekBar)waypointSettingDialog.findViewById(R.id.seekbar_waypoint_delay_time)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

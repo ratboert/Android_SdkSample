@@ -80,7 +80,7 @@ public class AMapMissionActivity extends MapActivity {
     }
 
     private void showWaypointSettingDialog(int position) {
-        final WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position);
+        final WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position,wayPointList.get(position));
         waypointSettingDialog.showDialog();
         waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
             @Override

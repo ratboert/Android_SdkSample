@@ -86,7 +86,7 @@ public class GMapMissionActivity extends MapActivity {
     }
 
     private void showWaypointSettingDialog(int position) {
-        WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position);
+        WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position,wayPointList.get(position));
         waypointSettingDialog.showDialog();
         waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
             @Override
