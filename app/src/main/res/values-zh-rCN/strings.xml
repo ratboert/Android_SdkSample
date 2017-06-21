@@ -2,7 +2,7 @@
     <string name="app_name">SDKSample</string>
     <string name="product_not_connect">未连接设备</string>
     <string name="product_connect">进入设备</string>
-
+    <string name="product_connect_exception">设备连接异常，请退出重连</string>
     <string name="mission_to_waypoint">生成航点任务</string>
     <string name="mission_download">任务下载</string>
     <string name="mission_prepare">准备</string>

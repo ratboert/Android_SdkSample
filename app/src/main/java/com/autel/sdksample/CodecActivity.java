@@ -24,11 +24,16 @@ public class CodecActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Codec");
-        setContentView(R.layout.activity_codec);
+
         BaseProduct baseProduct = ((TestApplication) getApplicationContext()).getCurrentProduct();
         if (null != baseProduct) {
             codec = baseProduct.getCodec();
         }
+        if (null == codec) {
+            setContentView(R.layout.activity_connect_exception);
+            return;
+        }
+        setContentView(R.layout.activity_codec);
         content_layout = (RelativeLayout) findViewById(R.id.content_layout);
 
         isCodecing = false;

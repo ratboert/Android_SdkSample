@@ -43,6 +43,10 @@ public class DspActivity extends BaseActivity {
         if (baseProduct != null) {
             autelDsp = baseProduct.getDsp();
         }
+        if (null == autelDsp) {
+            setContentView(R.layout.activity_connect_exception);
+            return;
+        }
 
         setContentView(R.layout.activity_dsp);
         ssidName = (EditText) findViewById(R.id.SSIDName);

@@ -28,12 +28,18 @@ public class BatteryActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
-        setContentView(R.layout.activity_battery);
         setTitle("Battery");
         BaseProduct product = getCurrentProduct();
         if (null != product) {
             autelBattery = product.getBattery();
         }
+        if (null == autelBattery) {
+            setContentView(R.layout.activity_connect_exception);
+            return;
+        }
+
+        setContentView(R.layout.activity_battery);
+
         lowBatteryNotifyThreshold = (EditText) findViewById(R.id.lowBatteryNotifyThreshold);
         criticalBatteryNotifyThreshold = (EditText) findViewById(R.id.criticalBatteryNotifyThreshold);
         dischargeDay = (EditText) findViewById(R.id.dischargeDay);

@@ -3,6 +3,7 @@
 
     <string name="product_not_connect">device not connected</string>
     <string name="product_connect">enter the device</string>
+    <string name="product_connect_exception">the device connect failed, please try again</string>
 
     <!--  mission controller -->
     <string name="mission_to_waypoint">generate waypoint mission</string>
