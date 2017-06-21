@@ -10,10 +10,10 @@ import com.autel.common.CallbackWithOneParam;
 import com.autel.common.camera.flir.FLIRDisplayMode;
 import com.autel.common.camera.flir.FLIRIRMSXSetting;
 import com.autel.common.camera.flir.FLIRPhotoSetting;
-import com.autel.common.camera.flir.FLIRRadiometrySetting;
 import com.autel.common.camera.flir.FLIRRecordSetting;
 import com.autel.common.camera.flir.IRColorMode;
 import com.autel.common.error.AutelError;
+import com.autel.internal.sdk.camera.flir.FLIRRadiometrySetting;
 import com.autel.sdk.camera.AutelFlirDuo;
 import com.autel.sdk.camera.AutelFlirDuoR;
 

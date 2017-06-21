@@ -18,16 +18,18 @@ import com.autel.common.error.AutelError;
 import com.autel.common.flycontroller.ARMWarning;
 import com.autel.common.flycontroller.CalibrateCompassStatus;
 import com.autel.common.flycontroller.FlyControllerInfo;
-import com.autel.common.flycontroller.FlyControllerParameterRangeManager;
+import com.autel.common.flycontroller.FlyControllerVersionInfo;
 import com.autel.common.flycontroller.LedPilotLamp;
 import com.autel.common.flycontroller.MagnetometerState;
-import com.autel.sdk.AModuleFlyController;
-import com.autel.sdk.flycontroller.AutelFlyController;
+import com.autel.common.flycontroller.xstar.XStarParameterRangeManager;
+import com.autel.sdk.flycontroller.XStarFlyController;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 
 
 public class FlyControllerActivity extends BaseActivity {
     final String TAG = getClass().getSimpleName();
-    private AutelFlyController autelFlyController;
+    private XStarFlyController autelFlyController;
     private Switch beginnerSwitch;
 
     private EditText fcMaxHeight;
@@ -36,6 +38,8 @@ public class FlyControllerActivity extends BaseActivity {
     private EditText fcHorizontalSpeed;
     private EditText fcAscendSpeed;
     private EditText fcDescendSpeed;
+    private EditText locationAsHomePoint_la;
+    private EditText locationAsHomePoint_lon;
     private Switch attiModeSwitch;
     private Spinner fcLedPilotLamp;
 
@@ -43,8 +47,12 @@ public class FlyControllerActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("FlyController");
         setContentView(R.layout.activity_fc);
-        autelFlyController = AModuleFlyController.flyController();
+        BaseProduct baseProduct = getCurrentProduct();
+        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
+            autelFlyController = ((XStarAircraft) baseProduct).getFlyController();
+        }
 
         beginnerSwitch = (Switch) findViewById(R.id.beginnerSwitch);
         beginnerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -61,6 +69,8 @@ public class FlyControllerActivity extends BaseActivity {
         fcHorizontalSpeed = (EditText) findViewById(R.id.fcHorizontalSpeed);
         fcAscendSpeed = (EditText) findViewById(R.id.fcAscendSpeed);
         fcDescendSpeed = (EditText) findViewById(R.id.fcDescendSpeed);
+        locationAsHomePoint_la = (EditText) findViewById(R.id.locationAsHomePoint_la);
+        locationAsHomePoint_lon = (EditText) findViewById(R.id.locationAsHomePoint_lon);
 
         attiModeSwitch = (Switch) findViewById(R.id.attiModeSwitch);
         attiModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,25 +106,40 @@ public class FlyControllerActivity extends BaseActivity {
             }
         });
 
+        final TextView returnHeightRangeNotify = (TextView) findViewById(R.id.returnHeightRangeNotify);
+        fcReturnHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
+
+                String value = returnHeightRangeNotify.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getReturnHeightRange();
+                        returnHeightRangeNotify.setText("return height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                    }
+                }
+            }
+        });
+
         final TextView maxHeightRange = (TextView) findViewById(R.id.maxHeightRange);
         fcMaxHeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                String value = maxHeightRange.getText().toString();
-                if (isEmpty(value)) {
-                    autelFlyController.getParameterRangeManager(new CallbackWithOneParam<FlyControllerParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(FlyControllerParameterRangeManager flyControllerParameterRangeManager) {
-                            RangePair<Float> support = flyControllerParameterRangeManager.getMaxHeight();
-                            maxHeightRange.setText("max height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
-                        }
 
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
-                }
             }
 
             @Override
@@ -124,29 +149,26 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
 
+                String value = maxHeightRange.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getHeightRange();
+                        maxHeightRange.setText("max height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                    }
+                }
             }
         });
 
         final TextView maxRangeRange = (TextView) findViewById(R.id.maxRangeRange);
-        fcMaxHeight.addTextChangedListener(new TextWatcher() {
+        fcMaxRange.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                String value = maxRangeRange.getText().toString();
-                if (isEmpty(value)) {
-                    autelFlyController.getParameterRangeManager(new CallbackWithOneParam<FlyControllerParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(FlyControllerParameterRangeManager flyControllerParameterRangeManager) {
-                            RangePair<Float> support = flyControllerParameterRangeManager.getMaxRange();
-                            maxRangeRange.setText("max Range range from " + support.getValueFrom() + "  to  " + support.getValueTo());
-                        }
 
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
-                }
             }
 
             @Override
@@ -156,7 +178,105 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
 
+                String value = maxRangeRange.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getRangeOfMaxRange();
+                        maxRangeRange.setText("max Range range from " + support.getValueFrom() + "  to  " + support.getValueTo());
+                    }
+                }
+            }
+        });
+
+        final TextView fcDescendSpeedNotify = (TextView) findViewById(R.id.fcDescendSpeedNotify);
+        fcDescendSpeed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
+
+                String value = fcDescendSpeedNotify.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getDescendSpeedRange();
+                        fcDescendSpeedNotify.setText("DescendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo()+"m/s");
+                    }
+                }
+            }
+        });
+
+        final TextView fcAscendSpeedValue = (TextView) findViewById(R.id.fcAscendSpeedValue);
+        fcAscendSpeed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
+
+                String value = fcAscendSpeedValue.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getAscendSpeedRange();
+                        fcAscendSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo()+"m/s");
+                    }
+                }
+            }
+        });
+
+        final TextView fcHorizontalSpeedValue = (TextView) findViewById(R.id.fcHorizontalSpeedValue);
+        fcHorizontalSpeed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length() == 0){
+                    return;
+                }
+
+                String value = fcHorizontalSpeedValue.getText().toString();
+                if (isEmpty(value)) {
+                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
+                    if (null != parameterRangeManager) {
+                        RangePair<Float> support = parameterRangeManager.getHorizontalSpeedRange();
+                        fcHorizontalSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo()+"m/s");
+                    }
+                }
             }
         });
     }
@@ -226,7 +346,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getMaxRange(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("getMaxRange AutelError " + error);
+                logOut("getMaxRange AutelError " + error.getDescription());
             }
 
             @Override
@@ -411,7 +531,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getLedPilotLamp(new CallbackWithOneParam<LedPilotLamp>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("getLedPilotLamp AutelError " + error);
+                logOut("getLedPilotLamp AutelError " + error.getDescription());
             }
 
             @Override
@@ -425,7 +545,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setLedPilotLamp(ledPilotLamp, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("setLedPilotLamp AutelError " + error);
+                logOut("setLedPilotLamp AutelError " + error.getDescription());
             }
 
             @Override
@@ -435,8 +555,108 @@ public class FlyControllerActivity extends BaseActivity {
         });
     }
 
+    public void setLocationAsHomePoint(View view) {
+        long lat = isEmpty(locationAsHomePoint_la.getText().toString()) ? 0 : Long.valueOf(locationAsHomePoint_la.getText().toString());
+        long lon = isEmpty(locationAsHomePoint_lon.getText().toString()) ? 0 : Long.valueOf(locationAsHomePoint_lon.getText().toString());
+        autelFlyController.setLocationAsHomePoint(lat, lon, new CallbackWithNoParam() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setLocationAsHomePoint AutelError " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess() {
+                logOut("setLocationAsHomePoint onSuccess ");
+            }
+        });
+    }
+
+    public void setAircraftLocationAsHomePoint(View view) {
+        autelFlyController.setAircraftLocationAsHomePoint(new CallbackWithNoParam() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setAircraftLocationAsHomePoint AutelError " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess() {
+                logOut("setAircraftLocationAsHomePoint onSuccess ");
+            }
+        });
+    }
+
     public void startCalibrateCompass(View view) {
         autelFlyController.startCalibrateCompass();
+    }
+
+    public void takeOff(View view) {
+        autelFlyController.takeOff(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("takeOff onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("takeOff AutelError " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void land(View view) {
+        autelFlyController.land(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("land onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("land AutelError " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void goHome(View view) {
+        autelFlyController.goHome(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("goHome onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("goHome AutelError " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void cancelReturn(View view) {
+        autelFlyController.cancelReturn(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("cancelReturn onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("cancelReturn AutelError " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void cancelLand(View view) {
+        autelFlyController.cancelLand(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("cancelLand onSuccess ");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("cancelLand AutelError " + autelError.getDescription());
+            }
+        });
     }
 
     public void setCalibrateCompassListener(View view) {
@@ -457,7 +677,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.setCalibrateCompassListener(null);
     }
 
-    public void setFCHeightInfoListener(View view) {
+    public void setUltraSonicHeightInfoListener(View view) {
         autelFlyController.setUltraSonicHeightInfoListener(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
@@ -469,6 +689,10 @@ public class FlyControllerActivity extends BaseActivity {
                 logOut("setUltraSonicHeightInfoListener onSuccess " + result);
             }
         });
+    }
+
+    public void resetUltraSonicHeightInfoListener(View view) {
+        autelFlyController.setUltraSonicHeightInfoListener(null);
     }
 
     public void resetFCHeightInfoListener(View view) {
@@ -503,12 +727,39 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void onFailure(AutelError error) {
-                logOut("setFlyControllerListener " + error);
+                logOut("setFlyControllerListener " + error.getDescription());
             }
         });
     }
 
     public void resetFlyControllerListener(View view) {
         autelFlyController.setFlyControllerInfoListener(null);
+    }
+
+    public void getVersionInfo(View view) {
+        autelFlyController.getVersionInfo(new CallbackWithOneParam<FlyControllerVersionInfo>() {
+            @Override
+            public void onSuccess(FlyControllerVersionInfo flyControllerVersionInfo) {
+                logOut("getVersionInfo data {" + flyControllerVersionInfo+"}");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getVersionInfo onFailure : " + autelError.getDescription());
+            }
+        });
+    }
+    public void getSerialNumber(View view) {
+        autelFlyController.getSerialNumber(new CallbackWithOneParam<String >() {
+            @Override
+            public void onSuccess(String serialNumber) {
+                logOut("getSerialNumber data " + serialNumber);
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getSerialNumber onFailure : " + autelError.getDescription());
+            }
+        });
     }
 }

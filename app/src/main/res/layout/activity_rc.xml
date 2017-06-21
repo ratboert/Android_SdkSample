@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RemoteControllerCActivity">
+    tools:context=".RemoteControllerActivity">
 
     <TextView
         android:id="@+id/log_output"
@@ -41,7 +41,7 @@
                     android:onClick="setRCLanguage"
                     android:clickable="true"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCLanguage"
+                    android:text="setLanguage"
                     android:textAllCaps="false" />
 
                 <Spinner
@@ -61,7 +61,7 @@
                 android:onClick="getRCLanguage"
                 android:padding="@dimen/text_padding"
                 android:clickable="true"
-                android:text="getRCLanguage"
+                android:text="getLanguage"
                 android:textAllCaps="false" />
 
             <Button
@@ -131,7 +131,7 @@
                     android:gravity="center"
                     android:onClick="setTeacherStudentMode"
                     android:padding="@dimen/text_padding"
-                    android:text="setTeacherStudentMode"
+                    android:text="setTeachingMode"
                     android:textAllCaps="false" />
 
                 <Spinner
@@ -150,7 +150,7 @@
                 android:gravity="center"
                 android:onClick="getTeacherStudentMode"
                 android:padding="@dimen/text_padding"
-                android:text="getTeacherStudentMode"
+                android:text="getTeachingMode"
                 android:textAllCaps="false" />
 
             <LinearLayout
@@ -166,7 +166,7 @@
 
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCCalibrationStep" />
+                    android:text="setStickCalibration" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -177,21 +177,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="startCalibration"
-                        android:text="startCalibration"
+                        android:text="CALIBRATE"
                         android:textAllCaps="false" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="saveCalibration"
-                        android:text="saveCalibration"
+                        android:text="COMPLETE"
                         android:textAllCaps="false" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="exitCalibration"
-                        android:text="exitCalibration"
+                        android:text="EXIT"
                         android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
@@ -209,7 +209,7 @@
                     android:gravity="center"
                     android:onClick="setRCLengthUnit"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCLengthUnit"
+                    android:text="setParameterUnit"
                     android:textAllCaps="false" />
 
                 <Spinner
@@ -228,7 +228,7 @@
                 android:gravity="center"
                 android:onClick="getRCLengthUnit"
                 android:padding="@dimen/text_padding"
-                android:text="getRCLengthUnit"
+                android:text="getLengthUnit"
                 android:textAllCaps="false" />
 
             <LinearLayout
@@ -244,7 +244,7 @@
                     android:gravity="center"
                     android:onClick="setRCCommandStickMode"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCCommandStickMode"
+                    android:text="setCommandStickMode"
                     android:textAllCaps="false" />
 
                 <Spinner
@@ -263,7 +263,7 @@
                 android:gravity="center"
                 android:onClick="getRCCommandStickMode"
                 android:padding="@dimen/text_padding"
-                android:text="getRCCommandStickMode"
+                android:text="getCommandStickMode"
                 android:textAllCaps="false" />
 
             <Button
@@ -322,6 +322,23 @@
                 android:text="getYawCoefficient"
                 android:textAllCaps="false" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="getVersionInfo"
+                android:text="getVersionInfo"
+                android:textAllCaps="false" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:onClick="getSerialNumber"
+                android:text="getSerialNumber"
+                android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -333,7 +350,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/text_padding"
-                    android:text="setRemoteButtonControllerMonitor" />
+                    android:text="setRemoteButtonControllerListener" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -365,7 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/text_padding"
-                    android:text="setRCInfoDataMonitor" />
+                    android:text="setInfoDataListener" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -398,7 +415,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="setRemoteControllerConnectStateListener" />
+                    android:text="setConnectStateListener" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

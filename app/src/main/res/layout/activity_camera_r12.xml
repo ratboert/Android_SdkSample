@@ -6,14 +6,6 @@
     android:orientation="vertical"
     tools:context=".camera.CameraActivity">
 
-    <TextView
-        android:id="@+id/camera_log_output"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#aaffffff"
-        android:minHeight="@dimen/log_text_min_height" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -29,6 +21,15 @@
                 layout="@layout/activity_camera_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/getNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getNickName"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -51,16 +52,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:inputType="number"
-                    android:hint="@string/camera_spot_metering_x" />
+                    android:hint="@string/camera_spot_metering_x"
+                    android:inputType="number" />
 
                 <EditText
                     android:id="@+id/spotMeteringAreaY"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:inputType="number"
-                    android:hint="@string/camera_spot_metering_y" />
+                    android:hint="@string/camera_spot_metering_y"
+                    android:inputType="number" />
             </LinearLayout>
 
             <Button
@@ -86,7 +87,7 @@
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
                     android:text="setExposure"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false" />
 
                 <Spinner
                     android:id="@+id/exposureValueList"
@@ -163,8 +164,8 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getShutter" />
+                android:text="getShutter"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -196,8 +197,8 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getColorStyle" />
+                android:text="getColorStyle"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -219,8 +220,7 @@
                     android:id="@+id/whiteBalanceTypeList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -230,27 +230,27 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="getWhiteBalance" />
+                android:text="getWhiteBalance"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/text_background"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
                     android:text="set3DNoiseReductionEnable" />
+
                 <Switch
                     android:id="@+id/set3DNoiseReductionEnable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -260,8 +260,8 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="is3DNoiseReductionEnable" />
+                android:text="is3DNoiseReductionEnable"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -282,8 +282,7 @@
                 <Spinner
                     android:id="@+id/antiFlickerList"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                     />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <Button
@@ -292,8 +291,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:textAllCaps="false"
-                android:text="getAntiFlicker" />
+                android:text="getAntiFlicker"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -310,12 +309,12 @@
                     android:padding="@dimen/text_padding"
                     android:text="setAutoExposureLockState"
                     android:textAllCaps="false" />
+
                 <Spinner
                     android:id="@+id/autoExposureLockStateList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                     />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -326,6 +325,7 @@
                 android:gravity="center"
                 android:text="getAutoExposureLockState"
                 android:textAllCaps="false" />
+
             <Button
                 android:id="@+id/isHistogramStatusEnable"
                 android:layout_width="wrap_content"
@@ -356,8 +356,7 @@
                     android:id="@+id/exposureModeList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                     />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -389,29 +388,31 @@
                     android:id="@+id/photoStyleList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                     />
+                    android:layout_marginLeft="10dp" />
+
                 <EditText
                     android:id="@+id/photoCustomStyleContrast"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:hint="contrast"
-                     />
+                    android:inputType="numberSigned" />
+
                 <EditText
                     android:id="@+id/photoCustomStyleSaturation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:hint="saturation"
-                     />
+                    android:inputType="numberSigned" />
+
                 <EditText
                     android:id="@+id/photoCustomStyleSharpness"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:hint="sharpness"
-                     />
+                    android:inputType="numberSigned" />
             </LinearLayout>
 
             <Button
@@ -426,21 +427,21 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/text_background"
-                >
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
                     android:text="setVideoSubtitleEnable" />
+
                 <Switch
                     android:id="@+id/setVideoSubtitleEnable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -450,8 +451,8 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
-                android:textAllCaps="false"
-                android:text="isSubtitleEnable" />
+                android:text="isSubtitleEnable"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -473,8 +474,7 @@
                     android:id="@+id/photoBurstCountList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                     />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -506,8 +506,7 @@
                     android:id="@+id/photoTimelapseIntervalList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                     />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -518,6 +517,7 @@
                 android:gravity="center"
                 android:text="getPhotoTimelapseInterval"
                 android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -538,8 +538,7 @@
                     android:id="@+id/photoAEBCountList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                     />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -550,6 +549,7 @@
                 android:gravity="center"
                 android:text="getPhotoAEBCount"
                 android:textAllCaps="false" />
+
             <Button
                 android:id="@+id/getVideoSum"
                 android:layout_width="wrap_content"
@@ -558,6 +558,7 @@
                 android:gravity="center"
                 android:text="getVideoSum"
                 android:textAllCaps="false" />
+
             <Button
                 android:id="@+id/getPhotoSum"
                 android:layout_width="wrap_content"
@@ -566,14 +567,16 @@
                 android:gravity="center"
                 android:text="getPhotoSum"
                 android:textAllCaps="false" />
+
             <Button
-                android:id="@+id/getCurrentRecordTimeSeconds"
+                android:id="@+id/getCurrentRecordTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:text="getCurrentRecordTimeSeconds"
+                android:text="getCurrentRecordTime"
                 android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -594,8 +597,7 @@
                     android:id="@+id/videoFormatList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -606,6 +608,7 @@
                 android:gravity="center"
                 android:text="getVideoFormat"
                 android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -626,8 +629,7 @@
                     android:id="@+id/videoStandardList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -638,6 +640,7 @@
                 android:gravity="center"
                 android:text="getVideoStandard"
                 android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -658,8 +661,7 @@
                     android:id="@+id/photoFormatList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -670,6 +672,7 @@
                 android:gravity="center"
                 android:text="getPhotoFormat"
                 android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -690,8 +693,7 @@
                     android:id="@+id/aspectRatioList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button
@@ -702,6 +704,7 @@
                 android:gravity="center"
                 android:text="getAspectRatio"
                 android:textAllCaps="false" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -722,8 +725,7 @@
                     android:id="@+id/videoResolutionAndFrameRateList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
             </LinearLayout>
 
             <Button

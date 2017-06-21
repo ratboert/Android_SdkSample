@@ -1,9 +1,6 @@
 package com.autel.sdksample.camera.fragment;
 
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -24,15 +21,7 @@ import com.autel.sdksample.camera.CameraActivity;
 public class CameraBaseFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     protected TextView log_output;
-    protected Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            String text = (String) msg.obj;
-            if (null != log_output) {
-                log_output.setText(text);
-            }
-        }
-    };
+
     AutelBaseCamera baseCamera;
 
     private Spinner mediaModeList;
@@ -145,39 +134,23 @@ public class CameraBaseFragment extends Fragment {
         view.findViewById(R.id.getTimeStamp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                baseCamera.getTimeStamp(new CallbackWithOneParam<Long>() {
-                    @Override
-                    public void onSuccess(Long data) {
-                        logOut("getTimeStamp " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getTimeStamp " + error.getDescription());
-                    }
-                });
+//                baseCamera.getTimeStamp(new CallbackWithOneParam<Long>() {
+//                    @Override
+//                    public void onSuccess(Long data) {
+//                        logOut("getTimeStamp " + data);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(AutelError error) {
+//                        logOut("getTimeStamp " + error.getDescription());
+//                    }
+//                });
             }
         });
         view.findViewById(R.id.getProduct).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logOut("getProduct " + baseCamera.getProduct());
-            }
-        });
-        view.findViewById(R.id.getNickName).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baseCamera.getNickName(new CallbackWithOneParam<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        logOut("getNickName " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getNickName " + error.getDescription());
-                    }
-                });
             }
         });
         view.findViewById(R.id.getSdFreeSpace).setOnClickListener(new View.OnClickListener() {
@@ -392,14 +365,9 @@ public class CameraBaseFragment extends Fragment {
         });
     }
 
-
     protected void logOut(String log) {
-        Log.v(TAG, log);
-        Message msg = handler.obtainMessage();
-        msg.obj = log;
-        handler.sendMessage(msg);
+        ((CameraActivity) getActivity()).logOut(log);
     }
-
 
     protected boolean isEmpty(String value) {
         if (null == value || "".equals(value)) {

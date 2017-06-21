@@ -21,13 +21,15 @@ import com.autel.common.remotecontroller.RemoteControllerNavigateButtonEvent;
 import com.autel.common.remotecontroller.RemoteControllerParameterRangeManager;
 import com.autel.common.remotecontroller.RemoteControllerParameterUnit;
 import com.autel.common.remotecontroller.RemoteControllerStickCalibration;
+import com.autel.common.remotecontroller.RemoteControllerVersionInfo;
 import com.autel.common.remotecontroller.TeachingMode;
-import com.autel.sdk.Autel;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdk.remotecontroller.AutelRemoteController;
 
 
-public class RemoteControllerCActivity extends BaseActivity {
-    final static String TAG = RemoteControllerCActivity.class.getSimpleName();
+public class RemoteControllerActivity extends BaseActivity {
+    final static String TAG = RemoteControllerActivity.class.getSimpleName();
     private TextView log_output;
 
     AutelRemoteController controller;
@@ -47,8 +49,12 @@ public class RemoteControllerCActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("RemoteController");
         setContentView(R.layout.activity_rc);
-        controller = Autel.getRemoteController();
+        BaseProduct baseProduct = getCurrentProduct();
+        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
+            controller = ((XStarAircraft) baseProduct).getRemoteController();
+        }
         /**
          * or controller = AModuleRemoteController.remoteController()
          */
@@ -152,18 +158,9 @@ public class RemoteControllerCActivity extends BaseActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String value = yawCoefficientRange.getText().toString();
                 if (isEmpty(value)) {
-                    controller.getParameterSupport(new CallbackWithOneParam<RemoteControllerParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(RemoteControllerParameterRangeManager remoteControllerParameterRangeManager) {
-                            RangePair<Float> support = remoteControllerParameterRangeManager.getYawCoefficient();
-                            yawCoefficientRange.setText("yawCoefficient from " + support.getValueFrom() + "  to  " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    RemoteControllerParameterRangeManager parameterRangeManager = controller.getParameterSupport();
+                    RangePair<Float> support = parameterRangeManager.getYawCoefficient();
+                    yawCoefficientRange.setText("yawCoefficient from " + support.getValueFrom() + "  to  " + support.getValueTo());
                 }
             }
 
@@ -372,12 +369,12 @@ public class RemoteControllerCActivity extends BaseActivity {
         controller.getCommandStickMode(new CallbackWithOneParam<RemoteControllerCommandStickMode>() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut("getRCCommandStickMode RCError " + rcError.getDescription());
+                logOut("getCommandStickMode RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess(RemoteControllerCommandStickMode mode) {
-                logOut("getRCCommandStickMode onSuccess " + mode);
+                logOut("getCommandStickMode onSuccess " + mode);
             }
         });
     }
@@ -411,6 +408,34 @@ public class RemoteControllerCActivity extends BaseActivity {
             @Override
             public void onFailure(AutelError autelError) {
                 logOut("getYawCoefficient RCError " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void getVersionInfo(View view) {
+        controller.getVersionInfo(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
+            @Override
+            public void onSuccess(RemoteControllerVersionInfo versionInfo) {
+                logOut("getVersionInfo onSuccess {" + versionInfo + "}");
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getVersionInfo onFailure : " + autelError.getDescription());
+            }
+        });
+    }
+
+    public void getSerialNumber(View view) {
+        controller.getSerialNumber(new CallbackWithOneParam<String>() {
+            @Override
+            public void onSuccess(String serialNumber) {
+                logOut("getSerialNumber onSuccess " + serialNumber);
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("getSerialNumber onFailure : " + autelError.getDescription());
             }
         });
     }

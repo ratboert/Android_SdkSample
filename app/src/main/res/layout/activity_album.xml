@@ -47,7 +47,7 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
-                android:text="deleteAllMedia"
+                android:text="deleteMedia(delete a media list)"
                 android:textAllCaps="false" />
 
             <LinearLayout

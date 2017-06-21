@@ -12,10 +12,11 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.dsp.AutelCancellable;
+import com.autel.common.dsp.DspVersionInfo;
 import com.autel.common.dsp.RFData;
 import com.autel.common.error.AutelError;
-import com.autel.sdk.AModuleDsp;
 import com.autel.sdk.dsp.AutelDsp;
+import com.autel.sdk.product.BaseProduct;
 
 import java.util.List;
 
@@ -37,7 +38,11 @@ public class DspActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
-        autelDsp = AModuleDsp.dsp();
+        setTitle("DSP");
+        BaseProduct baseProduct = getCurrentProduct();
+        if (baseProduct != null) {
+            autelDsp = baseProduct.getDsp();
+        }
 
         setContentView(R.layout.activity_dsp);
         ssidName = (EditText) findViewById(R.id.SSIDName);
@@ -159,6 +164,23 @@ public class DspActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 logOut("getCurrentSSIDInfo  " + autelDsp.getCurrentSSIDInfo());
+            }
+        });
+        findViewById(R.id.getVersionInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelDsp.getVersionInfo(new CallbackWithOneParam<DspVersionInfo>() {
+                    @Override
+                    public void onSuccess(DspVersionInfo dspVersionInfo) {
+                        logOut("getVersionInfo  onSuccess {" + dspVersionInfo+"}");
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("getVersionInfo onFailure : "+autelError.getDescription());
+                    }
+                });
+
             }
         });
     }

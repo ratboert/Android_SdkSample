@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -16,15 +15,20 @@ import android.widget.Toast;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParamProgress;
+import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
-import com.autel.common.mission.MissionFinishedAction;
+import com.autel.common.mission.CurrentMissionState;
 import com.autel.common.mission.OrbitMission;
+import com.autel.common.mission.RealTimeInfo;
 import com.autel.common.mission.Waypoint;
 import com.autel.common.mission.WaypointMission;
-import com.autel.sdk.Autel;
 import com.autel.sdk.mission.MissionManager;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.R;
+import com.autel.sdksample.TestApplication;
+import com.autel.sdksample.mission.MapActivity;
 
 import java.util.List;
 
@@ -41,24 +45,46 @@ public abstract class MissionFragment extends Fragment {
     ProgressBar progressBarPrepare;
 
     MissionManager missionManager;
-    MissionFinishedAction missionFinishedAction = MissionFinishedAction.HOVER;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = createView(R.layout.fragment_mission_menu);
-
         return view;
     }
 
-    protected View createView(@LayoutRes int resource){
+    protected MissionManager getMissionManager() {
+        BaseProduct
+                product = ((TestApplication) getActivity().getApplicationContext()).getCurrentProduct();
+        if (null != product && product instanceof XStarAircraft) {
+            return ((XStarAircraft) product).getMissionManager();
+        }
+        return null;
+    }
+
+    protected View createView(@LayoutRes int resource) {
         View view = View.inflate(getContext(), resource, null);
         initUi(view);
         return view;
     }
-    private void initUi(View view){
-        missionManager = Autel.getMissionManager();
 
+    private void initUi(View view) {
+        missionManager = getMissionManager();
+        if (null != missionManager) {
+            missionManager.setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
+                @Override
+                public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
+                    if (getActivity() != null)
+                        ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
+                }
+
+                @Override
+                public void onFailure(AutelError autelError) {
+                    if (getActivity() != null)
+                        ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
+                }
+            });
+        }
 
         final Context applicationContext = getActivity().getApplicationContext();
         progressBarDownload = (ProgressBar) view.findViewById(R.id.progressBarDownload);
@@ -189,12 +215,13 @@ public abstract class MissionFragment extends Fragment {
                             Toast.makeText(applicationContext, R.string.mission_download_notify, Toast.LENGTH_SHORT).show();
                             progressBarDownload.setVisibility(View.GONE);
 
-                            if(autelMission instanceof WaypointMission){
+                            if (autelMission instanceof WaypointMission) {
 
-                                List<Waypoint> wplist = ((WaypointMission)autelMission).wplist;
-                            }else if(autelMission instanceof OrbitMission){
+                                List<Waypoint> wpList = ((WaypointMission) autelMission).wpList;
+                            } else if (autelMission instanceof OrbitMission) {
 
                             }
+                            showDownloadMission(autelMission.toString());
                         }
 
                         @Override
@@ -208,21 +235,10 @@ public abstract class MissionFragment extends Fragment {
         });
 
         finishActionSpinner = (Spinner) view.findViewById(R.id.finishAction);
-        finishActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    missionFinishedAction = MissionFinishedAction.HOVER;
-                } else if (position == 1) {
-                    missionFinishedAction = MissionFinishedAction.RETURN_HOME;
-                }
-            }
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+    private void showDownloadMission(String info) {
+        ((MapActivity) getActivity()).updateLogInfo(info);
     }
 
     protected boolean isEmpty(String value) {
@@ -230,4 +246,11 @@ public abstract class MissionFragment extends Fragment {
     }
 
     protected abstract AutelMission createAutelMission();
+
+    public void onDestroy() {
+        super.onDestroy();
+        if (null != missionManager) {
+            missionManager.setRealTimeInfoListener(null);
+        }
+    }
 }

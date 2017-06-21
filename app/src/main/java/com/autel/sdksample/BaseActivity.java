@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
+
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();
@@ -31,6 +34,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         log_output = (TextView) findViewById(R.id.log_output);
         log_output.setMovementMethod(ScrollingMovementMethod.getInstance());
         requestFocus(log_output);
+    }
+
+    protected BaseProduct getCurrentProduct(){
+        return  ((TestApplication)getApplicationContext()).getCurrentProduct();
     }
 
     protected abstract void initOnCreate();

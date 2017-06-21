@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">SDKSample</string>
+
+    <string name="product_not_connect">device not connected</string>
+    <string name="product_connect">enter the device</string>
+
+    <!--  mission controller -->
     <string name="mission_to_waypoint">generate waypoint mission</string>
     <string name="mission_download">download mission</string>
     <string name="mission_prepare">prepare</string>
@@ -37,6 +42,8 @@
     <string name="fc_horizontal_speed">fly horizontal speed</string>
     <string name="fc_ascend_speed">ascend speed</string>
     <string name="fc_descend_speed">descend speed</string>
+    <string name="fc_lat_notify">input latitude</string>
+    <string name="fc_lon_notify">input longitude</string>
 
     <string name="rc_yaw_coefficient">yaw coefficient</string>
 
@@ -94,5 +101,7 @@
     <string name="camera_exposure_mode_manual">Manual</string>
     <string name="camera_no_connect">camera not connected</string>
 
+    <!-- authority check -->
+    <string name="authority_check_start">start check authority</string>
 
 </resources>

@@ -13,8 +13,8 @@ import com.autel.common.battery.BatteryParameterRangeManager;
 import com.autel.common.battery.BatteryRecordState;
 import com.autel.common.battery.BatteryStatus;
 import com.autel.common.error.AutelError;
-import com.autel.sdk.AModuleBattery;
 import com.autel.sdk.battery.AutelBattery;
+import com.autel.sdk.product.BaseProduct;
 
 import java.util.List;
 
@@ -29,7 +29,11 @@ public class BatteryActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setContentView(R.layout.activity_battery);
-        autelBattery = AModuleBattery.battery();
+        setTitle("Battery");
+        BaseProduct product = getCurrentProduct();
+        if (null != product) {
+            autelBattery = product.getBattery();
+        }
         lowBatteryNotifyThreshold = (EditText) findViewById(R.id.lowBatteryNotifyThreshold);
         criticalBatteryNotifyThreshold = (EditText) findViewById(R.id.criticalBatteryNotifyThreshold);
         dischargeDay = (EditText) findViewById(R.id.dischargeDay);
@@ -39,18 +43,9 @@ public class BatteryActivity extends BaseActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (isEmpty(lowBatteryRange.getText().toString())) {
-                    autelBattery.getParameterSupportManager(new CallbackWithOneParam<BatteryParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(BatteryParameterRangeManager batteryParameterRangeManager) {
-                            RangePair<Float> support = batteryParameterRangeManager.getLowBattery();
-                            lowBatteryRange.setText("low battery range from " + support.getValueFrom() + " to " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    BatteryParameterRangeManager batteryParameterRangeManager = autelBattery.getParameterSupportManager();
+                    RangePair<Float> support = batteryParameterRangeManager.getLowBattery();
+                    lowBatteryRange.setText("low battery range from " + support.getValueFrom() + " to " + support.getValueTo());
                 }
             }
 
@@ -70,18 +65,9 @@ public class BatteryActivity extends BaseActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (isEmpty(criticalBatteryRange.getText().toString())) {
-                    autelBattery.getParameterSupportManager(new CallbackWithOneParam<BatteryParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(BatteryParameterRangeManager batteryParameterRangeManager) {
-                            RangePair<Float> support = batteryParameterRangeManager.getCriticalBattery();
-                            criticalBatteryRange.setText("critical battery range from " + support.getValueFrom() + " to " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    BatteryParameterRangeManager batteryParameterRangeManager = autelBattery.getParameterSupportManager();
+                    RangePair<Float> support = batteryParameterRangeManager.getCriticalBattery();
+                    criticalBatteryRange.setText("critical battery range from " + support.getValueFrom() + " to " + support.getValueTo());
                 }
             }
 
@@ -100,18 +86,9 @@ public class BatteryActivity extends BaseActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (isEmpty(dischargeDayRange.getText().toString())) {
-                    autelBattery.getParameterSupportManager(new CallbackWithOneParam<BatteryParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(BatteryParameterRangeManager batteryParameterRangeManager) {
-                            RangePair<Integer> support = batteryParameterRangeManager.getDischargeDay();
-                            dischargeDayRange.setText("discharge day range from " + support.getValueFrom() + " to " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    BatteryParameterRangeManager batteryParameterRangeManager = autelBattery.getParameterSupportManager();
+                    RangePair<Integer> support = batteryParameterRangeManager.getDischargeDay();
+                    dischargeDayRange.setText("discharge day range from " + support.getValueFrom() + " to " + support.getValueTo());
                 }
             }
 
@@ -241,12 +218,13 @@ public class BatteryActivity extends BaseActivity {
                     @Override
                     public void onSuccess(List<BatteryRecordState> data) {
                         StringBuffer stringBuffer = new StringBuffer();
+                        stringBuffer.append("[");
                         for (int i = 0; i < data.size(); i++) {
-                            stringBuffer.append(i);
-                            stringBuffer.append(" = ");
-                            stringBuffer.append(data.get(i));
-                            stringBuffer.append(";");
+                            stringBuffer.append(i == 0 ? "{" + i : ", {" + i);
+                            stringBuffer.append(" : ");
+                            stringBuffer.append(data.get(i) + "}");
                         }
+                        stringBuffer.append("]");
                         logOut("getHistory  data :  " + stringBuffer.toString());
                     }
                 });
@@ -271,7 +249,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCells  " + error.getDescription());
+                        logOut("getCells  error : " + error.getDescription());
                     }
                 });
             }
@@ -287,7 +265,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getVoltage  " + error.getDescription());
+                        logOut("getVoltage  error : " + error.getDescription());
                     }
                 });
             }
@@ -303,7 +281,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCapacity  " + error.getDescription());
+                        logOut("getCapacity  error : " + error.getDescription());
                     }
                 });
             }
@@ -312,21 +290,21 @@ public class BatteryActivity extends BaseActivity {
         findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelBattery.setAutelBatteryStatusListener(null);
+                autelBattery.setBatteryStatusListener(null);
             }
         });
         findViewById(R.id.setBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelBattery.setAutelBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
+                autelBattery.setBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("setAutelBatteryStatusListener  error :  " + error.getDescription());
+                        logOut("setBatteryStatusListener  error :  " + error.getDescription());
                     }
 
                     @Override
                     public void onSuccess(BatteryStatus data) {
-                        logOut("setAutelBatteryStatusListener  data current battery :  " + data);
+                        logOut("setBatteryStatusListener  data current battery :  " + data.toString());
                     }
                 });
             }
@@ -342,7 +320,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getDesignCapacity  " + error.getDescription());
+                        logOut("getDesignCapacity  error : " + error.getDescription());
                     }
                 });
             }
@@ -358,7 +336,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getVersion  " + error.getDescription());
+                        logOut("getVersion  error : " + error.getDescription());
                     }
                 });
             }
@@ -374,7 +352,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getSerialNumber  " + error.getDescription());
+                        logOut("getSerialNumber  error : " + error.getDescription());
                     }
                 });
             }
@@ -382,15 +360,15 @@ public class BatteryActivity extends BaseActivity {
         findViewById(R.id.getRemainingPercent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelBattery.getVoltage(new CallbackWithOneParam<Double>() {
+                autelBattery.getRemainingPercent(new CallbackWithOneParam<Integer>() {
                     @Override
-                    public void onSuccess(Double data) {
+                    public void onSuccess(Integer data) {
                         logOut("getRemainingPercent  " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getRemainingPercent  " + error.getDescription());
+                        logOut("getRemainingPercent  error : " + error.getDescription());
                     }
                 });
             }
@@ -406,7 +384,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getFullChargeCapacity  " + error.getDescription());
+                        logOut("getFullChargeCapacity error : " + error.getDescription());
                     }
                 });
             }
@@ -422,7 +400,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getDischargeCount  " + error.getDescription());
+                        logOut("getDischargeCount error : " + error.getDescription());
                     }
                 });
             }
@@ -438,7 +416,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getTemperature  " + error.getDescription());
+                        logOut("getTemperature error : " + error.getDescription());
                     }
                 });
             }
@@ -454,7 +432,7 @@ public class BatteryActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCurrent  " + error.getDescription());
+                        logOut("getCurrent error : " + error.getDescription());
                     }
                 });
             }

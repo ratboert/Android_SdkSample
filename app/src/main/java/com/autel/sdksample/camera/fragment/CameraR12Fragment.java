@@ -13,8 +13,8 @@ import android.widget.Switch;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.camera.CameraParameterSupport;
 import com.autel.common.camera.CameraProduct;
+import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
 import com.autel.common.camera.media.CameraAspectRatio;
@@ -76,6 +76,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
     EditText photoCustomStyleSharpness;
 
     Spinner exposureValueList;
+
+    ShutterSpeedAdapter shutterSpeedAdapter;
+    Spinner shutterList;
+
     VideoResolutionFpsAdapter videoResolutionFpsAdapter;
     Spinner videoResolutionAndFrameRateList;
 
@@ -97,6 +101,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     PhotoFormat photoFormat = PhotoFormat.JPEG;
     CameraAspectRatio aspectRatio = CameraAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
+    VideoResolutionAndFps currentVideoResolutionAndFps = null;
 
     private CameraProduct currentCameraProduct;
 
@@ -105,7 +110,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
         autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
         currentCameraProduct = autelR12.getProduct();
-
+        logOut("");
         initView(view);
         initClick(view);
         initR12Click(view);
@@ -713,18 +718,18 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.getCurrentRecordTimeSeconds).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.getCurrentRecordTime).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
+                autelR12.getCurrentRecordTime(new CallbackWithOneParam<Integer>() {
                     @Override
                     public void onSuccess(Integer data) {
-                        logOut("getCurrentRecordTimeSeconds " + data);
+                        logOut("getCurrentRecordTime " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCurrentRecordTimeSeconds " + error.getDescription());
+                        logOut("getCurrentRecordTime " + error.getDescription());
                     }
                 });
             }
@@ -882,7 +887,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
                     @Override
                     public void onSuccess() {
-                        logOut("setVideoResolutionAndFrameRate onSuccess" );
+                        logOut("setVideoResolutionAndFrameRate onSuccess");
+                        currentVideoResolutionAndFps = videoResolutionAndFps;
+                        initShuttleSpeedList();
+
                     }
                 });
             }
@@ -900,6 +908,25 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(VideoResolutionAndFps data) {
                         logOut("getVideoResolutionAndFrameRate " + data);
+                        currentVideoResolutionAndFps = data;
+                        initShuttleSpeedList();
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.getNickName).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.getNickName(new CallbackWithOneParam<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        logOut("getNickName " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getNickName " + error.getDescription());
                     }
                 });
             }
@@ -907,24 +934,51 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
-        view.findViewById(R.id.getVideoStandard).callOnClick();
+        videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
     }
 
-    private void initVideoResolutionFpsList(){
-
-        videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
-        videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
-        videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    private void initVideoResolutionFpsList() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
+            public void run() {
+                videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
+                videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
+                videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    private void initShuttleSpeedList() {
+        autelR12.getMediaMode(new CallbackWithOneParam<MediaMode>() {
+            @Override
+            public void onSuccess(final MediaMode mode) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (null != currentVideoResolutionAndFps) {
+                            shutterSpeedAdapter.setRfData(currentCameraProduct.supportedCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                            shutterList.setAdapter(shutterSpeedAdapter);
+                        }
+                    }
+                });
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onFailure(AutelError autelError) {
 
             }
         });
+
     }
 
     private void initView(View view) {
@@ -1069,8 +1123,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-        Spinner shutterList = (Spinner) view.findViewById(R.id.shutterList);
-        shutterList.setAdapter(new ShutterSpeedAdapter(getContext()));
+        shutterList = (Spinner) view.findViewById(R.id.shutterList);
+        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext());
+        shutterList.setAdapter(shutterSpeedAdapter);
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1170,6 +1225,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
         spotMeteringAreaX = (EditText) view.findViewById(R.id.spotMeteringAreaX);
         spotMeteringAreaY = (EditText) view.findViewById(R.id.spotMeteringAreaY);
+
 
     }
 }

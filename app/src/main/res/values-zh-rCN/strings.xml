@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SDKSample</string>
+    <string name="product_not_connect">未连接设备</string>
+    <string name="product_connect">进入设备</string>
 
     <string name="mission_to_waypoint">生成航点任务</string>
     <string name="mission_download">任务下载</string>
@@ -38,7 +40,8 @@
     <string name="fc_horizontal_speed">飞行水平速度</string>
     <string name="fc_ascend_speed">上升速度</string>
     <string name="fc_descend_speed">下降速度</string>
-
+    <string name="fc_lat_notify">输入纬度</string>
+    <string name="fc_lon_notify">输入经度</string>
     <string name="rc_yaw_coefficient">yaw coefficient</string>
 
 
@@ -94,5 +97,8 @@
     <string name="camera_exposure_mode_auto">Auto</string>
     <string name="camera_exposure_mode_manual">Manual</string>
     <string name="camera_no_connect">暂无相机连接</string>
+
+    <!-- authority check -->
+    <string name="authority_check_start">开始权限认证</string>
 
 </resources>

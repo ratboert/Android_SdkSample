@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
 import com.autel.common.CallbackWithTwoParams;
@@ -12,39 +13,43 @@ import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.CurrentMissionState;
 import com.autel.common.mission.RealTimeInfo;
+import com.autel.common.mission.WaypointFinishedAction;
 import com.autel.common.mission.WaypointMission;
 import com.autel.sdk.Autel;
 import com.autel.sdksample.R;
 import com.autel.sdksample.mission.MapActivity;
+import com.autel.sdksample.mission.adapter.WaypointFinishActionAdapter;
 
 
 public class WaypointMissionFragment extends MissionFragment {
     private EditText waypointSpeed;
     private EditText waypointReturnHeight;
     private EditText waypointHeight;
+    private WaypointFinishActionAdapter finishActionAdapter = null;
+    private WaypointFinishedAction finishedAction = WaypointFinishedAction.HOVER;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = createView(R.layout.fragment_mission_menu_waypoint);
-        Autel.getMissionManager().setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
-            @Override
-            public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
-                if (getActivity() != null)
-                    ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
-            }
-
-            @Override
-            public void onFailure(AutelError autelError) {
-                if (getActivity() != null)
-                    ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
-            }
-        });
 
         ((MapActivity) getActivity()).setWaypointHeightListener(new MapActivity.WaypointHeightListener() {
             @Override
             public int fetchHeight() {
                 String valueHeight = waypointHeight.getText().toString();
                 return isEmpty(valueHeight) ? 50 : Integer.valueOf(valueHeight);
+            }
+        });
+        finishActionAdapter = new WaypointFinishActionAdapter(getContext());
+        finishActionSpinner.setAdapter(finishActionAdapter);
+        finishActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                finishedAction = (WaypointFinishedAction)parent.getAdapter().getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -58,19 +63,13 @@ public class WaypointMissionFragment extends MissionFragment {
     @Override
     protected AutelMission createAutelMission() {
         WaypointMission waypointMission = new WaypointMission();
-        waypointMission.finishedAction = missionFinishedAction;
+        waypointMission.finishedAction = finishedAction;
         String valueSpeed = waypointSpeed.getText().toString();
         waypointMission.speed = isEmpty(valueSpeed) ? 4 : Integer.valueOf(valueSpeed);
         String valueReturnHeight = waypointReturnHeight.getText().toString();
         waypointMission.finishReturnHeight = isEmpty(valueReturnHeight) ? 20 : Integer.valueOf(valueReturnHeight);
 
-        waypointMission.wplist = ((MapActivity) getActivity()).getWaypointList();
+        waypointMission.wpList = ((MapActivity) getActivity()).getWaypointList();
         return waypointMission;
     }
-
-    public void onDestroy() {
-        super.onDestroy();
-        Autel.getMissionManager().setRealTimeInfoListener(null);
-    }
-
 }

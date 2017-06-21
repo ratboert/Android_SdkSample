@@ -11,6 +11,7 @@ import com.autel.common.error.AutelError;
 import com.autel.internal.sdk.AutelBaseApplication;
 import com.autel.internal.sdk.util.AutelDirPathUtils;
 import com.autel.sdk.Autel;
+import com.autel.sdk.product.BaseProduct;
 import com.autel.util.log.AutelConfig;
 
 import java.io.File;
@@ -24,11 +25,12 @@ import java.util.Locale;
 
 public class TestApplication extends Application {
     private final String TAG = getClass().getSimpleName();
+    private BaseProduct currentProduct;
 
     public void onCreate() {
         super.onCreate();
         AutelBaseApplication.setAppContext(this);
-        Thread.setDefaultUncaughtExceptionHandler(new EHandle());
+//        Thread.setDefaultUncaughtExceptionHandler(new EHandle());
 
         AutelConfig.AUTEL_DEBUG_LOG = false;
         String appKey = "<SDK license should be input>";
@@ -45,9 +47,17 @@ public class TestApplication extends Application {
         });
     }
 
+    public BaseProduct getCurrentProduct() {
+        return currentProduct;
+    }
+
+    public void setCurrentProduct(BaseProduct baseProduct) {
+        currentProduct = baseProduct;
+    }
+
     public class EHandle implements Thread.UncaughtExceptionHandler {
         @Override
-        public void uncaughtException(Thread thread, Throwable ex) {
+        public void uncaughtException(Thread thread, final Throwable ex) {
             new ExceptionWriter(ex, getApplicationContext()).saveStackTraceToSD();
         }
     }

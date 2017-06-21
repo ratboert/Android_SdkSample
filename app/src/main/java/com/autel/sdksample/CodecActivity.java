@@ -9,7 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.autel.common.error.AutelError;
-import com.autel.sdk.Autel;
+import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.video.AutelCodec;
 import com.autel.sdk.video.AutelCodecListener;
 import com.autel.sdk.widget.AutelCodecView;
 
@@ -17,15 +18,21 @@ public class CodecActivity extends AppCompatActivity {
 
     private RelativeLayout content_layout;
     private boolean isCodecing;
+    private AutelCodec codec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Codec");
         setContentView(R.layout.activity_codec);
-
+        BaseProduct baseProduct = ((TestApplication) getApplicationContext()).getCurrentProduct();
+        if (null != baseProduct) {
+            codec = baseProduct.getCodec();
+        }
         content_layout = (RelativeLayout) findViewById(R.id.content_layout);
 
         isCodecing = false;
+        initClick();
     }
 
     public void testAutelCodecView(View v) {
@@ -35,13 +42,14 @@ public class CodecActivity extends AppCompatActivity {
     /**
      * Use AutelCodecView to display the video stream from camera simply.
      */
-    private void initClick(){
+    private void initClick() {
         findViewById(R.id.testAutelCodecView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isCodecing = true;
 
                 final AutelCodecView autelCodecView = new AutelCodecView(CodecActivity.this);
+                content_layout.setOnClickListener(null);
                 content_layout.setVisibility(View.VISIBLE);
                 content_layout.addView(autelCodecView);
 
@@ -92,40 +100,42 @@ public class CodecActivity extends AppCompatActivity {
                 isCodecing = true;
 
                 final TextView logTV = new TextView(CodecActivity.this);
+                content_layout.setOnClickListener(null);
                 content_layout.setVisibility(View.VISIBLE);
                 content_layout.addView(logTV);
+                if (null != codec) {
+                    codec.setCodecListener(new AutelCodecListener() {
+                        @Override
+                        public void onFrameStream(final byte[] videoBuffer, final boolean isIFrame, final int size, final long pts) {
+                            logTV.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    logTV.setText("isValid == " + (videoBuffer.length == size) + "\nisIFrame == " + isIFrame + "\nsize == " + size + "\npts == " + pts);
+                                }
+                            });
+                        }
 
-                Autel.getCodec().setCodecListener(new AutelCodecListener() {
-                    @Override
-                    public void onFrameStream(final boolean valid, byte[] videoBuffer, final int size, final long pts) {
-                        logTV.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                logTV.setText("valid == " + valid + "\n" + "size == " + size + "\n" + "pts == " + pts);
-                            }
-                        });
-                    }
+                        @Override
+                        public void onCanceled() {
+                            logTV.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    logTV.setText("onCandeled");
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onCanceled() {
-                        logTV.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                logTV.setText("onCandeled");
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onFailure(final AutelError error) {
-                        logTV.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                logTV.setText(error.getDescription());
-                            }
-                        });
-                    }
-                });
+                        @Override
+                        public void onFailure(final AutelError error) {
+                            logTV.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    logTV.setText(error.getDescription());
+                                }
+                            });
+                        }
+                    },null);
+                }
             }
         });
     }
@@ -139,11 +149,19 @@ public class CodecActivity extends AppCompatActivity {
             content_layout.removeAllViews();
             content_layout.setVisibility(View.GONE);
 
-            Autel.getCodec().cancel();
+            if (null != codec) {
+                codec.cancel();
+                codec.setCodecListener(null,null);
+            }
 
             return;
         }
 
         super.onBackPressed();
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

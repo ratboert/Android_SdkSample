@@ -31,7 +31,9 @@ public class MapRectifyUtil {
     }
 
     private static boolean InRectangle(Rectangle paramRectangle, AutelLatLng paramAutelLatLng) {
-
+        if (null == paramAutelLatLng) {
+            return false;
+        }
         return (paramRectangle.West <= paramAutelLatLng.longitude)
                 && (paramRectangle.East >= paramAutelLatLng.longitude)
                 && (paramRectangle.North >= paramAutelLatLng.latitude)

@@ -10,10 +10,11 @@ import com.autel.common.CallbackWithOneParam;
 import com.autel.common.album.MediaInfo;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.error.AutelError;
-import com.autel.sdk.AModuleAlbum;
 import com.autel.sdk.album.AutelAlbum;
+import com.autel.sdk.product.BaseProduct;
 import com.autel.sdksample.BaseActivity;
 import com.autel.sdksample.R;
+import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.album.adapter.LocalVideoListAdapter;
 import com.autel.sdksample.album.adapter.MediaListAdapter;
 import com.autel.util.okhttp.OkHttpManager;
@@ -46,6 +47,7 @@ public class AlbumActivity extends BaseActivity {
 
     @Override
     protected void initOnCreate() {
+        setTitle("Album");
         setContentView(R.layout.activity_album);
         mediaList = (Spinner) findViewById(R.id.mediaList);
         mediaList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,8 +100,11 @@ public class AlbumActivity extends BaseActivity {
             }
         });
 
+        BaseProduct baseProduct = getCurrentProduct();
+        if (null != baseProduct) {
+            autelAlbum = baseProduct.getAlbum();
+        }
 
-        autelAlbum = AModuleAlbum.album();
         mediaItems = new ArrayList<>();
 
         initLocalFileList();
