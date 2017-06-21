@@ -915,23 +915,6 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.getNickName).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                autelR12.getNickName(new CallbackWithOneParam<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        logOut("getNickName " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getNickName " + error.getDescription());
-                    }
-                });
-            }
-        });
-
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
         videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
