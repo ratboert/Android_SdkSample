@@ -88,18 +88,9 @@ public class GimbalActivity extends BaseActivity {
                 }
 
                 if (isEmpty(angleWithFineTuningRange.getText().toString())) {
-                    autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(GimbalParameterRangeManager gimbalParameterRangeManager) {
-                            RangePair<Integer> support = gimbalParameterRangeManager.getAngleWithFineTuning();
-                            angleWithFineTuningRange.setText("angle with fine tuning from " + support.getValueFrom() + " to " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    GimbalParameterRangeManager gimbalParameterRangeManager = autelGimbal.getParameterRangeManager();
+                    RangePair<Integer> support = gimbalParameterRangeManager.getAngleWithFineTuning();
+                    angleWithFineTuningRange.setText("angle with fine tuning from " + support.getValueFrom() + " to " + support.getValueTo());
                 }
             }
 
@@ -121,18 +112,9 @@ public class GimbalActivity extends BaseActivity {
                     return;
                 }
                 if (isEmpty(gimbalAngleRange.getText().toString())) {
-                    autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(GimbalParameterRangeManager gimbalParameterRangeManager) {
-                            RangePair<Integer> support = gimbalParameterRangeManager.getAngle();
-                            gimbalAngleRange.setText("angle from " + support.getValueFrom() + " to " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    GimbalParameterRangeManager gimbalParameterRangeManager = autelGimbal.getParameterRangeManager();
+                    RangePair<Integer> support = gimbalParameterRangeManager.getAngle();
+                    gimbalAngleRange.setText("angle from " + support.getValueFrom() + " to " + support.getValueTo());
                 }
             }
 
@@ -155,18 +137,9 @@ public class GimbalActivity extends BaseActivity {
                 }
 
                 if (isEmpty(dialAdjustSpeedRange.getText().toString())) {
-                    autelGimbal.getParameterRangeManager(new CallbackWithOneParam<GimbalParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(GimbalParameterRangeManager gimbalParameterRangeManager) {
-                            RangePair<Integer> support = gimbalParameterRangeManager.getDialAdjustSpeed();
-                            dialAdjustSpeedRange.setText("dial adjust speed from " + support.getValueFrom() + " to " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    GimbalParameterRangeManager gimbalParameterRangeManager = autelGimbal.getParameterRangeManager();
+                    RangePair<Integer> support = gimbalParameterRangeManager.getDialAdjustSpeed();
+                    dialAdjustSpeedRange.setText("dial adjust speed from " + support.getValueFrom() + " to " + support.getValueTo());
                 }
             }
 

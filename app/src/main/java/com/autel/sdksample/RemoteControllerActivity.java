@@ -158,18 +158,9 @@ public class RemoteControllerActivity extends BaseActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String value = yawCoefficientRange.getText().toString();
                 if (isEmpty(value)) {
-                    controller.getParameterSupport(new CallbackWithOneParam<RemoteControllerParameterRangeManager>() {
-                        @Override
-                        public void onSuccess(RemoteControllerParameterRangeManager remoteControllerParameterRangeManager) {
-                            RangePair<Float> support = remoteControllerParameterRangeManager.getYawCoefficient();
-                            yawCoefficientRange.setText("yawCoefficient from " + support.getValueFrom() + "  to  " + support.getValueTo());
-                        }
-
-                        @Override
-                        public void onFailure(AutelError autelError) {
-
-                        }
-                    });
+                    RemoteControllerParameterRangeManager parameterRangeManager = controller.getParameterSupport();
+                    RangePair<Float> support = parameterRangeManager.getYawCoefficient();
+                    yawCoefficientRange.setText("yawCoefficient from " + support.getValueFrom() + "  to  " + support.getValueTo());
                 }
             }
 
@@ -425,7 +416,7 @@ public class RemoteControllerActivity extends BaseActivity {
         controller.getVersionInfo(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
             @Override
             public void onSuccess(RemoteControllerVersionInfo versionInfo) {
-                logOut("getVersionInfo onSuccess {"+versionInfo+"}");
+                logOut("getVersionInfo onSuccess {" + versionInfo + "}");
             }
 
             @Override
@@ -439,7 +430,7 @@ public class RemoteControllerActivity extends BaseActivity {
         controller.getSerialNumber(new CallbackWithOneParam<String>() {
             @Override
             public void onSuccess(String serialNumber) {
-                logOut("getSerialNumber onSuccess "+serialNumber);
+                logOut("getSerialNumber onSuccess " + serialNumber);
             }
 
             @Override
