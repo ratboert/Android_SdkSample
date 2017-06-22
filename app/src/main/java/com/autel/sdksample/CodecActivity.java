@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.autel.common.error.AutelError;
 import com.autel.sdk.product.BaseProduct;
@@ -88,9 +89,19 @@ public class CodecActivity extends AppCompatActivity {
                     }
                 });
 
+                Button btn_checkOverExposureEnabled = new Button(CodecActivity.this);
+                btn_checkOverExposureEnabled.setText("isOverExposureEnabled");
+                btn_checkOverExposureEnabled.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(CodecActivity.this,"isOverExposureEnabled == " + autelCodecView.isOverExposureEnabled(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 btn_layout.addView(btn_exp);
                 btn_layout.addView(btn_pause);
                 btn_layout.addView(btn_resume);
+                btn_layout.addView(btn_checkOverExposureEnabled);
 
                 content_layout.addView(btn_layout);
             }
