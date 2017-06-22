@@ -91,6 +91,7 @@ public class CodecActivity extends AppCompatActivity {
 
                 Button btn_checkOverExposureEnabled = new Button(CodecActivity.this);
                 btn_checkOverExposureEnabled.setText("isOverExposureEnabled");
+                btn_checkOverExposureEnabled.setAllCaps(false);
                 btn_checkOverExposureEnabled.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
