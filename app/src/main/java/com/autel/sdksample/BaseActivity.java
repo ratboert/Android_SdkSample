@@ -35,7 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         log_output.setMovementMethod(ScrollingMovementMethod.getInstance());
         requestFocus(log_output);
     }
-
     protected BaseProduct getCurrentProduct(){
         return  ((TestApplication)getApplicationContext()).getCurrentProduct();
     }

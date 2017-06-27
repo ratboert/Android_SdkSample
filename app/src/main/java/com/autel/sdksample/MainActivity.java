@@ -14,6 +14,7 @@ import com.autel.sdksample.adapter.ProductSelector;
 
 public class MainActivity extends AppCompatActivity {
     private int index;
+    private long timeStamp;
     ProductSelector productSelector;
 
 
@@ -23,7 +24,15 @@ public class MainActivity extends AppCompatActivity {
         productSelector = new ProductSelector(this);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.productSelector);
         viewPager.setAdapter(productSelector);
+        /**
+         * 监听SDK连接到的设备
+         */
         Autel.setProductConnectListener(new Autel.ProductConnectListener() {
+            /**
+             * 当设备连接成功后回调，并进入相应产品的业务中
+             * @param typeChanged
+             * @param product
+             */
             @Override
             public void productConnected(boolean typeChanged, BaseProduct product) {
                 Log.v("productType", "product " + product.getType());
@@ -34,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            /**
+             * SDK 连接的设备断开时回调
+             */
             @Override
             public void productDisconnected() {
                 Log.v("productType", "productDisconnected ");
@@ -47,24 +59,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private AutelProductType get(int i) {
-        switch (i) {
-            case 0:
-                return AutelProductType.X_STAR;
-            case 1:
-                return AutelProductType.CAM_PRO;
-            case 2:
-                return AutelProductType.HANDHELD;
-            case 3:
-                return AutelProductType.KESTREL;
-            default:
-                return AutelProductType.X_STAR;
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        CameraConnection.instance().disconnect();
+        Autel.destroy();
+    }
+
+
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - timeStamp < 1500) {
+            super.onBackPressed();
+        }
+        timeStamp = System.currentTimeMillis();
     }
 }

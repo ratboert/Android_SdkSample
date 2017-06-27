@@ -30,9 +30,11 @@ public class TestApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AutelBaseApplication.setAppContext(this);
-//        Thread.setDefaultUncaughtExceptionHandler(new EHandle());
-
         AutelConfig.AUTEL_DEBUG_LOG = false;
+
+        /**
+         * 初始化SDK，通过网络验证APPKey的有效性
+         */
         String appKey = "<SDK license should be input>";
         Autel.init(this, appKey, new CallbackWithNoParam() {
             @Override
@@ -59,10 +61,11 @@ public class TestApplication extends Application {
         @Override
         public void uncaughtException(Thread thread, final Throwable ex) {
             new ExceptionWriter(ex, getApplicationContext()).saveStackTraceToSD();
+            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(thread, ex);
         }
     }
 
-    public class ExceptionWriter {
+    public static class ExceptionWriter {
         private Throwable exception;
         private Context mContext;
 
