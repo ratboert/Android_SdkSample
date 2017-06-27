@@ -97,7 +97,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     PhotoAEBCount photoAEBCount = PhotoAEBCount.CAPTURE_3;
     VideoFormat videoFormat = VideoFormat.MOV;
     VideoStandard selectedVideoStandard = VideoStandard.NTSC;
-    VideoStandard currentVideoStandard = VideoStandard.NTSC;
+    VideoStandard currentVideoStandard = VideoStandard.UNKNOWN;
     PhotoFormat photoFormat = PhotoFormat.JPEG;
     CameraAspectRatio aspectRatio = CameraAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
@@ -114,9 +114,36 @@ public class CameraR12Fragment extends CameraBaseFragment {
         initView(view);
         initClick(view);
         initR12Click(view);
+        initData();
         return view;
     }
 
+    private void initData(){
+        if(null != autelR12){
+            autelR12.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
+                @Override
+                public void onFailure(AutelError error) {
+                }
+
+                @Override
+                public void onSuccess(VideoResolutionAndFps data) {
+                    currentVideoResolutionAndFps = data;
+                    initShuttleSpeedList();
+                }
+            });
+            autelR12.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
+                @Override
+                public void onFailure(AutelError error) {
+                }
+
+                @Override
+                public void onSuccess(VideoStandard data) {
+                    currentVideoStandard = data;
+                    initVideoResolutionFpsList();
+                }
+            });
+        }
+    }
 
     private void initR12Click(View view) {
         view.findViewById(R.id.setSpotMeteringArea).setOnClickListener(new View.OnClickListener() {
@@ -879,6 +906,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 autelR12.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
