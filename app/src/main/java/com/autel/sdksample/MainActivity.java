@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.autel.common.CallbackWithNoParam;
+import com.autel.common.error.AutelError;
 import com.autel.common.product.AutelProductType;
 import com.autel.sdk.Autel;
 import com.autel.sdk.product.BaseProduct;
@@ -13,6 +15,7 @@ import com.autel.sdksample.adapter.ProductSelector;
 
 
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = getClass().getSimpleName();
     private int index;
     private long timeStamp;
     ProductSelector productSelector;
@@ -24,6 +27,23 @@ public class MainActivity extends AppCompatActivity {
         productSelector = new ProductSelector(this);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.productSelector);
         viewPager.setAdapter(productSelector);
+
+        /**
+         * 初始化SDK，通过网络验证APPKey的有效性
+         */
+        String appKey = "<SDK license should be input>";
+        Autel.init(this, appKey, new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                Log.v(TAG, "checkAppKeyValidate onSuccess");
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                Log.v(TAG, "checkAppKeyValidate " + error.getDescription());
+            }
+        });
+
         /**
          * 监听SDK连接到的设备
          */
