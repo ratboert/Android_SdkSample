@@ -118,8 +118,8 @@ public class CameraR12Fragment extends CameraBaseFragment {
         return view;
     }
 
-    private void initData(){
-        if(null != autelR12){
+    private void initData() {
+        if (null != autelR12) {
             autelR12.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
                 @Override
                 public void onFailure(AutelError error) {
