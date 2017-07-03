@@ -168,7 +168,9 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
+                android:visibility="gone"
                 android:text="getHistory"
+
                 android:textAllCaps="false" />
 
             <Button

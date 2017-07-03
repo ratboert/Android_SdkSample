@@ -212,30 +212,6 @@ public class BatteryActivity extends BaseActivity {
                 });
             }
         });
-        findViewById(R.id.getHistory).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                autelBattery.getHistory(new CallbackWithOneParam<List<BatteryRecordState>>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getHistory  error :  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(List<BatteryRecordState> data) {
-                        StringBuffer stringBuffer = new StringBuffer();
-                        stringBuffer.append("[");
-                        for (int i = 0; i < data.size(); i++) {
-                            stringBuffer.append(i == 0 ? "{" + i : ", {" + i);
-                            stringBuffer.append(" : ");
-                            stringBuffer.append(data.get(i) + "}");
-                        }
-                        stringBuffer.append("]");
-                        logOut("getHistory  data :  " + stringBuffer.toString());
-                    }
-                });
-            }
-        });
         findViewById(R.id.getCells).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

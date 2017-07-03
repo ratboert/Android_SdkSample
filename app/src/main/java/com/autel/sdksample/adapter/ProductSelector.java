@@ -33,7 +33,7 @@ public class ProductSelector extends PagerAdapter {
         itemViews.add(LayoutInflater.from(context).inflate(R.layout.product_item, null));
 
         item = new ProductItem();
-        item.type = AutelProductType.CAM_PRO;
+        item.type = AutelProductType.PREMIUM;
         item.resIcon = R.mipmap.cover_xstar_pre;
         products.add(item);
         itemViews.add(LayoutInflater.from(context).inflate(R.layout.product_item, null));
