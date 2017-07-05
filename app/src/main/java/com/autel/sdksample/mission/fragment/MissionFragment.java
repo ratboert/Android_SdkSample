@@ -290,7 +290,7 @@ public abstract class MissionFragment extends Fragment {
             public void onClick(View v) {
                 if (null != missionManager) {
                     MissionExecuteState state = missionManager.getMissionExecuteState();
-                    ((MapActivity) getActivity()).updateLogInfo(null != state ? state.toString() : "null");
+                    ((MapActivity) getActivity()).updateLogInfo(null != state ? state.toString() : "UNKNOWN");
                 }
             }
         });
