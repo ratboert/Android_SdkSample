@@ -36,7 +36,7 @@
                 android:id="@+id/missionPrepare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mission_prepare"
+                android:text="prepareMission"
                 android:textAllCaps="false"
                 />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="false"
-            android:text="@string/mission_start" />
+            android:text="startMission" />
 
         <Button
             android:id="@+id/missionPause"
@@ -63,7 +63,7 @@
             android:layout_alignBaseline="@+id/missionStart"
             android:layout_weight="1"
             android:textAllCaps="false"
-            android:text="@string/mission_pause" />
+            android:text="pauseMission" />
 
         <Button
             android:id="@+id/missionResume"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="false"
-            android:text="@string/mission_resume" />
+            android:text="resumeMission" />
 
         <Button
             android:id="@+id/missionCancel"
@@ -79,7 +79,56 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAllCaps="false"
-            android:text="@string/mission_cancel" />
+            android:text="cancelMission" />
+        <Button
+            android:id="@+id/yawRestore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:text="yawRestore" />
+        <Button
+            android:id="@+id/getCurrentMission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:text="getCurrentMission" />
+        <Button
+            android:id="@+id/getMissionExecuteState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:text="getMissionExecuteState" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setRealTimeInfoListener"
+                />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/setRealTimeInfoListener"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="set"
+                    />
+                <Button
+                    android:id="@+id/resetRealTimeInfoListener"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="reset"
+                    />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 
@@ -90,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/missionOperate"
-        android:text="@string/mission_download"
+        android:text="downloadMission"
         android:textAllCaps="false"
         />
 

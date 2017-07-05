@@ -10,6 +10,8 @@
     <string name="mission_pause">暂停</string>
     <string name="mission_resume">继续</string>
     <string name="mission_cancel">取消</string>
+    <string name="mission_yaw_restore">yaw 轴回正</string>
+    <string name="mission_get_current_mission">获取当前任务</string>
     <string name="mission_waypoint">航点</string>
     <string name="mission_orbit">环绕</string>
     <string name="mission_follow">跟随</string>
@@ -23,6 +25,7 @@
     <string name="mission_resume_notify">任务继续</string>
     <string name="mission_cancel_notify">任务取消</string>
     <string name="mission_download_notify">任务下载完成</string>
+    <string name="mission_yaw_restore_notify">yaw 轴回正</string>
     <string name="mission_speed_notify">飞行速度</string>
     <string name="mission_notify_return_height">返航高度</string>
     <string name="mission_notify_count">环绕圈数</string>

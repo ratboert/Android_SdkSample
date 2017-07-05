@@ -100,7 +100,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_camera_r12, null);
+        View view = inflater.inflate(R.layout.activity_camera_xb008, null);
         xb008 = (AutelXB008) ((CameraActivity) getActivity()).getCamera();
         currentCameraProduct = xb008.getProduct();
         logOut("");

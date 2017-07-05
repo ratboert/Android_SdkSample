@@ -946,6 +946,31 @@ public class CameraR12Fragment extends CameraBaseFragment {
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
         videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
+
+        view.findViewById(R.id.setHistogramListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setHistogramListener(new CallbackWithOneParam<int[]>() {
+                    @Override
+                    public void onSuccess(int[] ints) {
+                        logOut("setHistogramListener  " + ints);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setHistogramListener  description " + autelError);
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.resetHistogramListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setHistogramListener(null);
+            }
+        });
+
     }
 
     private void initVideoResolutionFpsList() {
@@ -1236,7 +1261,5 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
         spotMeteringAreaX = (EditText) view.findViewById(R.id.spotMeteringAreaX);
         spotMeteringAreaY = (EditText) view.findViewById(R.id.spotMeteringAreaY);
-
-
     }
 }

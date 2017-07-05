@@ -13,6 +13,9 @@
     <string name="mission_pause">pause</string>
     <string name="mission_resume">resume</string>
     <string name="mission_cancel">cancel</string>
+    <string name="mission_yaw_restore">yaw restore</string>
+    <string name="mission_get_current_mission">get current mission</string>
+    <string name="mission_get_execute_state">get execute state</string>
     <string name="mission_waypoint">Waypoint</string>
     <string name="mission_orbit">Orbit</string>
     <string name="mission_follow">Follow</string>
@@ -26,6 +29,7 @@
     <string name="mission_resume_notify">mission resumed</string>
     <string name="mission_cancel_notify">mission canceled</string>
     <string name="mission_download_notify">mission downloaded complete</string>
+    <string name="mission_yaw_restore_notify">mission yaw restore</string>
     <string name="mission_speed_notify">fly speed</string>
     <string name="mission_notify_return_height">return height</string>
     <string name="mission_notify_count">orbit count</string>

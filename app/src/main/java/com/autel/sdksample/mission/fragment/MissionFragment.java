@@ -19,6 +19,7 @@ import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.CurrentMissionState;
+import com.autel.common.mission.MissionExecuteState;
 import com.autel.common.mission.OrbitMission;
 import com.autel.common.mission.RealTimeInfo;
 import com.autel.common.mission.Waypoint;
@@ -26,6 +27,7 @@ import com.autel.common.mission.WaypointMission;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdksample.MissionActivity;
 import com.autel.sdksample.R;
 import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.mission.MapActivity;
@@ -40,6 +42,9 @@ public abstract class MissionFragment extends Fragment {
     Button missionResume;
     Button missionCancel;
     Button missionDownload;
+    Button yawRestore;
+    Button getCurrentMission;
+    Button getMissionExecuteState;
     Spinner finishActionSpinner;
     ProgressBar progressBarDownload;
     ProgressBar progressBarPrepare;
@@ -70,21 +75,36 @@ public abstract class MissionFragment extends Fragment {
 
     private void initUi(View view) {
         missionManager = getMissionManager();
-        if (null != missionManager) {
-            missionManager.setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
-                @Override
-                public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
-                    if (getActivity() != null)
-                        ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
-                }
 
-                @Override
-                public void onFailure(AutelError autelError) {
-                    if (getActivity() != null)
-                        ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
+        view.findViewById(R.id.setRealTimeInfoListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != missionManager) {
+                    missionManager.setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
+                        @Override
+                        public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
+                            if (getActivity() != null)
+                                ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+                            if (getActivity() != null)
+                                ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + autelError.getDescription());
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
+
+        view.findViewById(R.id.resetRealTimeInfoListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != missionManager) {
+                    missionManager.setRealTimeInfoListener(null);
+                }
+            }
+        });
 
         final Context applicationContext = getActivity().getApplicationContext();
         progressBarDownload = (ProgressBar) view.findViewById(R.id.progressBarDownload);
@@ -235,6 +255,45 @@ public abstract class MissionFragment extends Fragment {
         });
 
         finishActionSpinner = (Spinner) view.findViewById(R.id.finishAction);
+
+        view.findViewById(R.id.yawRestore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != missionManager) {
+                    missionManager.yawRestore(new CallbackWithNoParam() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(applicationContext, R.string.mission_yaw_restore_notify, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(AutelError autelError) {
+                            Toast.makeText(applicationContext, autelError.getDescription(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
+
+        view.findViewById(R.id.getCurrentMission).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != missionManager) {
+                    AutelMission mission = missionManager.getCurrentMission();
+                    ((MapActivity) getActivity()).updateLogInfo(null != mission ? mission.toString() : "null");
+                }
+            }
+        });
+
+        view.findViewById(R.id.getMissionExecuteState).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != missionManager) {
+                    MissionExecuteState state = missionManager.getMissionExecuteState();
+                    ((MapActivity) getActivity()).updateLogInfo(null != state ? state.toString() : "null");
+                }
+            }
+        });
     }
 
     private void showDownloadMission(String info) {
