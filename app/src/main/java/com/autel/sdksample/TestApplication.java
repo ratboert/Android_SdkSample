@@ -45,7 +45,7 @@ public class TestApplication extends Application {
         @Override
         public void uncaughtException(Thread thread, final Throwable ex) {
             new ExceptionWriter(ex, getApplicationContext()).saveStackTraceToSD();
-            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(thread, ex);
+//            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(thread, ex);
         }
     }
 
