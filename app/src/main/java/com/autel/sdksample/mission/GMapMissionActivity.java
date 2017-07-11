@@ -62,7 +62,7 @@ public class GMapMissionActivity extends MapActivity {
         resetUI();
     }
 
-    private synchronized void resetUI(){
+    private void resetUI(){
         mMarkerList.clear();
         mOrbitMarker = null;
         mDroneMarker = null;
