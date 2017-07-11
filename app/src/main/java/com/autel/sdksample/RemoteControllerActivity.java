@@ -314,19 +314,19 @@ public class RemoteControllerActivity extends BaseActivity {
         });
     }
 
-    public void exitCalibration(View view) {
-        remoteController.setStickCalibration(RemoteControllerStickCalibration.EXIT, new CallbackWithNoParam() {
-            @Override
-            public void onFailure(AutelError rcError) {
-                logOut("setStickCalibration EXIT RCError " + rcError.getDescription());
-            }
-
-            @Override
-            public void onSuccess() {
-                logOut("setStickCalibration EXIT onSuccess  ");
-            }
-        });
-    }
+//    public void exitCalibration(View view) {
+//        remoteController.setStickCalibration(RemoteControllerStickCalibration.EXIT, new CallbackWithNoParam() {
+//            @Override
+//            public void onFailure(AutelError rcError) {
+//                logOut("setStickCalibration EXIT RCError " + rcError.getDescription());
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                logOut("setStickCalibration EXIT onSuccess  ");
+//            }
+//        });
+//    }
 
     public void getRCLengthUnit(View view) {
         remoteController.getLengthUnit(new CallbackWithOneParam<RemoteControllerParameterUnit>() {
@@ -391,7 +391,7 @@ public class RemoteControllerActivity extends BaseActivity {
 
     public void setYawCoefficient(View view) {
         String value = yawCoefficientValue.getText().toString();
-        remoteController.setYawCoefficient(isEmpty(value) ? 0.3 : Double.valueOf(value), new CallbackWithNoParam() {
+        remoteController.setYawCoefficient(isEmpty(value) ? 0.3f : Float.valueOf(value), new CallbackWithNoParam() {
             @Override
             public void onSuccess() {
                 logOut("setYawCoefficient onSuccess ");
@@ -405,10 +405,10 @@ public class RemoteControllerActivity extends BaseActivity {
     }
 
     public void getYawCoefficient(View view) {
-        remoteController.getYawCoefficient(new CallbackWithOneParam<Double>() {
+        remoteController.getYawCoefficient(new CallbackWithOneParam<Float>() {
             @Override
-            public void onSuccess(Double aDouble) {
-                logOut("getYawCoefficient onSuccess ");
+            public void onSuccess(Float aDouble) {
+                logOut("getYawCoefficient onSuccess "+aDouble);
             }
 
             @Override

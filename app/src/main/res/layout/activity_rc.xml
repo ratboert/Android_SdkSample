@@ -192,6 +192,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="exitCalibration"
                         android:text="EXIT"
+                        android:visibility="gone"
                         android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
