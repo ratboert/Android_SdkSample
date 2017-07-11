@@ -18,6 +18,7 @@ import com.autel.common.mission.FollowMission;
 import com.autel.common.mission.OrbitFinishedAction;
 import com.autel.common.mission.RealTimeInfo;
 import com.autel.sdk.Autel;
+import com.autel.sdksample.R;
 import com.autel.sdksample.mission.MapActivity;
 import com.autel.sdksample.mission.adapter.FollowFinishActionAdapter;
 import com.autel.sdksample.mission.adapter.OrbitFinishActionAdapter;
@@ -34,7 +35,7 @@ public class FollowMissionFragment extends MissionFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        View view = createView(R.layout.fragment_mission_menu_follow);
         ((MapActivity) getActivity()).setLocationChangeListener(new MapActivity.LocationChangeListener() {
             @Override
             public void locationChanged(Location location) {

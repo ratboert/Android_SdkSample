@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import com.autel.sdksample.camera.fragment.CameraR12Fragment;
 import com.autel.sdksample.camera.fragment.CameraXb008Fragment;
 
 
-public class CameraActivity extends FragmentActivity {
+public class CameraActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     TextView cameraType;
     TextView cameraLogOutput;

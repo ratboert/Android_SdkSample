@@ -21,6 +21,7 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.mission.widget.WaypointSettingDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AMapMissionActivity extends MapActivity {
@@ -57,11 +58,8 @@ public class AMapMissionActivity extends MapActivity {
         resetUI();
     }
 
-    private void resetUI(){
+    private void resetUI() {
         mMarkerList.clear();
-        mOrbitMarker = null;
-        mDroneMarker = null;
-        mPhoneMarker = null;
     }
 
     private void attachTapListener() {
@@ -81,7 +79,7 @@ public class AMapMissionActivity extends MapActivity {
     }
 
     private void showWaypointSettingDialog(int position) {
-        final WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position,wayPointList.get(position));
+        final WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this, position, wayPointList.get(position));
         waypointSettingDialog.showDialog();
         waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
             @Override
@@ -142,25 +140,38 @@ public class AMapMissionActivity extends MapActivity {
         autelLatLng = new AutelLatLng(lat, lot);
 
         if (null != mOrbitMarker) {
-            mOrbitMarker.setPosition(new LatLng(lat, lot));
-        } else {
-            MarkerOptions markerOption = new MarkerOptions();
-            markerOption.position(new LatLng(lat, lot));
-            markerOption.draggable(false);
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.favor_marker_point);
-            markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-            mOrbitMarker = mAmap.addMarker(markerOption);
+            mOrbitMarker.destroy();
         }
+
+        MarkerOptions markerOption = new MarkerOptions();
+        markerOption.position(new LatLng(lat, lot));
+        markerOption.draggable(false);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.favor_marker_point);
+        markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+        mOrbitMarker = mAmap.addMarker(markerOption);
+
     }
 
     @Override
     protected void resetMap() {
-        mOrbitMarker = null;
-        mDroneMarker = null;
-        mPhoneMarker = null;
-        autelLatLng = null;
+        if (null != mOrbitMarker) {
+            mOrbitMarker.destroy();
+        }
+        if (null != polyLines) {
+            for (Polyline line : polyLines) {
+                line.remove();
+            }
+            polyLines.clear();
 
-        mAmap.clear();
+        }
+
+        if (null != mMarkerList) {
+            for (Marker marker : mMarkerList) {
+                marker.destroy();
+            }
+            mMarkerList.clear();
+        }
+
         wayPointList.clear();
     }
 
@@ -175,16 +186,20 @@ public class AMapMissionActivity extends MapActivity {
         return mAmap.addMarker(markerOption);
     }
 
+    private List<Polyline> polyLines = new ArrayList<>();
+
     private Polyline addWayPointLine(Waypoint start, LatLng end) {
         Polyline a = mAmap.addPolyline((new PolylineOptions()).add(new LatLng(start.getAutelCoord3D().getLatitude(), start.getAutelCoord3D().getLongitude()), end));
         a.setColor(Color.GREEN);
         a.setWidth(10);
+        polyLines.add(a);
         return a;
     }
 
     Marker mDroneMarker;
 
-    private synchronized void drawDroneMarker(LatLng dronell) {
+    private void drawDroneMarker(LatLng dronell) {
+        synchronized (AMapMissionActivity.class) {
             if (mDroneMarker == null) {
                 MarkerOptions markerOption = new MarkerOptions();
                 markerOption.position(dronell);
@@ -199,6 +214,7 @@ public class AMapMissionActivity extends MapActivity {
                 mDroneMarker.setPosition(dronell);
                 mDroneMarker.setToTop();
             }
+        }
     }
 
     Marker mPhoneMarker;
