@@ -173,6 +173,7 @@ public class AMapMissionActivity extends MapActivity {
         }
 
         wayPointList.clear();
+        autelLatLng = null;
     }
 
     private Marker addMarkerWithLabel(LatLng latlng, int mIndex) {
