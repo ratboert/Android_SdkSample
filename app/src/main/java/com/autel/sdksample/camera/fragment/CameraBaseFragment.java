@@ -366,7 +366,11 @@ public class CameraBaseFragment extends Fragment {
     }
 
     protected void logOut(String log) {
-        ((CameraActivity) getActivity()).logOut(log);
+        CameraActivity activity = ((CameraActivity) getActivity());
+        if (null != activity) {
+            activity.logOut(log);
+        }
+
     }
 
     protected boolean isEmpty(String value) {
