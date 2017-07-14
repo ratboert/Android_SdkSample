@@ -1227,6 +1227,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     }
 
     private void initView(View view) {
+        view.findViewById(R.id.setMediaModeListenerLayout).setVisibility(View.GONE);
         XB012ParameterRangeManager rangeManager = xb012.getParameterRangeManager();
 
         Spinner autoPIVTimelapseIntervalList = (Spinner) view.findViewById(R.id.autoPIVTimelapseIntervalList);
