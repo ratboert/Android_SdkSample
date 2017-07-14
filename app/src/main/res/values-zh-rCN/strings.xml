@@ -12,6 +12,7 @@
     <string name="mission_cancel">取消</string>
     <string name="mission_yaw_restore">yaw 轴回正</string>
     <string name="mission_get_current_mission">获取当前任务</string>
+    <string name="mission_get_execute_state">获取执行状态</string>
     <string name="mission_waypoint">航点</string>
     <string name="mission_orbit">环绕</string>
     <string name="mission_follow">跟随</string>
