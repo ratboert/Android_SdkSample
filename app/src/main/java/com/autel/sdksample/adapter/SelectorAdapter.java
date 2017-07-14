@@ -19,7 +19,7 @@ public class SelectorAdapter<T> extends BaseAdapter {
         mContext = context;
     }
 
-    public void setRfData(List<T> elementList) {
+    public void setData(List<T> elementList) {
         this.elementList = elementList;
         notifyDataSetInvalidated();
     }

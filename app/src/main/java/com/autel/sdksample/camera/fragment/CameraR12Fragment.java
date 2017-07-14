@@ -59,6 +59,8 @@ import com.autel.sdksample.camera.fragment.adapter.VideoResolutionFpsAdapter;
 import com.autel.sdksample.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.camera.fragment.adapter.WhiteBalanceTypeAdapter;
 
+import java.util.Arrays;
+
 public class CameraR12Fragment extends CameraBaseFragment {
     AutelR12 autelR12;
 
@@ -1002,7 +1004,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void run() {
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setRfData(currentCameraProduct.supportedCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setData(currentCameraProduct.supportedCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
@@ -1091,7 +1093,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
         });
 
         Spinner photoTimelapseIntervalList = (Spinner) view.findViewById(R.id.photoTimelapseIntervalList);
-        photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext()));
+        if (null != autelR12) {
+            photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
+                    Arrays.asList(autelR12.getParameterRangeManager().getPhotoTimelapseInterval())));
+        }
         photoTimelapseIntervalList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

@@ -18,7 +18,7 @@ public class VideoResolutionFpsAdapter extends SelectorAdapter<VideoResolutionAn
 
     public void setData(CameraProduct product, VideoStandard videoStandard) {
         if (null != product) {
-            setRfData(Arrays.asList(product.supportedVideoResolutionAndFps(videoStandard)));
+            setData(Arrays.asList(product.supportedVideoResolutionAndFps(videoStandard)));
         }
     }
 }

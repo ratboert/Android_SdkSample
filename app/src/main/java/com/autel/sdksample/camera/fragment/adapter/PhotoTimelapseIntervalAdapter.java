@@ -5,15 +5,13 @@ import android.content.Context;
 import com.autel.common.camera.media.PhotoTimelapseInterval;
 import com.autel.sdksample.adapter.SelectorAdapter;
 
+import java.util.List;
+
 
 public class PhotoTimelapseIntervalAdapter extends SelectorAdapter<PhotoTimelapseInterval> {
 
-    public PhotoTimelapseIntervalAdapter(Context context) {
+    public PhotoTimelapseIntervalAdapter(Context context, List<PhotoTimelapseInterval> data) {
         super(context);
-        elementList.add(PhotoTimelapseInterval.SECOND_5);
-        elementList.add(PhotoTimelapseInterval.SECOND_7);
-        elementList.add(PhotoTimelapseInterval.SECOND_10);
-        elementList.add(PhotoTimelapseInterval.SECOND_20);
-        elementList.add(PhotoTimelapseInterval.SECOND_30);
+        elementList.addAll(data);
     }
 }

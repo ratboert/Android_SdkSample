@@ -20,6 +20,7 @@ import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.camera.fragment.CameraFLIRFragment;
 import com.autel.sdksample.camera.fragment.CameraNotConnectFragment;
 import com.autel.sdksample.camera.fragment.CameraR12Fragment;
+import com.autel.sdksample.camera.fragment.CameraXB012Fragment;
 import com.autel.sdksample.camera.fragment.CameraXb008Fragment;
 
 
@@ -55,7 +56,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void initListener() {
-        if(null == autelCameraManager){
+        if (null == autelCameraManager) {
             return;
         }
         autelCameraManager.setCameraChangeListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
@@ -70,14 +71,24 @@ public class CameraActivity extends AppCompatActivity {
                         }
                         camera = data2;
                         cameraType.setText(data1.toString());
-                        if (data1 == CameraProduct.FLIR_DUO) {
-                            changePage(CameraFLIRFragment.class);
-                        } else if (data1 == CameraProduct.R12) {
-                            changePage(CameraR12Fragment.class);
-                        } else if (data1 == CameraProduct.XB008) {
-                            changePage(CameraXb008Fragment.class);
-                        } else if (data1 == CameraProduct.UNKNOWN) {
-                            changePage(CameraNotConnectFragment.class);
+                        switch (data1) {
+                            case FLIR_DUO:
+                                changePage(CameraFLIRFragment.class);
+                                break;
+                            case FLIR_DUO_R:
+                                changePage(CameraFLIRFragment.class);
+                                break;
+                            case R12:
+                                changePage(CameraR12Fragment.class);
+                                break;
+                            case XB008:
+                                changePage(CameraXb008Fragment.class);
+                                break;
+                            case XB012:
+                                changePage(CameraXB012Fragment.class);
+                                break;
+                            default:
+                                changePage(CameraNotConnectFragment.class);
                         }
                     }
                 });
@@ -92,12 +103,12 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         initListener();
     }
 
-    public void onPause(){
+    public void onPause() {
         if (null == autelCameraManager) {
             return;
         }

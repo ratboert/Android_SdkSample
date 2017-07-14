@@ -14,7 +14,6 @@ import com.autel.sdk.album.AutelAlbum;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdksample.BaseActivity;
 import com.autel.sdksample.R;
-import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.album.adapter.LocalVideoListAdapter;
 import com.autel.sdksample.album.adapter.MediaListAdapter;
 import com.autel.util.okhttp.OkHttpManager;
@@ -126,11 +125,11 @@ public class AlbumActivity extends BaseActivity {
                             Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
                         }
 
-                        mediaListAdapter.setRfData(data);
+                        mediaListAdapter.setData(data);
                         mediaList.setAdapter(mediaListAdapter);
-                        videoResolutionFromHttpHeaderAdapter.setRfData(data);
+                        videoResolutionFromHttpHeaderAdapter.setData(data);
                         videoResolutionFromHttpHeaderList.setAdapter(videoResolutionFromHttpHeaderAdapter);
-                        videoList.setRfData(data);
+                        videoList.setData(data);
                         videoDownloadList.setAdapter(videoList);
                     }
                 });

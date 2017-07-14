@@ -40,7 +40,7 @@ public class MediaListAdapter extends SelectorAdapter<MediaInfo> {
     }
 
 
-    public void setRfData(List<MediaInfo> data) {
+    public void setData(List<MediaInfo> data) {
         if (mediaType == MediaType.Media) {
             this.elementList = data;
         } else if (mediaType == MediaType.Video) {

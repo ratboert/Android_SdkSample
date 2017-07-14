@@ -8,8 +8,10 @@ import android.util.Log;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.error.AutelError;
 import com.autel.common.product.AutelProductType;
+import com.autel.internal.product.XStarPremAircraftImpl;
 import com.autel.sdk.Autel;
 import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.G2Aircraft;
 import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.adapter.ProductSelector;
 
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 ((TestApplication) getApplicationContext()).setCurrentProduct(product);
                 if (product instanceof XStarAircraft) {
                     productSelector.productConnected(AutelProductType.X_STAR);
+                } else if (product instanceof G2Aircraft) {
+                    productSelector.productConnected(AutelProductType.G2);
                 }
             }
 

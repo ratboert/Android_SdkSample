@@ -227,36 +227,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="set3DNoiseReductionEnable" />
-
-                <Switch
-                    android:id="@+id/set3DNoiseReductionEnable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/is3DNoiseReductionEnable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="is3DNoiseReductionEnable"
-                android:textAllCaps="false" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="horizontal">
@@ -540,6 +510,37 @@
                 android:gravity="center"
                 android:text="getPhotoAEBCount"
                 android:textAllCaps="false" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/setVideoEncoding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setVideoEncodeFormat"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/videoEncodeList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getVideoEncodeFormat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getVideoEncodeFormat"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/getVideoSum"
@@ -557,15 +558,6 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:text="getPhotoSum"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/getCurrentRecordTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:text="getCurrentRecordTime"
                 android:textAllCaps="false" />
 
             <LinearLayout
@@ -599,6 +591,102 @@
                 android:gravity="center"
                 android:text="getVideoFormat"
                 android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/setRealTimeVideoResolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setRealTimeVideoResolution"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/realTimeVideoResolutionList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getRealTimeVideoResolution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getRealTimeVideoResolution"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/setPIVMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setPIVMode"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/PIVModeList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getPIVMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getPIVMode"
+                android:textAllCaps="false" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/setAutoPIVTimelapseInterval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setAutoPIVTimelapseInterval"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/autoPIVTimelapseIntervalList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getAutoPIVTimelapseInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getAutoPIVTimelapseInterval"
+                android:textAllCaps="false" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
