@@ -262,7 +262,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
 
                     @Override
                     public void onSuccess() {
-                        logOut("xb012  setMediaMode state onSuccess ");
+                        logOut("setMediaMode state onSuccess ");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
