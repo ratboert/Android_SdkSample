@@ -166,6 +166,31 @@ public class CameraXB012Fragment extends CameraBaseFragment {
 
 
     private void initXB012Click(View view) {
+
+        view.findViewById(R.id.resetHistogramListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.setHistogramListener(null);
+            }
+        });
+
+        view.findViewById(R.id.setHistogramListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.setHistogramListener(new CallbackWithOneParam<int[]>() {
+                    @Override
+                    public void onSuccess(int[] ints) {
+                        logOut("setHistogramListener  onSuccess  " + ints);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setHistogramListener  description  " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+
         final EditText digitalZoomScaleValue = (EditText) view.findViewById(R.id.digitalZoomScaleValue);
         final TextView digitalZoomScaleRange = (TextView) view.findViewById(R.id.digitalZoomScaleRange);
         digitalZoomScaleValue.addTextChangedListener(new TextWatcher() {
@@ -1016,7 +1041,6 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                 });
             }
         });
-
 
 
         view.findViewById(R.id.getRealTimeVideoResolution).setOnClickListener(new View.OnClickListener() {
