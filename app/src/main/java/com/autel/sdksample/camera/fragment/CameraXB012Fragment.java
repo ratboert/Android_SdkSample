@@ -1,6 +1,8 @@
 package com.autel.sdksample.camera.fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.RangePair;
 import com.autel.common.camera.CameraProduct;
+import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
 import com.autel.common.camera.media.CameraAspectRatio;
@@ -111,6 +116,11 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     RealTimeVideoResolution realTimeVideoResolution = RealTimeVideoResolution.P_1280X720;
     PIVMode pivMode = PIVMode.Manual;
     VideoSnapshotTimelapseInterval snapshotTimelapseInterval = VideoSnapshotTimelapseInterval.SECOND_5;
+    VideoResolutionAndFps currentVideoResolutionAndFps = null;
+
+    ShutterSpeedAdapter shutterSpeedAdapter = null;
+    Spinner shutterList = null;
+
     private CameraProduct currentCameraProduct;
 
     @Override
@@ -121,12 +131,153 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         logOut("");
         initView(view);
         initClick(view);
-        initR12Click(view);
+        initXB012Click(view);
+        initData();
+
         return view;
     }
 
+    private void initData() {
+        if (null != xb012) {
+            xb012.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
+                @Override
+                public void onFailure(AutelError error) {
+                }
 
-    private void initR12Click(View view) {
+                @Override
+                public void onSuccess(VideoResolutionAndFps data) {
+                    currentVideoResolutionAndFps = data;
+                    initShuttleSpeedList();
+                }
+            });
+            xb012.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
+                @Override
+                public void onFailure(AutelError error) {
+                }
+
+                @Override
+                public void onSuccess(VideoStandard data) {
+                    currentVideoStandard = data;
+                    initVideoResolutionFpsList();
+                }
+            });
+        }
+    }
+
+
+    private void initXB012Click(View view) {
+        final EditText digitalZoomScaleValue = (EditText) view.findViewById(R.id.digitalZoomScaleValue);
+        final TextView digitalZoomScaleRange = (TextView) view.findViewById(R.id.digitalZoomScaleRange);
+        digitalZoomScaleValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(digitalZoomScaleRange.getText().toString())) {
+                    RangePair<Integer> digitalScaleRange = xb012.getParameterRangeManager().getDigitalZoomScale();
+                    digitalZoomScaleRange.setText("integer value of digital scale,  range from " + digitalScaleRange.getValueFrom() + " to " + digitalScaleRange.getValueTo());
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        view.findViewById(R.id.setDigitalZoomScale).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String value = digitalZoomScaleValue.getText().toString();
+                int parameter = isEmpty(value) ? 100 : Integer.valueOf(value);
+                xb012.setDigitalZoomScale(parameter, new CallbackWithNoParam() {
+                    @Override
+                    public void onSuccess() {
+                        logOut("setDigitalZoomScale  onSuccess  ");
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setDigitalZoomScale  description  " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.getDigitalZoomScale).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.getDigitalZoomScale(new CallbackWithOneParam<Integer>() {
+                    @Override
+                    public void onSuccess(Integer value) {
+                        logOut("getDigitalZoomScale  onSuccess  " + value);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("getDigitalZoomScale  description  " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.getMediaMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.getMediaMode(new CallbackWithOneParam<MediaMode>() {
+                    @Override
+                    public void onSuccess(final MediaMode data) {
+                        logOut("getMediaMode " + data);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (null != currentVideoResolutionAndFps) {
+                                    shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                                    shutterList.setAdapter(shutterSpeedAdapter);
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getMediaMode " + error.getDescription());
+                    }
+                });
+            }
+        });
+
+
+        view.findViewById(R.id.setMediaMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.setMediaMode(mediaMode, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setMediaMode  description  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("xb012  setMediaMode state onSuccess ");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (null != currentVideoResolutionAndFps) {
+                                    shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                                    shutterList.setAdapter(shutterSpeedAdapter);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+
         view.findViewById(R.id.setSpotMeteringArea).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -866,22 +1017,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xb012.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setVideoResolutionAndFrameRate  description  " + error.getDescription());
-                    }
 
-                    @Override
-                    public void onSuccess() {
-                        logOut("setVideoResolutionAndFrameRate onSuccess");
-                    }
-                });
-            }
-        });
 
         view.findViewById(R.id.getRealTimeVideoResolution).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -981,6 +1117,25 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
+        view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setVideoResolutionAndFrameRate  description  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("setVideoResolutionAndFrameRate onSuccess");
+                        currentVideoResolutionAndFps = videoResolutionAndFps;
+                        initShuttleSpeedList();
+                    }
+                });
+            }
+        });
+
         view.findViewById(R.id.getVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -993,6 +1148,8 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(VideoResolutionAndFps data) {
                         logOut("getVideoResolutionAndFrameRate " + data);
+                        currentVideoResolutionAndFps = data;
+                        initShuttleSpeedList();
                     }
                 });
             }
@@ -1022,8 +1179,31 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         });
     }
 
-    private void initView(View view) {
+    private void initShuttleSpeedList() {
+        xb012.getMediaMode(new CallbackWithOneParam<MediaMode>() {
+            @Override
+            public void onSuccess(final MediaMode mode) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (null != currentVideoResolutionAndFps) {
+                            shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                            shutterList.setAdapter(shutterSpeedAdapter);
+                        }
+                    }
+                });
+            }
 
+            @Override
+            public void onFailure(AutelError autelError) {
+
+            }
+        });
+
+    }
+
+    private void initView(View view) {
+        XB012ParameterRangeManager rangeManager = xb012.getParameterRangeManager();
 
         Spinner autoPIVTimelapseIntervalList = (Spinner) view.findViewById(R.id.autoPIVTimelapseIntervalList);
         autoPIVTimelapseIntervalList.setAdapter(new VideoSnapshotTimeIntervalAdapter(getContext()));
@@ -1224,8 +1404,9 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
-        Spinner shutterList = (Spinner) view.findViewById(R.id.shutterList);
-        shutterList.setAdapter(new ShutterSpeedAdapter(getContext()));
+        shutterList = (Spinner) view.findViewById(R.id.shutterList);
+        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext());
+        shutterList.setAdapter(shutterSpeedAdapter);
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1239,7 +1420,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         });
 
         Spinner ISOList = (Spinner) view.findViewById(R.id.ISOList);
-        ISOList.setAdapter(new ISOValueAdapter(getContext(), currentCameraProduct));
+        ISOList.setAdapter(new ISOValueAdapter(getContext(), Arrays.asList(rangeManager.getCameraISO())));
         ISOList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1310,7 +1491,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
 
 
         exposureModeList = (Spinner) view.findViewById(R.id.exposureModeList);
-        exposureModeList.setAdapter(new ExposureModeAdapter(getContext(), currentCameraProduct));
+        exposureModeList.setAdapter(new ExposureModeAdapter(getContext(), Arrays.asList(rangeManager.getCameraExposureMode())));
         exposureModeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

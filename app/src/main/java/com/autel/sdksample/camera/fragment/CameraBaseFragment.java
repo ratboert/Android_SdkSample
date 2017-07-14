@@ -25,7 +25,7 @@ public class CameraBaseFragment extends Fragment {
     AutelBaseCamera baseCamera;
 
     private Spinner mediaModeList;
-    private MediaMode mediaMode;
+    protected MediaMode mediaMode;
 
     protected void initClick(View view) {
         log_output = (TextView) view.findViewById(R.id.camera_log_output);

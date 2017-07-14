@@ -148,6 +148,60 @@ public class CameraR12Fragment extends CameraBaseFragment {
     }
 
     private void initR12Click(View view) {
+        view.findViewById(R.id.getMediaMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.getMediaMode(new CallbackWithOneParam<MediaMode>() {
+                    @Override
+                    public void onSuccess(final MediaMode data) {
+                        logOut("getMediaMode " + data);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (null != currentVideoResolutionAndFps) {
+                                    shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                                    shutterList.setAdapter(shutterSpeedAdapter);
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getMediaMode " + error.getDescription());
+                    }
+                });
+            }
+        });
+
+
+        view.findViewById(R.id.setMediaMode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setMediaMode(mediaMode, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setMediaMode  description  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("setMediaMode state onSuccess");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (null != currentVideoResolutionAndFps) {
+                                    shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                                    shutterList.setAdapter(shutterSpeedAdapter);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+
         view.findViewById(R.id.setSpotMeteringArea).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
