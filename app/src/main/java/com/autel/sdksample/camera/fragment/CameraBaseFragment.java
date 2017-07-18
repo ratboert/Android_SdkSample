@@ -201,28 +201,6 @@ public class CameraBaseFragment extends Fragment {
                 });
             }
         });
-        view.findViewById(R.id.resetCameraConnectStateListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baseCamera.setConnectStateListener(null);
-            }
-        });
-        view.findViewById(R.id.setCameraConnectStateListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baseCamera.setConnectStateListener(new CallbackWithOneParam<Boolean>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setConnectStateListener camera error " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(Boolean data) {
-                        logOut(data ? "camera connected" : "camera disconnect");
-                    }
-                });
-            }
-        });
         view.findViewById(R.id.resetCamera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

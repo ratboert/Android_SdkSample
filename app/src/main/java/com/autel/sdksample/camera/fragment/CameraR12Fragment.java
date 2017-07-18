@@ -1002,7 +1002,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void run() {
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setRfData(currentCameraProduct.supportedCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setRfData(autelR12.getParameterRangeManager().getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
