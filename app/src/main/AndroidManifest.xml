@@ -23,8 +23,8 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,8 +33,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".XStarActivity"
-            />
+        <activity android:name=".XStarActivity" />
         <activity android:name=".RemoteControllerActivity" />
         <activity android:name=".FlyControllerActivity" />
         <activity
@@ -42,7 +41,9 @@
             android:screenOrientation="landscape" />
         <activity android:name=".DspActivity" />
         <activity android:name=".BatteryActivity" />
-        <activity android:name=".gimbal.GimbalActivity" />
+        <activity
+            android:name=".gimbal.GimbalActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".album.AlbumActivity" />
         <activity
             android:name=".MissionActivity"

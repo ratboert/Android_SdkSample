@@ -17,11 +17,13 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/text_padding"
+            android:visibility="gone"
             android:text="setConnectStateListener" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <Button

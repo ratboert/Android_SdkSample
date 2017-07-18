@@ -2,6 +2,8 @@ package com.autel.sdksample;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
@@ -60,11 +62,22 @@ public class TestApplication extends Application {
 
         public void saveStackTraceToSD() {
             try {
+                PackageManager packageManager = mContext.getPackageManager();
+                String appId = null;
+                String appVersion = null;
+                try {
+                    appId = mContext.getPackageName();
+                    PackageInfo packageInfo = packageManager.getPackageInfo(appId, 0);
+                    appVersion = packageInfo.versionName;
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
                 FileOutputStream excep = this.getExceptionFileStream();
                 StringBuilder sb = new StringBuilder();
                 sb.append("android sdk version = " + Build.VERSION.SDK_INT + "\n");
                 sb.append("phoneType = " + Build.MODEL + "\n");
-                sb.append("SDK Sample 2.0.9.5" + "\n");
+                sb.append(appId + " " + appVersion + "\n");
                 sb.append("error occured Time = " + getTimeStamp() + "\n\n");
                 StringWriter writer = new StringWriter();
                 PrintWriter printWriter = new PrintWriter(writer);
