@@ -2,18 +2,19 @@ package com.autel.sdksample.camera.fragment.adapter;
 
 import android.content.Context;
 
-import com.autel.common.camera.CameraProduct;
-import com.autel.common.camera.media.CameraAspectRatio;
+import com.autel.common.camera.media.PhotoAspectRatio;
 import com.autel.sdksample.adapter.SelectorAdapter;
 
-import java.util.Arrays;
+import java.util.List;
 
-public class AspectRatioAdapter extends SelectorAdapter<CameraAspectRatio> {
-    private CameraProduct cameraProduct;
+public class AspectRatioAdapter extends SelectorAdapter<PhotoAspectRatio> {
 
-    public AspectRatioAdapter(Context context, CameraProduct cameraProduct) {
+    public AspectRatioAdapter(Context context) {
         super(context);
-        this.cameraProduct = cameraProduct;
-        elementList.addAll(Arrays.asList(cameraProduct.supportedAspectRatio()));
+    }
+
+    public AspectRatioAdapter(Context context, List<PhotoAspectRatio> list) {
+        super(context);
+        elementList = list;
     }
 }

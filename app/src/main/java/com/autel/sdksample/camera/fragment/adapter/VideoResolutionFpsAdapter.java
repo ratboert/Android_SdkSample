@@ -8,6 +8,7 @@ import com.autel.common.camera.media.VideoStandard;
 import com.autel.sdksample.adapter.SelectorAdapter;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class VideoResolutionFpsAdapter extends SelectorAdapter<VideoResolutionAndFps> {
@@ -16,9 +17,8 @@ public class VideoResolutionFpsAdapter extends SelectorAdapter<VideoResolutionAn
         super(context);
     }
 
-    public void setData(CameraProduct product, VideoStandard videoStandard) {
-        if (null != product) {
-            setData(Arrays.asList(product.supportedVideoResolutionAndFps(videoStandard)));
-        }
+    public VideoResolutionFpsAdapter(Context context, List<VideoResolutionAndFps> list) {
+        super(context);
+        elementList = list;
     }
 }

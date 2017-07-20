@@ -10,13 +10,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ExposureModeAdapter extends SelectorAdapter<CameraExposureMode> {
-    public ExposureModeAdapter(Context context, CameraProduct cameraProduct) {
+    public ExposureModeAdapter(Context context) {
         super(context);
-        elementList.addAll(Arrays.asList(cameraProduct.supportedExposureMode()));
     }
 
     public ExposureModeAdapter(Context context, List<CameraExposureMode> modes) {
         super(context);
-        elementList.addAll(modes);
+        elementList = modes;
+
     }
 }

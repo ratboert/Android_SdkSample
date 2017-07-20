@@ -10,13 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ISOValueAdapter extends SelectorAdapter<CameraISO> {
-    public ISOValueAdapter(Context context,  CameraProduct cameraProduct) {
+    public ISOValueAdapter(Context context) {
         super(context);
-        elementList.addAll(Arrays.asList(cameraProduct.supportedISO()));
     }
 
     public ISOValueAdapter(Context context,  List<CameraISO> isoList) {
         super(context);
-        elementList.addAll(isoList);
+        elementList = isoList;
     }
 }

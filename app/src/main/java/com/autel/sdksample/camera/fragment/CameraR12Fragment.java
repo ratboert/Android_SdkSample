@@ -13,11 +13,10 @@ import android.widget.Switch;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.camera.CameraProduct;
+import com.autel.common.camera.R12.R12ParameterRangeManager;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
-import com.autel.common.camera.media.CameraAspectRatio;
 import com.autel.common.camera.media.CameraAutoExposureLockState;
 import com.autel.common.camera.media.CameraColorStyle;
 import com.autel.common.camera.media.CameraExposureCompensation;
@@ -28,6 +27,7 @@ import com.autel.common.camera.media.CameraSpotMeteringArea;
 import com.autel.common.camera.media.CameraWhiteBalance;
 import com.autel.common.camera.media.CameraWhiteBalanceType;
 import com.autel.common.camera.media.PhotoAEBCount;
+import com.autel.common.camera.media.PhotoAspectRatio;
 import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.PhotoStyle;
 import com.autel.common.camera.media.PhotoStyleType;
@@ -101,17 +101,17 @@ public class CameraR12Fragment extends CameraBaseFragment {
     VideoStandard selectedVideoStandard = VideoStandard.NTSC;
     VideoStandard currentVideoStandard = VideoStandard.UNKNOWN;
     PhotoFormat photoFormat = PhotoFormat.JPEG;
-    CameraAspectRatio aspectRatio = CameraAspectRatio.Aspect_16_9;
+    PhotoAspectRatio aspectRatio = PhotoAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
     VideoResolutionAndFps currentVideoResolutionAndFps = null;
 
-    private CameraProduct currentCameraProduct;
+    private R12ParameterRangeManager rangeManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
         autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
-        currentCameraProduct = autelR12.getProduct();
+        rangeManager = autelR12.getParameterRangeManager();
         logOut("");
         initView(view);
         initClick(view);
@@ -767,18 +767,18 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.getVideoSum).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.getLeftRecordTime).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getVideoSum(new CallbackWithOneParam<VideoSum>() {
+                autelR12.getLeftRecordTime(new CallbackWithOneParam<Long>() {
                     @Override
-                    public void onSuccess(VideoSum data) {
-                        logOut("getVideoSum " + data);
+                    public void onSuccess(Long data) {
+                        logOut("getLeftRecordTime " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getVideoSum " + error.getDescription());
+                        logOut("getLeftRecordTime " + error.getDescription());
                     }
                 });
             }
@@ -787,9 +787,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoSum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getPhotoSum(new CallbackWithOneParam<PhotoSum>() {
+                autelR12.getPhotoSum(new CallbackWithOneParam<Integer>() {
                     @Override
-                    public void onSuccess(PhotoSum data) {
+                    public void onSuccess(Integer data) {
                         logOut("getPhotoSum " + data);
                     }
 
@@ -945,14 +945,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAspectRatio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getAspectRatio(new CallbackWithOneParam<CameraAspectRatio>() {
+                autelR12.getAspectRatio(new CallbackWithOneParam<PhotoAspectRatio>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getAspectRatio  description  " + error.getDescription());
                     }
 
                     @Override
-                    public void onSuccess(CameraAspectRatio data) {
+                    public void onSuccess(PhotoAspectRatio data) {
                         logOut("getAspectRatio " + data);
                     }
                 });
@@ -1033,7 +1033,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                videoResolutionFpsAdapter.setData(currentCameraProduct, currentVideoStandard);
+                videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps(currentVideoStandard)));
                 videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
                 videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -1058,7 +1058,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void run() {
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(currentCameraProduct.supportedCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
@@ -1077,11 +1077,13 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
 
         Spinner aspectRatioList = (Spinner) view.findViewById(R.id.aspectRatioList);
-        aspectRatioList.setAdapter(new AspectRatioAdapter(getContext(), currentCameraProduct));
+        AspectRatioAdapter ratioAdapter = new AspectRatioAdapter(getContext());
+        ratioAdapter.setData(Arrays.asList(rangeManager.getPhotoAspectRatio()));
+        aspectRatioList.setAdapter(ratioAdapter);
         aspectRatioList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                aspectRatio = (CameraAspectRatio) parent.getAdapter().getItem(position);
+                aspectRatio = (PhotoAspectRatio) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1234,7 +1236,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         });
 
         Spinner ISOList = (Spinner) view.findViewById(R.id.ISOList);
-        ISOList.setAdapter(new ISOValueAdapter(getContext(), currentCameraProduct));
+        ISOList.setAdapter(new ISOValueAdapter(getContext(), Arrays.asList(rangeManager.getCameraISO())));
         ISOList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1262,7 +1264,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
         });
 
         Spinner whiteBalanceTypeList = (Spinner) view.findViewById(R.id.whiteBalanceTypeList);
-        whiteBalanceTypeList.setAdapter(new WhiteBalanceTypeAdapter(getContext(), currentCameraProduct));
+        WhiteBalanceTypeAdapter whiteBalanceTypeAdapter = new WhiteBalanceTypeAdapter(getContext());
+        whiteBalanceTypeAdapter.setData(Arrays.asList(rangeManager.getCameraWhiteBalanceType()));
+        whiteBalanceTypeList.setAdapter(whiteBalanceTypeAdapter);
         whiteBalanceTypeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1305,7 +1309,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
 
         exposureModeList = (Spinner) view.findViewById(R.id.exposureModeList);
-        exposureModeList.setAdapter(new ExposureModeAdapter(getContext(), currentCameraProduct));
+        exposureModeList.setAdapter(new ExposureModeAdapter(getContext(), Arrays.asList(rangeManager.getCameraExposureMode())));
         exposureModeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

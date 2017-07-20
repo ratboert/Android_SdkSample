@@ -1,5 +1,6 @@
 package com.autel.sdksample.camera.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,7 +22,7 @@ import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
-import com.autel.common.camera.media.CameraAspectRatio;
+import com.autel.common.camera.media.PhotoAspectRatio;
 import com.autel.common.camera.media.CameraAutoExposureLockState;
 import com.autel.common.camera.media.CameraColorStyle;
 import com.autel.common.camera.media.CameraExposureCompensation;
@@ -72,6 +73,7 @@ import com.autel.sdksample.camera.fragment.adapter.VideoSnapshotTimeIntervalAdap
 import com.autel.sdksample.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.camera.fragment.adapter.WhiteBalanceTypeAdapter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CameraXB012Fragment extends CameraBaseFragment {
@@ -110,7 +112,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     VideoStandard selectedVideoStandard = VideoStandard.NTSC;
     VideoStandard currentVideoStandard = VideoStandard.NTSC;
     PhotoFormat photoFormat = PhotoFormat.JPEG;
-    CameraAspectRatio aspectRatio = CameraAspectRatio.Aspect_16_9;
+    PhotoAspectRatio aspectRatio = PhotoAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
     VideoEncodeFormat videoEncoding = VideoEncodeFormat.H264;
     RealTimeVideoResolution realTimeVideoResolution = RealTimeVideoResolution.P_1280X720;
@@ -121,13 +123,13 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     ShutterSpeedAdapter shutterSpeedAdapter = null;
     Spinner shutterList = null;
 
-    private CameraProduct currentCameraProduct;
+    private XB012ParameterRangeManager rangeManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_xb012, null);
         xb012 = (AutelXB012) ((CameraActivity) getActivity()).getCamera();
-        currentCameraProduct = xb012.getProduct();
+        rangeManager = xb012.getParameterRangeManager();
         logOut("");
         initView(view);
         initClick(view);
@@ -180,7 +182,15 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                 xb012.setHistogramListener(new CallbackWithOneParam<int[]>() {
                     @Override
                     public void onSuccess(int[] ints) {
-                        logOut("setHistogramListener  onSuccess  " + ints);
+                        StringBuffer stringBuffer = new StringBuffer("{");
+                        for (int item : ints) {
+                            stringBuffer.append(item);
+                            stringBuffer.append(",");
+                        }
+                        if (stringBuffer.length() > 1)
+                            stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+                        stringBuffer.append("}");
+                        logOut("setHistogramListener  onSuccess  " + stringBuffer.toString());
                     }
 
                     @Override
@@ -256,15 +266,17 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(final MediaMode data) {
                         logOut("getMediaMode " + data);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (null != currentVideoResolutionAndFps) {
-                                    shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
-                                    shutterList.setAdapter(shutterSpeedAdapter);
+                        Activity activity = getActivity();
+                        if (null != activity)
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (null != currentVideoResolutionAndFps) {
+                                        shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                                        shutterList.setAdapter(shutterSpeedAdapter);
+                                    }
                                 }
-                            }
-                        });
+                            });
                     }
 
                     @Override
@@ -288,15 +300,17 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess() {
                         logOut("setMediaMode state onSuccess ");
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (null != currentVideoResolutionAndFps) {
-                                    shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
-                                    shutterList.setAdapter(shutterSpeedAdapter);
+                        Activity activity = getActivity();
+                        if (null != activity)
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (null != currentVideoResolutionAndFps) {
+                                        shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                                        shutterList.setAdapter(shutterSpeedAdapter);
+                                    }
                                 }
-                            }
-                        });
+                            });
                     }
                 });
             }
@@ -886,12 +900,12 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.getPhotoSum).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.getLeftPhotoSum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                xb012.getPhotoSum(new CallbackWithOneParam<PhotoSum>() {
+                xb012.getLeftPhotoSum(new CallbackWithOneParam<Integer>() {
                     @Override
-                    public void onSuccess(PhotoSum data) {
+                    public void onSuccess(Integer data) {
                         logOut("getPhotoSum " + data);
                     }
 
@@ -1030,15 +1044,15 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAspectRatio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                xb012.getAspectRatio(new CallbackWithOneParam<CameraAspectRatio>() {
+                xb012.getAspectRatio(new CallbackWithOneParam<PhotoAspectRatio>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getAspectRatio  description  " + error.getDescription());
                     }
 
                     @Override
-                    public void onSuccess(CameraAspectRatio data) {
-                        logOut("getAspectRatio " + data);
+                    public void onSuccess(PhotoAspectRatio data) {
+                        logOut("getAspectRatio " + data.toFormat());
                     }
                 });
             }
@@ -1209,15 +1223,17 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         xb012.getMediaMode(new CallbackWithOneParam<MediaMode>() {
             @Override
             public void onSuccess(final MediaMode mode) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
-                            shutterList.setAdapter(shutterSpeedAdapter);
+                Activity activity = getActivity();
+                if (null != activity)
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (null != currentVideoResolutionAndFps) {
+                                shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                                shutterList.setAdapter(shutterSpeedAdapter);
+                            }
                         }
-                    }
-                });
+                    });
             }
 
             @Override
@@ -1289,11 +1305,13 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         });
 
         Spinner aspectRatioList = (Spinner) parentView.findViewById(R.id.aspectRatioList);
-        aspectRatioList.setAdapter(new AspectRatioAdapter(getContext(), currentCameraProduct));
+        AspectRatioAdapter aspectRatioAdapter = new AspectRatioAdapter(getContext());
+        aspectRatioAdapter.setData(Arrays.asList(rangeManager.getPhotoAspectRatio()));
+        aspectRatioList.setAdapter(aspectRatioAdapter);
         aspectRatioList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                aspectRatio = (CameraAspectRatio) parent.getAdapter().getItem(position);
+                aspectRatio = (PhotoAspectRatio) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1475,7 +1493,9 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         });
 
         Spinner whiteBalanceTypeList = (Spinner) parentView.findViewById(R.id.whiteBalanceTypeList);
-        whiteBalanceTypeList.setAdapter(new WhiteBalanceTypeAdapter(getContext(), currentCameraProduct));
+        WhiteBalanceTypeAdapter whiteBalanceTypeAdapter = new WhiteBalanceTypeAdapter(getContext());
+        whiteBalanceTypeAdapter.setData(Arrays.asList(rangeManager.getCameraWhiteBalanceType()));
+        whiteBalanceTypeList.setAdapter(whiteBalanceTypeAdapter);
         whiteBalanceTypeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

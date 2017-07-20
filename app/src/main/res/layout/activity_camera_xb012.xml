@@ -562,12 +562,12 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/getPhotoSum"
+                android:id="@+id/getLeftPhotoSum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
-                android:text="getPhotoSum"
+                android:text="getLeftPhotoSum"
                 android:textAllCaps="false" />
 
             <LinearLayout
