@@ -62,36 +62,31 @@ public class CameraActivity extends AppCompatActivity {
         autelCameraManager.setCameraChangeListener(new CallbackWithTwoParams<CameraProduct, AutelBaseCamera>() {
             @Override
             public void onSuccess(final CameraProduct data1, final AutelBaseCamera data2) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.v(TAG, "initListener onSuccess connect " + data1);
-                        if (camera == data2) {
-                            return;
-                        }
-                        camera = data2;
-                        cameraType.setText(data1.toString());
-                        switch (data1) {
-                            case FLIR_DUO:
-                                changePage(CameraFLIRFragment.class);
-                                break;
-                            case FLIR_DUO_R:
-                                changePage(CameraFLIRFragment.class);
-                                break;
-                            case R12:
-                                changePage(CameraR12Fragment.class);
-                                break;
-                            case XB008:
-                                changePage(CameraXb008Fragment.class);
-                                break;
-                            case XB012:
-                                changePage(CameraXB012Fragment.class);
-                                break;
-                            default:
-                                changePage(CameraNotConnectFragment.class);
-                        }
-                    }
-                });
+                Log.v(TAG, "initListener onSuccess connect " + data1);
+                if (camera == data2) {
+                    return;
+                }
+                camera = data2;
+                cameraType.setText(data1.toString());
+                switch (data1) {
+                    case FLIR_DUO:
+                        changePage(CameraFLIRFragment.class);
+                        break;
+                    case FLIR_DUO_R:
+                        changePage(CameraFLIRFragment.class);
+                        break;
+                    case R12:
+                        changePage(CameraR12Fragment.class);
+                        break;
+                    case XB008:
+                        changePage(CameraXb008Fragment.class);
+                        break;
+                    case XB012:
+                        changePage(CameraXB012Fragment.class);
+                        break;
+                    default:
+                        changePage(CameraNotConnectFragment.class);
+                }
 
             }
 

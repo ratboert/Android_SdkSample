@@ -159,15 +159,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(final MediaMode data) {
                         logOut("getMediaMode " + data);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (null != currentVideoResolutionAndFps) {
-                                    shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
-                                    shutterList.setAdapter(shutterSpeedAdapter);
-                                }
-                            }
-                        });
+                        if (null != currentVideoResolutionAndFps) {
+                            shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                            shutterList.setAdapter(shutterSpeedAdapter);
+                        }
                     }
 
                     @Override
@@ -191,15 +186,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess() {
                         logOut("setMediaMode state onSuccess");
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (null != currentVideoResolutionAndFps) {
-                                    shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
-                                    shutterList.setAdapter(shutterSpeedAdapter);
-                                }
-                            }
-                        });
+                        if (null != currentVideoResolutionAndFps) {
+                            shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                            shutterList.setAdapter(shutterSpeedAdapter);
+                        }
                     }
                 });
             }
@@ -1093,22 +1083,17 @@ public class CameraR12Fragment extends CameraBaseFragment {
     }
 
     private void initVideoResolutionFpsList() {
-        getActivity().runOnUiThread(new Runnable() {
+        videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps(currentVideoStandard)));
+        videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
+        videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void run() {
-                videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps(currentVideoStandard)));
-                videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
-                videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
-                    }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                videoResolutionAndFps = (VideoResolutionAndFps) parent.getAdapter().getItem(position);
+            }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
             }
         });
     }
@@ -1117,15 +1102,10 @@ public class CameraR12Fragment extends CameraBaseFragment {
         autelR12.getMediaMode(new CallbackWithOneParam<MediaMode>() {
             @Override
             public void onSuccess(final MediaMode mode) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
-                            shutterList.setAdapter(shutterSpeedAdapter);
-                        }
-                    }
-                });
+                if (null != currentVideoResolutionAndFps) {
+                    shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                    shutterList.setAdapter(shutterSpeedAdapter);
+                }
             }
 
             @Override

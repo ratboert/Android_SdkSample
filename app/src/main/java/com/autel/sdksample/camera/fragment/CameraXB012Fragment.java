@@ -268,15 +268,10 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                         logOut("getMediaMode " + data);
                         Activity activity = getActivity();
                         if (null != activity)
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (null != currentVideoResolutionAndFps) {
-                                        shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
-                                        shutterList.setAdapter(shutterSpeedAdapter);
-                                    }
-                                }
-                            });
+                            if (null != currentVideoResolutionAndFps) {
+                                shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                                shutterList.setAdapter(shutterSpeedAdapter);
+                            }
                     }
 
                     @Override
@@ -302,15 +297,10 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                         logOut("setMediaMode state onSuccess ");
                         Activity activity = getActivity();
                         if (null != activity)
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
                                     if (null != currentVideoResolutionAndFps) {
                                         shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
                                         shutterList.setAdapter(shutterSpeedAdapter);
                                     }
-                                }
-                            });
                     }
                 });
             }
@@ -1223,17 +1213,10 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         xb012.getMediaMode(new CallbackWithOneParam<MediaMode>() {
             @Override
             public void onSuccess(final MediaMode mode) {
-                Activity activity = getActivity();
-                if (null != activity)
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
                             if (null != currentVideoResolutionAndFps) {
                                 shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
                                 shutterList.setAdapter(shutterSpeedAdapter);
                             }
-                        }
-                    });
             }
 
             @Override
