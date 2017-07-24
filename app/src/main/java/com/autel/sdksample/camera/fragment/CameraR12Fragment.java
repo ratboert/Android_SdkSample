@@ -1,6 +1,8 @@
 package com.autel.sdksample.camera.fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.RangePair;
 import com.autel.common.camera.R12.R12ParameterRangeManager;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
@@ -1024,6 +1028,65 @@ public class CameraR12Fragment extends CameraBaseFragment {
             @Override
             public void onClick(View v) {
                 autelR12.setHistogramListener(null);
+            }
+        });
+
+        final EditText digitalZoomScaleValue = (EditText) view.findViewById(R.id.digitalZoomScaleValue);
+        final TextView digitalZoomScaleRange = (TextView) view.findViewById(R.id.digitalZoomScaleRange);
+        digitalZoomScaleValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(digitalZoomScaleRange.getText().toString())) {
+                    RangePair<Integer> digitalScaleRange = autelR12.getParameterRangeManager().getDigitalZoomScale();
+                    digitalZoomScaleRange.setText("integer value of digital scale,  range from " + digitalScaleRange.getValueFrom() + " to " + digitalScaleRange.getValueTo());
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        view.findViewById(R.id.setDigitalZoomScale).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut("setDigitalZoomScale  onClick  ");
+                String value = digitalZoomScaleValue.getText().toString();
+                int parameter = isEmpty(value) ? 100 : Integer.valueOf(value);
+                autelR12.setDigitalZoomScale(parameter, new CallbackWithNoParam() {
+                    @Override
+                    public void onSuccess() {
+                        logOut("setDigitalZoomScale  onSuccess  ");
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setDigitalZoomScale  description  " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.getDigitalZoomScale).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.getDigitalZoomScale(new CallbackWithOneParam<Integer>() {
+                    @Override
+                    public void onSuccess(Integer value) {
+                        logOut("getDigitalZoomScale  onSuccess  " + value);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("getDigitalZoomScale  description  " + autelError.getDescription());
+                    }
+                });
             }
         });
 
