@@ -10,6 +10,7 @@ import com.autel.common.error.AutelError;
 import com.autel.common.product.AutelProductType;
 import com.autel.internal.product.XStarPremAircraftImpl;
 import com.autel.sdk.Autel;
+import com.autel.sdk.ProductConnectListener;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.G2Aircraft;
 import com.autel.sdk.product.XStarAircraft;
@@ -49,14 +50,13 @@ public class MainActivity extends AppCompatActivity {
         /**
          * 监听SDK连接到的设备
          */
-        Autel.setProductConnectListener(new Autel.ProductConnectListener() {
+        Autel.setProductConnectListener(new ProductConnectListener() {
             /**
              * 当设备连接成功后回调，并进入相应产品的业务中
-             * @param typeChanged
              * @param product
              */
             @Override
-            public void productConnected(boolean typeChanged, BaseProduct product) {
+            public void productConnected(BaseProduct product) {
                 Log.v("productType", "product " + product.getType());
 
                 ((TestApplication) getApplicationContext()).setCurrentProduct(product);
