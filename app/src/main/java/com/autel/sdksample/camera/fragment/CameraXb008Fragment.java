@@ -11,10 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-import com.autel.camera.protocol.protocol20.xb008.Xb008;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
 import com.autel.common.camera.media.PhotoAspectRatio;
@@ -1101,7 +1099,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
             }
         });
 
-        colorStyle = (Spinner) view.findViewById(R.id.colorStyle);
+        colorStyle = (Spinner) view.findViewById(R.id.colorStyleList);
         colorStyle.setAdapter(new ColorStyleAdapter(getContext()));
         colorStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

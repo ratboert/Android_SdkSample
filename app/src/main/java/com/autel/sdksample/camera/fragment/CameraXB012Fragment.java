@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
-import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
@@ -36,7 +35,6 @@ import com.autel.common.camera.media.PhotoAEBCount;
 import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.PhotoStyle;
 import com.autel.common.camera.media.PhotoStyleType;
-import com.autel.common.camera.media.PhotoSum;
 import com.autel.common.camera.media.PhotoTimelapseInterval;
 import com.autel.common.camera.media.VideoEncodeFormat;
 import com.autel.common.camera.media.VideoFormat;
@@ -73,7 +71,6 @@ import com.autel.sdksample.camera.fragment.adapter.VideoSnapshotTimeIntervalAdap
 import com.autel.sdksample.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.camera.fragment.adapter.WhiteBalanceTypeAdapter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CameraXB012Fragment extends CameraBaseFragment {
@@ -1461,7 +1458,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
-        colorStyle = (Spinner) parentView.findViewById(R.id.colorStyle);
+        colorStyle = (Spinner) parentView.findViewById(R.id.colorStyleList);
         colorStyle.setAdapter(new ColorStyleAdapter(getContext()));
         colorStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

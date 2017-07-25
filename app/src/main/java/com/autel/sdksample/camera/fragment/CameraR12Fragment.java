@@ -35,12 +35,10 @@ import com.autel.common.camera.media.PhotoAspectRatio;
 import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.PhotoStyle;
 import com.autel.common.camera.media.PhotoStyleType;
-import com.autel.common.camera.media.PhotoSum;
 import com.autel.common.camera.media.PhotoTimelapseInterval;
 import com.autel.common.camera.media.VideoFormat;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
-import com.autel.common.camera.media.VideoSum;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.camera.AutelR12;
 import com.autel.sdksample.R;
@@ -69,7 +67,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     AutelR12 autelR12;
 
     Button setCameraColor;
-    Spinner colorStyle;
+    Spinner colorStyleList;
 
     Button setExposureMode;
     Spinner exposureModeList;
@@ -354,7 +352,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
                     @Override
                     public void onFailure(AutelError autelError) {
-                        logOut("setAutoExposureLockState  description  " + autelError.getDescription());
+                        logOut("setColorStyle  description  " + autelError.getDescription());
                     }
                 });
             }
@@ -1292,9 +1290,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-        colorStyle = (Spinner) view.findViewById(R.id.colorStyle);
-        colorStyle.setAdapter(new ColorStyleAdapter(getContext()));
-        colorStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        colorStyleList = (Spinner) view.findViewById(R.id.colorStyleList);
+        colorStyleList.setAdapter(new ColorStyleAdapter(getContext()));
+        colorStyleList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cameraColorStyle = (CameraColorStyle) parent.getAdapter().getItem(position);

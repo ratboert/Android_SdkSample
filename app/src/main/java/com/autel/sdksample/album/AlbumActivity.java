@@ -1,6 +1,9 @@
 package com.autel.sdksample.album;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -194,23 +197,12 @@ public class AlbumActivity extends BaseActivity {
         findViewById(R.id.downloadVideo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null == okHttpManager) {
-                    okHttpManager = new OkHttpManager.Builder().build();
+                if (android.os.Build.VERSION.SDK_INT >= 23 && !(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 3);
+                } else {
+                    downloadVideo();
                 }
-                if (null != media2Download) {
-                    okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/test.photo", new ResponseCallBack<File>() {
-                        @Override
-                        public void onSuccess(File file) {
-                            Log.v("albumtest", "file " + file.getPath());
-                            initLocalFileList();
-                        }
 
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            Log.v("albumtest", "download onFailure " + throwable.getMessage());
-                        }
-                    });
-                }
             }
         });
         findViewById(R.id.getVideoResolutionFromLocalFile).setOnClickListener(new View.OnClickListener() {
@@ -234,6 +226,43 @@ public class AlbumActivity extends BaseActivity {
                 videoResolutionFromLocalFileAdapter.setRfData(Arrays.asList(dir.listFiles()));
                 videoResolutionFromLocalFileList.setAdapter(videoResolutionFromLocalFileAdapter);
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 3:
+                if (android.os.Build.VERSION.SDK_INT >= 23 && (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                    downloadVideo();
+                }
+                break;
+        }
+    }
+
+    private void downloadVideo() {
+        if (null == okHttpManager) {
+            okHttpManager = new OkHttpManager.Builder().build();
+        }
+        if (null != media2Download) {
+            String videoPath = media2Download.getOriginalMedia();
+            if (!isEmpty(videoPath)) {
+                videoPath = videoPath.substring(videoPath.lastIndexOf("/") + 1, videoPath.length());
+            }
+            okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/"+videoPath, new ResponseCallBack<File>() {
+                @Override
+                public void onSuccess(File file) {
+                    initLocalFileList();
+                    logOut("file " + file.getPath());
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    logOut("download onFailure " + throwable.getMessage());
+                }
+            });
+        } else {
+            logOut("video to be download is null");
         }
     }
 }
