@@ -3,6 +3,7 @@ package com.autel.sdksample.camera.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,12 +119,20 @@ public class CameraR12Fragment extends CameraBaseFragment {
         initView(view);
         initClick(view);
         initR12Click(view);
-        initData();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+            }
+        }, 600);
+
         return view;
     }
 
     private void initData() {
+
         if (null != autelR12) {
+
             autelR12.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
                 @Override
                 public void onFailure(AutelError error) {
@@ -1094,6 +1103,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
             }
         });
+
     }
 
     private void initShuttleSpeedList() {
