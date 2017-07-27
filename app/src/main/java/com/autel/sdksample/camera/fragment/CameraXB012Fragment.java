@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
+import com.autel.common.camera.R12.R12CameraInfo;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
@@ -44,6 +45,7 @@ import com.autel.common.camera.media.VideoStandard;
 import com.autel.common.camera.media.VideoSum;
 import com.autel.common.camera.xb012.PIVMode;
 import com.autel.common.camera.xb012.RealTimeVideoResolution;
+import com.autel.common.camera.xb012.XB012CameraInfo;
 import com.autel.common.camera.xb012.XB012ParameterRangeManager;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.camera.AutelXB012;
@@ -165,6 +167,28 @@ public class CameraXB012Fragment extends CameraBaseFragment {
 
 
     private void initXB012Click(final View view) {
+        view.findViewById(R.id.setInfoListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.setInfoListener(new CallbackWithOneParam<XB012CameraInfo>() {
+                    @Override
+                    public void onSuccess(XB012CameraInfo state) {
+                        logOut("setInfoListener  :" + state);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setInfoListener  description  " + error.getDescription());
+                    }
+                });
+            }
+        });
+        view.findViewById(R.id.resetInfoListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb012.setInfoListener(null);
+            }
+        });
 
         view.findViewById(R.id.resetHistogramListener).setOnClickListener(new View.OnClickListener() {
             @Override

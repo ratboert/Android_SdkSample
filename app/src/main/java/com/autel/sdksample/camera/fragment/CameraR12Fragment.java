@@ -18,9 +18,11 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
+import com.autel.common.camera.R12.R12CameraInfo;
 import com.autel.common.camera.R12.R12ParameterRangeManager;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
+import com.autel.common.camera.base.SDCardState;
 import com.autel.common.camera.media.CameraAntiFlicker;
 import com.autel.common.camera.media.CameraAutoExposureLockState;
 import com.autel.common.camera.media.CameraColorStyle;
@@ -159,6 +161,30 @@ public class CameraR12Fragment extends CameraBaseFragment {
     }
 
     private void initR12Click(View view) {
+        view.findViewById(R.id.setInfoListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setInfoListener(new CallbackWithOneParam<R12CameraInfo>() {
+                    @Override
+                    public void onSuccess(R12CameraInfo state) {
+                        logOut("setInfoListener  :" + state);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setInfoListener  description  " + error.getDescription());
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.resetInfoListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setInfoListener(null);
+            }
+        });
+
         view.findViewById(R.id.getMediaMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
