@@ -27,7 +27,7 @@ public class CameraFLIR_R_Fragment extends CameraBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_flir, null);
-        autelFLIR = (AutelFlirDuoR) ((CameraActivity) getActivity()).getCamera();
+        autelFLIR = (AutelFlirDuoR) ((CameraActivity) getActivity()).getCurrentCamera();
         logOut("");
         initClick(view);
         initR12Click(view);

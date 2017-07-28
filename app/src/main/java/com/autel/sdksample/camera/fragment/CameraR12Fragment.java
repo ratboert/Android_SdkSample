@@ -3,7 +3,6 @@ package com.autel.sdksample.camera.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.autel.common.camera.R12.R12CameraInfo;
 import com.autel.common.camera.R12.R12ParameterRangeManager;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
-import com.autel.common.camera.base.SDCardState;
 import com.autel.common.camera.media.CameraAntiFlicker;
 import com.autel.common.camera.media.CameraAutoExposureLockState;
 import com.autel.common.camera.media.CameraColorStyle;
@@ -115,7 +113,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_r12, null);
-        autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCamera();
+        autelR12 = (AutelR12) ((CameraActivity) getActivity()).getCurrentCamera();
         rangeManager = autelR12.getParameterRangeManager();
         logOut("");
         initView(view);

@@ -124,10 +124,16 @@ public class ProductSelector extends PagerAdapter {
         int resIcon;
     }
 
-    public void productConnected(AutelProductType type) {
+    public int productConnected(AutelProductType type) {
+        int index = 0, target = 0;
         for (ProductItem item : products) {
             item.connectState = type == item.type;
+            if (item.connectState) {
+                target = index;
+            }
+            index++;
         }
         notifyDataSetChanged();
+        return target;
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ public class CameraActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     TextView cameraType;
     TextView cameraLogOutput;
-    AutelBaseCamera camera;
+    AutelBaseCamera currentCamera;
     AutelCameraManager autelCameraManager;
     protected Handler handler = new Handler() {
         @Override
@@ -63,10 +62,10 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onSuccess(final CameraProduct data1, final AutelBaseCamera data2) {
                 Log.v(TAG, "initListener onSuccess connect " + data1);
-                if (camera == data2) {
+                if (currentCamera == data2) {
                     return;
                 }
-                camera = data2;
+                currentCamera = data2;
                 cameraType.setText(data1.toString());
                 switch (data1) {
                     case FLIR_DUO:
@@ -93,7 +92,7 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onFailure(AutelError error) {
                 Log.v(TAG, "initListener onFailure error " + error.getDescription());
-                cameraType.setText("camera connect broken  " + error.getDescription());
+                cameraType.setText("currentCamera connect broken  " + error.getDescription());
             }
         });
     }
@@ -119,8 +118,8 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    public AutelBaseCamera getCamera() {
-        return camera;
+    public AutelBaseCamera getCurrentCamera() {
+        return currentCamera;
     }
 
     public void onDestroy() {

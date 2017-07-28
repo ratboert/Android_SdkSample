@@ -102,7 +102,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_xb008, null);
-        xb008 = (AutelXB008) ((CameraActivity) getActivity()).getCamera();
+        xb008 = (AutelXB008) ((CameraActivity) getActivity()).getCurrentCamera();
         rangeManager = xb008.getParameterRangeManager();
         logOut("");
         initView(view);

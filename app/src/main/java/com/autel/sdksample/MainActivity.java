@@ -1,6 +1,11 @@
 package com.autel.sdksample;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,19 +21,23 @@ import com.autel.sdk.product.G2Aircraft;
 import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.adapter.ProductSelector;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private int index;
     private long timeStamp;
     ProductSelector productSelector;
-
+    ViewPager viewPager;
+    static AtomicBoolean hasInitProductListener = new AtomicBoolean(false);
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hasInitProductListener.set(false);
         setContentView(R.layout.activity_main);
         productSelector = new ProductSelector(this);
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.productSelector);
+        viewPager = (ViewPager) findViewById(R.id.productSelector);
         viewPager.setAdapter(productSelector);
 
         /**
@@ -60,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("productType", "product " + product.getType());
 
                 ((TestApplication) getApplicationContext()).setCurrentProduct(product);
-                if (product instanceof XStarAircraft) {
-                    productSelector.productConnected(AutelProductType.X_STAR);
-                } else if (product instanceof G2Aircraft) {
-                    productSelector.productConnected(AutelProductType.G2);
-                }
+                viewPager.setCurrentItem(productSelector.productConnected(product.getType()));
             }
 
             /**
@@ -81,12 +86,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Autel.destroy();
+        hasInitProductListener.set(false);
     }
 
 
@@ -95,5 +104,14 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
         timeStamp = System.currentTimeMillis();
+    }
+
+    public static void receiveUsbStartCommand(Context context) {
+        if (hasInitProductListener.compareAndSet(false, true)) {
+            Intent i = new Intent();
+            i.setClass(context, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+        }
     }
 }

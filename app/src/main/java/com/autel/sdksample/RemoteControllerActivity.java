@@ -25,6 +25,7 @@ import com.autel.common.remotecontroller.RemoteControllerVersionInfo;
 import com.autel.common.remotecontroller.TeachingMode;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdk.product.XStarPremiumAircraft;
 import com.autel.sdk.remotecontroller.AutelRemoteController;
 
 
@@ -51,8 +52,17 @@ public class RemoteControllerActivity extends BaseActivity {
     protected void initOnCreate() {
         setTitle("RemoteController");
         BaseProduct baseProduct = getCurrentProduct();
-        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
-            remoteController = ((XStarAircraft) baseProduct).getRemoteController();
+        if (null != baseProduct) {
+            if (null != baseProduct) {
+                switch (baseProduct.getType()) {
+                    case X_STAR:
+                        remoteController = ((XStarAircraft) baseProduct).getRemoteController();
+                        break;
+                    case PREMIUM:
+                        remoteController = ((XStarPremiumAircraft) baseProduct).getRemoteController();
+                        break;
+                }
+            }
         }
         if (null == remoteController) {
             setContentView(R.layout.activity_connect_exception);
@@ -408,7 +418,7 @@ public class RemoteControllerActivity extends BaseActivity {
         remoteController.getYawCoefficient(new CallbackWithOneParam<Float>() {
             @Override
             public void onSuccess(Float aDouble) {
-                logOut("getYawCoefficient onSuccess "+aDouble);
+                logOut("getYawCoefficient onSuccess " + aDouble);
             }
 
             @Override

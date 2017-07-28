@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
-import com.autel.common.camera.R12.R12CameraInfo;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
@@ -127,7 +126,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_camera_xb012, null);
-        xb012 = (AutelXB012) ((CameraActivity) getActivity()).getCamera();
+        xb012 = (AutelXB012) ((CameraActivity) getActivity()).getCurrentCamera();
         rangeManager = xb012.getParameterRangeManager();
         logOut("");
         initView(view);
