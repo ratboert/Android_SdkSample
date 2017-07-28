@@ -25,6 +25,7 @@ import com.autel.common.flycontroller.xstar.XStarParameterRangeManager;
 import com.autel.sdk.flycontroller.XStarFlyController;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdk.product.XStarPremiumAircraft;
 
 
 public class FlyControllerActivity extends BaseActivity {
@@ -50,8 +51,17 @@ public class FlyControllerActivity extends BaseActivity {
         setTitle("FlyController");
 
         BaseProduct baseProduct = getCurrentProduct();
-        if (null != baseProduct && baseProduct instanceof XStarAircraft) {
-            autelFlyController = ((XStarAircraft) baseProduct).getFlyController();
+        if (null != baseProduct) {
+            if (null != baseProduct) {
+                switch (baseProduct.getType()) {
+                    case X_STAR:
+                        autelFlyController = ((XStarAircraft) baseProduct).getFlyController();
+                        break;
+                    case PREMIUM:
+                        autelFlyController = ((XStarPremiumAircraft) baseProduct).getFlyController();
+                        break;
+                }
+            }
         }
         if (null == autelFlyController) {
             setContentView(R.layout.activity_connect_exception);
