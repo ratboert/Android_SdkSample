@@ -19,10 +19,7 @@ public class UsbBroadCastReceiver extends BroadcastReceiver {
          * 只会监听由USB连接到设备的广播，接收到连接到设备的广播后启动主页
          */
         Log.v(TAG, "action " + intent.getAction());
-        Intent i = new Intent();
-        i.setClass(context, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
+        MainActivity.receiveUsbStartCommand(context);
     }
 }
 
