@@ -445,39 +445,39 @@ public class CameraR12Fragment extends CameraBaseFragment {
             }
         });
 
-//        ((Switch) view.findViewById(R.id.set3DNoiseReductionEnable)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                autelR12.set3DNoiseReductionEnable(isChecked, new CallbackWithNoParam() {
-//                    @Override
-//                    public void onFailure(AutelError error) {
-//                        logOut("set3DNoiseReductionEnable  description  " + error.getDescription());
-//                    }
-//
-//                    @Override
-//                    public void onSuccess() {
-//                        logOut("set3DNoiseReductionEnable state onSuccess");
-//                    }
-//                });
-//            }
-//        });
-//
-//        view.findViewById(R.id.is3DNoiseReductionEnable).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                autelR12.is3DNoiseReductionEnable(new CallbackWithOneParam<Boolean>() {
-//                    @Override
-//                    public void onFailure(AutelError error) {
-//                        logOut("is3DNoiseReductionEnable  description  " + error.getDescription());
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Boolean data) {
-//                        logOut("is3DNoiseReductionEnable " + data);
-//                    }
-//                });
-//            }
-//        });
+        ((Switch) view.findViewById(R.id.set3DNoiseReductionEnable)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                autelR12.set3DNoiseReductionEnable(isChecked, new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("set3DNoiseReductionEnable  description  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("set3DNoiseReductionEnable state onSuccess");
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.is3DNoiseReductionEnable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.is3DNoiseReductionEnable(new CallbackWithOneParam<Boolean>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("is3DNoiseReductionEnable  description  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(Boolean data) {
+                        logOut("is3DNoiseReductionEnable " + data);
+                    }
+                });
+            }
+        });
 
 
         view.findViewById(R.id.setAntiFlicker).setOnClickListener(new View.OnClickListener() {

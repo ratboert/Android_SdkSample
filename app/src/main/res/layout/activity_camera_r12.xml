@@ -223,7 +223,35 @@
                 android:padding="@dimen/text_padding"
                 android:text="getWhiteBalance"
                 android:textAllCaps="false" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="set3DNoiseReductionEnable" />
+
+                <Switch
+                    android:id="@+id/set3DNoiseReductionEnable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/is3DNoiseReductionEnable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="is3DNoiseReductionEnable"
+                android:textAllCaps="false" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
