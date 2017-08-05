@@ -52,15 +52,13 @@ public class FlyControllerActivity extends BaseActivity {
 
         BaseProduct baseProduct = getCurrentProduct();
         if (null != baseProduct) {
-            if (null != baseProduct) {
-                switch (baseProduct.getType()) {
-                    case X_STAR:
-                        autelFlyController = ((XStarAircraft) baseProduct).getFlyController();
-                        break;
-                    case PREMIUM:
-                        autelFlyController = ((XStarPremiumAircraft) baseProduct).getFlyController();
-                        break;
-                }
+            switch (baseProduct.getType()) {
+                case X_STAR:
+                    autelFlyController = ((XStarAircraft) baseProduct).getFlyController();
+                    break;
+                case PREMIUM:
+                    autelFlyController = ((XStarPremiumAircraft) baseProduct).getFlyController();
+                    break;
             }
         }
         if (null == autelFlyController) {
@@ -136,7 +134,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     return;
                 }
 
@@ -165,7 +163,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     return;
                 }
 
@@ -194,7 +192,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     return;
                 }
 
@@ -223,7 +221,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     return;
                 }
 
@@ -232,7 +230,7 @@ public class FlyControllerActivity extends BaseActivity {
                     XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getDescendSpeedRange();
-                        fcDescendSpeedNotify.setText("DescendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo()+"m/s");
+                        fcDescendSpeedNotify.setText("DescendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo() + "m/s");
                     }
                 }
             }
@@ -252,7 +250,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     return;
                 }
 
@@ -261,7 +259,7 @@ public class FlyControllerActivity extends BaseActivity {
                     XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getAscendSpeedRange();
-                        fcAscendSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo()+"m/s");
+                        fcAscendSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo() + "m/s");
                     }
                 }
             }
@@ -281,7 +279,7 @@ public class FlyControllerActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     return;
                 }
 
@@ -290,7 +288,7 @@ public class FlyControllerActivity extends BaseActivity {
                     XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getHorizontalSpeedRange();
-                        fcHorizontalSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo()+"m/s");
+                        fcHorizontalSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo() + "m/s");
                     }
                 }
             }
@@ -756,7 +754,7 @@ public class FlyControllerActivity extends BaseActivity {
         autelFlyController.getVersionInfo(new CallbackWithOneParam<FlyControllerVersionInfo>() {
             @Override
             public void onSuccess(FlyControllerVersionInfo flyControllerVersionInfo) {
-                logOut("getVersionInfo data {" + flyControllerVersionInfo+"}");
+                logOut("getVersionInfo data {" + flyControllerVersionInfo + "}");
             }
 
             @Override
@@ -765,8 +763,9 @@ public class FlyControllerActivity extends BaseActivity {
             }
         });
     }
+
     public void getSerialNumber(View view) {
-        autelFlyController.getSerialNumber(new CallbackWithOneParam<String >() {
+        autelFlyController.getSerialNumber(new CallbackWithOneParam<String>() {
             @Override
             public void onSuccess(String serialNumber) {
                 logOut("getSerialNumber data " + serialNumber);

@@ -20,6 +20,7 @@ import com.autel.common.gimbal.GimbalWorkMode;
 import com.autel.sdk.gimbal.AutelGimbal;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdk.product.XStarPremiumAircraft;
 import com.autel.sdksample.BaseActivity;
 import com.autel.sdksample.R;
 import com.autel.sdksample.gimbal.adapter.GimbalModeAdapter;
@@ -42,12 +43,24 @@ public class GimbalActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setTitle("Gimbal");
-        setContentView(R.layout.activity_gimbal);
+
         BaseProduct product = getCurrentProduct();
-        if (null != product && product instanceof XStarAircraft) {
-            autelGimbal = ((XStarAircraft) product).getGimbal();
+        if (null != product) {
+            switch (product.getType()) {
+                case X_STAR:
+                    autelGimbal = ((XStarAircraft) product).getGimbal();
+                    break;
+                case PREMIUM:
+                    autelGimbal = ((XStarPremiumAircraft) product).getGimbal();
+                    break;
+            }
         }
 
+        if (null == autelGimbal) {
+            setContentView(R.layout.activity_connect_exception);
+            return;
+        }
+        setContentView(R.layout.activity_gimbal);
         gimbalAngleWithFineTuning = (EditText) findViewById(R.id.gimbalAngleWithFineTuning);
         gimbalAngle = (EditText) findViewById(R.id.gimbalAngle);
         dialAdjustSpeed = (EditText) findViewById(R.id.dialAdjustSpeed);
@@ -304,7 +317,7 @@ public class GimbalActivity extends BaseActivity {
                 autelGimbal.getVersionInfo(new CallbackWithOneParam<GimbalVersionInfo>() {
                     @Override
                     public void onSuccess(GimbalVersionInfo gimbalVersionInfo) {
-                        logOut("getVersionInfo onSuccess {" + gimbalVersionInfo+"}");
+                        logOut("getVersionInfo onSuccess {" + gimbalVersionInfo + "}");
                     }
 
                     @Override

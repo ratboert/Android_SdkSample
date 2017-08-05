@@ -50,6 +50,16 @@ public class AlbumActivity extends BaseActivity {
     @Override
     protected void initOnCreate() {
         setTitle("Album");
+        BaseProduct baseProduct = getCurrentProduct();
+        if (null != baseProduct) {
+            autelAlbum = baseProduct.getAlbum();
+        }
+
+        if (null == autelAlbum) {
+            setContentView(R.layout.activity_connect_exception);
+            return;
+        }
+
         setContentView(R.layout.activity_album);
         mediaList = (Spinner) findViewById(R.id.mediaList);
         mediaList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -101,11 +111,6 @@ public class AlbumActivity extends BaseActivity {
 
             }
         });
-
-        BaseProduct baseProduct = getCurrentProduct();
-        if (null != baseProduct) {
-            autelAlbum = baseProduct.getAlbum();
-        }
 
         mediaItems = new ArrayList<>();
 
