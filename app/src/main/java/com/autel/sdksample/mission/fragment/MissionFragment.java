@@ -27,6 +27,7 @@ import com.autel.common.mission.WaypointMission;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdk.product.XStarPremiumAircraft;
 import com.autel.sdksample.MissionActivity;
 import com.autel.sdksample.R;
 import com.autel.sdksample.TestApplication;
@@ -61,8 +62,14 @@ public abstract class MissionFragment extends Fragment {
     protected MissionManager getMissionManager() {
         BaseProduct
                 product = ((TestApplication) getActivity().getApplicationContext()).getCurrentProduct();
-        if (null != product && product instanceof XStarAircraft) {
-            return ((XStarAircraft) product).getMissionManager();
+        if (null != product) {
+            switch (product.getType()) {
+                case X_STAR:
+                    return ((XStarAircraft) product).getMissionManager();
+                case PREMIUM:
+                    return ((XStarPremiumAircraft) product).getMissionManager();
+            }
+
         }
         return null;
     }

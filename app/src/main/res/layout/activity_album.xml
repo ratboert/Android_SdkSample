@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="downloadVideo"
+                    android:text="downloadVideoThumbnail"
                     android:textAllCaps="false" />
 
                 <Spinner
