@@ -75,7 +75,6 @@ public class FlyControllerActivity extends BaseActivity {
                 setBeginnerModeState(isChecked);
             }
         });
-        beginnerSwitch.setChecked(true);
 
         fcMaxHeight = (EditText) findViewById(R.id.fcMaxHeight);
         fcMaxRange = (EditText) findViewById(R.id.fcMaxRange);
@@ -93,7 +92,6 @@ public class FlyControllerActivity extends BaseActivity {
                 setAttiModeEnable(isChecked);
             }
         });
-        attiModeSwitch.setChecked(true);
         fcLedPilotLamp = (Spinner) findViewById(R.id.fcLedPilotLamp);
         fcLedPilotLamp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
@@ -39,30 +40,43 @@ public class GMapMissionActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setMapContentView(R.layout.activity_mission_gmap);
         gMapView = (MapView) findViewById(R.id.gMapView);
-        gMapView.onCreate(savedInstanceState);
+        try {
+            gMapView.onCreate(savedInstanceState);
+        } catch (Exception e) {
+        }
         mGmap = gMapView.getMap();
         attachTapListener();
     }
 
     public void onResume() {
         super.onResume();
-        gMapView.onResume();
+        try {
+            gMapView.onResume();
+        } catch (Exception e) {
+        }
     }
+
 
     public void onPause() {
         super.onPause();
-        gMapView.onPause();
+        try {
+            gMapView.onPause();
+        } catch (Exception e) {
+        }
     }
 
 
     public void onDestroy() {
         super.onDestroy();
         detachTapListener();
-        gMapView.onDestroy();
+        try {
+            gMapView.onDestroy();
+        } catch (Exception e) {
+        }
         resetUI();
     }
 
-    private void resetUI(){
+    private void resetUI() {
         mMarkerList.clear();
         mOrbitMarker = null;
         mDroneMarker = null;
@@ -86,7 +100,7 @@ public class GMapMissionActivity extends MapActivity {
     }
 
     private void showWaypointSettingDialog(int position) {
-        WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this,position,wayPointList.get(position));
+        WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this, position, wayPointList.get(position));
         waypointSettingDialog.showDialog();
         waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
             @Override
@@ -129,9 +143,6 @@ public class GMapMissionActivity extends MapActivity {
         msg.obj = lng;
         handler.sendMessage(msg);
     }
-
-
-
 
 
     protected ArrayList<Marker> mMarkerList = new ArrayList<>();

@@ -38,6 +38,7 @@
         <activity android:name=".FlyControllerActivity" />
         <activity
             android:name=".camera.CameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity android:name=".DspActivity" />
         <activity android:name=".BatteryActivity" />
@@ -47,13 +48,19 @@
         <activity android:name=".album.AlbumActivity" />
         <activity
             android:name=".MissionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
             android:name=".mission.AMapMissionActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity
             android:name=".mission.GMapMissionActivity"
-            android:screenOrientation="landscape" />
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity
             android:name=".CodecActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
