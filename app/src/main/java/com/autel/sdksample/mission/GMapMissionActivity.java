@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.autel.common.flycontroller.AttitudeInfo;
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
 import com.autel.sdksample.mission.widget.WaypointSettingDialog;
@@ -138,13 +139,15 @@ public class GMapMissionActivity extends MapActivity {
     }
 
     @Override
-    protected void updateAircraftLocation(double lat, double lot) {
+    protected void updateAircraftLocation(double lat, double lot, final AttitudeInfo info) {
         AutelLatLng latLng = MapRectifyUtil.wgs2gcj(new AutelLatLng(lat, lot));
-        LatLng lng = new LatLng(latLng.latitude, latLng.longitude);
-//        drawDroneMarker(lng);
-        Message msg = handler.obtainMessage();
-        msg.obj = lng;
-        handler.sendMessage(msg);
+        final LatLng lng = new LatLng(latLng.latitude, latLng.longitude);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                drawDroneMarker(lng, info);
+            }
+        });
     }
 
 
@@ -213,7 +216,7 @@ public class GMapMissionActivity extends MapActivity {
 
     Marker mDroneMarker;
 
-    private void drawDroneMarker(LatLng dronell) {
+    private void drawDroneMarker(LatLng dronell, AttitudeInfo info) {
         if (mDroneMarker == null) {
             MarkerOptions markerOption = new MarkerOptions();
             markerOption.position(dronell);
@@ -225,6 +228,17 @@ public class GMapMissionActivity extends MapActivity {
             }
         } else {
             mDroneMarker.setPosition(dronell);
+        }
+        if (null != info) {
+            double degree = info.getYaw();
+            if (degree < 0) {
+                degree = degree + 360;
+            }
+            if (mDroneMarker != null) {
+                if (mGmap.getCameraPosition() != null) {
+                    mDroneMarker.setRotation((float) degree);
+                }
+            }
         }
     }
 
@@ -243,11 +257,4 @@ public class GMapMissionActivity extends MapActivity {
             mPhoneMarker.setPosition(phonell);
         }
     }
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            drawDroneMarker((LatLng) msg.obj);
-        }
-    };
 }

@@ -8,7 +8,7 @@
     tools:context=".mission.MapActivity">
 
     <TextView
-        android:id="@+id/missionModeInfo"
+        android:id="@+id/missionInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="25dp"
@@ -18,7 +18,7 @@
         android:id="@+id/flyModeInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/missionModeInfo"
+        android:layout_below="@+id/missionInfo"
         android:layout_marginRight="25dp"
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/missionTypeLayout" />
@@ -65,7 +65,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/mission_item_content"
-        />
+        android:layout_toRightOf="@+id/mission_item_content" />
 
+
+        <Switch
+            android:id="@+id/flyInfoSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="#888888"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:text="fly info" />
+        <TextView
+            android:id="@+id/flyControllerInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/flyInfoSwitch"
+            android:background="#aabbee"
+            android:visibility="gone"
+            />
 </RelativeLayout>

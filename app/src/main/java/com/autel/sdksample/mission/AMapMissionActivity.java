@@ -16,6 +16,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
+import com.autel.common.flycontroller.AttitudeInfo;
 import com.autel.common.mission.Waypoint;
 import com.autel.sdksample.R;
 import com.autel.sdksample.mission.widget.WaypointSettingDialog;
@@ -113,10 +114,10 @@ public class AMapMissionActivity extends MapActivity {
     }
 
     @Override
-    protected void updateAircraftLocation(double lat, double lot) {
+    protected void updateAircraftLocation(double lat, double lot, AttitudeInfo info) {
         AutelLatLng latLng = MapRectifyUtil.wgs2gcj(new AutelLatLng(lat, lot));
         LatLng lng = new LatLng(latLng.latitude, latLng.longitude);
-        drawDroneMarker(lng);
+        drawDroneMarker(lng,info);
     }
 
 
@@ -202,7 +203,7 @@ public class AMapMissionActivity extends MapActivity {
 
     Marker mDroneMarker;
 
-    private void drawDroneMarker(LatLng dronell) {
+    private void drawDroneMarker(LatLng dronell, AttitudeInfo info) {
         synchronized (AMapMissionActivity.class) {
             if (mDroneMarker == null) {
                 MarkerOptions markerOption = new MarkerOptions();
@@ -217,6 +218,17 @@ public class AMapMissionActivity extends MapActivity {
             } else {
                 mDroneMarker.setPosition(dronell);
                 mDroneMarker.setToTop();
+            }
+            if (null != info) {
+                double degree = info.getYaw();
+                if (degree < 0) {
+                    degree = degree + 360;
+                }
+                if (mDroneMarker != null) {
+                    if (mAmap.getCameraPosition() != null) {
+                        mDroneMarker.setRotateAngle((float) degree);
+                    }
+                }
             }
         }
     }

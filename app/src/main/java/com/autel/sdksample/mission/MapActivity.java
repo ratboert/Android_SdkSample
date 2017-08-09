@@ -19,15 +19,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.error.AutelError;
+import com.autel.common.flycontroller.AttitudeInfo;
 import com.autel.common.flycontroller.FlyControllerInfo;
 import com.autel.common.mission.AutelCoord3D;
 import com.autel.common.mission.Waypoint;
-import com.autel.sdk.Autel;
 import com.autel.sdk.flycontroller.XStarFlyController;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdk.product.BaseProduct;
@@ -62,6 +64,7 @@ public abstract class MapActivity extends FragmentActivity {
     Spinner missionTypeSpinner;
     TextView flyModeInfo;
     TextView missionModeInfo;
+    TextView flyControllerInfo;
     TextView logInfo;
 
     MissionType missionType = MissionType.WAYPOINT;
@@ -69,7 +72,8 @@ public abstract class MapActivity extends FragmentActivity {
     private LocationChangeListener locationChangeListener;
     private WaypointHeightListener waypointHeightListener;
     XStarFlyController xStarFlyController;
-
+    boolean flyInfoShow;
+    volatile long flyInfoNotify;
     long clickStamp = 0;
 
     @Override
@@ -116,18 +120,36 @@ public abstract class MapActivity extends FragmentActivity {
                 clickStamp = current;
             }
         });
-        missionModeInfo = (TextView) findViewById(R.id.missionModeInfo);
+        missionModeInfo = (TextView) findViewById(R.id.missionInfo);
+        flyControllerInfo = (TextView) findViewById(R.id.flyControllerInfo);
+        ((Switch) findViewById(R.id.flyInfoSwitch)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                flyInfoShow = isChecked;
+                flyControllerInfo.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
-    public void updateLogInfo(String log) {
-        if (null != logInfo) {
-            logInfo.setVisibility(View.VISIBLE);
-            logInfo.setText(log);
-        }
+    public void updateLogInfo(final String log) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (null != logInfo) {
+                    logInfo.setVisibility(View.VISIBLE);
+                    logInfo.setText(log);
+                }
+            }
+        });
     }
 
-    public void updateMissionInfo(String info) {
-        missionModeInfo.setText(info);
+    public void updateMissionInfo(final String info) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                missionModeInfo.setText(info);
+            }
+        });
     }
 
 
@@ -170,16 +192,18 @@ public abstract class MapActivity extends FragmentActivity {
             xStarFlyController.setFlyControllerInfoListener(new CallbackWithOneParam<FlyControllerInfo>() {
                 @Override
                 public void onSuccess(FlyControllerInfo flyControllerInfo) {
-                    Message msg = handler.obtainMessage();
-                    msg.obj = flyControllerInfo.getFlyControllerStatus().getFlyMode();
-                    handler.sendMessage(msg);
-                    if (null != flyControllerInfo.getGPSInfo()) {
-                        AutelCoord3D coord3D = flyControllerInfo.getGPSInfo().getCoord();
-                        if (null != coord3D) {
-                            updateAircraftLocation(coord3D.getLatitude(), coord3D.getLongitude());
+                    if (System.currentTimeMillis() - flyInfoNotify > 1000) {
+                        flyInfoNotify = System.currentTimeMillis();
+                        Message msg = handler.obtainMessage();
+                        msg.obj = flyControllerInfo;
+                        handler.sendMessage(msg);
+                        if (null != flyControllerInfo.getGPSInfo()) {
+                            AutelCoord3D coord3D = flyControllerInfo.getGPSInfo().getCoord();
+                            if (null != coord3D) {
+                                updateAircraftLocation(coord3D.getLatitude(), coord3D.getLongitude(), flyControllerInfo.getAttitudeInfo());
+                            }
                         }
                     }
-
                 }
 
                 @Override
@@ -351,13 +375,17 @@ public abstract class MapActivity extends FragmentActivity {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            flyModeInfo.setText("FlyMode : " + msg.obj);
+            FlyControllerInfo flyControllerData = (FlyControllerInfo) msg.obj;
+            if (flyInfoShow) {
+                flyControllerInfo.setText(flyControllerData.toString());
+            }
+            flyModeInfo.setText("FlyMode : " + flyControllerData.getFlyControllerStatus().getFlyMode());
         }
     };
 
     protected abstract void phoneLocationChanged(Location location);
 
-    protected abstract void updateAircraftLocation(double lat, double lot);
+    protected abstract void updateAircraftLocation(double lat, double lot, AttitudeInfo attitudeInfo);
 
 
     protected abstract void addWayPointMarker(double lat, double lot);

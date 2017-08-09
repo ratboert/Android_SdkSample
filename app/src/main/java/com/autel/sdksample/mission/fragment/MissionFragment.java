@@ -81,6 +81,10 @@ public abstract class MissionFragment extends Fragment {
     }
 
     private void initUi(View view) {
+        if (getActivity() != null){
+            ((MapActivity) getActivity()).updateMissionInfo("Mission state : ");
+            ((MapActivity) getActivity()).updateLogInfo("RealTimeInfo : ");
+        }
         missionManager = getMissionManager();
 
         view.findViewById(R.id.setRealTimeInfoListener).setOnClickListener(new View.OnClickListener() {
@@ -90,8 +94,10 @@ public abstract class MissionFragment extends Fragment {
                     missionManager.setRealTimeInfoListener(new CallbackWithTwoParams<CurrentMissionState, RealTimeInfo>() {
                         @Override
                         public void onSuccess(CurrentMissionState currentMissionState, RealTimeInfo realTimeInfo) {
-                            if (getActivity() != null)
+                            if (getActivity() != null){
                                 ((MapActivity) getActivity()).updateMissionInfo("Mission state : " + currentMissionState);
+                                ((MapActivity) getActivity()).updateLogInfo("RealTimeInfo : " + realTimeInfo);
+                            }
                         }
 
                         @Override
