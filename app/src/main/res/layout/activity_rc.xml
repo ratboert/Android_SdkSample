@@ -267,15 +267,6 @@
                 android:text="getCommandStickMode"
                 android:textAllCaps="false" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:onClick="resetWifi"
-                android:padding="@dimen/text_padding"
-                android:text="resetWifi"
-                android:textAllCaps="false" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

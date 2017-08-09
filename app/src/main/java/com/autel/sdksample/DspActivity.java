@@ -187,6 +187,22 @@ public class DspActivity extends BaseActivity {
 
             }
         });
+
+        findViewById(R.id.resetWifi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelDsp.resetWifi();
+
+            }
+        });
+
+        boolean usbEnable = autelDsp.isUSBEnable();
+        findViewById(R.id.updateSSIDLayout).setVisibility(usbEnable ? View.GONE : View.VISIBLE);
+        findViewById(R.id.getCurrentSSIDInfo).setVisibility(usbEnable ? View.GONE : View.VISIBLE);
+        findViewById(R.id.resetWifi).setVisibility(usbEnable ? View.GONE : View.VISIBLE);
+        findViewById(R.id.setCurrentRFLayout).setVisibility(usbEnable ? View.VISIBLE : View.GONE);
+        findViewById(R.id.getCurrentRFLayout).setVisibility(usbEnable ? View.VISIBLE : View.GONE);
+        findViewById(R.id.scanRFLayout).setVisibility(usbEnable ? View.VISIBLE : View.GONE);
     }
 
     static class RFListAdapter extends BaseAdapter {

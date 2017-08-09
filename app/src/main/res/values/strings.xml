@@ -47,8 +47,8 @@
     <string name="fc_horizontal_speed">fly horizontal speed</string>
     <string name="fc_ascend_speed">ascend speed</string>
     <string name="fc_descend_speed">descend speed</string>
-    <string name="fc_lat_notify">input latitude</string>
-    <string name="fc_lon_notify">input longitude</string>
+    <string name="fc_lat_notify">latitude</string>
+    <string name="fc_lon_notify">longitude</string>
 
     <string name="rc_yaw_coefficient">yaw coefficient</string>
 

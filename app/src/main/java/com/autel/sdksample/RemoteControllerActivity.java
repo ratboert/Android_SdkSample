@@ -395,10 +395,6 @@ public class RemoteControllerActivity extends BaseActivity {
         });
     }
 
-    public void resetWifi(View view) {
-        remoteController.resetWifi();
-    }
-
     public void setYawCoefficient(View view) {
         String value = yawCoefficientValue.getText().toString();
         remoteController.setYawCoefficient(isEmpty(value) ? 0.3f : Float.valueOf(value), new CallbackWithNoParam() {

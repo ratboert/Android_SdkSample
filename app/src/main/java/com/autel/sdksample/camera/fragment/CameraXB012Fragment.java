@@ -227,7 +227,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (isEmpty(digitalZoomScaleRange.getText().toString())) {
-                    RangePair<Integer> digitalScaleRange = xb012.getParameterRangeManager().getDigitalZoomScale();
+                    RangePair<Integer> digitalScaleRange = rangeManager.getDigitalZoomScale();
                     digitalZoomScaleRange.setText("integer value of digital scale,  range from " + digitalScaleRange.getValueFrom() + " to " + digitalScaleRange.getValueTo());
                 }
             }
@@ -289,7 +289,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                         Activity activity = getActivity();
                         if (null != activity)
                             if (null != currentVideoResolutionAndFps) {
-                                shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                                shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
                                 shutterList.setAdapter(shutterSpeedAdapter);
                             }
                     }
@@ -318,7 +318,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                         Activity activity = getActivity();
                         if (null != activity)
                                     if (null != currentVideoResolutionAndFps) {
-                                        shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                                        shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
                                         shutterList.setAdapter(shutterSpeedAdapter);
                                     }
                     }
@@ -1212,8 +1212,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
 
     private void initVideoResolutionFpsList() {
         if (null != xb012) {
-            XB012ParameterRangeManager parameterRangeManager = xb012.getParameterRangeManager();
-            videoResolutionFpsAdapter.setData(Arrays.asList(parameterRangeManager.getVideoResolutionAndFps(currentVideoStandard)));
+            videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps(currentVideoStandard)));
         }
         videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
         videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1234,7 +1233,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             @Override
             public void onSuccess(final MediaMode mode) {
                             if (null != currentVideoResolutionAndFps) {
-                                shutterSpeedAdapter.setData(xb012.getParameterRangeManager().getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                                shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
                                 shutterList.setAdapter(shutterSpeedAdapter);
                             }
             }
@@ -1249,7 +1248,6 @@ public class CameraXB012Fragment extends CameraBaseFragment {
 
     private void initView(final View parentView) {
         parentView.findViewById(R.id.setMediaModeListenerLayout).setVisibility(View.GONE);
-        XB012ParameterRangeManager rangeManager = xb012.getParameterRangeManager();
 
         Spinner autoPIVTimelapseIntervalList = (Spinner) parentView.findViewById(R.id.autoPIVTimelapseIntervalList);
         autoPIVTimelapseIntervalList.setAdapter(new VideoSnapshotTimeIntervalAdapter(getContext()));
@@ -1382,7 +1380,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
         Spinner photoTimelapseIntervalList = (Spinner) parentView.findViewById(R.id.photoTimelapseIntervalList);
         if (null != xb012) {
             photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                    Arrays.asList(xb012.getParameterRangeManager().getPhotoTimelapseInterval())));
+                    Arrays.asList(rangeManager.getPhotoTimelapseInterval())));
         }
 
         photoTimelapseIntervalList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1505,7 +1503,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                 cameraWhiteBalanceType = (CameraWhiteBalanceType) parent.getAdapter().getItem(position);
                 EditText colorTempView = ((EditText) parentView.findViewById(R.id.colorTemperatureValue));
                 if (cameraWhiteBalanceType == CameraWhiteBalanceType.CUSTOM) {
-                    RangePair<Integer> colorTemp = xb012.getParameterRangeManager().getColorTemperature();
+                    RangePair<Integer> colorTemp = rangeManager.getColorTemperature();
 
                     colorTempView.setVisibility(View.VISIBLE);
                     colorTempView.setHint("color temperature range from " + colorTemp.getValueFrom() + " to " + colorTemp.getValueTo());

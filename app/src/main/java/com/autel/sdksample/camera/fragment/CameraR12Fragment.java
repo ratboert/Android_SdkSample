@@ -191,7 +191,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     public void onSuccess(final MediaMode data) {
                         logOut("getMediaMode " + data);
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
@@ -218,7 +218,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     public void onSuccess() {
                         logOut("setMediaMode state onSuccess");
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(autelR12.getParameterRangeManager().getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
@@ -1058,7 +1058,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (isEmpty(digitalZoomScaleRange.getText().toString())) {
-                    RangePair<Integer> digitalScaleRange = autelR12.getParameterRangeManager().getDigitalZoomScale();
+                    RangePair<Integer> digitalScaleRange = rangeManager.getDigitalZoomScale();
                     digitalZoomScaleRange.setText("integer value of digital scale,  range from " + digitalScaleRange.getValueFrom() + " to " + digitalScaleRange.getValueTo());
                 }
             }
@@ -1226,7 +1226,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         Spinner photoTimelapseIntervalList = (Spinner) view.findViewById(R.id.photoTimelapseIntervalList);
         if (null != autelR12) {
             photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                    Arrays.asList(autelR12.getParameterRangeManager().getPhotoTimelapseInterval())));
+                    Arrays.asList(rangeManager.getPhotoTimelapseInterval())));
         }
         photoTimelapseIntervalList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

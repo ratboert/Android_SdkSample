@@ -242,96 +242,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/text_background"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/fcAscendSpeedValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/item_margin_bottom"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:onClick="setAscendSpeed"
-                        android:text="setAscendSpeed"
-                        android:textAllCaps="false" />
-
-                    <EditText
-                        android:id="@+id/fcAscendSpeed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:hint="@string/fc_ascend_speed"
-                        android:inputType="number" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:onClick="getAscendSpeed"
-                android:text="getAscendSpeed"
-                android:textAllCaps="false" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/text_background"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/fcDescendSpeedNotify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/item_margin_bottom"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:onClick="setDescendSpeed"
-                        android:text="setDescendSpeed"
-                        android:textAllCaps="false" />
-
-                    <EditText
-                        android:id="@+id/fcDescendSpeed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:hint="@string/fc_descend_speed"
-                        android:inputType="number" />
-                </LinearLayout>
-            </LinearLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:onClick="getDescendSpeed"
-                android:text="getDescendSpeed"
-                android:textAllCaps="false" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/text_background"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:orientation="horizontal">
 
@@ -347,7 +257,6 @@
                     android:id="@+id/locationAsHomePoint_la"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/text_background"
                     android:layout_marginLeft="10dp"
                     android:hint="@string/fc_lat_notify"
                     android:inputType="numberDecimal" />

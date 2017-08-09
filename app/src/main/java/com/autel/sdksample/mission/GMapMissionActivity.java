@@ -93,7 +93,10 @@ public class GMapMissionActivity extends MapActivity {
         mGmap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                showWaypointSettingDialog(mMarkerList.indexOf(marker));
+                int index = mMarkerList.indexOf(marker);
+                if (index >= 0 && index < mMarkerList.size()) {
+                    showWaypointSettingDialog(index);
+                }
                 return true;
             }
         });

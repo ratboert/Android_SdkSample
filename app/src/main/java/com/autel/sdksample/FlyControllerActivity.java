@@ -37,8 +37,6 @@ public class FlyControllerActivity extends BaseActivity {
     private EditText fcMaxRange;
     private EditText fcReturnHeight;
     private EditText fcHorizontalSpeed;
-    private EditText fcAscendSpeed;
-    private EditText fcDescendSpeed;
     private EditText locationAsHomePoint_la;
     private EditText locationAsHomePoint_lon;
     private Switch attiModeSwitch;
@@ -80,8 +78,6 @@ public class FlyControllerActivity extends BaseActivity {
         fcMaxRange = (EditText) findViewById(R.id.fcMaxRange);
         fcReturnHeight = (EditText) findViewById(R.id.fcReturnHeight);
         fcHorizontalSpeed = (EditText) findViewById(R.id.fcHorizontalSpeed);
-        fcAscendSpeed = (EditText) findViewById(R.id.fcAscendSpeed);
-        fcDescendSpeed = (EditText) findViewById(R.id.fcDescendSpeed);
         locationAsHomePoint_la = (EditText) findViewById(R.id.locationAsHomePoint_la);
         locationAsHomePoint_lon = (EditText) findViewById(R.id.locationAsHomePoint_lon);
 
@@ -205,63 +201,7 @@ public class FlyControllerActivity extends BaseActivity {
             }
         });
 
-        final TextView fcDescendSpeedNotify = (TextView) findViewById(R.id.fcDescendSpeedNotify);
-        fcDescendSpeed.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 0) {
-                    return;
-                }
-
-                String value = fcDescendSpeedNotify.getText().toString();
-                if (isEmpty(value)) {
-                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
-                    if (null != parameterRangeManager) {
-                        RangePair<Float> support = parameterRangeManager.getDescendSpeedRange();
-                        fcDescendSpeedNotify.setText("DescendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo() + "m/s");
-                    }
-                }
-            }
-        });
-
-        final TextView fcAscendSpeedValue = (TextView) findViewById(R.id.fcAscendSpeedValue);
-        fcAscendSpeed.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 0) {
-                    return;
-                }
-
-                String value = fcAscendSpeedValue.getText().toString();
-                if (isEmpty(value)) {
-                    XStarParameterRangeManager parameterRangeManager = autelFlyController.getParameterRangeManager();
-                    if (null != parameterRangeManager) {
-                        RangePair<Float> support = parameterRangeManager.getAscendSpeedRange();
-                        fcAscendSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo() + "m/s");
-                    }
-                }
-            }
-        });
 
         final TextView fcHorizontalSpeedValue = (TextView) findViewById(R.id.fcHorizontalSpeedValue);
         fcHorizontalSpeed.addTextChangedListener(new TextWatcher() {
@@ -371,7 +311,7 @@ public class FlyControllerActivity extends BaseActivity {
     public void setMaxRange(View view) {
         String value = fcMaxRange.getText().toString();
 
-        autelFlyController.setMaxRange(isEmpty(value) ? 1000 : Integer.valueOf(value), new CallbackWithNoParam() {
+        autelFlyController.setMaxRange(isEmpty(value) ? 500 : Integer.valueOf(value), new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
                 logOut("setMaxRange AutelError " + error.getDescription());
@@ -404,7 +344,7 @@ public class FlyControllerActivity extends BaseActivity {
 
     public void setReturnHeight(View view) {
         String value = fcReturnHeight.getText().toString();
-        autelFlyController.setReturnHeight(isEmpty(value) ? 20 : Integer.valueOf(value), new CallbackWithNoParam() {
+        autelFlyController.setReturnHeight(isEmpty(value) ? 30 : Integer.valueOf(value), new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
                 logOut("setReturnHeight AutelError " + error.getDescription());
@@ -444,69 +384,6 @@ public class FlyControllerActivity extends BaseActivity {
             public void onSuccess() {
                 logOut("setHorizontalSpeed onSuccess ");
             }
-        });
-    }
-
-    public void getAscendSpeed(View view) {
-        autelFlyController.getAscendSpeed(new CallbackWithOneParam<Float>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("getAscendSpeed AutelError " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(Float horizontalSpeed) {
-                logOut("getAscendSpeed onSuccess " + horizontalSpeed);
-            }
-
-        });
-    }
-
-
-    public void setAscendSpeed(View view) {
-        String value = fcAscendSpeed.getText().toString();
-        autelFlyController.setAscendSpeed(isEmpty(value) ? 5 : Integer.valueOf(value), new CallbackWithNoParam() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("setAscendSpeed AutelError " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess() {
-                logOut("setAscendSpeed onSuccess ");
-            }
-
-        });
-    }
-
-    public void getDescendSpeed(View view) {
-        autelFlyController.getDescendSpeed(new CallbackWithOneParam<Float>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("getDescendSpeed AutelError " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(Float horizontalSpeed) {
-                logOut("getDescendSpeed onSuccess " + horizontalSpeed);
-            }
-
-        });
-    }
-
-    public void setDescendSpeed(View view) {
-        String value = fcDescendSpeed.getText().toString();
-        autelFlyController.setDescendSpeed(isEmpty(value) ? 5 : Integer.valueOf(value), new CallbackWithNoParam() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("setDescendSpeed AutelError " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess() {
-                logOut("setDescendSpeed onSuccess ");
-            }
-
         });
     }
 
@@ -568,8 +445,8 @@ public class FlyControllerActivity extends BaseActivity {
     }
 
     public void setLocationAsHomePoint(View view) {
-        long lat = isEmpty(locationAsHomePoint_la.getText().toString()) ? 0 : Long.valueOf(locationAsHomePoint_la.getText().toString());
-        long lon = isEmpty(locationAsHomePoint_lon.getText().toString()) ? 0 : Long.valueOf(locationAsHomePoint_lon.getText().toString());
+        float lat = isEmpty(locationAsHomePoint_la.getText().toString()) ? 0 : Float.valueOf(locationAsHomePoint_la.getText().toString());
+        float lon = isEmpty(locationAsHomePoint_lon.getText().toString()) ? 0 : Float.valueOf(locationAsHomePoint_lon.getText().toString());
         autelFlyController.setLocationAsHomePoint(lat, lon, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
@@ -598,7 +475,17 @@ public class FlyControllerActivity extends BaseActivity {
     }
 
     public void startCalibrateCompass(View view) {
-        autelFlyController.startCalibrateCompass();
+        autelFlyController.startCalibrateCompass(new CallbackWithOneParam<CalibrateCompassStatus>() {
+            @Override
+            public void onSuccess(CalibrateCompassStatus calibrateCompassStatus) {
+                logOut("startCalibrateCompass onSuccess "+calibrateCompassStatus);
+            }
+
+            @Override
+            public void onFailure(AutelError autelError) {
+                logOut("startCalibrateCompass autelError "+autelError.getDescription());
+            }
+        });
     }
 
     public void takeOff(View view) {

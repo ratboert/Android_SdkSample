@@ -31,6 +31,7 @@
             android:padding="20px">
 
             <LinearLayout
+                android:id="@+id/scanRFLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/text_background"
@@ -41,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="getRFList" />
+                    android:text="getRFDataList" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/getCurrentRFLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin_top"
@@ -78,10 +80,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
-                    android:text="getCurrentRF" />
+                    android:text="getCurrentRFData" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -110,6 +111,7 @@
 
 
             <LinearLayout
+                android:id="@+id/setCurrentRFLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin_top"
@@ -126,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="@dimen/text_padding"
-                        android:text="setCurrentRF" />
+                        android:text="setCurrentRFData" />
 
                     <Spinner
                         android:id="@+id/dspRFList"
@@ -165,6 +167,7 @@
 
 
             <LinearLayout
+                android:id="@+id/updateSSIDLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin_top"
@@ -219,6 +222,15 @@
                 android:gravity="center"
                 android:padding="@dimen/text_padding"
                 android:text="getVersionInfo"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/resetWifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_margin_top"
+                android:gravity="center"
+                android:text="resetWifi"
+                android:padding="@dimen/text_padding"
                 android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>

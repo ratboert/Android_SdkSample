@@ -72,7 +72,10 @@ public class AMapMissionActivity extends MapActivity {
         mAmap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                showWaypointSettingDialog(mMarkerList.indexOf(marker));
+                int index = mMarkerList.indexOf(marker);
+                if (index >= 0 && index < mMarkerList.size()) {
+                    showWaypointSettingDialog(index);
+                }
                 return true;
             }
         });
