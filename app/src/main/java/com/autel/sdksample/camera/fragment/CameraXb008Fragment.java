@@ -1002,7 +1002,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         Spinner photoTimelapseIntervalList = (Spinner) view.findViewById(R.id.photoTimelapseIntervalList);
         if (null != xb008) {
             photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                    Arrays.asList(xb008.getParameterRangeManager().getPhotoTimelapseInterval())));
+                    Arrays.asList(rangeManager.getPhotoTimelapseInterval())));
         }
         photoTimelapseIntervalList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

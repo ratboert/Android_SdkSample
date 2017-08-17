@@ -93,6 +93,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     Spinner exposureValueList;
     VideoResolutionFpsAdapter videoResolutionFpsAdapter;
     Spinner videoResolutionAndFrameRateList;
+    Spinner photoTimelapseIntervalList;
 
     CameraColorStyle cameraColorStyle = CameraColorStyle.None;
     CameraExposureMode cameraExposureMode = CameraExposureMode.Auto;
@@ -110,6 +111,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
     VideoStandard selectedVideoStandard = VideoStandard.NTSC;
     VideoStandard currentVideoStandard = VideoStandard.NTSC;
     PhotoFormat photoFormat = PhotoFormat.JPEG;
+    PhotoFormat currentPhotoFormat = PhotoFormat.JPEG;
     PhotoAspectRatio aspectRatio = PhotoAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
     VideoEncodeFormat videoEncoding = VideoEncodeFormat.H264;
@@ -159,6 +161,21 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                 public void onSuccess(VideoStandard data) {
                     currentVideoStandard = data;
                     initVideoResolutionFpsList();
+                }
+            });
+
+            xb012.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
+                @Override
+                public void onFailure(AutelError error) {
+                }
+
+                @Override
+                public void onSuccess(PhotoFormat data) {
+                    currentPhotoFormat = data;
+                    if (null != xb012) {
+                        photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
+                                Arrays.asList(xb012.getParameterRangeManager().getPhotoTimelapseInterval(currentPhotoFormat))));
+                    }
                 }
             });
         }
@@ -1012,6 +1029,22 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess() {
                         logOut("setPhotoFormat state onSuccess");
+                        if(null != xb012){
+                            xb012.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
+                                @Override
+                                public void onFailure(AutelError error) {
+                                }
+
+                                @Override
+                                public void onSuccess(PhotoFormat data) {
+                                    currentPhotoFormat = data;
+                                    if (null != xb012) {
+                                        photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
+                                                Arrays.asList(xb012.getParameterRangeManager().getPhotoTimelapseInterval(currentPhotoFormat))));
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -1029,6 +1062,11 @@ public class CameraXB012Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess(PhotoFormat data) {
                         logOut("getPhotoFormat " + data);
+                        currentPhotoFormat = data;
+                        if (null != xb012) {
+                            photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
+                                    Arrays.asList(xb012.getParameterRangeManager().getPhotoTimelapseInterval(currentPhotoFormat))));
+                        }
                     }
                 });
             }
@@ -1377,11 +1415,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
-        Spinner photoTimelapseIntervalList = (Spinner) parentView.findViewById(R.id.photoTimelapseIntervalList);
-        if (null != xb012) {
-            photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                    Arrays.asList(rangeManager.getPhotoTimelapseInterval())));
-        }
+        photoTimelapseIntervalList = (Spinner) parentView.findViewById(R.id.photoTimelapseIntervalList);
 
         photoTimelapseIntervalList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
