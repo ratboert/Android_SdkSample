@@ -1077,7 +1077,6 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setDigitalZoomScale).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logOut("setDigitalZoomScale  onClick  ");
                 String value = digitalZoomScaleValue.getText().toString();
                 int parameter = isEmpty(value) ? 100 : Integer.valueOf(value);
                 autelR12.setDigitalZoomScale(parameter, new CallbackWithNoParam() {
