@@ -192,8 +192,10 @@ public abstract class MapActivity extends FragmentActivity {
             switch (baseProduct.getType()) {
                 case X_STAR:
                     xStarFlyController = ((XStarAircraft) baseProduct).getFlyController();
+                    break;
                 case PREMIUM:
                     xStarFlyController = ((XStarPremiumAircraft) baseProduct).getFlyController();
+                    break;
             }
             if(null != xStarFlyController){
                 xStarFlyController.setFlyControllerInfoListener(new CallbackWithOneParam<FlyControllerInfo>() {
