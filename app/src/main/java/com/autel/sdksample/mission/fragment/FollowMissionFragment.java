@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 
 import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
@@ -31,7 +32,7 @@ public class FollowMissionFragment extends MissionFragment {
     Location mLocation;
     private FollowFinishActionAdapter finishActionAdapter = null;
     private FollowFinishedAction finishedAction = FollowFinishedAction.RETURN_HOME;
-
+    EditText followReturnHeight;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class FollowMissionFragment extends MissionFragment {
                 Log.v("followTest", "location " + location);
             }
         });
-
+        followReturnHeight = (EditText) view.findViewById(R.id.followReturnHeight);
         finishActionAdapter = new FollowFinishActionAdapter(getContext());
         finishActionSpinner.setAdapter(finishActionAdapter);
         finishActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -66,10 +67,11 @@ public class FollowMissionFragment extends MissionFragment {
 
     @Override
     protected AutelMission createAutelMission() {
+        String valueHeight = followReturnHeight.getText().toString();
         followMission = FollowMission.create();
         followMission.location = mLocation;
         followMission.finishedAction = finishedAction;
-        followMission.finishReturnHeight = 20;
+        followMission.finishReturnHeight = isEmpty(valueHeight) ? 40 : Integer.valueOf(valueHeight);
         return followMission;
     }
 

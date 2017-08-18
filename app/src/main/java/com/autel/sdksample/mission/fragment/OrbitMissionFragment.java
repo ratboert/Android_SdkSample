@@ -68,7 +68,7 @@ public class OrbitMissionFragment extends MissionFragment {
         orbitMission.lng = (float) autelLatLng.longitude;
 
         String valueHeight = orbitReturnHeight.getText().toString();
-        orbitMission.finishReturnHeight = isEmpty(valueHeight) ? 20 : Integer.valueOf(valueHeight);
+        orbitMission.finishReturnHeight = isEmpty(valueHeight) ? 40 : Integer.valueOf(valueHeight);
         orbitMission.finishedAction = finishedAction;
         String valueSpeed = orbitSpeed.getText().toString();
         orbitMission.speed = isEmpty(valueSpeed) ? 1 : Float.valueOf(valueSpeed);

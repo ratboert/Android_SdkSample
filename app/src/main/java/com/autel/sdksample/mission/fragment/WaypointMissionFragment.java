@@ -67,7 +67,7 @@ public class WaypointMissionFragment extends MissionFragment {
         String valueSpeed = waypointSpeed.getText().toString();
         waypointMission.speed = isEmpty(valueSpeed) ? 4 : Integer.valueOf(valueSpeed);
         String valueReturnHeight = waypointReturnHeight.getText().toString();
-        waypointMission.finishReturnHeight = isEmpty(valueReturnHeight) ? 20 : Integer.valueOf(valueReturnHeight);
+        waypointMission.finishReturnHeight = isEmpty(valueReturnHeight) ? 40 : Integer.valueOf(valueReturnHeight);
 
         waypointMission.wpList = ((MapActivity) getActivity()).getWaypointList();
         return waypointMission;

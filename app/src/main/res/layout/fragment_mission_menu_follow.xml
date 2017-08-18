@@ -4,15 +4,23 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <include
             android:id="@+id/menu_operate"
+            layout="@layout/fragment_mission_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/followReturnHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            layout="@layout/fragment_mission_menu"
-            />
+            android:hint="@string/mission_notify_return_height"
+            android:inputType="number" />
     </LinearLayout>
 </ScrollView>
