@@ -39,12 +39,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-            applicationVariants.all{
+            applicationVariants.all {
                 variant ->
-                    variant.outputs.each{
-                        output->
+                    variant.outputs.each {
+                        output ->
                             def newName = output.outputFile.name
-                            if(newName.contains("-release")){
+                            if (newName.contains("-release")) {
                                 newName = newName.replace("app-", "SDK_Sample_" + "-");
                                 newName = newName.replace("-release", defaultConfig.versionName);
                                 output.outputFile = new File(output.outputFile.parent, newName)
@@ -59,7 +59,7 @@ android {
             signingConfig signingConfigs.config
         }
     }
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
     productFlavors {
@@ -78,8 +78,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.android.support:appcompat-v7:23.0.1'
     testCompile 'junit:junit:4.12'
+    compile('com.squareup.okhttp3:okhttp:3.8.1')
     //*/
     compile 'com.autel.starlink:autel-sdk:2.0.9-SNAPSHOT@aar'
+
 //    compile 'com.autel.starlink:autel-sdk:0.9.8-test@aar'
     /*/
     compile "com.autel.starlink:autel-sdk:2.0.0"
