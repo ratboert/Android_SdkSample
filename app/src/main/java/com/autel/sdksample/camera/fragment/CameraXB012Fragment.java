@@ -876,7 +876,7 @@ public class CameraXB012Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.setVideoEncoding).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.setVideoEncodeFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 xb012.setVideoEncodeFormat(videoEncoding, new CallbackWithNoParam() {

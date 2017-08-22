@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hasInitProductListener.set(false);
         setContentView(R.layout.activity_main);
         productSelector = new ProductSelector(this);
         viewPager = (ViewPager) findViewById(R.id.productSelector);
@@ -67,7 +66,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void productConnected(BaseProduct product) {
                 Log.v("productType", "product " + product.getType());
-
+                /**
+                 * 避免从WiFi切换到USB时，重新弹起MainActivity界面
+                 */
+                hasInitProductListener.compareAndSet(false,true);
                 ((TestApplication) getApplicationContext()).setCurrentProduct(product);
                 viewPager.setCurrentItem(productSelector.productConnected(product.getType()));
             }
