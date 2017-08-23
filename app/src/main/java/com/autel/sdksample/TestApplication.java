@@ -13,6 +13,7 @@ import com.autel.common.error.AutelError;
 import com.autel.internal.sdk.AutelBaseApplication;
 import com.autel.internal.sdk.util.AutelDirPathUtils;
 import com.autel.sdk.Autel;
+import com.autel.sdk.AutelSdkConfig;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.util.log.AutelConfig;
 
@@ -31,6 +32,25 @@ public class TestApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
+        /**
+         * 初始化SDK，通过网络验证APPKey的有效性
+         */
+        String appKey = "<SDK license should be input>";
+        AutelSdkConfig config = new AutelSdkConfig.AutelSdkConfigBuilder()
+                .setAppKey(appKey)
+                .setPostOnUi(true)
+                .create();
+        Autel.init(this, config, new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                Log.v(TAG, "checkAppKeyValidate onSuccess");
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                Log.v(TAG, "checkAppKeyValidate " + error.getDescription());
+            }
+        });
     }
 
     public BaseProduct getCurrentProduct() {
