@@ -15,6 +15,7 @@ import com.autel.common.error.AutelError;
 import com.autel.common.product.AutelProductType;
 import com.autel.internal.product.XStarPremAircraftImpl;
 import com.autel.sdk.Autel;
+import com.autel.sdk.AutelSdkConfig;
 import com.autel.sdk.ProductConnectListener;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.G2Aircraft;
@@ -43,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
          * 初始化SDK，通过网络验证APPKey的有效性
          */
         String appKey = "<SDK license should be input>";
-        Autel.init(this, appKey, new CallbackWithNoParam() {
+        AutelSdkConfig config = new AutelSdkConfig.AutelSdkConfigBuilder()
+                .setAppKey(appKey)
+                .setPostOnUi(true)
+                .create();
+        Autel.init(this, config, new CallbackWithNoParam() {
             @Override
             public void onSuccess() {
                 Log.v(TAG, "checkAppKeyValidate onSuccess");
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 /**
                  * 避免从WiFi切换到USB时，重新弹起MainActivity界面
                  */
-                hasInitProductListener.compareAndSet(false,true);
+                hasInitProductListener.compareAndSet(false, true);
                 ((TestApplication) getApplicationContext()).setCurrentProduct(product);
                 viewPager.setCurrentItem(productSelector.productConnected(product.getType()));
             }

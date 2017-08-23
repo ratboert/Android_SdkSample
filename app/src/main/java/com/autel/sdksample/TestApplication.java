@@ -31,8 +31,6 @@ public class TestApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
-        AutelBaseApplication.setAppContext(this);
-        AutelConfig.AUTEL_DEBUG_LOG = true;
     }
 
     public BaseProduct getCurrentProduct() {
