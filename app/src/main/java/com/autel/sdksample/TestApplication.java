@@ -62,10 +62,16 @@ public class TestApplication extends Application {
     }
 
     public class EHandle implements Thread.UncaughtExceptionHandler {
+        Thread.UncaughtExceptionHandler defaultExceptionHandler;
+
+        public EHandle(Thread.UncaughtExceptionHandler defaultExceptionHandler) {
+            this.defaultExceptionHandler = defaultExceptionHandler;
+        }
+
         @Override
         public void uncaughtException(Thread thread, final Throwable ex) {
             new ExceptionWriter(ex, getApplicationContext()).saveStackTraceToSD();
-//            Thread.getDefaultUncaughtExceptionHandler().uncaughtException(thread, ex);
+            defaultExceptionHandler.uncaughtException(thread, ex);
         }
     }
 
