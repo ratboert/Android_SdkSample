@@ -17,8 +17,6 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
-import com.autel.common.camera.R12.R12CameraInfo;
-import com.autel.common.camera.R12.R12ParameterRangeManager;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.CameraAntiFlicker;
@@ -40,6 +38,8 @@ import com.autel.common.camera.media.PhotoTimelapseInterval;
 import com.autel.common.camera.media.VideoFormat;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
+import com.autel.common.camera.r12.R12CameraInfo;
+import com.autel.common.camera.r12.R12ParameterRangeManager;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.camera.AutelR12;
 import com.autel.sdksample.R;
@@ -1105,6 +1105,29 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     @Override
                     public void onFailure(AutelError autelError) {
                         logOut("getDigitalZoomScale  description  " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.resetAutelCameraModeListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setMediaModeListener(null);
+            }
+        });
+        view.findViewById(R.id.setAutelCameraModeListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.setMediaModeListener(new CallbackWithOneParam<MediaMode>() {
+                    @Override
+                    public void onSuccess(MediaMode mode) {
+                        logOut("setMediaModeListener mode " + mode);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setMediaModeListener error " + error.getDescription());
                     }
                 });
             }

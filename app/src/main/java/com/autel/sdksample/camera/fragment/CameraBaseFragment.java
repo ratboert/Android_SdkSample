@@ -319,28 +319,6 @@ public class CameraBaseFragment extends Fragment {
                 });
             }
         });
-        view.findViewById(R.id.resetAutelCameraModeListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baseCamera.setMediaModeListener(null);
-            }
-        });
-        view.findViewById(R.id.setAutelCameraModeListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                baseCamera.setMediaModeListener(new CallbackWithOneParam<MediaMode>() {
-                    @Override
-                    public void onSuccess(MediaMode mode) {
-                        logOut("setMediaModeListener mode " + mode);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setMediaModeListener error " + error.getDescription());
-                    }
-                });
-            }
-        });
     }
 
     protected void logOut(String log) {
