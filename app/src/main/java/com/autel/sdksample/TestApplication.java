@@ -10,12 +10,10 @@ import android.util.Log;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.error.AutelError;
-import com.autel.internal.sdk.AutelBaseApplication;
 import com.autel.internal.sdk.util.AutelDirPathUtils;
 import com.autel.sdk.Autel;
 import com.autel.sdk.AutelSdkConfig;
 import com.autel.sdk.product.BaseProduct;
-import com.autel.util.log.AutelConfig;
 
 import java.io.File;
 import java.io.FileNotFoundException;
