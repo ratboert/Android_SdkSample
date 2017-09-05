@@ -33,7 +33,6 @@ android {
         versionName "V2.0.9.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
-        multiDexEnabled true
     }
     buildTypes {
         release {
