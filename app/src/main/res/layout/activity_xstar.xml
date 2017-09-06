@@ -32,7 +32,6 @@
                     android:layout_weight="1"
                     android:background="@drawable/text_background"
                     android:gravity="center"
-                    android:onClick="rcTest"
                     android:padding="@dimen/text_padding"
                     android:text="RemoteController" />
 

@@ -21,7 +21,7 @@
         <uses-library android:name="com.android.future.usb.accessory" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ProductActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -34,34 +34,36 @@
         </activity>
 
         <activity android:name=".XStarActivity" />
-        <activity android:name=".RemoteControllerActivity" />
-        <activity android:name=".FlyControllerActivity" />
+        <activity android:name=".g2.G2RemoteControllerActivity" />
+        <activity android:name=".g2.G2FlyControllerActivity" />
+        <activity android:name=".g2.G2GimbalActivity" />
+        <activity android:name=".xstar.XStarRemoteControllerActivity" />
+        <activity android:name=".xstar.XStarFlyControllerActivity" />
+        <activity android:name=".xstar.XStarGimbalActivity" />
         <activity
-            android:name=".camera.CameraActivity"
+            android:name=".base.camera.CameraActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
-        <activity android:name=".DspActivity" />
-        <activity android:name=".BatteryActivity" />
+        <activity android:name=".base.DspActivity" />
+        <activity android:name=".base.BatteryActivity" />
         <activity
-            android:name=".gimbal.GimbalActivity"
+            android:name=".base.gimbal.GimbalActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".album.AlbumActivity" />
+        <activity android:name=".base.album.AlbumActivity" />
         <activity
-            android:name=".MissionActivity"
+            android:name=".base.mission.MissionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".mission.AMapMissionActivity"
-            android:screenOrientation="landscape"
+            android:name=".base.mission.AMapMissionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            />
+            android:screenOrientation="landscape" />
         <activity
-            android:name=".mission.GMapMissionActivity"
-            android:screenOrientation="landscape"
+            android:name=".base.mission.GMapMissionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            />
+            android:screenOrientation="landscape" />
         <activity
-            android:name=".CodecActivity"
+            android:name=".base.CodecActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape" />
 

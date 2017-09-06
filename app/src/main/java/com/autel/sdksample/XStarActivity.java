@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.autel.sdksample.album.AlbumActivity;
-import com.autel.sdksample.camera.CameraActivity;
-import com.autel.sdksample.gimbal.GimbalActivity;
+import com.autel.sdksample.base.BatteryActivity;
+import com.autel.sdksample.base.CodecActivity;
+import com.autel.sdksample.base.DspActivity;
+import com.autel.sdksample.base.FlyControllerActivity;
+import com.autel.sdksample.base.RemoteControllerActivity;
+import com.autel.sdksample.base.album.AlbumActivity;
+import com.autel.sdksample.base.camera.CameraActivity;
+import com.autel.sdksample.base.gimbal.GimbalActivity;
+import com.autel.sdksample.base.mission.MissionActivity;
 
 public class XStarActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {

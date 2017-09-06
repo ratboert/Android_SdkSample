@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.autel.sdksample.mission.MapActivity;
-
 /**
  * 监听USB连接设备的广播
  */
@@ -19,7 +17,7 @@ public class UsbBroadCastReceiver extends BroadcastReceiver {
          * 只会监听由USB连接到设备的广播，接收到连接到设备的广播后启动主页
          */
         Log.v(TAG, "action " + intent.getAction());
-        MainActivity.receiveUsbStartCommand(context);
+        ProductActivity.receiveUsbStartCommand(context);
     }
 }
 

@@ -4,19 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".gimbal.GimbalActivity">
+    tools:context=".base.gimbal.GimbalActivity">
 
     <com.autel.sdk.widget.AutelCodecView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/log_output"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#bbbbbb"
-        android:layout_marginBottom="5dp"
-        android:minHeight="@dimen/log_text_min_height" />
 
     <ScrollView
         android:layout_width="match_parent"
