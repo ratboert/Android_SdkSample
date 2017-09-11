@@ -69,7 +69,7 @@ public class ProductActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setTitle("Unknown product");
+                        setTitle("disconnected");
                     }
                 });
             }

@@ -103,11 +103,11 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void onPause() {
+        super.onPause();
         if (null == autelCameraManager) {
             return;
         }
         autelCameraManager.setCameraChangeListener(null);
-        super.onPause();
     }
 
     private void changePage(Class page) {

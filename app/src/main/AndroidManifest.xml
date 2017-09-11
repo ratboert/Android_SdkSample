@@ -46,9 +46,6 @@
             android:screenOrientation="landscape" />
         <activity android:name=".base.DspActivity" />
         <activity android:name=".base.BatteryActivity" />
-        <activity
-            android:name=".base.gimbal.GimbalActivity"
-            android:screenOrientation="landscape" />
         <activity android:name=".base.album.AlbumActivity" />
         <activity
             android:name=".base.mission.MissionActivity"
