@@ -8,12 +8,9 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.base.BatteryActivity;
 import com.autel.sdksample.base.CodecActivity;
 import com.autel.sdksample.base.DspActivity;
-import com.autel.sdksample.base.FlyControllerActivity;
 import com.autel.sdksample.base.album.AlbumActivity;
 import com.autel.sdksample.base.camera.CameraActivity;
-import com.autel.sdksample.base.gimbal.GimbalActivity;
 import com.autel.sdksample.base.mission.MissionActivity;
-import com.autel.sdksample.g2.G2RemoteControllerActivity;
 
 /**
  * Created by A16343 on 2017/9/5.
@@ -42,7 +39,7 @@ public class XStarPremiumLayout {
         mLayout.findViewById(R.id.fcTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, FlyControllerActivity.class));
+                mContext.startActivity(new Intent(mContext, XStarPremiumFlyControllerActivity.class));
             }
         });
         mLayout.findViewById(R.id.cameraTest).setOnClickListener(new View.OnClickListener() {
@@ -78,7 +75,7 @@ public class XStarPremiumLayout {
         mLayout.findViewById(R.id.GimbalTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, GimbalActivity.class));
+                mContext.startActivity(new Intent(mContext, XStarPremiumGimbalActivity.class));
             }
         });
         mLayout.findViewById(R.id.AlbumTest).setOnClickListener(new View.OnClickListener() {

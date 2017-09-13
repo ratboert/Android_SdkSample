@@ -40,6 +40,9 @@
         <activity android:name=".xstar.XStarRemoteControllerActivity" />
         <activity android:name=".xstar.XStarFlyControllerActivity" />
         <activity android:name=".xstar.XStarGimbalActivity" />
+        <activity android:name=".premium.XStarPremiumRemoteControllerActivity" />
+        <activity android:name=".premium.XStarPremiumFlyControllerActivity" />
+        <activity android:name=".premium.XStarPremiumGimbalActivity" />
         <activity
             android:name=".base.camera.CameraActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -15,6 +15,7 @@ import com.autel.sdk.Autel;
 import com.autel.sdk.ProductConnectListener;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdksample.g2.G2Layout;
+import com.autel.sdksample.premium.XStarPremiumLayout;
 import com.autel.sdksample.xstar.XStarLayout;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,6 +26,7 @@ public class ProductActivity extends AppCompatActivity {
     private int index;
     private long timeStamp;
     static AtomicBoolean hasInitProductListener = new AtomicBoolean(false);
+    private AutelProductType currentType = AutelProductType.UNKNOWN;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,9 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void productConnected(BaseProduct product) {
                 Log.v("productType", "product " + product.getType());
-                setTitle(product.getType().toString());
-                setContentView(createView(product.getType()));
+                currentType = product.getType();
+                setTitle(currentType.toString());
+                setContentView(createView(currentType));
                 /**
                  * 避免从WiFi切换到USB时，重新弹起MainActivity界面
                  */
@@ -66,10 +69,11 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void productDisconnected() {
                 Log.v("productType", "productDisconnected ");
+                currentType = AutelProductType.UNKNOWN;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setTitle("disconnected");
+                        setTitle(currentType.toString());
                     }
                 });
             }
@@ -85,24 +89,37 @@ public class ProductActivity extends AppCompatActivity {
                 return new XStarLayout(this).getLayout();
             case G2:
                 return new G2Layout(this).getLayout();
+            case PREMIUM:
+                return new XStarPremiumLayout(this).getLayout();
 
         }
         return new XStarLayout(this).getLayout();
     }
 
+    public void onResume() {
+        super.onResume();
+        setTitle(currentType.toString());
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Autel.destroy();
-        hasInitProductListener.set(false);
+        if (needExit) {
+            Autel.destroy();
+            hasInitProductListener.set(false);
+            System.exit(0);
+        }
     }
 
+    private boolean needExit = false;
 
     public void onBackPressed() {
         if (System.currentTimeMillis() - timeStamp < 1500) {
+            needExit = true;
             super.onBackPressed();
+        } else {
+            timeStamp = System.currentTimeMillis();
         }
-        timeStamp = System.currentTimeMillis();
     }
 
     public static void receiveUsbStartCommand(Context context) {

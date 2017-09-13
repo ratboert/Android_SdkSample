@@ -9,12 +9,9 @@ import com.autel.common.flycontroller.ARMWarning;
 import com.autel.common.flycontroller.CalibrateCompassStatus;
 import com.autel.common.flycontroller.FlyControllerInfo;
 import com.autel.common.flycontroller.MagnetometerState;
-import com.autel.common.product.AutelProductType;
 import com.autel.sdk.flycontroller.AutelFlyController;
-import com.autel.sdk.flycontroller.G2FlyController;
 import com.autel.sdk.flycontroller.XStarFlyController;
 import com.autel.sdk.product.BaseProduct;
-import com.autel.sdk.product.G2Aircraft;
 import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.FlyControllerActivity;
@@ -24,7 +21,7 @@ import com.autel.sdksample.base.FlyControllerActivity;
  */
 
 public class XStarFlyControllerActivity extends FlyControllerActivity {
-    private XStarFlyController mXStarFlyController;
+    protected XStarFlyController mXStarFlyController;
 
     @Override
     protected AutelFlyController initController(BaseProduct product) {
