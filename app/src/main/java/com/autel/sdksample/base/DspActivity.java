@@ -17,35 +17,29 @@ import com.autel.common.dsp.DspVersionInfo;
 import com.autel.common.dsp.RFData;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.dsp.AutelDsp;
-import com.autel.sdk.product.BaseProduct;
 import com.autel.sdksample.R;
 
 import java.util.List;
 
 
-public class DspActivity extends BaseActivity<AutelDsp> {
-    private TextView dsp_log;
-    private EditText dsp_set_rf_value;
-    private EditText ssidName;
-    private EditText ssidPwd;
-    private Spinner dspRFList;
+public abstract class DspActivity extends BaseActivity<AutelDsp> {
+    protected TextView dsp_log;
+    protected EditText dsp_set_rf_value;
+    protected EditText ssidName;
+    protected EditText ssidPwd;
+    protected Spinner dspRFList;
 
-    private static AutelCancellable getRFList;
-    private static AutelCancellable getCurrentRF;
-    private static AutelCancellable setCurrentRF;
+    protected static AutelCancellable getRFList;
+    protected static AutelCancellable getCurrentRF;
+    protected static AutelCancellable setCurrentRF;
 
-    private RFListAdapter rfListAdapter;
-    private int selectedRFHz = -1;
+    protected RFListAdapter rfListAdapter;
+    protected int selectedRFHz = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("DSP");
-    }
-
-    @Override
-    protected AutelDsp initController(BaseProduct product) {
-        return product.getDsp();
     }
 
     @Override

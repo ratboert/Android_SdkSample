@@ -33,21 +33,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".XStarActivity" />
         <activity android:name=".g2.G2RemoteControllerActivity" />
         <activity android:name=".g2.G2FlyControllerActivity" />
         <activity android:name=".g2.G2GimbalActivity" />
+        <activity android:name=".g2.G2DspActivity" />
         <activity android:name=".xstar.XStarRemoteControllerActivity" />
         <activity android:name=".xstar.XStarFlyControllerActivity" />
         <activity android:name=".xstar.XStarGimbalActivity" />
+        <activity android:name=".xstar.XStarDspActivity" />
         <activity android:name=".premium.XStarPremiumRemoteControllerActivity" />
         <activity android:name=".premium.XStarPremiumFlyControllerActivity" />
         <activity android:name=".premium.XStarPremiumGimbalActivity" />
+        <activity android:name=".premium.PremiumDspActivity" />
         <activity
             android:name=".base.camera.CameraActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
-        <activity android:name=".base.DspActivity" />
         <activity android:name=".base.BatteryActivity" />
         <activity android:name=".base.album.AlbumActivity" />
         <activity

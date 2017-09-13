@@ -8,10 +8,8 @@ import com.autel.sdksample.R;
 import com.autel.sdksample.base.BatteryActivity;
 import com.autel.sdksample.base.CodecActivity;
 import com.autel.sdksample.base.DspActivity;
-import com.autel.sdksample.base.FlyControllerActivity;
 import com.autel.sdksample.base.album.AlbumActivity;
 import com.autel.sdksample.base.camera.CameraActivity;
-import com.autel.sdksample.base.gimbal.GimbalActivity;
 import com.autel.sdksample.base.mission.MissionActivity;
 
 /**
