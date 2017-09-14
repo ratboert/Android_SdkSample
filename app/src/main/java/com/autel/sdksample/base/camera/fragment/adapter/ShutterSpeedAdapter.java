@@ -2,11 +2,11 @@ package com.autel.sdksample.base.camera.fragment.adapter;
 
 import android.content.Context;
 
-import com.autel.common.camera.media.CameraShutterSpeed;
+import com.autel.common.camera.media.ShutterSpeed;
 import com.autel.sdksample.adapter.SelectorAdapter;
 
 
-public class ShutterSpeedAdapter extends SelectorAdapter<CameraShutterSpeed> {
+public class ShutterSpeedAdapter extends SelectorAdapter<ShutterSpeed> {
 
     public ShutterSpeedAdapter(Context context) {
         super(context);

@@ -870,6 +870,14 @@
                 android:gravity="center"
                 android:text="getVideoResolutionAndFrameRate"
                 android:textAllCaps="false" />
+            <Button
+                android:id="@+id/getStateInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getStateInfo"
+                android:textAllCaps="false" />
 
             <!--               set listener                        -->
 

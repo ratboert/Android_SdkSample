@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.CallbackWithTwoParams;
-import com.autel.common.camera.base.CameraWorkState;
+import com.autel.common.camera.base.WorkState;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.MediaStatus;
 import com.autel.common.camera.base.SDCardState;
@@ -172,7 +172,7 @@ public class CameraBaseFragment extends Fragment {
         view.findViewById(R.id.getSDCardStatus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                baseCamera.getSDCardStatus(new CallbackWithOneParam<SDCardState>() {
+                baseCamera.getSDCardState(new CallbackWithOneParam<SDCardState>() {
                     @Override
                     public void onSuccess(SDCardState data) {
                         logOut("getSDCardStatus " + data);
@@ -188,9 +188,9 @@ public class CameraBaseFragment extends Fragment {
         view.findViewById(R.id.getWorkStatus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                baseCamera.getWorkStatus(new CallbackWithOneParam<CameraWorkState>() {
+                baseCamera.getWorkState(new CallbackWithOneParam<WorkState>() {
                     @Override
-                    public void onSuccess(CameraWorkState data) {
+                    public void onSuccess(WorkState data) {
                         logOut("getWorkStatus " + data);
                     }
 

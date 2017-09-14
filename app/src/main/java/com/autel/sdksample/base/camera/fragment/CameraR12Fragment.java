@@ -17,27 +17,28 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
+import com.autel.common.camera.base.BaseStateInfo;
 import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
-import com.autel.common.camera.media.CameraAntiFlicker;
-import com.autel.common.camera.media.CameraAutoExposureLockState;
-import com.autel.common.camera.media.CameraColorStyle;
-import com.autel.common.camera.media.CameraExposureCompensation;
-import com.autel.common.camera.media.CameraExposureMode;
+import com.autel.common.camera.media.AntiFlicker;
+import com.autel.common.camera.media.AutoExposureLockState;
 import com.autel.common.camera.media.CameraISO;
-import com.autel.common.camera.media.CameraShutterSpeed;
-import com.autel.common.camera.media.CameraSpotMeteringArea;
-import com.autel.common.camera.media.CameraWhiteBalance;
-import com.autel.common.camera.media.CameraWhiteBalanceType;
+import com.autel.common.camera.media.ColorStyle;
+import com.autel.common.camera.media.ExposureCompensation;
+import com.autel.common.camera.media.ExposureMode;
 import com.autel.common.camera.media.PhotoAEBCount;
 import com.autel.common.camera.media.PhotoAspectRatio;
 import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.PhotoStyle;
 import com.autel.common.camera.media.PhotoStyleType;
 import com.autel.common.camera.media.PhotoTimelapseInterval;
+import com.autel.common.camera.media.ShutterSpeed;
+import com.autel.common.camera.media.SpotMeteringArea;
 import com.autel.common.camera.media.VideoFormat;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
+import com.autel.common.camera.media.WhiteBalance;
+import com.autel.common.camera.media.WhiteBalanceType;
 import com.autel.common.camera.r12.R12CameraInfo;
 import com.autel.common.camera.r12.R12ParameterRangeManager;
 import com.autel.common.error.AutelError;
@@ -88,14 +89,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
     VideoResolutionFpsAdapter videoResolutionFpsAdapter;
     Spinner videoResolutionAndFrameRateList;
 
-    CameraColorStyle cameraColorStyle = CameraColorStyle.None;
-    CameraExposureMode cameraExposureMode = CameraExposureMode.Auto;
-    CameraExposureCompensation cameraExposureCompensation = CameraExposureCompensation.NEGATIVE_0p3;
+    ColorStyle cameraColorStyle = ColorStyle.None;
+    ExposureMode cameraExposureMode = ExposureMode.Auto;
+    ExposureCompensation cameraExposureCompensation = ExposureCompensation.NEGATIVE_0p3;
     CameraISO cameraISO = CameraISO.ISO_100;
-    CameraShutterSpeed cameraShutterSpeed = CameraShutterSpeed.ShutterSpeed_1;
-    CameraWhiteBalanceType cameraWhiteBalanceType = CameraWhiteBalanceType.AUTO;
-    CameraAntiFlicker cameraAntiFlicker = CameraAntiFlicker.AUTO;
-    CameraAutoExposureLockState cameraAutoExposureLockState = CameraAutoExposureLockState.LOCK;
+    ShutterSpeed cameraShutterSpeed = ShutterSpeed.ShutterSpeed_1;
+    WhiteBalanceType cameraWhiteBalanceType = WhiteBalanceType.AUTO;
+    AntiFlicker cameraAntiFlicker = AntiFlicker.AUTO;
+    AutoExposureLockState cameraAutoExposureLockState = AutoExposureLockState.LOCK;
     PhotoStyleType photoStyleType = PhotoStyleType.Standard;
     PhotoBurstCount photoBurstCount = PhotoBurstCount.BURST_3;
     PhotoTimelapseInterval photoTimelapseInterval = PhotoTimelapseInterval.SECOND_5;
@@ -159,6 +160,23 @@ public class CameraR12Fragment extends CameraBaseFragment {
     }
 
     private void initR12Click(View view) {
+        view.findViewById(R.id.getStateInfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autelR12.getStateInfo(new CallbackWithOneParam<BaseStateInfo>() {
+                    @Override
+                    public void onSuccess(BaseStateInfo state) {
+                        logOut("getStateInfo  :" + state);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getStateInfo  description  " + error.getDescription());
+                    }
+                });
+            }
+        });
+
         view.findViewById(R.id.setInfoListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,14 +267,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getSpotMeteringArea(new CallbackWithOneParam<CameraSpotMeteringArea>() {
+                        autelR12.getSpotMeteringArea(new CallbackWithOneParam<SpotMeteringArea>() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("getSpotMeteringArea  description  " + error.getDescription());
                             }
 
                             @Override
-                            public void onSuccess(CameraSpotMeteringArea data) {
+                            public void onSuccess(SpotMeteringArea data) {
                                 logOut("getSpotMeteringArea X " + data.X + "  Y " + data.Y);
                             }
                         });
@@ -286,9 +304,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getExposure(new CallbackWithOneParam<CameraExposureCompensation>() {
+                        autelR12.getExposure(new CallbackWithOneParam<ExposureCompensation>() {
                             @Override
-                            public void onSuccess(CameraExposureCompensation cameraExposureCompensation) {
+                            public void onSuccess(ExposureCompensation cameraExposureCompensation) {
                                 logOut("getExposure  onSuccess  " + cameraExposureCompensation);
                             }
 
@@ -360,14 +378,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        autelR12.getShutter(new CallbackWithOneParam<CameraShutterSpeed>() {
+                        autelR12.getShutter(new CallbackWithOneParam<ShutterSpeed>() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("getShutter  description  " + error.getDescription());
                             }
 
                             @Override
-                            public void onSuccess(CameraShutterSpeed data) {
+                            public void onSuccess(ShutterSpeed data) {
                                 logOut("getShutter " + data);
                             }
                         });
@@ -394,9 +412,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getColorStyle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getColorStyle(new CallbackWithOneParam<CameraColorStyle>() {
+                autelR12.getColorStyle(new CallbackWithOneParam<ColorStyle>() {
                     @Override
-                    public void onSuccess(CameraColorStyle cameraColorStyle) {
+                    public void onSuccess(ColorStyle cameraColorStyle) {
                         logOut("getColorStyle  onSuccess  " + cameraColorStyle);
                     }
 
@@ -411,7 +429,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setWhiteBalance).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CameraWhiteBalance cameraWhiteBalance = new CameraWhiteBalance();
+                WhiteBalance cameraWhiteBalance = new WhiteBalance();
                 cameraWhiteBalance.type = cameraWhiteBalanceType;
 
                 autelR12.setWhiteBalance(cameraWhiteBalance, new CallbackWithNoParam() {
@@ -431,14 +449,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getWhiteBalance).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getWhiteBalance(new CallbackWithOneParam<CameraWhiteBalance>() {
+                autelR12.getWhiteBalance(new CallbackWithOneParam<WhiteBalance>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getWhiteBalance  description  " + error.getDescription());
                     }
 
                     @Override
-                    public void onSuccess(CameraWhiteBalance data) {
+                    public void onSuccess(WhiteBalance data) {
                         logOut("getWhiteBalance " + data.type + "  colorTemperature  " + data.colorTemperature);
                     }
                 });
@@ -500,14 +518,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAntiFlicker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getAntiFlicker(new CallbackWithOneParam<CameraAntiFlicker>() {
+                autelR12.getAntiFlicker(new CallbackWithOneParam<AntiFlicker>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getAntiFlicker  description  " + error.getDescription());
                     }
 
                     @Override
-                    public void onSuccess(CameraAntiFlicker data) {
+                    public void onSuccess(AntiFlicker data) {
                         logOut("getAntiFlicker " + data);
                     }
                 });
@@ -534,14 +552,14 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAutoExposureLockState).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getAutoExposureLockState(new CallbackWithOneParam<CameraAutoExposureLockState>() {
+                autelR12.getAutoExposureLockState(new CallbackWithOneParam<AutoExposureLockState>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getAutoExposureLockState  description  " + error.getDescription());
                     }
 
                     @Override
-                    public void onSuccess(CameraAutoExposureLockState data) {
+                    public void onSuccess(AutoExposureLockState data) {
                         logOut("getAutoExposureLockState  " + data);
                     }
                 });
@@ -551,7 +569,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.isHistogramStatusEnable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.isHistogramStatusEnable(new CallbackWithOneParam<Boolean>() {
+                autelR12.isHistogramEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
                         logOut("isHistogramStatusEnable " + data);
@@ -585,9 +603,9 @@ public class CameraR12Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getExposureMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                autelR12.getExposureMode(new CallbackWithOneParam<CameraExposureMode>() {
+                autelR12.getExposureMode(new CallbackWithOneParam<ExposureMode>() {
                     @Override
-                    public void onSuccess(CameraExposureMode cameraExposureMode) {
+                    public void onSuccess(ExposureMode cameraExposureMode) {
                         logOut("getExposureMode  onSuccess  " + cameraExposureMode);
                     }
 
@@ -1308,7 +1326,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         exposureValueList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraExposureCompensation = (CameraExposureCompensation) parent.getAdapter().getItem(position);
+                cameraExposureCompensation = (ExposureCompensation) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1323,7 +1341,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraShutterSpeed = (CameraShutterSpeed) parent.getAdapter().getItem(position);
+                cameraShutterSpeed = (ShutterSpeed) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1351,7 +1369,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         colorStyleList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraColorStyle = (CameraColorStyle) parent.getAdapter().getItem(position);
+                cameraColorStyle = (ColorStyle) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1367,7 +1385,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         whiteBalanceTypeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraWhiteBalanceType = (CameraWhiteBalanceType) parent.getAdapter().getItem(position);
+                cameraWhiteBalanceType = (WhiteBalanceType) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1381,7 +1399,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         antiFlickerList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraAntiFlicker = (CameraAntiFlicker) parent.getAdapter().getItem(position);
+                cameraAntiFlicker = (AntiFlicker) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1395,7 +1413,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         autoExposureLockStateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraAutoExposureLockState = (CameraAutoExposureLockState) parent.getAdapter().getItem(position);
+                cameraAutoExposureLockState = (AutoExposureLockState) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1410,7 +1428,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         exposureModeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraExposureMode = (CameraExposureMode) parent.getAdapter().getItem(position);
+                cameraExposureMode = (ExposureMode) parent.getAdapter().getItem(position);
             }
 
             @Override

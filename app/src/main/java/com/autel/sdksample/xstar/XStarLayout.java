@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 
 import com.autel.sdksample.R;
-import com.autel.sdksample.base.BatteryActivity;
 import com.autel.sdksample.base.CodecActivity;
 import com.autel.sdksample.base.DspActivity;
 import com.autel.sdksample.base.album.AlbumActivity;
@@ -69,7 +68,7 @@ public class XStarLayout {
         mLayout.findViewById(R.id.BatteryTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, BatteryActivity.class));
+                mContext.startActivity(new Intent(mContext, XStarBatteryActivity.class));
             }
         });
         mLayout.findViewById(R.id.GimbalTest).setOnClickListener(new View.OnClickListener() {

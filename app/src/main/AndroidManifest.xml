@@ -41,6 +41,7 @@
         <activity android:name=".xstar.XStarFlyControllerActivity" />
         <activity android:name=".xstar.XStarGimbalActivity" />
         <activity android:name=".xstar.XStarDspActivity" />
+        <activity android:name=".xstar.XStarBatteryActivity" />
         <activity android:name=".premium.XStarPremiumRemoteControllerActivity" />
         <activity android:name=".premium.XStarPremiumFlyControllerActivity" />
         <activity android:name=".premium.XStarPremiumGimbalActivity" />

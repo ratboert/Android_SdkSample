@@ -2,21 +2,21 @@ package com.autel.sdksample.base.camera.fragment.adapter;
 
 import android.content.Context;
 
-import com.autel.common.camera.media.CameraColorStyle;
+import com.autel.common.camera.media.ColorStyle;
 import com.autel.sdksample.adapter.SelectorAdapter;
 
-import static com.autel.common.camera.media.CameraColorStyle.Art;
-import static com.autel.common.camera.media.CameraColorStyle.Beach;
-import static com.autel.common.camera.media.CameraColorStyle.BlackAndWhite;
-import static com.autel.common.camera.media.CameraColorStyle.Classic;
-import static com.autel.common.camera.media.CameraColorStyle.Dream;
-import static com.autel.common.camera.media.CameraColorStyle.Film;
-import static com.autel.common.camera.media.CameraColorStyle.Log;
-import static com.autel.common.camera.media.CameraColorStyle.None;
-import static com.autel.common.camera.media.CameraColorStyle.Nostalgic;
-import static com.autel.common.camera.media.CameraColorStyle.Vivid;
+import static com.autel.common.camera.media.ColorStyle.Art;
+import static com.autel.common.camera.media.ColorStyle.Beach;
+import static com.autel.common.camera.media.ColorStyle.BlackAndWhite;
+import static com.autel.common.camera.media.ColorStyle.Classic;
+import static com.autel.common.camera.media.ColorStyle.Dream;
+import static com.autel.common.camera.media.ColorStyle.Film;
+import static com.autel.common.camera.media.ColorStyle.Log;
+import static com.autel.common.camera.media.ColorStyle.None;
+import static com.autel.common.camera.media.ColorStyle.Nostalgic;
+import static com.autel.common.camera.media.ColorStyle.Vivid;
 
-public class ColorStyleAdapter extends SelectorAdapter<CameraColorStyle> {
+public class ColorStyleAdapter extends SelectorAdapter<ColorStyle> {
 
     public ColorStyleAdapter(Context context) {
         super(context);
