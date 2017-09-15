@@ -3,7 +3,7 @@ package com.autel.sdksample.base.camera.fragment.adapter;
 import android.content.Context;
 
 import com.autel.common.camera.xb012.RealTimeVideoResolution;
-import com.autel.sdksample.adapter.SelectorAdapter;
+import com.autel.sdksample.base.adapter.SelectorAdapter;
 
 
 public class RealTimeResolutionAdapter extends SelectorAdapter<RealTimeVideoResolution> {

@@ -3,7 +3,7 @@ package com.autel.sdksample.base.gimbal.adapter;
 import android.content.Context;
 
 import com.autel.common.gimbal.GimbalRollAngleAdjust;
-import com.autel.sdksample.adapter.SelectorAdapter;
+import com.autel.sdksample.base.adapter.SelectorAdapter;
 
 
 public class RollAdjustAdapter extends SelectorAdapter<GimbalRollAngleAdjust> {

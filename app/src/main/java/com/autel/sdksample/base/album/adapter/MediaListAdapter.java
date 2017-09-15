@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.autel.common.album.MediaInfo;
 import com.autel.sdksample.R;
-import com.autel.sdksample.adapter.SelectorAdapter;
+import com.autel.sdksample.base.adapter.SelectorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

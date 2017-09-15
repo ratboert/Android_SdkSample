@@ -1,4 +1,4 @@
-package com.autel.sdksample.adapter;
+package com.autel.sdksample.base.adapter;
 
 import android.content.Context;
 import android.view.View;
