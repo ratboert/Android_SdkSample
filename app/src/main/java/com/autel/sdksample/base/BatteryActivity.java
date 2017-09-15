@@ -11,6 +11,7 @@ import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
 import com.autel.common.battery.BatteryParameterRangeManager;
+import com.autel.common.battery.BatteryState;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.battery.AutelBattery;
 import com.autel.sdk.product.BaseProduct;
@@ -36,7 +37,7 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_battery;
+        return R.layout.activity_xstar_battery;
     }
 
     @Override
@@ -114,6 +115,29 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
 
 
     private void initClick() {
+        findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.setBatteryStateListener(null);
+            }
+        });
+        findViewById(R.id.setBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.setBatteryStateListener(new CallbackWithOneParam<BatteryState>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setBatteryStateListener  error :  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(BatteryState data) {
+                        logOut("setBatteryStateListener  data current battery :  " + data.toString());
+                    }
+                });
+            }
+        });
+
         findViewById(R.id.getLowBatteryNotifyThreshold).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.battery.BatteryStatus;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.battery.AutelBattery;
 import com.autel.sdk.battery.XStarBattery;
@@ -31,7 +30,7 @@ public class XStarBatteryActivity extends BatteryActivity {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_battery;
+        return R.layout.activity_xstar_battery;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class XStarBatteryActivity extends BatteryActivity {
         findViewById(R.id.getCells).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mXStarBattery.getCells(new CallbackWithOneParam<int[]>() {
+                mXStarBattery.getVoltageCells(new CallbackWithOneParam<int[]>() {
                     @Override
                     public void onSuccess(int[] data) {
                         StringBuffer sb = new StringBuffer();
@@ -51,12 +50,12 @@ public class XStarBatteryActivity extends BatteryActivity {
                             sb.append(data[i]);
                             sb.append("   ");
                         }
-                        logOut("getCells  " + sb.toString());
+                        logOut("getVoltageCells  " + sb.toString());
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getCells  error : " + error.getDescription());
+                        logOut("getVoltageCells  error : " + error.getDescription());
                     }
                 });
             }
@@ -64,9 +63,9 @@ public class XStarBatteryActivity extends BatteryActivity {
         findViewById(R.id.getVoltage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mXStarBattery.getVoltage(new CallbackWithOneParam<Double>() {
+                mXStarBattery.getVoltage(new CallbackWithOneParam<Float>() {
                     @Override
-                    public void onSuccess(Double data) {
+                    public void onSuccess(Float data) {
                         logOut("getVoltage  " + data);
                     }
 
@@ -93,35 +92,12 @@ public class XStarBatteryActivity extends BatteryActivity {
                 });
             }
         });
-
-        findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarBattery.setBatteryStatusListener(null);
-            }
-        });
-        findViewById(R.id.setBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarBattery.setBatteryStatusListener(new CallbackWithOneParam<BatteryStatus>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setBatteryStatusListener  error :  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(BatteryStatus data) {
-                        logOut("setBatteryStatusListener  data current battery :  " + data.toString());
-                    }
-                });
-            }
-        });
         findViewById(R.id.getDesignCapacity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mXStarBattery.getDesignCapacity(new CallbackWithOneParam<Integer>() {
+                mXStarBattery.getDesignCapacity(new CallbackWithOneParam<Float>() {
                     @Override
-                    public void onSuccess(Integer data) {
+                    public void onSuccess(Float data) {
                         logOut("getDesignCapacity  " + data);
                     }
 

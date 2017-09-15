@@ -31,7 +31,7 @@ public class XStarFlyControllerActivity extends FlyControllerActivity {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_fc;
+        return R.layout.activity_xstar_fc;
     }
 
 

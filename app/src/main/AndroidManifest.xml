@@ -37,6 +37,7 @@
         <activity android:name=".g2.G2FlyControllerActivity" />
         <activity android:name=".g2.G2GimbalActivity" />
         <activity android:name=".g2.G2DspActivity" />
+        <activity android:name=".g2.G2BatteryActivity" />
         <activity android:name=".xstar.XStarRemoteControllerActivity" />
         <activity android:name=".xstar.XStarFlyControllerActivity" />
         <activity android:name=".xstar.XStarGimbalActivity" />
