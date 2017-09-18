@@ -8,7 +8,7 @@ import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.error.AutelError;
 import com.autel.common.flycontroller.LandingGearState;
-import com.autel.common.flycontroller.g2.G2GpsInfo;
+import com.autel.common.flycontroller.g2.G2FlyControllerInfo;
 import com.autel.sdk.flycontroller.AutelFlyController;
 import com.autel.sdk.flycontroller.G2FlyController;
 import com.autel.sdk.product.BaseProduct;
@@ -55,21 +55,22 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
         });
     }
 
-    public void setGPSInfoListener(View view) {
-        mG2FlyController.setGPSInfoListener(new CallbackWithOneParam<G2GpsInfo>() {
+    public void setFlyControllerListener(View view) {
+        mG2FlyController.setFlyControllerInfoListener(new CallbackWithOneParam<G2FlyControllerInfo>() {
             @Override
-            public void onSuccess(G2GpsInfo data) {
-                logOut("setGPSInfoListener onSuccess " + data);
+            public void onSuccess(G2FlyControllerInfo data) {
+                logOut("setFlyControllerListener data " + data);
             }
 
             @Override
             public void onFailure(AutelError error) {
-                logOut("setGPSInfoListener onFailure " + error.getDescription());
+                logOut("setFlyControllerListener " + error.getDescription());
             }
         });
     }
-    public void resetGPSInfoListener(View view) {
-        mG2FlyController.setGPSInfoListener(null);
+
+    public void resetFlyControllerListener(View view) {
+        mG2FlyController.setFlyControllerInfoListener(null);
     }
 
     public void setLandingGearState(View view) {

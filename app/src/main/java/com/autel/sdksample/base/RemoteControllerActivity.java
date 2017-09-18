@@ -48,7 +48,7 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("FlyController");
+        setTitle("RemoteController");
     }
 
     @Override

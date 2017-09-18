@@ -135,44 +135,6 @@
             android:padding="@dimen/text_padding"
             android:text="getDesignCapacity"
             android:textAllCaps="false" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/item_margin_bottom"
-            android:background="@drawable/text_background"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="setBatteryStatusListener" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/setBatteryRealTimeDataListener"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="set" />
-
-                <Button
-                    android:id="@+id/resetBatteryRealTimeDataListener"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="reset" />
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>
 

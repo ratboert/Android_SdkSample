@@ -2,6 +2,7 @@ package com.autel.sdksample.xstar;
 
 import com.autel.sdk.dsp.AutelDsp;
 import com.autel.sdk.product.BaseProduct;
+import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdk.product.XStarPremiumAircraft;
 import com.autel.sdksample.base.DspActivity;
 
@@ -12,6 +13,6 @@ import com.autel.sdksample.base.DspActivity;
 public class XStarDspActivity extends DspActivity {
     @Override
     protected AutelDsp initController(BaseProduct product) {
-        return ((XStarPremiumAircraft) product).getDsp();
+        return ((XStarAircraft) product).getDsp();
     }
 }

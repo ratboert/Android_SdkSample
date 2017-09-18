@@ -156,7 +156,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/text_padding"
-            android:text="setBatteryStatusListener" />
+            android:text="setBatteryStateListener" />
 
         <LinearLayout
             android:layout_width="wrap_content"

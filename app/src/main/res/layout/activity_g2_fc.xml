@@ -37,13 +37,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
             android:background="@drawable/text_background"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="setGPSInfoListener" />
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="setFlyControllerInfoListener" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -53,15 +56,19 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="setGPSInfoListener"
-                    android:text="set" />
+                    android:gravity="center"
+                    android:onClick="setFlyControllerListener"
+                    android:text="set"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="resetGPSInfoListener"
-                    android:text="reset" />
-
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:onClick="resetFlyControllerListener"
+                    android:text="reset"
+                    android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

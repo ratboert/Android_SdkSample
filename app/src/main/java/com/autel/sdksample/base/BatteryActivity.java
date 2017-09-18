@@ -37,7 +37,7 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_xstar_battery;
+        return R.layout.activity_base_battery;
     }
 
     @Override
