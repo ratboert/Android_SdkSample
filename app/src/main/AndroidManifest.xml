@@ -47,6 +47,7 @@
         <activity android:name=".premium.XStarPremiumFlyControllerActivity" />
         <activity android:name=".premium.XStarPremiumGimbalActivity" />
         <activity android:name=".premium.XStarPremiumDspActivity" />
+        <activity android:name=".premium.XStarPremiumBatteryActivity" />
         <activity
             android:name=".base.camera.CameraActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
