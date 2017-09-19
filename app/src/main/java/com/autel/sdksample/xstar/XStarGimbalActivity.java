@@ -1,9 +1,14 @@
 package com.autel.sdksample.xstar;
 
+import android.view.View;
+
+import com.autel.common.CallbackWithOneParam;
+import com.autel.common.error.AutelError;
 import com.autel.sdk.gimbal.AutelGimbal;
+import com.autel.sdk.gimbal.XStarGimbal;
 import com.autel.sdk.product.BaseProduct;
-import com.autel.sdk.product.G2Aircraft;
 import com.autel.sdk.product.XStarAircraft;
+import com.autel.sdksample.R;
 import com.autel.sdksample.base.gimbal.GimbalActivity;
 
 /**
@@ -11,8 +16,43 @@ import com.autel.sdksample.base.gimbal.GimbalActivity;
  */
 
 public class XStarGimbalActivity extends GimbalActivity {
+    private XStarGimbal mXStarGimbal;
     @Override
     protected AutelGimbal initController(BaseProduct product) {
-        return ((XStarAircraft) product).getGimbal();
+        mXStarGimbal = ((XStarAircraft) product).getGimbal();
+        return mXStarGimbal;
+    }
+
+    @Override
+    protected int getCustomViewResId() {
+        return R.layout.activity_xstar_gimbal;
+    }
+
+    @Override
+    protected void initUi() {
+        super.initUi();
+        findViewById(R.id.setGimbalAngleListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mXStarGimbal.setAngleListener(new CallbackWithOneParam<Integer>() {
+
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        logOut("setAngleListener onSuccess " + integer);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError autelError) {
+                        logOut("setAngleListener error " + autelError.getDescription());
+                    }
+                });
+            }
+        });
+        findViewById(R.id.resetGimbalAngleListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mXStarGimbal.setAngleListener(null);
+            }
+        });
     }
 }

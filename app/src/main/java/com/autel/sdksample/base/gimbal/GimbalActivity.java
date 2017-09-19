@@ -19,11 +19,8 @@ import com.autel.common.gimbal.GimbalState;
 import com.autel.common.gimbal.GimbalVersionInfo;
 import com.autel.common.gimbal.GimbalWorkMode;
 import com.autel.sdk.gimbal.AutelGimbal;
-import com.autel.sdk.product.BaseProduct;
-import com.autel.sdk.product.XStarAircraft;
-import com.autel.sdk.product.XStarPremiumAircraft;
-import com.autel.sdksample.base.BaseActivity;
 import com.autel.sdksample.R;
+import com.autel.sdksample.base.BaseActivity;
 import com.autel.sdksample.base.gimbal.adapter.GimbalModeAdapter;
 import com.autel.sdksample.base.gimbal.adapter.RollAdjustAdapter;
 
@@ -49,7 +46,7 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_gimbal;
+        return R.layout.activity_base_battery;
     }
 
 
@@ -280,28 +277,6 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
             @Override
             public void onClick(View v) {
                 mController.setGimbalStateListener(null);
-            }
-        });
-        findViewById(R.id.setGimbalAngleListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mController.setGimbalAngleListener(new CallbackWithOneParam<Integer>() {
-                    @Override
-                    public void onSuccess(Integer integer) {
-                        logOut("setGimbalAngleListener onSuccess " + integer);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError autelError) {
-                        logOut("setGimbalAngleListener error " + autelError.getDescription());
-                    }
-                });
-            }
-        });
-        findViewById(R.id.resetGimbalAngleListener).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mController.setGimbalAngleListener(null);
             }
         });
         findViewById(R.id.getVersionInfo).setOnClickListener(new View.OnClickListener() {

@@ -80,7 +80,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile('com.squareup.okhttp3:okhttp:3.8.1')
     //*/
-    compile 'com.autel.starlink:autel-sdk:2.0.9-SNAPSHOT@aar'
+    compile 'com.autel.starlink:autel-sdk:2.0.9-g2-SNAPSHOT@aar'
 
 //    compile 'com.autel.starlink:autel-sdk:0.9.8-test@aar'
     /*/
