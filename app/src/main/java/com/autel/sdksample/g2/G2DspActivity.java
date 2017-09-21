@@ -1,8 +1,10 @@
 package com.autel.sdksample.g2;
 
 import com.autel.sdk.dsp.AutelDsp;
+import com.autel.sdk.dsp.G2Dsp;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.G2Aircraft;
+import com.autel.sdksample.R;
 import com.autel.sdksample.base.DspActivity;
 
 /**
@@ -10,8 +12,21 @@ import com.autel.sdksample.base.DspActivity;
  */
 
 public class G2DspActivity extends DspActivity {
+    G2Dsp mG2Dsp;
+
     @Override
     protected AutelDsp initController(BaseProduct product) {
-        return ((G2Aircraft) product).getDsp();
+        mG2Dsp = ((G2Aircraft) product).getDsp();
+        return mG2Dsp;
+    }
+
+    @Override
+    protected int getCustomViewResId() {
+        return R.layout.activity_g2_dsp;
+    }
+
+    @Override
+    protected void initUi() {
+        super.initUi();
     }
 }

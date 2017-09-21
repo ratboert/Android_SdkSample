@@ -57,7 +57,7 @@ public class G2Layout {
         mLayout.findViewById(R.id.DSPTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, DspActivity.class));
+                mContext.startActivity(new Intent(mContext, G2DspActivity.class));
             }
         });
         mLayout.findViewById(R.id.missionTest).setOnClickListener(new View.OnClickListener() {

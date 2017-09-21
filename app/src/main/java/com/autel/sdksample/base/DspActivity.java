@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.dsp.AutelCancellable;
 import com.autel.common.dsp.DspVersionInfo;
 import com.autel.common.dsp.RFData;
 import com.autel.common.error.AutelError;
@@ -29,10 +28,6 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
     protected EditText ssidPwd;
     protected Spinner dspRFList;
 
-    protected static AutelCancellable getRFList;
-    protected static AutelCancellable getCurrentRF;
-    protected static AutelCancellable setCurrentRF;
-
     protected RFListAdapter rfListAdapter;
     protected int selectedRFHz = -1;
 
@@ -44,7 +39,7 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_dsp;
+        return R.layout.activity_base_dsp;
     }
 
     @Override
@@ -77,7 +72,7 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
                     logOut("setCurrentRFData  error  has not select a RF Hz");
                     return;
                 }
-                setCurrentRF = mController.setCurrentRFData(selectedRFHz, 3, new CallbackWithNoParam() {
+                mController.setCurrentRFData(selectedRFHz, 3, new CallbackWithNoParam() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("setCurrentRFData  error  " + error.getDescription());
@@ -90,18 +85,11 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
                 });
             }
         });
-        findViewById(R.id.setCurrentRFACancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != setCurrentRF) {
-                    setCurrentRF.cancel();
-                }
-            }
-        });
+
         findViewById(R.id.getCurrentRFStart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentRF = mController.getCurrentRFData(3, new CallbackWithOneParam<RFData>() {
+                mController.getCurrentRFData(3, new CallbackWithOneParam<RFData>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getCurrentRFData  error  " + error.getDescription());
@@ -114,18 +102,11 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
                 });
             }
         });
-        findViewById(R.id.getCurrentRFCancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != getCurrentRF) {
-                    getCurrentRF.cancel();
-                }
-            }
-        });
+
         findViewById(R.id.getRFListStart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getRFList = mController.getRFDataList(3, new CallbackWithOneParam<List<RFData>>() {
+                mController.getRFDataList(3, new CallbackWithOneParam<List<RFData>>() {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getRFDataList  error  " + error.getDescription());
@@ -140,36 +121,7 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
                 });
             }
         });
-        findViewById(R.id.getRFListCancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != getRFList) {
-                    getRFList.cancel();
-                }
-            }
-        });
-        findViewById(R.id.updateNewSSIDInfo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mController.updateNewSSIDInfo(ssidName.getText().toString(), ssidPwd.getText().toString(), new CallbackWithNoParam() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("updateNewSSIDInfo  error  " + error.getDescription());
-                    }
 
-                    @Override
-                    public void onSuccess() {
-                        logOut("updateNewSSIDInfo  onSuccess");
-                    }
-                });
-            }
-        });
-        findViewById(R.id.getCurrentSSIDInfo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut("getCurrentSSIDInfo  " + mController.getCurrentSSIDInfo());
-            }
-        });
         findViewById(R.id.getVersionInfo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,21 +140,6 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
             }
         });
 
-        findViewById(R.id.resetWifi).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mController.resetWifi();
-
-            }
-        });
-
-        boolean usbEnable = mController.isUSBEnable();
-        findViewById(R.id.updateSSIDLayout).setVisibility(usbEnable ? View.GONE : View.VISIBLE);
-        findViewById(R.id.getCurrentSSIDInfo).setVisibility(usbEnable ? View.GONE : View.VISIBLE);
-        findViewById(R.id.resetWifi).setVisibility(usbEnable ? View.GONE : View.VISIBLE);
-        findViewById(R.id.setCurrentRFLayout).setVisibility(usbEnable ? View.VISIBLE : View.GONE);
-        findViewById(R.id.getCurrentRFLayout).setVisibility(usbEnable ? View.VISIBLE : View.GONE);
-        findViewById(R.id.scanRFLayout).setVisibility(usbEnable ? View.VISIBLE : View.GONE);
     }
 
 

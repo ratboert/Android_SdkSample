@@ -17,6 +17,7 @@ import com.autel.sdk.product.BaseProduct;
 import com.autel.sdksample.R;
 import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.base.camera.fragment.CameraFLIRFragment;
+import com.autel.sdksample.base.camera.fragment.CameraFLIR_R_Fragment;
 import com.autel.sdksample.base.camera.fragment.CameraNotConnectFragment;
 import com.autel.sdksample.base.camera.fragment.CameraR12Fragment;
 import com.autel.sdksample.base.camera.fragment.CameraXB012Fragment;
@@ -72,7 +73,7 @@ public class CameraActivity extends AppCompatActivity {
                         changePage(CameraFLIRFragment.class);
                         break;
                     case FLIR_DUO_R:
-                        changePage(CameraFLIRFragment.class);
+                        changePage(CameraFLIR_R_Fragment.class);
                         break;
                     case R12:
                         changePage(CameraR12Fragment.class);

@@ -30,10 +30,10 @@ public class TestApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
+        Thread.setDefaultUncaughtExceptionHandler(new EHandle(Thread.getDefaultUncaughtExceptionHandler()));
         /**
          * 初始化SDK，通过网络验证APPKey的有效性
          */
-        Thread.setDefaultUncaughtExceptionHandler(new EHandle(Thread.getDefaultUncaughtExceptionHandler()));
         String appKey = "<SDK license should be input>";
         AutelSdkConfig config = new AutelSdkConfig.AutelSdkConfigBuilder()
                 .setAppKey(appKey)
