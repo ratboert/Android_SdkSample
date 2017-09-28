@@ -86,4 +86,32 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
             }
         });
     }
+
+    public void droneArmed(View view) {
+        mG2FlyController.droneArmed(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("droneArmed onSuccess " + selectedLandingGearState);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("droneArmed onFailure " + error.getDescription());
+            }
+        });
+    }
+
+    public void droneDisarmed(View view) {
+        mG2FlyController.droneDisarmed(new CallbackWithNoParam() {
+            @Override
+            public void onSuccess() {
+                logOut("droneDisarmed onSuccess " + selectedLandingGearState);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("droneDisarmed onFailure " + error.getDescription());
+            }
+        });
+    }
 }
