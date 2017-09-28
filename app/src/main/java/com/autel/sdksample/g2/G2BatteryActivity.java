@@ -1,7 +1,11 @@
 package com.autel.sdksample.g2;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.autel.common.CallbackWithOneParam;
+import com.autel.common.battery.g2.G2BatteryInfo;
+import com.autel.common.error.AutelError;
 import com.autel.sdk.battery.AutelBattery;
 import com.autel.sdk.battery.G2Battery;
 import com.autel.sdk.product.BaseProduct;
@@ -28,5 +32,32 @@ public class G2BatteryActivity extends BatteryActivity {
     @Override
     protected int getCustomViewResId() {
         return R.layout.activity_g2_battery;
+    }
+
+    @Override
+    protected void initUi() {
+        super.initUi();
+        findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mG2Battery.setBatteryStateListener(null);
+            }
+        });
+        findViewById(R.id.setBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mG2Battery.setBatteryStateListener(new CallbackWithOneParam<G2BatteryInfo>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setBatteryStateListener  error :  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(G2BatteryInfo data) {
+                        logOut("setBatteryStateListener  data current battery :  " + data.toString());
+                    }
+                });
+            }
+        });
     }
 }

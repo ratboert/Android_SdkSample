@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.battery.BatteryState;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.battery.AutelBattery;
 import com.autel.sdk.battery.XStarBattery;
@@ -14,7 +15,7 @@ import com.autel.sdksample.base.BatteryActivity;
 
 
 public class XStarBatteryActivity extends BatteryActivity {
-    private XStarBattery mXStarBattery;
+    protected XStarBattery mXStarBattery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,28 @@ public class XStarBatteryActivity extends BatteryActivity {
     @Override
     protected void initUi() {
         super.initUi();
+        findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mXStarBattery.setBatteryStateListener(null);
+            }
+        });
+        findViewById(R.id.setBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mXStarBattery.setBatteryStateListener(new CallbackWithOneParam<BatteryState>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setBatteryStateListener  error :  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(BatteryState data) {
+                        logOut("setBatteryStateListener  data current battery :  " + data.toString());
+                    }
+                });
+            }
+        });
         findViewById(R.id.getCells).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
