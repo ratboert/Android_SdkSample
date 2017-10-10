@@ -131,38 +131,7 @@ public class XStarBatteryActivity extends BatteryActivity {
                 });
             }
         });
-        findViewById(R.id.getVersion).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarBattery.getVersion(new CallbackWithOneParam<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        logOut("getVersion  " + data);
-                    }
 
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getVersion  error : " + error.getDescription());
-                    }
-                });
-            }
-        });
-        findViewById(R.id.getSerialNumber).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarBattery.getSerialNumber(new CallbackWithOneParam<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        logOut("getSerialNumber  " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getSerialNumber  error : " + error.getDescription());
-                    }
-                });
-            }
-        });
         findViewById(R.id.getRemainingPercent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,22 +164,7 @@ public class XStarBatteryActivity extends BatteryActivity {
                 });
             }
         });
-        findViewById(R.id.getDischargeCount).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarBattery.getDischargeCount(new CallbackWithOneParam<Float>() {
-                    @Override
-                    public void onSuccess(Float data) {
-                        logOut("getDischargeCount  " + data);
-                    }
 
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getDischargeCount error : " + error.getDescription());
-                    }
-                });
-            }
-        });
         findViewById(R.id.getTemperature).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

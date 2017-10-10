@@ -214,5 +214,53 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
                 });
             }
         });
+        findViewById(R.id.getDischargeCount).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getDischargeCount(new CallbackWithOneParam<Integer>() {
+                    @Override
+                    public void onSuccess(Integer data) {
+                        logOut("getDischargeCount  " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getDischargeCount error : " + error.getDescription());
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getVersion).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getVersion(new CallbackWithOneParam<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        logOut("getVersion  " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getVersion  error : " + error.getDescription());
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getSerialNumber).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getSerialNumber(new CallbackWithOneParam<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        logOut("getSerialNumber  " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getSerialNumber  error : " + error.getDescription());
+                    }
+                });
+            }
+        });
     }
 }

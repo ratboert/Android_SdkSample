@@ -28,8 +28,6 @@ import com.autel.sdksample.base.gimbal.adapter.RollAdjustAdapter;
 public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
 
     EditText gimbalAngleWithFineTuning;
-    EditText gimbalAngle;
-    EditText dialAdjustSpeed;
 
     Spinner gimbalWorkModeList;
     Spinner rollAdjustList;
@@ -53,8 +51,6 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
     @Override
     protected void initUi() {
         gimbalAngleWithFineTuning = (EditText) findViewById(R.id.gimbalAngleWithFineTuning);
-        gimbalAngle = (EditText) findViewById(R.id.gimbalAngle);
-        dialAdjustSpeed = (EditText) findViewById(R.id.dialAdjustSpeed);
 
         gimbalWorkModeList = (Spinner) findViewById(R.id.gimbalWorkModeList);
         gimbalWorkModeList.setAdapter(new GimbalModeAdapter(this));
@@ -108,55 +104,7 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
 
             }
         });
-        final TextView gimbalAngleRange = (TextView) findViewById(R.id.gimbalAngleRange);
-        gimbalAngle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (isEmpty(s.toString())) {
-                    return;
-                }
-                if (isEmpty(gimbalAngleRange.getText().toString())) {
-                    GimbalParameterRangeManager gimbalParameterRangeManager = mController.getParameterRangeManager();
-                    RangePair<Integer> support = gimbalParameterRangeManager.getAngle();
-                    gimbalAngleRange.setText("angle from " + support.getValueFrom() + " to " + support.getValueTo());
-                }
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        final TextView dialAdjustSpeedRange = (TextView) findViewById(R.id.dialAdjustSpeedRange);
-        dialAdjustSpeed.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (isEmpty(s.toString())) {
-                    return;
-                }
-
-                if (isEmpty(dialAdjustSpeedRange.getText().toString())) {
-                    GimbalParameterRangeManager gimbalParameterRangeManager = mController.getParameterRangeManager();
-                    RangePair<Integer> support = gimbalParameterRangeManager.getDialAdjustSpeed();
-                    dialAdjustSpeedRange.setText("dial adjust speed from " + support.getValueFrom() + " to " + support.getValueTo());
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         initClick();
     }
 
@@ -166,13 +114,6 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
             public void onClick(View v) {
                 String value = gimbalAngleWithFineTuning.getText().toString();
                 mController.setGimbalAngleWithFineTuning(isEmpty(value) ? -10 : Integer.valueOf(value));
-            }
-        });
-        findViewById(R.id.setGimbalAngle).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String value = gimbalAngle.getText().toString();
-                mController.setGimbalAngle(isEmpty(value) ? 10 : Integer.valueOf(value));
             }
         });
         findViewById(R.id.setGimbalWorkMode).setOnClickListener(new View.OnClickListener() {
@@ -219,40 +160,6 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
                     @Override
                     public void onSuccess(Double data) {
                         logOut("setRollAdjustData data " + data);
-                    }
-                });
-            }
-        });
-        findViewById(R.id.setGimbalDialAdjustSpeed).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String value = dialAdjustSpeed.getText().toString();
-                mController.setGimbalDialAdjustSpeed(isEmpty(value) ? 10 : Integer.valueOf(value), new CallbackWithNoParam() {
-                    @Override
-                    public void onFailure(AutelError rcError) {
-                        logOut("setGimbalDialAdjustSpeed error " + rcError.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        logOut("setGimbalDialAdjustSpeed onSuccess ");
-                    }
-                });
-            }
-        });
-        findViewById(R.id.getGimbalDialAdjustSpeed).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mController.getGimbalDialAdjustSpeed(new CallbackWithOneParam<Integer>() {
-
-                    @Override
-                    public void onFailure(AutelError rcError) {
-                        logOut("getGimbalDialAdjustSpeed error " + rcError.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(Integer speed) {
-                        logOut("getGimbalDialAdjustSpeed onSuccess " + speed);
                     }
                 });
             }
