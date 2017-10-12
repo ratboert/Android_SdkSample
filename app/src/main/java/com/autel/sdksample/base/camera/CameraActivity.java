@@ -20,7 +20,7 @@ import com.autel.sdksample.base.camera.fragment.CameraFLIRFragment;
 import com.autel.sdksample.base.camera.fragment.CameraFLIR_R_Fragment;
 import com.autel.sdksample.base.camera.fragment.CameraNotConnectFragment;
 import com.autel.sdksample.base.camera.fragment.CameraR12Fragment;
-import com.autel.sdksample.base.camera.fragment.CameraXB012Fragment;
+import com.autel.sdksample.base.camera.fragment.CameraXB015Fragment;
 import com.autel.sdksample.base.camera.fragment.CameraXb008Fragment;
 
 
@@ -81,8 +81,8 @@ public class CameraActivity extends AppCompatActivity {
                     case XB008:
                         changePage(CameraXb008Fragment.class);
                         break;
-                    case XB012:
-                        changePage(CameraXB012Fragment.class);
+                    case XB015:
+                        changePage(CameraXB015Fragment.class);
                         break;
                     default:
                         changePage(CameraNotConnectFragment.class);

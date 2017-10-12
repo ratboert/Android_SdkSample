@@ -262,5 +262,21 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
                 });
             }
         });
+        findViewById(R.id.getFullChargeCapacity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getFullChargeCapacity(new CallbackWithOneParam<Integer>() {
+                    @Override
+                    public void onSuccess(Integer data) {
+                        logOut("getFullChargeCapacity  " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getFullChargeCapacity error : " + error.getDescription());
+                    }
+                });
+            }
+        });
     }
 }

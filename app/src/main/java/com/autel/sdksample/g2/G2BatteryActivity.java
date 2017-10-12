@@ -37,6 +37,22 @@ public class G2BatteryActivity extends BatteryActivity {
     @Override
     protected void initUi() {
         super.initUi();
+        findViewById(R.id.getHistoryState).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mG2Battery.getHistoryState(new CallbackWithOneParam<int[]>() {
+                    @Override
+                    public void onSuccess(int[] data) {
+                        logOut("getHistoryState  onSuccess :  " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getHistoryState  error :  " + error.getDescription());
+                    }
+                });
+            }
+        });
         findViewById(R.id.resetBatteryRealTimeDataListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

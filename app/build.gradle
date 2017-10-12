@@ -65,7 +65,11 @@ android {
     productFlavors {
     }
 }
-
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor(1, 'seconds')
 }
@@ -81,7 +85,6 @@ dependencies {
     compile('com.squareup.okhttp3:okhttp:3.8.1')
     //*/
     compile 'com.autel.starlink:autel-sdk:2.0.9-g2-SNAPSHOT@aar'
-
 //    compile 'com.autel.starlink:autel-sdk:0.9.8-test@aar'
     /*/
     compile "com.autel.starlink:autel-sdk:2.0.0"

@@ -77,16 +77,6 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/getFullChargeCapacity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/item_margin_bottom"
-            android:gravity="center"
-            android:padding="@dimen/text_padding"
-            android:text="getFullChargeCapacity"
-            android:textAllCaps="false" />
-
-        <Button
             android:id="@+id/getRemainingPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -681,7 +681,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getVideoSum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getVideoSum(new CallbackWithOneParam<VideoSum>() {
+//                xb015.getVideoSum(new CallbackWithOneParam<VideoSum>() {
 //                    @Override
 //                    public void onSuccess(VideoSum data) {
 //                        logOut("getVideoSum " + data);
@@ -698,7 +698,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoSum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getPhotoSum(new CallbackWithOneParam<PhotoSum>() {
+//                xb015.getPhotoSum(new CallbackWithOneParam<PhotoSum>() {
 //                    @Override
 //                    public void onSuccess(PhotoSum data) {
 //                        logOut("getPhotoSum " + data);
@@ -715,7 +715,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getCurrentRecordTime).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
+//                xb015.getCurrentRecordTimeSeconds(new CallbackWithOneParam<Integer>() {
 //                    @Override
 //                    public void onSuccess(Integer data) {
 //                        logOut("getCurrentRecordTimeSeconds " + data);
@@ -732,7 +732,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setVideoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.setVideoFormat(videoFormat, new CallbackWithNoParam() {
+//                xb015.setVideoFormat(videoFormat, new CallbackWithNoParam() {
 //                    @Override
 //                    public void onSuccess() {
 //                        logOut("setVideoFormat onSuccess");
@@ -749,7 +749,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getVideoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getVideoFormat(new CallbackWithOneParam<VideoFormat>() {
+//                xb015.getVideoFormat(new CallbackWithOneParam<VideoFormat>() {
 //                    @Override
 //                    public void onSuccess(VideoFormat data) {
 //                        logOut("getVideoFormat " + data);
@@ -766,7 +766,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setVideoStandard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.setVideoStandard(selectedVideoStandard, new CallbackWithNoParam() {
+//                xb015.setVideoStandard(selectedVideoStandard, new CallbackWithNoParam() {
 //
 //                    @Override
 //                    public void onFailure(AutelError error) {
@@ -786,7 +786,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getVideoStandard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
+//                xb015.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("getVideoStandard  description  " + error.getDescription());
@@ -805,7 +805,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setPhotoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.setPhotoFormat(photoFormat, new CallbackWithNoParam() {
+//                xb015.setPhotoFormat(photoFormat, new CallbackWithNoParam() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("setPhotoFormat  description  " + error.getDescription());
@@ -822,7 +822,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getPhotoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
+//                xb015.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("getPhotoFormat  description  " + error.getDescription());
@@ -839,7 +839,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setAspectRatio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.setAspectRatio(aspectRatio, new CallbackWithNoParam() {
+//                xb015.setAspectRatio(aspectRatio, new CallbackWithNoParam() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("setAspectRatio  description  " + error.getDescription());
@@ -856,7 +856,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getAspectRatio).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getAspectRatio(new CallbackWithOneParam<PhotoAspectRatio>() {
+//                xb015.getAspectRatio(new CallbackWithOneParam<PhotoAspectRatio>() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("getAspectRatio  description  " + error.getDescription());
@@ -873,7 +873,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
+//                xb015.setVideoResolutionAndFrameRate(videoResolutionAndFps, new CallbackWithNoParam() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("setVideoResolutionAndFrameRate  description  " + error.getDescription());
@@ -890,7 +890,7 @@ public class CameraXb008Fragment extends CameraBaseFragment {
         view.findViewById(R.id.getVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                xb012.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
+//                xb015.getVideoResolutionAndFrameRate(new CallbackWithOneParam<VideoResolutionAndFps>() {
 //                    @Override
 //                    public void onFailure(AutelError error) {
 //                        logOut("getVideoResolutionAndFrameRate  description  " + error.getDescription());

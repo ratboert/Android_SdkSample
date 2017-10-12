@@ -148,22 +148,6 @@ public class XStarBatteryActivity extends BatteryActivity {
                 });
             }
         });
-        findViewById(R.id.getFullChargeCapacity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarBattery.getFullChargeCapacity(new CallbackWithOneParam<Integer>() {
-                    @Override
-                    public void onSuccess(Integer data) {
-                        logOut("getFullChargeCapacity  " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getFullChargeCapacity error : " + error.getDescription());
-                    }
-                });
-            }
-        });
 
         findViewById(R.id.getTemperature).setOnClickListener(new View.OnClickListener() {
             @Override
