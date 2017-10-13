@@ -3,9 +3,7 @@ package com.autel.sdksample.xstar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
@@ -13,14 +11,12 @@ import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
 import com.autel.common.error.AutelError;
 import com.autel.common.gimbal.GimbalParameterRangeManager;
-import com.autel.common.gimbal.GimbalRollAngleAdjust;
 import com.autel.sdk.gimbal.AutelGimbal;
 import com.autel.sdk.gimbal.XStarGimbal;
 import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.gimbal.GimbalActivity;
-import com.autel.sdksample.base.gimbal.adapter.RollAdjustAdapter;
 
 /**
  * Created by A16343 on 2017/9/6.
@@ -30,9 +26,8 @@ public class XStarGimbalActivity extends GimbalActivity {
     private XStarGimbal mXStarGimbal;
     EditText gimbalAngle;
     EditText dialAdjustSpeed;
-    Spinner rollAdjustList;
     EditText gimbalAngleWithFineTuning;
-    GimbalRollAngleAdjust gimbalRollAngleAdjust = GimbalRollAngleAdjust.MINUS;
+
 
     @Override
     protected AutelGimbal initController(BaseProduct product) {
@@ -48,37 +43,6 @@ public class XStarGimbalActivity extends GimbalActivity {
     @Override
     protected void initUi() {
         super.initUi();
-
-        rollAdjustList = (Spinner) findViewById(R.id.rollAdjustList);
-        rollAdjustList.setAdapter(new RollAdjustAdapter(this));
-        rollAdjustList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                gimbalRollAngleAdjust = (GimbalRollAngleAdjust) parent.getAdapter().getItem(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        findViewById(R.id.setRollAdjustData).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mXStarGimbal.setRollAdjustData(gimbalRollAngleAdjust, new CallbackWithOneParam<Double>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setRollAdjustData error " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(Double data) {
-                        logOut("setRollAdjustData data " + data);
-                    }
-                });
-            }
-        });
 
 
         gimbalAngle = (EditText) findViewById(R.id.gimbalAngle);

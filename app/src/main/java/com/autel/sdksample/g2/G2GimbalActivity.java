@@ -28,7 +28,6 @@ public class G2GimbalActivity extends GimbalActivity {
     private EditText gimbalAnglePitchSpeed;
     private EditText gimbalAngleRollSpeed;
     private EditText gimbalAngleYawSpeed;
-    private EditText rollAdjustDataValue;
 
     @Override
     protected AutelGimbal initController(BaseProduct product) {
@@ -135,24 +134,6 @@ public class G2GimbalActivity extends GimbalActivity {
                 angleSpeed.setRollSpeed(roll);
                 angleSpeed.setYawSpeed(yaw);
                 mG2Gimbal.setGimbalDialAdjustSpeed(angleSpeed);
-            }
-        });
-        findViewById(R.id.setRollAdjustData).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String rollValue = rollAdjustDataValue.getText().toString();
-                int rollOffset = isEmpty(rollValue) ? 0 : Integer.valueOf(rollValue);
-                mG2Gimbal.setRollAdjustData(rollOffset, new CallbackWithOneParam<Double>() {
-                    @Override
-                    public void onSuccess(Double data) {
-                        logOut("setRollAdjustData onSuccess " + data);
-                    }
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setRollAdjustData onFailure " + error.getDescription());
-                    }
-                });
             }
         });
     }
