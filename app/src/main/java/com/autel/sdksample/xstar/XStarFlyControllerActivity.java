@@ -3,12 +3,8 @@ package com.autel.sdksample.xstar;
 import android.view.View;
 
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.error.AutelError;
-import com.autel.common.flycontroller.ARMWarning;
-import com.autel.common.flycontroller.CalibrateCompassStatus;
 import com.autel.common.flycontroller.FlyControllerInfo;
-import com.autel.common.flycontroller.MagnetometerState;
 import com.autel.sdk.flycontroller.AutelFlyController;
 import com.autel.sdk.flycontroller.XStarFlyController;
 import com.autel.sdk.product.BaseProduct;
@@ -35,23 +31,7 @@ public class XStarFlyControllerActivity extends FlyControllerActivity {
     }
 
 
-    public void setCalibrateCompassListener(View view) {
-        mXStarFlyController.setCalibrateCompassListener(new CallbackWithOneParam<CalibrateCompassStatus>() {
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("setCalibrateCompassListener " + error.getDescription());
-            }
 
-            @Override
-            public void onSuccess(CalibrateCompassStatus result) {
-                logOut("setCalibrateCompassListener onSuccess " + result);
-            }
-        });
-    }
-
-    public void resetCalibrateCompassListener(View view) {
-        mXStarFlyController.setCalibrateCompassListener(null);
-    }
 
     public void setUltraSonicHeightInfoListener(View view) {
         mXStarFlyController.setUltraSonicHeightInfoListener(new CallbackWithOneParam<Float>() {
@@ -73,25 +53,6 @@ public class XStarFlyControllerActivity extends FlyControllerActivity {
 
     public void resetFCHeightInfoListener(View view) {
         mXStarFlyController.setUltraSonicHeightInfoListener(null);
-    }
-
-    public void setWarningListener(View view) {
-        mXStarFlyController.setWarningListener(new CallbackWithTwoParams<ARMWarning, MagnetometerState>() {
-
-            @Override
-            public void onFailure(AutelError error) {
-                logOut("setWarningListener " + error.getDescription());
-            }
-
-            @Override
-            public void onSuccess(ARMWarning data1, MagnetometerState data2) {
-                logOut("setWarningListener ARMWarning " + data1 + " MagnetometerState " + data2);
-            }
-        });
-    }
-
-    public void resetWarningListener(View view) {
-        mXStarFlyController.setWarningListener(null);
     }
 
     public void setFlyControllerListener(View view) {

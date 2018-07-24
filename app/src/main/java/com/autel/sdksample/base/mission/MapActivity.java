@@ -28,8 +28,8 @@ import com.autel.common.CallbackWithOneParam;
 import com.autel.common.error.AutelError;
 import com.autel.common.flycontroller.AttitudeInfo;
 import com.autel.common.flycontroller.FlyControllerInfo;
-import com.autel.common.mission.AutelCoord3D;
-import com.autel.common.mission.Waypoint;
+import com.autel.common.mission.AutelCoordinate3D;
+import com.autel.common.mission.AutelMission;
 import com.autel.sdk.flycontroller.XStarFlyController;
 import com.autel.sdk.mission.MissionManager;
 import com.autel.sdk.product.BaseProduct;
@@ -37,16 +37,18 @@ import com.autel.sdk.product.XStarAircraft;
 import com.autel.sdk.product.XStarPremiumAircraft;
 import com.autel.sdksample.R;
 import com.autel.sdksample.TestApplication;
-import com.autel.sdksample.base.mission.fragment.FollowMissionFragment;
-import com.autel.sdksample.base.mission.fragment.OrbitMissionFragment;
-import com.autel.sdksample.base.mission.fragment.WaypointMissionFragment;
+import com.autel.sdksample.base.mission.fragment.MissionFragment;
+import com.autel.sdksample.base.mission.fragment.MissionOperatorFragment;
+import com.autel.sdksample.evo.mission.fragment.EvoFollowMissionFragment;
+import com.autel.sdksample.evo.mission.fragment.EvoOrbitMissionFragment;
+import com.autel.sdksample.evo.mission.fragment.EvoWaypointFragment;
+import com.autel.sdksample.xstar.mission.XStarFollowMissionFragment;
+import com.autel.sdksample.xstar.mission.XStarOrbitMissionFragment;
+import com.autel.sdksample.xstar.mission.XStarWaypointFragment;
 import com.autel.util.log.AutelLog;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public abstract class MapActivity extends FragmentActivity {
+public abstract class MapActivity extends FragmentActivity implements MapOperator {
     public interface LocationChangeListener {
         void locationChanged(Location location);
     }
@@ -130,6 +132,8 @@ public abstract class MapActivity extends FragmentActivity {
                 flyControllerInfo.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
+        getSupportFragmentManager().beginTransaction().replace(R.id.mission_operator, new MissionOperatorFragment()).commit();
+        ;
     }
 
     public void updateLogInfo(final String log) {
@@ -155,31 +159,59 @@ public abstract class MapActivity extends FragmentActivity {
 
 
     private void changePage(MissionType type) {
-        Class target;
-        switch (type) {
-            case WAYPOINT:
-                target = WaypointMissionFragment.class;
+        BaseProduct baseProduct = ((TestApplication) getApplicationContext()).getCurrentProduct();
+        if (baseProduct == null) {
+            switch (type) {
+                case WAYPOINT:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new EvoWaypointFragment(this)).commit();
+                    break;
+                case ORBIT:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new EvoOrbitMissionFragment(this)).commit();
+                    break;
+                case FOLLOW:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new EvoFollowMissionFragment(this)).commit();
+                    break;
+                default:
+            }
+            return;
+        }
+        switch (baseProduct.getType()) {
+            case EVO:
+                switch (type) {
+                    case WAYPOINT:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new EvoWaypointFragment(this)).commit();
+                        break;
+                    case ORBIT:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new EvoOrbitMissionFragment(this)).commit();
+                        break;
+                    case FOLLOW:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new EvoFollowMissionFragment(this)).commit();
+                        break;
+                    default:
+                }
                 break;
-            case ORBIT:
-                target = OrbitMissionFragment.class;
+            case X_STAR:
+            case PREMIUM:
+                switch (type) {
+                    case WAYPOINT:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new XStarWaypointFragment(this)).commit();
+                        break;
+                    case ORBIT:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new XStarOrbitMissionFragment(this)).commit();
+                        break;
+                    case FOLLOW:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, new XStarFollowMissionFragment(this)).commit();
+                        break;
+                    default:
+                }
                 break;
-            case FOLLOW:
-                target = FollowMissionFragment.class;
-
-                break;
-            default:
-                target = WaypointMissionFragment.class;
         }
 
         resetMap();
+    }
 
-        try {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mission_item_content, (Fragment) target.newInstance()).commit();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    public AutelMission createMission() {
+        return ((MissionFragment) getSupportFragmentManager().findFragmentById(R.id.mission_item_content)).createAutelMission();
     }
 
     protected void setMapContentView(@LayoutRes int layoutResID) {
@@ -197,7 +229,7 @@ public abstract class MapActivity extends FragmentActivity {
                     xStarFlyController = ((XStarPremiumAircraft) baseProduct).getFlyController();
                     break;
             }
-            if(null != xStarFlyController){
+            if (null != xStarFlyController) {
                 xStarFlyController.setFlyControllerInfoListener(new CallbackWithOneParam<FlyControllerInfo>() {
                     @Override
                     public void onSuccess(FlyControllerInfo flyControllerInfo) {
@@ -207,7 +239,7 @@ public abstract class MapActivity extends FragmentActivity {
                             msg.obj = flyControllerInfo;
                             handler.sendMessage(msg);
                             if (null != flyControllerInfo.getGPSInfo()) {
-                                AutelCoord3D coord3D = flyControllerInfo.getGPSInfo().getCoord();
+                                AutelCoordinate3D coord3D = flyControllerInfo.getGPSInfo().getCoordinate();
                                 if (null != coord3D) {
                                     updateAircraftLocation(coord3D.getLatitude(), coord3D.getLongitude(), flyControllerInfo.getAttitudeInfo());
                                 }
@@ -326,61 +358,44 @@ public abstract class MapActivity extends FragmentActivity {
         }
     }
 
-    List<Waypoint> wayPointList = new ArrayList<>();
-
-    public List<Waypoint> getWaypointList() {
-        /**
-         * 深度复制，放置坐标纠偏带来的影响
-         */
-
-        List<Waypoint> wpList = new ArrayList<>();
-        Waypoint temp = null;
-        for (Waypoint waypoint : wayPointList) {
-            temp = waypoint.clone();
-            AutelCoord3D coord3D = temp.getAutelCoord3D();
-            if (null != coord3D) {
-                AutelLatLng latLng = MapRectifyUtil.gcj2wgs(new AutelLatLng(coord3D.getLatitude(), coord3D.getLongitude()));
-                temp.getAutelCoord3D().setLatitude(latLng.getLatitude());
-                temp.getAutelCoord3D().setLongitude(latLng.getLongitude());
-            }
-            wpList.add(temp);
-        }
-
-        for (Waypoint waypoint : wpList) {
-            Log.v("waypoint", "value test " + waypoint.getAutelCoord3D().getAltitude());
-        }
-        return wpList;
-    }
-
-    AutelLatLng autelLatLng = null;
-
-    public AutelLatLng getOrbitPoint() {
-        AutelLatLng latLng = MapRectifyUtil.gcj2wgs(autelLatLng);
-        return latLng;
-    }
-
     protected void onAbsMapClick(double lat, double lot) {
-        switch (missionType) {
-            case WAYPOINT:
-                addWayPointMarker(lat, lot);
-                break;
-            case ORBIT:
-                updateOrbit(lat, lot);
-            default:
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mission_item_content);
+        if (fragment instanceof MissionFragment) {
+            ((MissionFragment) fragment).onMapClick(lat, lot);
         }
     }
 
-    private int getMaxWaypointHeight() {
-        return waypointHeightListener == null ? 40 : waypointHeightListener.fetchHeight();
+    protected void markerClick(int position) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mission_item_content);
+        if (fragment instanceof MissionFragment) {
+            ((MissionFragment) fragment).onMarkerClick(position);
+        }
     }
 
-    protected int addWaypoint(AutelLatLng latLng) {
-//        AutelLatLng latLng1 = MapRectifyUtil.gcj2wgs(latLng);
-        AutelCoord3D cd = new AutelCoord3D(latLng.latitude, latLng.longitude, getMaxWaypointHeight());
-        Waypoint wp = new Waypoint(cd);
-        wayPointList.add(wp);
-        return wayPointList.indexOf(wp);
+    public void setMissionContainerVisible(boolean visible) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mission_item_content);
+        if (null == fragment) {
+            return;
+        }
+
+        if (visible) {
+            getSupportFragmentManager().beginTransaction().show(fragment).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().hide(fragment).commit();
+        }
     }
+
+//    private int getMaxWaypointHeight() {
+//        return waypointHeightListener == null ? 40 : waypointHeightListener.fetchHeight();
+//    }
+//
+//    protected int addWaypoint(AutelLatLng latLng) {
+////        AutelLatLng latLng1 = MapRectifyUtil.gcj2wgs(latLng);
+//        AutelCoordinate3D cd = new AutelCoordinate3D(latLng.latitude, latLng.longitude, getMaxWaypointHeight());
+//        Waypoint wp = new Waypoint(cd);
+//        wayPointList.add(wp);
+//        return wayPointList.indexOf(wp);
+//    }
 
     private Handler handler = new Handler() {
         @Override
@@ -396,13 +411,4 @@ public abstract class MapActivity extends FragmentActivity {
     protected abstract void phoneLocationChanged(Location location);
 
     protected abstract void updateAircraftLocation(double lat, double lot, AttitudeInfo attitudeInfo);
-
-
-    protected abstract void addWayPointMarker(double lat, double lot);
-
-    protected abstract void resetMap();
-
-    protected abstract void updateOrbit(double lat, double lot);
-
-
 }

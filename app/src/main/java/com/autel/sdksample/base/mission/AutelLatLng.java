@@ -36,7 +36,6 @@ public class AutelLatLng implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
 		if(o == null){
 			return false;
 		}

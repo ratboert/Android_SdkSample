@@ -1,7 +1,6 @@
 package com.autel.sdksample.base;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,7 +14,6 @@ import com.autel.sdk.video.AutelCodec;
 import com.autel.sdk.video.AutelCodecListener;
 import com.autel.sdk.widget.AutelCodecView;
 import com.autel.sdksample.R;
-import com.autel.sdksample.TestApplication;
 
 public class CodecActivity extends BaseActivity<AutelCodec> {
 
@@ -73,6 +71,7 @@ public class CodecActivity extends BaseActivity<AutelCodec> {
                     @Override
                     public void onClick(View view) {
                         autelCodecView.setOverExposure(!autelCodecView.isOverExposureEnabled(), R.mipmap.expo2560);
+//                        startActivity(new Intent(CodecActivity.this, XStarRemoteControllerActivity.class));
                     }
                 });
 
@@ -184,6 +183,5 @@ public class CodecActivity extends BaseActivity<AutelCodec> {
 
     public void onDestroy() {
         super.onDestroy();
-
     }
 }

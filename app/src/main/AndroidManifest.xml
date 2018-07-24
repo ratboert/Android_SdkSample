@@ -33,11 +33,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".g2.G2RemoteControllerActivity" />
-        <activity android:name=".g2.G2FlyControllerActivity" />
-        <activity android:name=".g2.G2GimbalActivity" />
-        <activity android:name=".g2.G2DspActivity" />
-        <activity android:name=".g2.G2BatteryActivity" />
+        <activity android:name=".evo.G2RemoteControllerActivity" />
+        <activity android:name=".evo.G2FlyControllerActivity" />
+        <activity android:name=".evo.G2GimbalActivity" />
+        <activity android:name=".evo.G2DspActivity" />
+        <activity android:name=".evo.G2BatteryActivity" />
         <activity android:name=".xstar.XStarRemoteControllerActivity" />
         <activity android:name=".xstar.XStarFlyControllerActivity" />
         <activity android:name=".xstar.XStarGimbalActivity" />

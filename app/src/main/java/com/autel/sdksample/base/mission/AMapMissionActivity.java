@@ -16,7 +16,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.autel.common.flycontroller.AttitudeInfo;
-import com.autel.common.mission.Waypoint;
+import com.autel.common.mission.xstar.Waypoint;
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.mission.widget.WaypointSettingDialog;
 
@@ -74,21 +74,9 @@ public class AMapMissionActivity extends MapActivity {
             public boolean onMarkerClick(Marker marker) {
                 int index = mMarkerList.indexOf(marker);
                 if (index >= 0 && index < mMarkerList.size()) {
-                    showWaypointSettingDialog(index);
+                    markerClick(index);
                 }
                 return true;
-            }
-        });
-    }
-
-    private void showWaypointSettingDialog(int position) {
-        final WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this, position, wayPointList.get(position));
-        waypointSettingDialog.showDialog();
-        waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
-            @Override
-            public void onDialogOkClick(double height, int delayTime, int position) {
-                wayPointList.get(position).getAutelCoord3D().setAltitude(height);
-                wayPointList.get(position).setDelay(delayTime);
             }
         });
     }
@@ -106,7 +94,7 @@ public class AMapMissionActivity extends MapActivity {
         }
         if (isFirstChangeToPhone) {
             mAmap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
-            mAmap.moveCamera(com.amap.api.maps.CameraUpdateFactory.zoomTo(MapInitZoomSize));
+            mAmap.moveCamera(CameraUpdateFactory.zoomTo(MapInitZoomSize));
             isFirstChangeToPhone = false;
         }
         drawPhoneMarker(latLng);
@@ -123,14 +111,14 @@ public class AMapMissionActivity extends MapActivity {
     protected ArrayList<Marker> mMarkerList = new ArrayList<>();
 
     @Override
-    protected void addWayPointMarker(double lat, double lot) {
+    public void addWayPointMarker(double lat, double lot) {
         LatLng latlng = new LatLng(lat, lot);
-        int size = wayPointList.size();
+        int size = mMarkerList.size();
         if (size > 0) {
-            addWayPointLine(wayPointList.get(size - 1), latlng);
+            addWayPointLine(mMarkerList.get(size - 1).getPosition(), latlng);
         }
 
-        Marker temp = addMarkerWithLabel(latlng, addWaypoint(new AutelLatLng(lat, lot)));
+        Marker temp = addMarkerWithLabel(latlng);
         temp.setDraggable(true);
         mMarkerList.add(temp);
     }
@@ -139,9 +127,7 @@ public class AMapMissionActivity extends MapActivity {
     Marker mOrbitMarker;
 
     @Override
-    protected void updateOrbit(double lat, double lot) {
-        autelLatLng = new AutelLatLng(lat, lot);
-
+    public void updateOrbit(double lat, double lot) {
         if (null != mOrbitMarker) {
             mOrbitMarker.destroy();
         }
@@ -156,7 +142,7 @@ public class AMapMissionActivity extends MapActivity {
     }
 
     @Override
-    protected void resetMap() {
+    public void resetMap() {
         if (null != mOrbitMarker) {
             mOrbitMarker.destroy();
         }
@@ -174,26 +160,21 @@ public class AMapMissionActivity extends MapActivity {
             }
             mMarkerList.clear();
         }
-
-        wayPointList.clear();
-        autelLatLng = null;
     }
 
-    private Marker addMarkerWithLabel(LatLng latlng, int mIndex) {
+    private Marker addMarkerWithLabel(LatLng latlng) {
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.position(latlng);
         markerOption.draggable(false);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.marker_point);
         markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-//        float anchorWidth = getAnchorWidth(mIndex, bitmap);
-//        markerOption.anchor(anchorWidth, 1.0f);
         return mAmap.addMarker(markerOption);
     }
 
     private List<Polyline> polyLines = new ArrayList<>();
 
-    private Polyline addWayPointLine(Waypoint start, LatLng end) {
-        Polyline a = mAmap.addPolyline((new PolylineOptions()).add(new LatLng(start.getAutelCoord3D().getLatitude(), start.getAutelCoord3D().getLongitude()), end));
+    private Polyline addWayPointLine(LatLng start, LatLng end) {
+        Polyline a = mAmap.addPolyline((new PolylineOptions()).add(start, end));
         a.setColor(Color.GREEN);
         a.setWidth(10);
         polyLines.add(a);

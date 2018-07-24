@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:fadeScrollbars="false"
-        android:maxHeight="100dp"
+        android:maxHeight="500dp"
         android:minHeight="@dimen/log_text_min_height"
         android:padding="10dp"
         android:scrollbars="vertical" />

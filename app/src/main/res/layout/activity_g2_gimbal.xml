@@ -5,15 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".base.gimbal.GimbalActivity">
-
     <com.autel.sdk.widget.AutelCodecView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/log_output">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +19,7 @@
             android:padding="5dp">
 
             <include
-                layout="@layout/activity_base_gimbal"
+                layout="@layout/activity_base_gimbal_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom" />
@@ -30,6 +27,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
 
@@ -65,16 +63,39 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/getGimbalAngle"
+                android:id="@+id/getAngleRange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:text="getGimbalAngle"
+                android:text="getAngleRange"
                 android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/resetGimbalAngle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="resetGimbalAngle"
+                    android:textAllCaps="false" />
+
+                <Spinner
+                    android:id="@+id/gimbalAxisTypeList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
 
@@ -108,6 +129,38 @@
                     android:hint="angle yaw Speed"
                     android:inputType="numberSigned" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/setRollAdjustData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setRollAdjustData"
+                    android:textAllCaps="false" />
+
+                <EditText
+                    android:id="@+id/rollAdjustDataValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="numberSigned" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getRollAdjustData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:text="getRollAdjustData"
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".base.camera.CameraActivity">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -217,9 +215,8 @@
                     android:id="@+id/colorTemperatureValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:inputType="numberDecimal"
-                    />
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -704,10 +701,12 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:background="@drawable/text_background"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/digitalZoomScaleRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -870,6 +869,7 @@
                 android:gravity="center"
                 android:text="getVideoResolutionAndFrameRate"
                 android:textAllCaps="false" />
+
             <Button
                 android:id="@+id/getStateInfo"
                 android:layout_width="wrap_content"
@@ -877,6 +877,15 @@
                 android:layout_marginBottom="@dimen/item_margin_bottom"
                 android:gravity="center"
                 android:text="getStateInfo"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/getSkylinePositionData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:gravity="center"
+                android:text="getSkylinePositionData"
                 android:textAllCaps="false" />
 
             <!--               set listener                        -->
@@ -917,6 +926,7 @@
                         android:text="reset" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -954,6 +964,43 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/setMediaModeListenerLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_bottom"
+                android:background="@drawable/text_background"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="setMediaModeListener" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/setAutelCameraModeListener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/text_padding"
+                        android:text="set" />
+
+                    <Button
+                        android:id="@+id/resetAutelCameraModeListener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/text_padding"
+                        android:text="reset" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

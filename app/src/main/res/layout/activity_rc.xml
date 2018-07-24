@@ -376,7 +376,39 @@
                     android:text="reset" />
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
+            android:background="@drawable/text_background"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/dialAdjustSpeedRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/setGimbalDialAdjustSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="setGimbalDialAdjustSpeed"
+                    android:textAllCaps="false" />
+
+                <EditText
+                    android:id="@+id/dialAdjustSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="dial adjust speed"
+                    android:inputType="number" />
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -406,6 +438,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="resetRemoteControllerConnectStateListener"
+                    android:text="reset" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
+            android:background="@drawable/text_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/text_padding"
+                android:text="setControlMenuListener" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="setControlMenuListener"
+                    android:text="set" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="resetControlMenuListener"
                     android:text="reset" />
             </LinearLayout>
         </LinearLayout>

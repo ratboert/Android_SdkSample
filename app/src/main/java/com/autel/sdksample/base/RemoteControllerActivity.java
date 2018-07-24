@@ -37,7 +37,7 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
     protected Spinner lengthUnitSpinner;
     protected Spinner commandStickModeSpinner;
     protected EditText yawCoefficientValue;
-
+    EditText dialAdjustSpeed;
     protected RemoteControllerLanguage remoteControllerLanguage = RemoteControllerLanguage.ENGLISH;
     protected RFPower rfPower = RFPower.FCC;
     protected TeachingMode teachingMode = TeachingMode.STUDENT;
@@ -113,6 +113,9 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
                     case 1:
                         parameterUnit = RemoteControllerParameterUnit.IMPERIAL;
                         break;
+                    case 2:
+                        parameterUnit = RemoteControllerParameterUnit.METRIC_KM_H;
+                        break;
                 }
             }
 
@@ -152,7 +155,7 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String value = yawCoefficientRange.getText().toString();
                 if (isEmpty(value)) {
-                    RemoteControllerParameterRangeManager parameterRangeManager = mController.getParameterSupport();
+                    RemoteControllerParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
                     RangePair<Float> support = parameterRangeManager.getYawCoefficient();
                     yawCoefficientRange.setText("yawCoefficient from " + support.getValueFrom() + "  to  " + support.getValueTo());
                 }
@@ -168,6 +171,68 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
 
             }
         });
+
+        dialAdjustSpeed = (EditText) findViewById(R.id.dialAdjustSpeed);
+        final TextView dialAdjustSpeedRange = (TextView) findViewById(R.id.dialAdjustSpeedRange);
+        dialAdjustSpeed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (isEmpty(s.toString())) {
+                    return;
+                }
+
+                if (isEmpty(dialAdjustSpeedRange.getText().toString())) {
+                    RemoteControllerParameterRangeManager rangeManager = mController.getParameterRangeManager();
+                    RangePair<Integer> support = rangeManager.getDialAdjustSpeed();
+                    dialAdjustSpeedRange.setText("dial adjust speed from " + support.getValueFrom() + " to " + support.getValueTo());
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        findViewById(R.id.setGimbalDialAdjustSpeed).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String value = dialAdjustSpeed.getText().toString();
+                mController.setGimbalDialAdjustSpeed(isEmpty(value) ? 10 : Integer.valueOf(value), new CallbackWithNoParam() {
+                    @Override
+                    public void onFailure(AutelError rcError) {
+                        logOut("setGimbalAngleWithSpeed error " + rcError.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        logOut("setGimbalAngleWithSpeed onSuccess ");
+                    }
+                });
+            }
+        });
+//        findViewById(R.id.getGimbalDialAdjustSpeed).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mController.getGimbalDialAdjustSpeed(new CallbackWithOneParam<Integer>() {
+//
+//                    @Override
+//                    public void onFailure(AutelError rcError) {
+//                        logOut("getGimbalDialAdjustSpeed error " + rcError.getDescription());
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(Integer speed) {
+//                        logOut("getGimbalDialAdjustSpeed onSuccess " + speed);
+//                    }
+//                });
+//            }
+//        });
     }
 
 
@@ -201,21 +266,21 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
     }
 
     public void enterBinding(View view) {
-        mController.enterBinding(new CallbackWithNoParam() {
+        mController.enterPairing(new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut("enterBinding RCError " + rcError.getDescription());
+                logOut("enterPairing RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut("enterBinding onSuccess ");
+                logOut("enterPairing onSuccess ");
             }
         });
     }
 
     public void exitBinding(View view) {
-        mController.exitBinding();
+        mController.exitPairing();
     }
 
     public void setRFPower(View view) {
@@ -275,15 +340,15 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
     }
 
     public void startCalibration(View view) {
-        mController.setStickCalibration(RemoteControllerStickCalibration.CALIBRATE, new CallbackWithNoParam() {
+        mController.setStickCalibration(RemoteControllerStickCalibration.START, new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError rcError) {
-                logOut("setStickCalibration CALIBRATE RCError " + rcError.getDescription());
+                logOut("setStickCalibration START RCError " + rcError.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut("setStickCalibration CALIBRATE onSuccess  ");
+                logOut("setStickCalibration START onSuccess  ");
             }
         });
     }
@@ -406,7 +471,7 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
         mController.getVersionInfo(new CallbackWithOneParam<RemoteControllerVersionInfo>() {
             @Override
             public void onSuccess(RemoteControllerVersionInfo versionInfo) {
-                logOut("getVersionInfo onSuccess {" + versionInfo + "}");
+                logOut("getVersionInfo onSuccess {" + versionInfo.getRemoteControlVersion() + "}");
             }
 
             @Override
@@ -482,5 +547,23 @@ public abstract class RemoteControllerActivity extends BaseActivity<AutelRemoteC
 
     public void resetRemoteControllerConnectStateListener(View view) {
         mController.setConnectStateListener(null);
+    }
+
+    public void setControlMenuListener(View view) {
+        mController.setControlMenuListener(new CallbackWithOneParam<int[]>() {
+            @Override
+            public void onSuccess(int[] data) {
+                logOut("setControlMenuListener onSuccess " + data[0]+" "+data[1]+" "+ data[2]+" "+data[3]+ " "+ data[4]+" "+data[5]);
+            }
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setControlMenuListener onFailure ");
+            }
+        });
+    }
+
+    public void resetControlMenuListener(View view) {
+        mController.setControlMenuListener(null);
     }
 }

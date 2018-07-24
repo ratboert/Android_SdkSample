@@ -12,7 +12,7 @@ public class XStarPremiumRemoteControllerActivity extends RemoteControllerActivi
 
     @Override
     protected AutelRemoteController initController(BaseProduct product) {
-        return ((XStarPremiumAircraft) product).getRemoteController();
+        return product.getRemoteController();
     }
 
     @Override

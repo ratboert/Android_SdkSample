@@ -47,18 +47,25 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
-            android:entries="@array/missions"
-
-            />
+            android:entries="@array/missions" />
     </LinearLayout>
 
 
     <FrameLayout
+        android:id="@+id/mission_operator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        />
+
+    <FrameLayout
         android:id="@+id/mission_item_content"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:background="#88ffffff" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/missionTypeLayout"
+        android:layout_above="@+id/flyInfoSwitch"
+        android:background="#ffffffff" />
 
     <TextView
         android:id="@+id/logInfo"
@@ -68,24 +75,24 @@
         android:layout_toRightOf="@+id/mission_item_content" />
 
 
-        <Switch
-            android:id="@+id/flyInfoSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="#888888"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:text="fly info" />
-        <TextView
-            android:id="@+id/flyControllerInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/flyInfoSwitch"
-            android:background="#aabbee"
-            android:visibility="gone"
-            />
+    <Switch
+        android:id="@+id/flyInfoSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
+        android:background="#888888"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:text="fly info" />
+
+    <TextView
+        android:id="@+id/flyControllerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="#aabbee"
+        android:visibility="gone" />
 </RelativeLayout>

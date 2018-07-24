@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".base.camera.CameraActivity">
+    android:orientation="vertical">
 
     <com.autel.sdk.widget.AutelCodecView
+        android:id="@+id/codecView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.dsp.AutelCancellable;
 import com.autel.common.dsp.DspVersionInfo;
 import com.autel.common.dsp.RFData;
 import com.autel.common.error.AutelError;
@@ -53,7 +54,7 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
         dspRFList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedRFHz = ((RFData) rfListAdapter.getItem(position)).hz;
+                selectedRFHz = (int) ((RFData) rfListAdapter.getItem(position)).hz;
             }
 
             @Override

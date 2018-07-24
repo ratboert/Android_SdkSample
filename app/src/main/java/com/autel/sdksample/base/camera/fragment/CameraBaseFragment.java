@@ -175,12 +175,12 @@ public class CameraBaseFragment extends Fragment {
                 baseCamera.getSDCardState(new CallbackWithOneParam<SDCardState>() {
                     @Override
                     public void onSuccess(SDCardState data) {
-                        logOut("getSDCardStatus " + data);
+                        logOut("getSDCardState " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getSDCardStatus " + error.getDescription());
+                        logOut("getSDCardState " + error.getDescription());
                     }
                 });
             }
@@ -191,12 +191,12 @@ public class CameraBaseFragment extends Fragment {
                 baseCamera.getWorkState(new CallbackWithOneParam<WorkState>() {
                     @Override
                     public void onSuccess(WorkState data) {
-                        logOut("getWorkStatus " + data);
+                        logOut("getWorkState " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("getWorkStatus " + error.getDescription());
+                        logOut("getWorkState " + error.getDescription());
                     }
                 });
             }
@@ -309,7 +309,7 @@ public class CameraBaseFragment extends Fragment {
                 baseCamera.setMediaStateListener(new CallbackWithTwoParams<MediaStatus, String>() {
                     @Override
                     public void onSuccess(MediaStatus state, String data) {
-                        logOut("setMediaStateListener state " + state);
+                        logOut("setMediaStateListener state " + state+" data "+data);
                     }
 
                     @Override
@@ -330,9 +330,6 @@ public class CameraBaseFragment extends Fragment {
     }
 
     protected boolean isEmpty(String value) {
-        if (null == value || "".equals(value)) {
-            return true;
-        }
-        return false;
+        return null == value || "".equals(value);
     }
 }

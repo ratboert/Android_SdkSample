@@ -20,6 +20,25 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/appendMedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
+            android:gravity="center"
+            android:padding="@dimen/text_padding"
+            android:text="appendMedia"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/getMedia_Next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
+            android:gravity="center"
+            android:padding="@dimen/text_padding"
+            android:text="getMediaNext"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/deleteAllMedia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

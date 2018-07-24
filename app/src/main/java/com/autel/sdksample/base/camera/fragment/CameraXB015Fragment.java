@@ -29,6 +29,7 @@ import com.autel.common.camera.media.ExposureCompensation;
 import com.autel.common.camera.media.ExposureMode;
 import com.autel.common.camera.media.CameraISO;
 import com.autel.common.camera.media.ShutterSpeed;
+import com.autel.common.camera.media.SkylinePositionData;
 import com.autel.common.camera.media.SpotMeteringArea;
 import com.autel.common.camera.media.WhiteBalance;
 import com.autel.common.camera.media.WhiteBalanceType;
@@ -175,7 +176,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                     currentPhotoFormat = data;
                     if (null != xb015) {
                         photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                                Arrays.asList(xb015.getParameterRangeManager().getPhotoTimelapseInterval(currentPhotoFormat))));
+                                xb015.getParameterRangeManager().getPhotoTimelapseInterval()));
                     }
                 }
             });
@@ -201,6 +202,28 @@ public class CameraXB015Fragment extends CameraBaseFragment {
             }
         });
 
+        view.findViewById(R.id.setAutelCameraModeListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb015.setMediaModeListener(new CallbackWithOneParam<MediaMode>() {
+                    @Override
+                    public void onSuccess(MediaMode state) {
+                        logOut("setMediaModeListener  :" + state);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("setMediaModeListener  description  " + error.getDescription());
+                    }
+                });
+            }
+        });
+        view.findViewById(R.id.resetAutelCameraModeListener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb015.setMediaModeListener(null);
+            }
+        });
         view.findViewById(R.id.setInfoListener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,7 +347,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                         Activity activity = getActivity();
                         if (null != activity)
                             if (null != currentVideoResolutionAndFps) {
-                                shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                                shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed());
                                 shutterList.setAdapter(shutterSpeedAdapter);
                             }
                     }
@@ -352,10 +375,10 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                         logOut("setMediaMode state onSuccess ");
                         Activity activity = getActivity();
                         if (null != activity)
-                                    if (null != currentVideoResolutionAndFps) {
-                                        shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
-                                        shutterList.setAdapter(shutterSpeedAdapter);
-                                    }
+                            if (null != currentVideoResolutionAndFps) {
+                                shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed());
+                                shutterList.setAdapter(shutterSpeedAdapter);
+                            }
                     }
                 });
             }
@@ -656,12 +679,12 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                 xb015.isHistogramEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
-                        logOut("isHistogramStatusEnable " + data);
+                        logOut("isHistogramEnable " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("isHistogramStatusEnable " + error.getDescription());
+                        logOut("isHistogramEnable " + error.getDescription());
                     }
                 });
             }
@@ -1047,7 +1070,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                     @Override
                     public void onSuccess() {
                         logOut("setPhotoFormat state onSuccess");
-                        if(null != xb015){
+                        if (null != xb015) {
                             xb015.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
                                 @Override
                                 public void onFailure(AutelError error) {
@@ -1058,7 +1081,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                                     currentPhotoFormat = data;
                                     if (null != xb015) {
                                         photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                                                Arrays.asList(xb015.getParameterRangeManager().getPhotoTimelapseInterval(currentPhotoFormat))));
+                                                xb015.getParameterRangeManager().getPhotoTimelapseInterval()));
                                     }
                                 }
                             });
@@ -1083,7 +1106,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                         currentPhotoFormat = data;
                         if (null != xb015) {
                             photoTimelapseIntervalList.setAdapter(new PhotoTimelapseIntervalAdapter(getContext(),
-                                    Arrays.asList(xb015.getParameterRangeManager().getPhotoTimelapseInterval(currentPhotoFormat))));
+                                    xb015.getParameterRangeManager().getPhotoTimelapseInterval()));
                         }
                     }
                 });
@@ -1242,6 +1265,23 @@ public class CameraXB015Fragment extends CameraBaseFragment {
             }
         });
 
+        view.findViewById(R.id.getSkylinePositionData).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xb015.getSkylinePositionData(100, 100, new CallbackWithOneParam<SkylinePositionData>() {
+                    @Override
+                    public void onSuccess(SkylinePositionData data) {
+                        logOut("getSkylinePositionData  " + data);
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getSkylinePositionData  description  " + error.getDescription());
+                    }
+                });
+            }
+        });
+
         view.findViewById(R.id.getVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1268,7 +1308,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
 
     private void initVideoResolutionFpsList() {
         if (null != xb015) {
-            videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps(currentVideoStandard)));
+            videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps()));
         }
         videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
         videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1288,10 +1328,10 @@ public class CameraXB015Fragment extends CameraBaseFragment {
         xb015.getMediaMode(new CallbackWithOneParam<MediaMode>() {
             @Override
             public void onSuccess(final MediaMode mode) {
-                            if (null != currentVideoResolutionAndFps) {
-                                shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
-                                shutterList.setAdapter(shutterSpeedAdapter);
-                            }
+                if (null != currentVideoResolutionAndFps) {
+                    shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed());
+                    shutterList.setAdapter(shutterSpeedAdapter);
+                }
             }
 
             @Override

@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.autel.common.CallbackWithNoParam;
@@ -14,6 +15,7 @@ import com.autel.internal.sdk.util.AutelDirPathUtils;
 import com.autel.sdk.Autel;
 import com.autel.sdk.AutelSdkConfig;
 import com.autel.sdk.product.BaseProduct;
+import com.autel.sdksample.evo.mission.util.AutelConfigManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,16 +26,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class TestApplication extends Application {
+public class TestApplication extends MultiDexApplication {
     private final String TAG = getClass().getSimpleName();
     private BaseProduct currentProduct;
 
+
     public void onCreate() {
         super.onCreate();
-        Thread.setDefaultUncaughtExceptionHandler(new EHandle(Thread.getDefaultUncaughtExceptionHandler()));
+        Log.v("connectDebug", "TestApplication onCreate ");
         /**
          * 初始化SDK，通过网络验证APPKey的有效性
          */
+        Thread.setDefaultUncaughtExceptionHandler(new EHandle(Thread.getDefaultUncaughtExceptionHandler()));
         String appKey = "<SDK license should be input>";
         AutelSdkConfig config = new AutelSdkConfig.AutelSdkConfigBuilder()
                 .setAppKey(appKey)
@@ -50,6 +54,7 @@ public class TestApplication extends Application {
                 Log.v(TAG, "checkAppKeyValidate " + error.getDescription());
             }
         });
+        AutelConfigManager.instance().init(this);
     }
 
     public BaseProduct getCurrentProduct() {
@@ -120,7 +125,6 @@ public class TestApplication extends Application {
                         excep.close();
                     }
                 } catch (Exception var8) {
-                    ;
                 }
             } catch (Exception var9) {
                 var9.printStackTrace();

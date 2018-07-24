@@ -19,107 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
+            <include
+                layout="@layout/activity_base_gimbal_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/setGimbalWorkMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="setGimbalWorkMode"
-                    android:textAllCaps="false" />
-
-                <Spinner
-                    android:id="@+id/gimbalWorkModeList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/getGimbalWorkMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:text="getGimbalWorkMode"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/getGimbalDialAdjustSpeed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:text="getGimbalDialAdjustSpeed"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/getVersionInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:text="getVersionInfo"
-                android:textAllCaps="false" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/setRollAdjustData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="setRollAdjustData"
-                    android:textAllCaps="false" />
-
-                <Spinner
-                    android:id="@+id/rollAdjustList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/text_background"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="setGimbalStateListener" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/setGimbalStateListener"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="set" />
-
-                    <Button
-                        android:id="@+id/resetGimbalStateListener"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="reset" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_marginBottom="@dimen/item_margin_bottom" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

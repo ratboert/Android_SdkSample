@@ -32,6 +32,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/text_background"
                     android:gravity="center"
+                    android:onClick="rcTest"
                     android:padding="@dimen/text_padding"
                     android:text="RemoteController" />
 
@@ -155,7 +156,59 @@
                     android:gravity="center"
                     android:padding="@dimen/text_padding"
                     android:text="Camera" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/visualTest"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="Dynamic Track" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20px"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/avoidTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="Gimbal and other" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20px"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/upgradeTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="Upgrade" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

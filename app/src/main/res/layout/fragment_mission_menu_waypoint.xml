@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical">
@@ -8,12 +8,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include
-            android:id="@+id/menu_operate"
+        <TextView
+            android:id="@+id/finishAction_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            layout="@layout/fragment_mission_menu"
+            android:text="@string/mission_finish_action"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:textColor="#222222"
             />
+        <Spinner
+            android:id="@+id/finishAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/finishAction_title"
+            android:entries="@array/mission_finish_action"
+            android:layout_marginTop="5dp" />
         <EditText
             android:id="@+id/waypointSpeed"
             android:layout_width="wrap_content"

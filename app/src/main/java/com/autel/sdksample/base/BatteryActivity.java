@@ -11,6 +11,7 @@ import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
 import com.autel.common.battery.BatteryParameterRangeManager;
+import com.autel.common.battery.BatteryState;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.battery.AutelBattery;
 import com.autel.sdk.product.BaseProduct;
@@ -147,20 +148,23 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
                 });
             }
         });
+
         findViewById(R.id.getCriticalBatteryNotifyThreshold).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mController.getCriticalBatteryNotifyThreshold(new CallbackWithOneParam<Float>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getCriticalBatteryNotifyThreshold  error :  " + error.getDescription());
-                    }
+                for(int index = 0; index <3;index++){
+                    mController.getCriticalBatteryNotifyThreshold(new CallbackWithOneParam<Float>() {
+                        @Override
+                        public void onFailure(AutelError error) {
+                            logOut("getCriticalBatteryNotifyThreshold  error :  " + error.getDescription()+"  time "+System.currentTimeMillis());
+                        }
 
-                    @Override
-                    public void onSuccess(Float data) {
-                        logOut("getCriticalBatteryNotifyThreshold  data :  " + data);
-                    }
-                });
+                        @Override
+                        public void onSuccess(Float data) {
+                            logOut("getCriticalBatteryNotifyThreshold  data :  " + data+"  time "+System.currentTimeMillis());
+                        }
+                    });
+                }
             }
         });
         findViewById(R.id.setCriticalBatteryNotifyThreshold).setOnClickListener(new View.OnClickListener() {
@@ -274,6 +278,22 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
                     @Override
                     public void onFailure(AutelError error) {
                         logOut("getFullChargeCapacity error : " + error.getDescription());
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getCellVoltageRange).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getParameterSupportManager().getBatteryCellVoltageRange(new CallbackWithOneParam<RangePair<Integer>>() {
+                    @Override
+                    public void onSuccess(RangePair<Integer> data) {
+                        logOut("getBatteryCellVoltageRange  from " + data.getValueFrom() + " to " + data.getValueTo());
+                    }
+
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getBatteryCellVoltageRange error : " + error.getDescription());
                     }
                 });
             }

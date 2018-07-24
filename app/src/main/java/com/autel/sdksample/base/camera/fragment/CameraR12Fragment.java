@@ -22,25 +22,26 @@ import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.AntiFlicker;
 import com.autel.common.camera.media.AutoExposureLockState;
-import com.autel.common.camera.media.CameraISO;
 import com.autel.common.camera.media.ColorStyle;
 import com.autel.common.camera.media.ExposureCompensation;
 import com.autel.common.camera.media.ExposureMode;
+import com.autel.common.camera.media.CameraISO;
+import com.autel.common.camera.media.ShutterSpeed;
+import com.autel.common.camera.media.SpotMeteringArea;
+import com.autel.common.camera.media.WhiteBalance;
+import com.autel.common.camera.media.WhiteBalanceType;
 import com.autel.common.camera.media.PhotoAEBCount;
 import com.autel.common.camera.media.PhotoAspectRatio;
 import com.autel.common.camera.media.PhotoBurstCount;
 import com.autel.common.camera.media.PhotoStyle;
 import com.autel.common.camera.media.PhotoStyleType;
 import com.autel.common.camera.media.PhotoTimelapseInterval;
-import com.autel.common.camera.media.ShutterSpeed;
-import com.autel.common.camera.media.SpotMeteringArea;
 import com.autel.common.camera.media.VideoFormat;
 import com.autel.common.camera.media.VideoResolutionAndFps;
 import com.autel.common.camera.media.VideoStandard;
-import com.autel.common.camera.media.WhiteBalance;
-import com.autel.common.camera.media.WhiteBalanceType;
 import com.autel.common.camera.r12.R12CameraInfo;
 import com.autel.common.camera.r12.R12ParameterRangeManager;
+import com.autel.common.camera.r12.R12StateInfo;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.camera.AutelR12;
 import com.autel.sdksample.R;
@@ -209,7 +210,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     public void onSuccess(final MediaMode data) {
                         logOut("getMediaMode " + data);
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(data, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed());
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
@@ -236,7 +237,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                     public void onSuccess() {
                         logOut("setMediaMode state onSuccess");
                         if (null != currentVideoResolutionAndFps) {
-                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mediaMode, currentVideoResolutionAndFps.fps));
+                            shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed());
                             shutterList.setAdapter(shutterSpeedAdapter);
                         }
                     }
@@ -572,12 +573,12 @@ public class CameraR12Fragment extends CameraBaseFragment {
                 autelR12.isHistogramEnable(new CallbackWithOneParam<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
-                        logOut("isHistogramStatusEnable " + data);
+                        logOut("isHistogramEnable " + data);
                     }
 
                     @Override
                     public void onFailure(AutelError error) {
-                        logOut("isHistogramStatusEnable " + error.getDescription());
+                        logOut("isHistogramEnable " + error.getDescription());
                     }
                 });
             }
@@ -1057,7 +1058,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
 
                     @Override
                     public void onFailure(AutelError autelError) {
-                        logOut("setHistogramListener  description " + autelError);
+                        logOut("setHistogramListener  description " + autelError.getDescription());
                     }
                 });
             }
@@ -1154,7 +1155,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
     }
 
     private void initVideoResolutionFpsList() {
-        videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps(currentVideoStandard)));
+        videoResolutionFpsAdapter.setData(Arrays.asList(rangeManager.getVideoResolutionAndFps()));
         videoResolutionAndFrameRateList.setAdapter(videoResolutionFpsAdapter);
         videoResolutionAndFrameRateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1175,7 +1176,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
             @Override
             public void onSuccess(final MediaMode mode) {
                 if (null != currentVideoResolutionAndFps) {
-                    shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed(mode, currentVideoResolutionAndFps.fps));
+                    shutterSpeedAdapter.setData(rangeManager.getCameraShutterSpeed());
                     shutterList.setAdapter(shutterSpeedAdapter);
                 }
             }

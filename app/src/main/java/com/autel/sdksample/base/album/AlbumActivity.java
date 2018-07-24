@@ -35,10 +35,10 @@ public class AlbumActivity extends BaseActivity<AutelAlbum> {
     private MediaInfo resolutionFromHttpHeader;
     private File resolutionFromLocalFile;
     private MediaInfo media2Download;
-    private MediaListAdapter videoResolutionFromHttpHeaderAdapter = new MediaListAdapter(this);
-    private LocalVideoListAdapter videoResolutionFromLocalFileAdapter = new LocalVideoListAdapter(this);
-    private MediaListAdapter mediaListAdapter = new MediaListAdapter(this);
-    private MediaListAdapter videoList = new MediaListAdapter(this, MediaListAdapter.MediaType.Video);
+    private MediaListAdapter videoResolutionFromHttpHeaderAdapter;
+    private LocalVideoListAdapter videoResolutionFromLocalFileAdapter;
+    private MediaListAdapter mediaListAdapter;
+    private MediaListAdapter videoList;
 
     Spinner mediaList;
     Spinner videoResolutionFromHttpHeaderList;
@@ -46,10 +46,16 @@ public class AlbumActivity extends BaseActivity<AutelAlbum> {
     Spinner videoDownloadList;
 
     private OkHttpManager okHttpManager;
+    private int index;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Album");
+        videoResolutionFromHttpHeaderAdapter = new MediaListAdapter(this);
+        videoResolutionFromLocalFileAdapter = new LocalVideoListAdapter(this);
+        mediaListAdapter = new MediaListAdapter(this);
+        videoList = new MediaListAdapter(this, MediaListAdapter.MediaType.Video);
     }
 
     @Override
@@ -130,7 +136,62 @@ public class AlbumActivity extends BaseActivity<AutelAlbum> {
 
                     @Override
                     public void onSuccess(List<MediaInfo> data) {
-                        logOut("getMedia  data  " + data);
+                        logOut("getMedia  data  " + data.size());
+                        index = data.size();
+                        mediaItems = data;
+                        for (MediaInfo item : data) {
+                            Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
+                        }
+                        mediaListAdapter.setData(data);
+                        mediaList.setAdapter(mediaListAdapter);
+                        videoResolutionFromHttpHeaderAdapter.setData(data);
+                        videoResolutionFromHttpHeaderList.setAdapter(videoResolutionFromHttpHeaderAdapter);
+                        videoList.setData(data);
+                        videoDownloadList.setAdapter(videoList);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.appendMedia).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getMedia(mediaItems.size() - 1, 50, new CallbackWithOneParam<List<MediaInfo>>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("appendMedia  error  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(List<MediaInfo> data) {
+                        index = data.size();
+                        mediaItems.addAll(data);
+                        logOut("appendMedia  data  " + mediaItems.size());
+                        for (MediaInfo item : data) {
+                            Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
+                        }
+                        mediaListAdapter.setData(data);
+                        mediaList.setAdapter(mediaListAdapter);
+                        videoResolutionFromHttpHeaderAdapter.setData(data);
+                        videoResolutionFromHttpHeaderList.setAdapter(videoResolutionFromHttpHeaderAdapter);
+                        videoList.setData(data);
+                        videoDownloadList.setAdapter(videoList);
+                    }
+                });
+            }
+        });
+        findViewById(R.id.getMedia_Next).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mController.getMedia(index + 1, 50, new CallbackWithOneParam<List<MediaInfo>>() {
+                    @Override
+                    public void onFailure(AutelError error) {
+                        logOut("getMedia_Next  error  " + error.getDescription());
+                    }
+
+                    @Override
+                    public void onSuccess(List<MediaInfo> data) {
+                        index += data.size();
+                        logOut("getMedia_Next  data  " + data);
                         mediaItems = data;
                         for (MediaInfo item : data) {
                             Log.v(TAG, "getMedia  data  " + item.getOriginalMedia() + "    " + item.getFileSize() + "   " + item.getFileTimeString() + "  SmallThumbnail  " + item.getSmallThumbnail());
@@ -257,7 +318,7 @@ public class AlbumActivity extends BaseActivity<AutelAlbum> {
             if (!isEmpty(videoPath)) {
                 videoPath = videoPath.substring(videoPath.lastIndexOf("/") + 1, videoPath.length());
             }
-            okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/"+videoPath, new ResponseCallBack<File>() {
+            okHttpManager.download(media2Download.getLargeThumbnail(), Environment.getExternalStorageDirectory().getPath() + "/album/albumtest/" + videoPath, new ResponseCallBack<File>() {
                 @Override
                 public void onSuccess(File file) {
                     initLocalFileList();

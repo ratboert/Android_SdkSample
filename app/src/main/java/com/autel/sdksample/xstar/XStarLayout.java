@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.CodecActivity;
-import com.autel.sdksample.base.DspActivity;
 import com.autel.sdksample.base.album.AlbumActivity;
 import com.autel.sdksample.base.camera.CameraActivity;
 import com.autel.sdksample.base.mission.MissionActivity;
@@ -18,6 +17,7 @@ import com.autel.sdksample.base.mission.MissionActivity;
 public class XStarLayout {
     private View mLayout;
     private Context mContext;
+
     public XStarLayout(Context context) {
         mContext = context;
         mLayout = View.inflate(mContext, R.layout.activity_xstar, null);
@@ -28,7 +28,7 @@ public class XStarLayout {
         return mLayout;
     }
 
-    private void initUI(){
+    private void initUI() {
         mLayout.findViewById(R.id.rcTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,11 +77,20 @@ public class XStarLayout {
                 mContext.startActivity(new Intent(mContext, XStarGimbalActivity.class));
             }
         });
+        /*/
+        mLayout.findViewById(R.id.AlbumTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, TestActivity.class));
+            }
+        });
+        /*/
         mLayout.findViewById(R.id.AlbumTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, AlbumActivity.class));
             }
         });
+        //*/
     }
 }

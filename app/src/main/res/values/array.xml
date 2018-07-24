@@ -24,10 +24,31 @@
         <item>@string/rc_teach_mode_teacher</item>
         <item>@string/rc_teach_mode_student</item>
     </string-array>
-
+    <string-array name="tracking_teach_mode">
+        <item>Normal</item>
+        <item>Parallel</item>
+        <item>Locked</item>
+    </string-array>
+    <string-array name="dsp_reset_factory">
+        <item>ALL</item>
+        <item>DEV_UAV</item>
+        <item>DEV_DSP</item>
+        <item>DEV_DSP_RC</item>
+        <item>DEV_RC_PLAYER</item>
+        <item>DEV_ESC_PITCH</item>
+        <item>DEV_ESC_ROLL</item>
+        <item>DEV_ESC_YAW</item>
+        <item>DEV_BATTERY</item>
+        <item>DEV_GIMBAL</item>
+        <item>DEV_RC_ANDROID</item>
+        <item>DEV_RC</item>
+        <item>DEV_MOVIDIUS_1</item>
+        <item>DEV_CAMERA</item>
+    </string-array>
     <string-array name="rc_length_unit">
         <item>@string/rc_length_unit_metric</item>
         <item>@string/rc_length_unit_imperial</item>
+        <item>@string/rc_length_unit_metric_km</item>
     </string-array>
 
     <string-array name="rc_command_stick">

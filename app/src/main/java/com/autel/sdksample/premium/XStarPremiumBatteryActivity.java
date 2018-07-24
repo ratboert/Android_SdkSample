@@ -8,7 +8,6 @@ import com.autel.sdksample.xstar.XStarBatteryActivity;
 
 
 public class XStarPremiumBatteryActivity extends XStarBatteryActivity {
-    private XStarBattery mXStarBattery;
 
     @Override
     protected AutelBattery initController(BaseProduct product) {

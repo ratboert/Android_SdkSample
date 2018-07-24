@@ -69,6 +69,14 @@
             android:layout_marginBottom="@dimen/item_margin_bottom"
             android:textAllCaps="false" />
 
+        <Button
+            android:id="@+id/getDeviceVersionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="getDeviceVersionInfo"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
+            android:textAllCaps="false" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

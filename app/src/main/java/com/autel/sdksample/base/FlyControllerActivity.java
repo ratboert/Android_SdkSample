@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
+import com.autel.common.CallbackWithTwoParams;
 import com.autel.common.RangePair;
 import com.autel.common.error.AutelError;
-import com.autel.common.flycontroller.BaseParameterRangeManager;
+import com.autel.common.flycontroller.ARMWarning;
+import com.autel.common.flycontroller.FlyControllerParameterRangeManager;
 import com.autel.common.flycontroller.CalibrateCompassStatus;
 import com.autel.common.flycontroller.FlyControllerVersionInfo;
 import com.autel.common.flycontroller.LedPilotLamp;
+import com.autel.common.flycontroller.MagnetometerState;
 import com.autel.sdk.flycontroller.AutelFlyController;
 import com.autel.sdksample.R;
 
@@ -114,7 +117,7 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
 
                 String value = returnHeightRangeNotify.getText().toString();
                 if (isEmpty(value)) {
-                    BaseParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
+                    FlyControllerParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getReturnHeightRange();
                         returnHeightRangeNotify.setText("return height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
@@ -143,7 +146,7 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
 
                 String value = maxHeightRange.getText().toString();
                 if (isEmpty(value)) {
-                    BaseParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
+                    FlyControllerParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getHeightRange();
                         maxHeightRange.setText("max height range from " + support.getValueFrom() + "  to  " + support.getValueTo());
@@ -172,7 +175,7 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
 
                 String value = maxRangeRange.getText().toString();
                 if (isEmpty(value)) {
-                    BaseParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
+                    FlyControllerParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getRangeOfMaxRange();
                         maxRangeRange.setText("max Range range from " + support.getValueFrom() + "  to  " + support.getValueTo());
@@ -202,7 +205,7 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
 
                 String value = fcHorizontalSpeedValue.getText().toString();
                 if (isEmpty(value)) {
-                    BaseParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
+                    FlyControllerParameterRangeManager parameterRangeManager = mController.getParameterRangeManager();
                     if (null != parameterRangeManager) {
                         RangePair<Float> support = parameterRangeManager.getHorizontalSpeedRange();
                         fcHorizontalSpeedValue.setText("AscendSpeed Range range from " + support.getValueFrom() + "m/s  to  " + support.getValueTo() + "m/s");
@@ -337,15 +340,15 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
     }
 
     public void getHorizontalSpeed(View view) {
-        mController.getHorizontalSpeed(new CallbackWithOneParam<Float>() {
+        mController.getMaxHorizontalSpeed(new CallbackWithOneParam<Float>() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("getHorizontalSpeed AutelError " + error.getDescription());
+                logOut("getMaxHorizontalSpeed AutelError " + error.getDescription());
             }
 
             @Override
             public void onSuccess(Float horizontalSpeed) {
-                logOut("getHorizontalSpeed onSuccess " + horizontalSpeed);
+                logOut("getMaxHorizontalSpeed onSuccess " + horizontalSpeed);
             }
 
         });
@@ -353,15 +356,15 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
 
     public void setHorizontalSpeed(View view) {
         String value = fcHorizontalSpeed.getText().toString();
-        mController.setHorizontalSpeed(isEmpty(value) ? 5 : Integer.valueOf(value), new CallbackWithNoParam() {
+        mController.setMaxHorizontalSpeed(isEmpty(value) ? 5 : Integer.valueOf(value), new CallbackWithNoParam() {
             @Override
             public void onFailure(AutelError error) {
-                logOut("setHorizontalSpeed AutelError " + error.getDescription());
+                logOut("setMaxHorizontalSpeed AutelError " + error.getDescription());
             }
 
             @Override
             public void onSuccess() {
-                logOut("setHorizontalSpeed onSuccess ");
+                logOut("setMaxHorizontalSpeed onSuccess ");
             }
         });
     }
@@ -563,5 +566,42 @@ public abstract class FlyControllerActivity extends BaseActivity<AutelFlyControl
                 logOut("getSerialNumber onFailure : " + autelError.getDescription());
             }
         });
+    }
+
+    public void setCalibrateCompassListener(View view) {
+        mController.setCalibrateCompassListener(new CallbackWithOneParam<CalibrateCompassStatus>() {
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setCalibrateCompassListener " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(CalibrateCompassStatus result) {
+                logOut("setCalibrateCompassListener onSuccess " + result);
+            }
+        });
+    }
+
+    public void resetCalibrateCompassListener(View view) {
+        mController.setCalibrateCompassListener(null);
+    }
+
+    public void setWarningListener(View view) {
+        mController.setWarningListener(new CallbackWithTwoParams<ARMWarning, MagnetometerState>() {
+
+            @Override
+            public void onFailure(AutelError error) {
+                logOut("setWarningListener " + error.getDescription());
+            }
+
+            @Override
+            public void onSuccess(ARMWarning data1, MagnetometerState data2) {
+                logOut("setWarningListener ARMWarning " + data1 + " MagnetometerState " + data2);
+            }
+        });
+    }
+
+    public void resetWarningListener(View view) {
+        mController.setWarningListener(null);
     }
 }

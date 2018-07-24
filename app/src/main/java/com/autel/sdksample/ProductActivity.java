@@ -14,11 +14,14 @@ import com.autel.common.product.AutelProductType;
 import com.autel.sdk.Autel;
 import com.autel.sdk.ProductConnectListener;
 import com.autel.sdk.product.BaseProduct;
-import com.autel.sdksample.g2.G2Layout;
+import com.autel.sdksample.evo.G2Layout;
 import com.autel.sdksample.premium.XStarPremiumLayout;
+import com.autel.sdksample.util.FileUtils;
 import com.autel.sdksample.xstar.XStarLayout;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static com.autel.internal.sdk.AutelBaseApplication.getAppContext;
 
 
 public class ProductActivity extends AppCompatActivity {
@@ -26,20 +29,19 @@ public class ProductActivity extends AppCompatActivity {
     private int index;
     private long timeStamp;
     static AtomicBoolean hasInitProductListener = new AtomicBoolean(false);
+    private String fileConfig1 = "/sdcard/anddev/autel288_7.cfg";
+    private String fileConfig2 = "/sdcard/anddev/autel288_7_final.weights";
+    private String fileConfig3 = "/sdcard/anddev/autel13.cfg";
+    private String fileConfig4 = "/sdcard/anddev/autel13.backup";
     private AutelProductType currentType = AutelProductType.UNKNOWN;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
-        /**
-         * 监听SDK连接到的设备
-         */
+        setContentView(createView(AutelProductType.EVO));
+        Log.v("productType", "ProductActivity onCreate ");
+        //*/
         Autel.setProductConnectListener(new ProductConnectListener() {
-            /**
-             * 当设备连接成功后回调，并进入相应产品的业务中
-             * @param product
-             */
             @Override
             public void productConnected(BaseProduct product) {
                 Log.v("productType", "product " + product.getType());
@@ -63,9 +65,7 @@ public class ProductActivity extends AppCompatActivity {
                 }
             }
 
-            /**
-             * SDK 连接的设备断开时回调
-             */
+
             @Override
             public void productDisconnected() {
                 Log.v("productType", "productDisconnected ");
@@ -78,16 +78,24 @@ public class ProductActivity extends AppCompatActivity {
                 });
             }
         });
+        /*/
+        productSelector.productConnected(AutelProductType.X_STAR);
+        //*/
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 123);
         }
+        FileUtils.Initialize(getAppContext(),fileConfig1,"autel288_7.cfg");
+        FileUtils.Initialize(getAppContext(),fileConfig2,"autel288_7_final.weights");
+        FileUtils.Initialize(getAppContext(),fileConfig3,"autel13.cfg");
+        FileUtils.Initialize(getAppContext(),fileConfig4,"autel13.backup");
     }
 
     private View createView(AutelProductType productType) {
         switch (productType) {
             case X_STAR:
                 return new XStarLayout(this).getLayout();
-            case G2:
+            case EVO:
                 return new G2Layout(this).getLayout();
             case PREMIUM:
                 return new XStarPremiumLayout(this).getLayout();
@@ -105,10 +113,13 @@ public class ProductActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (needExit) {
-            Autel.destroy();
             hasInitProductListener.set(false);
-            System.exit(0);
         }
+    }
+
+    public void finish() {
+        super.finish();
+        Log.v("productType", "activity finish ");
     }
 
     private boolean needExit = false;

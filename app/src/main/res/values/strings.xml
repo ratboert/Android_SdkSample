@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SDKSample</string>
+    <string name="app_name">SDKDemo</string>
 
     <string name="product_not_connect">device not connected</string>
     <string name="product_connect">enter the device</string>
@@ -32,9 +32,11 @@
     <string name="mission_yaw_restore_notify">mission yaw restore</string>
     <string name="mission_speed_notify">fly speed</string>
     <string name="mission_notify_return_height">return height</string>
-    <string name="mission_notify_count">orbit count</string>
+    <string name="mission_hint_orbit_height">orbit height</string>
+    <string name="mission_notify_count">orbit lossPackages</string>
     <string name="mission_notify_waypoint_height">waypoint fly height</string>
     <string name="mission_notify_radius">orbit radius</string>
+    <string name="mission_notify_remain_degree">orbit remain degree</string>
     <string name="mission_map_google">Google Map</string>
     <string name="mission_map_a">AMap</string>
     <string name="mission_alititude">Altitude</string>
@@ -45,10 +47,11 @@
     <string name="fc_max_range">max fly range</string>
     <string name="fc_return_height">fly return height</string>
     <string name="fc_horizontal_speed">fly horizontal speed</string>
+    <string name="fc_viewpoint_speed">viewpoint speed</string>
     <string name="fc_ascend_speed">ascend speed</string>
     <string name="fc_descend_speed">descend speed</string>
-    <string name="fc_lat_notify">latitude</string>
-    <string name="fc_lon_notify">longitude</string>
+    <string name="fc_lat_notify">input latitude</string>
+    <string name="fc_lon_notify">input longitude</string>
 
     <string name="rc_yaw_coefficient">yaw coefficient</string>
 
@@ -66,6 +69,7 @@
 
     <string name="rc_length_unit_metric">METRIC</string>
     <string name="rc_length_unit_imperial">IMPERIAL</string>
+    <string name="rc_length_unit_metric_km">METRIC_KM_H</string>
 
     <string name="rc_command_stick_usa">USA</string>
     <string name="rc_command_stick_china">CHINA</string>

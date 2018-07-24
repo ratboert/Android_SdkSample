@@ -7,13 +7,14 @@ import android.location.Location;
 import android.os.Bundle;
 
 import com.autel.common.flycontroller.AttitudeInfo;
-import com.autel.common.mission.Waypoint;
+import com.autel.common.mission.xstar.Waypoint;
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.mission.widget.WaypointSettingDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -42,8 +43,14 @@ public class GMapMissionActivity extends MapActivity {
             gMapView.onCreate(savedInstanceState);
         } catch (Exception e) {
         }
-        mGmap = gMapView.getMap();
-        attachTapListener();
+        gMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mGmap = googleMap;
+                mGmap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                attachTapListener();
+            }
+        });
     }
 
     public void onResume() {
@@ -82,34 +89,24 @@ public class GMapMissionActivity extends MapActivity {
     }
 
     private void attachTapListener() {
-        mGmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                onAbsMapClick(latLng.latitude, latLng.longitude);
-            }
-        });
-        mGmap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                int index = mMarkerList.indexOf(marker);
-                if (index >= 0 && index < mMarkerList.size()) {
-                    showWaypointSettingDialog(index);
+        if(null != mGmap) {
+            mGmap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    onAbsMapClick(latLng.latitude, latLng.longitude);
                 }
-                return true;
-            }
-        });
-    }
-
-    private void showWaypointSettingDialog(int position) {
-        WaypointSettingDialog waypointSettingDialog = new WaypointSettingDialog(this, position, wayPointList.get(position));
-        waypointSettingDialog.showDialog();
-        waypointSettingDialog.setOnConfirmClickListener(new WaypointSettingDialog.OnDialogOkClickListener() {
-            @Override
-            public void onDialogOkClick(double height, int delayTime, int position) {
-                wayPointList.get(position).getAutelCoord3D().setAltitude(height);
-                wayPointList.get(position).setDelay(delayTime);
-            }
-        });
+            });
+            mGmap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    int index = mMarkerList.indexOf(marker);
+                    if (index >= 0 && index < mMarkerList.size()) {
+                        markerClick(index);
+                    }
+                    return true;
+                }
+            });
+        }
     }
 
     private void detachTapListener() {
@@ -150,26 +147,10 @@ public class GMapMissionActivity extends MapActivity {
 
     protected ArrayList<Marker> mMarkerList = new ArrayList<>();
 
-    @Override
-    protected void addWayPointMarker(double lat, double lot) {
-        LatLng latlng = new LatLng(lat, lot);
-        int size = wayPointList.size();
-        if (size > 0) {
-            addWayPointLine(wayPointList.get(size - 1), latlng);
-        }
-
-        Marker temp = addMarkerWithLabel(latlng, addWaypoint(new AutelLatLng(lat, lot)));
-        temp.setDraggable(true);
-        mMarkerList.add(temp);
-    }
-
-
     Marker mOrbitMarker;
 
     @Override
-    protected void updateOrbit(double lat, double lot) {
-        autelLatLng = new AutelLatLng(lat, lot);
-
+    public void updateOrbit(double lat, double lot) {
         if (null != mOrbitMarker) {
             mOrbitMarker.setPosition(new LatLng(lat, lot));
         } else {
@@ -183,29 +164,38 @@ public class GMapMissionActivity extends MapActivity {
     }
 
     @Override
-    protected void resetMap() {
+    public void resetMap() {
         mOrbitMarker = null;
         mDroneMarker = null;
         mPhoneMarker = null;
-        autelLatLng = null;
 
         mGmap.clear();
-        wayPointList.clear();
     }
 
-    private Marker addMarkerWithLabel(LatLng latlng, int mIndex) {
+    @Override
+    public void addWayPointMarker(double lat, double lot) {
+        LatLng latlng = new LatLng(lat, lot);
+        int size = mMarkerList.size();
+        if (size > 0) {
+            addWayPointLine(mMarkerList.get(size - 1).getPosition(), latlng);
+        }
+
+        Marker temp = addMarkerWithLabel(latlng);
+        temp.setDraggable(true);
+        mMarkerList.add(temp);
+    }
+
+    private Marker addMarkerWithLabel(LatLng latlng) {
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.position(latlng);
         markerOption.draggable(false);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.marker_point);
         markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-//        float anchorWidth = getAnchorWidth(mIndex, bitmap);
-//        markerOption.anchor(anchorWidth, 1.0f);
         return mGmap.addMarker(markerOption);
     }
 
-    private Polyline addWayPointLine(Waypoint start, LatLng end) {
-        Polyline a = mGmap.addPolyline((new PolylineOptions()).add(new LatLng(start.getAutelCoord3D().getLatitude(), start.getAutelCoord3D().getLongitude()), end));
+    private Polyline addWayPointLine(LatLng start, LatLng end) {
+        Polyline a = mGmap.addPolyline((new PolylineOptions()).add(start, end));
         a.setColor(Color.GREEN);
         a.setWidth(10);
         return a;

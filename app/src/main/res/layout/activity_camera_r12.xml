@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".base.camera.CameraActivity">
+    tools:context=".camera.CameraActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -780,6 +780,7 @@
                 android:gravity="center"
                 android:text="getStateInfo"
                 android:textAllCaps="false" />
+
             <!--               set listener                        -->
             <LinearLayout
                 android:layout_width="wrap_content"
