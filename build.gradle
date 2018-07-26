@@ -18,13 +18,7 @@ buildscript {
 allprojects {
     repositories {
         maven(){
-            /*
-            url "http://10.240.12.67:8082/artifactory/gradle-dev"
-//            url "http://10.240.12.2:8081/artifactory/gradle-release"
-
-            /*/
             url "https://autel.bintray.com/android"
-            //*/
         }
         jcenter()
         maven {
