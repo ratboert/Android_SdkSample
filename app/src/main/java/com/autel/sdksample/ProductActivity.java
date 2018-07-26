@@ -50,6 +50,7 @@ public class ProductActivity extends AppCompatActivity {
                 setContentView(createView(currentType));
                 /**
                  * 避免从WiFi切换到USB时，重新弹起MainActivity界面
+                 * Avoid MainAcitivity when switch from wifi to USB
                  */
                 hasInitProductListener.compareAndSet(false, true);
 
@@ -57,6 +58,7 @@ public class ProductActivity extends AppCompatActivity {
                 ((TestApplication) getApplicationContext()).setCurrentProduct(product);
                 /**
                  * 如果产品类型发生变化，退出到该界面下
+                 * If product type has changed, go back to this Activity
                  */
                 if (null != previous) {
                     if (previous.getType() != product.getType()) {
