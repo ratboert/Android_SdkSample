@@ -77,7 +77,7 @@ public class XStarOrbitMissionFragment extends OrbitMissionFragment {
         String valueSpeed = orbitSpeed.getText().toString();
         orbitMission.speed = isEmpty(valueSpeed) ? 1 : Float.valueOf(valueSpeed);
         String valueRound = orbitCount.getText().toString();
-        orbitMission.round = isEmpty(valueRound) ? 3 : Short.valueOf(valueRound);
+        orbitMission.laps = isEmpty(valueRound) ? 3 : Short.valueOf(valueRound);
         String valueRadius = orbitRadius.getText().toString();
         orbitMission.radius = isEmpty(valueRadius) ? 3 : Short.valueOf(valueRadius);
         return orbitMission;

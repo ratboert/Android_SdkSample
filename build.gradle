@@ -18,7 +18,7 @@ buildscript {
 allprojects {
     repositories {
         maven(){
-            url "https://autel.bintray.com/android"
+            url "https://dl.bintray.com/auteloss/android"
         }
         jcenter()
         maven {

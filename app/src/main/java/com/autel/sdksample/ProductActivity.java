@@ -35,6 +35,7 @@ public class ProductActivity extends AppCompatActivity {
     private String fileConfig4 = "/sdcard/anddev/autel13.backup";
     private AutelProductType currentType = AutelProductType.UNKNOWN;
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);

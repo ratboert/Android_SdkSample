@@ -10,7 +10,6 @@ import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.camera.visual.VisualWarningInfo;
 import com.autel.common.error.AutelError;
-import com.autel.common.flycontroller.LandingGearState;
 import com.autel.common.flycontroller.evo.EvoFlyControllerInfo;
 import com.autel.common.flycontroller.visual.AvoidanceRadarInfo;
 import com.autel.common.flycontroller.visual.VisualSettingSwitchblade;
@@ -21,7 +20,6 @@ import com.autel.sdk.product.BaseProduct;
 import com.autel.sdk.product.EvoAircraft;
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.FlyControllerActivity;
-import com.autel.sdksample.evo.adapter.LandingGearStateAdapter;
 import com.autel.sdksample.evo.adapter.VisualSettingSwitchBladeAdapter;
 
 /**
@@ -30,8 +28,8 @@ import com.autel.sdksample.evo.adapter.VisualSettingSwitchBladeAdapter;
 
 public class G2FlyControllerActivity extends FlyControllerActivity {
     private EvoFlyController mEvoFlyController;
-    LandingGearStateAdapter mLandingGearStateAdapter;
-    LandingGearState selectedLandingGearState = LandingGearState.UNKNOWN;
+  /*  LandingGearStateAdapter mLandingGearStateAdapter;
+    LandingGearState selectedLandingGearState = LandingGearState.UNKNOWN;*/
     VisualSettingSwitchblade mVisualSettingSwitchblade = VisualSettingSwitchblade.UNKNOWN;
     private Switch visualSettingEnableState;
 
@@ -49,7 +47,7 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
     @Override
     protected void initUi() {
         super.initUi();
-        mLandingGearStateAdapter = new LandingGearStateAdapter(this);
+      /*  mLandingGearStateAdapter = new LandingGearStateAdapter(this);
         ((Spinner) findViewById(R.id.landingGearStateList)).setAdapter(mLandingGearStateAdapter);
         ((Spinner) findViewById(R.id.landingGearStateList)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,7 +59,7 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedLandingGearState = LandingGearState.UNKNOWN;
             }
-        });
+        });*/
 
         visualSettingEnableState = (Switch) findViewById(R.id.visualSettingEnableState);
 
@@ -74,7 +72,7 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedLandingGearState = LandingGearState.UNKNOWN;
+               // selectedLandingGearState = LandingGearState.UNKNOWN;
             }
         });
 
@@ -129,7 +127,7 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
         mEvoFlyController.droneArmed(new CallbackWithNoParam() {
             @Override
             public void onSuccess() {
-                logOut("droneArmed onSuccess " + selectedLandingGearState);
+                //logOut("droneArmed onSuccess " + selectedLandingGearState);
             }
 
             @Override
@@ -143,7 +141,7 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
         mEvoFlyController.droneDisarmed(new CallbackWithNoParam() {
             @Override
             public void onSuccess() {
-                logOut("droneDisarmed onSuccess " + selectedLandingGearState);
+               // logOut("droneDisarmed onSuccess " + selectedLandingGearState);
             }
 
             @Override
@@ -187,17 +185,7 @@ public class G2FlyControllerActivity extends FlyControllerActivity {
 
     public void setVisualSettingEnable(View view) {
         if(mVisualSettingSwitchblade == VisualSettingSwitchblade.SET_VIEW_POINT_COORD){
-            mEvoFlyController.setVisualViewPointCoordinate(30f,30f, new CallbackWithNoParam() {
-                @Override
-                public void onSuccess() {
-                    logOut("setVisualSettingEnable onSuccess ");
-                }
 
-                @Override
-                public void onFailure(AutelError error) {
-                    logOut("setVisualSettingEnable onFailure " + error.getDescription());
-                }
-            });
         }else {
             mEvoFlyController.setVisualSettingEnable(mVisualSettingSwitchblade, visualSettingEnableState.isEnabled(), new CallbackWithNoParam() {
                 @Override

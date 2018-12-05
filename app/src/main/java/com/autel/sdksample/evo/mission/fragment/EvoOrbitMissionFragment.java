@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import com.autel.common.mission.AutelMission;
 import com.autel.common.mission.OrbitFinishedAction;
 import com.autel.common.mission.evo.EvoOrbitMission;
-import com.autel.common.mission.evo.OrbitEntryDirection;
+import com.autel.common.mission.evo.OrbitEntryPosition;
 import com.autel.common.mission.evo.OrbitHeadingDirection;
 import com.autel.common.mission.evo.OrbitRotateDirection;
 import com.autel.common.mission.xstar.OrbitMission;
@@ -45,7 +45,7 @@ public class EvoOrbitMissionFragment extends OrbitMissionFragment {
     private EvoHeadingDirectionAdapter headingDirectionAdapter = null;
     private EvoRotateDirectionAdapter rotateDirectionAdapter = null;
     private OrbitFinishedAction finishedAction = OrbitFinishedAction.HOVER;
-    private OrbitEntryDirection entryDirection = OrbitEntryDirection.EAST;
+    private OrbitEntryPosition entryDirection = OrbitEntryPosition.EAST;
     private OrbitHeadingDirection headingDirection = OrbitHeadingDirection.FACE_TO_POI;
     private OrbitRotateDirection rotateDirection = OrbitRotateDirection.Clockwise;
 
@@ -88,7 +88,7 @@ public class EvoOrbitMissionFragment extends OrbitMissionFragment {
         entryDirectionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                entryDirection = (OrbitEntryDirection) parent.getAdapter().getItem(position);
+                entryDirection = (OrbitEntryPosition) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -154,7 +154,7 @@ public class EvoOrbitMissionFragment extends OrbitMissionFragment {
 
         orbitMission.mRotateDirection = rotateDirection;
         orbitMission.mHeadingDirection = headingDirection;
-        orbitMission.mEntryDirection = entryDirection;
+        orbitMission.mEntryPostion = entryDirection;
         return orbitMission;
     }
 }
