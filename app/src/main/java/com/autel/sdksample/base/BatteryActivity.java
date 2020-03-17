@@ -11,7 +11,6 @@ import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
 import com.autel.common.battery.BatteryParameterRangeManager;
-import com.autel.common.battery.BatteryState;
 import com.autel.common.error.AutelError;
 import com.autel.sdk.battery.AutelBattery;
 import com.autel.sdk.product.BaseProduct;
@@ -37,7 +36,7 @@ public class BatteryActivity extends BaseActivity<AutelBattery> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_base_battery;
+        return R.layout.ac_base_battery;
     }
 
     @Override

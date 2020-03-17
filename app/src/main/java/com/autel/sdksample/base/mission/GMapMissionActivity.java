@@ -7,9 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import com.autel.common.flycontroller.AttitudeInfo;
-import com.autel.common.mission.xstar.Waypoint;
 import com.autel.sdksample.R;
-import com.autel.sdksample.base.mission.widget.WaypointSettingDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -37,7 +35,7 @@ public class GMapMissionActivity extends MapActivity {
     protected void onCreate(Bundle savedInstanceState) {
         MapsInitializer.initialize(this);
         super.onCreate(savedInstanceState);
-        setMapContentView(R.layout.activity_mission_gmap);
+        setMapContentView(R.layout.ac_mission_gmap);
         gMapView = (MapView) findViewById(R.id.gMapView);
         try {
             gMapView.onCreate(savedInstanceState);

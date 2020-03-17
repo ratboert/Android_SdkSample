@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <include
-                layout="@layout/activity_base_gimbal_items"
+                layout="@layout/ac_base_gimbal_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom" />

@@ -14,7 +14,7 @@ public class CodecViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_codecview);
+        setContentView(R.layout.ac_codecview);
     }
 
 }

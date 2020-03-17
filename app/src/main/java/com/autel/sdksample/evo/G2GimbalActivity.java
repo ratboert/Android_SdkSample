@@ -44,7 +44,7 @@ public class G2GimbalActivity extends GimbalActivity {
 
     @Override
     protected int getCustomViewResId() {
-//        return R.layout.activity_base_gimbal;
+//        return R.layout.ac_base_gimbal;
         return R.layout.activity_g2_gimbal;
     }
 

@@ -16,7 +16,7 @@
 
             <include
                 android:id="@+id/baseCameraLayout"
-                layout="@layout/activity_camera_base"
+                layout="@layout/ac_camera_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

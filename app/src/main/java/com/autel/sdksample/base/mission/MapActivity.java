@@ -82,7 +82,7 @@ public abstract class MapActivity extends FragmentActivity implements MapOperato
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mission_map);
+        setContentView(R.layout.ac_mission_map);
         registerPhoneGPS();
         initUi();
         initAircraftListener();

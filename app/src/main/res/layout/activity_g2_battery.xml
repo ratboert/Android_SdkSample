@@ -10,7 +10,7 @@
         android:padding="20px">
 
         <include
-            layout="@layout/activity_base_battery"
+            layout="@layout/ac_base_battery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

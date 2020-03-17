@@ -11,7 +11,7 @@
         android:padding="20px">
 
         <include
-            layout="@layout/activity_base_dsp"
+            layout="@layout/ac_base_dsp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

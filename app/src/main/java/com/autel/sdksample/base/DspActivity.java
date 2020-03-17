@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
-import com.autel.common.dsp.AutelCancellable;
 import com.autel.common.dsp.DspVersionInfo;
 import com.autel.common.dsp.RFData;
 import com.autel.common.error.AutelError;
@@ -40,7 +39,7 @@ public abstract class DspActivity extends BaseActivity<AutelDsp> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_base_dsp;
+        return R.layout.ac_base_dsp;
     }
 
     @Override

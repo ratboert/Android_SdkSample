@@ -48,7 +48,7 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Camera");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.ac_camera);
         cameraType = (TextView) findViewById(R.id.camera_type);
         cameraLogOutput = (TextView) findViewById(R.id.camera_log_output);
         BaseProduct product = ((TestApplication) getApplicationContext()).getCurrentProduct();

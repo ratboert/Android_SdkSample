@@ -65,7 +65,7 @@ public class AlbumActivity extends BaseActivity<AutelAlbum> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_album;
+        return R.layout.ac_album;
     }
 
     @Override

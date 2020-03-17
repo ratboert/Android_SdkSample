@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.autel.sdk.product.BaseProduct;
-import com.autel.sdk.product.XStarAircraft;
-import com.autel.sdk.remotecontroller.AutelRemoteController;
 import com.autel.sdksample.R;
 import com.autel.sdksample.TestApplication;
 
@@ -41,10 +39,10 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             mController = initController(product);
         }
         if (null == mController) {
-            setContentView(R.layout.activity_connect_exception);
+            setContentView(R.layout.ac_connect_exception);
             return;
         }
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.ac_base);
         ((LinearLayout) findViewById(R.id.base_layout)).addView(View.inflate(this, getCustomViewResId(), null));
         initUi();
         log_output = (TextView) findViewById(R.id.log_output);

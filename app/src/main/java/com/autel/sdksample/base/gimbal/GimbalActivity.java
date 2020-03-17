@@ -8,7 +8,6 @@ import android.widget.Spinner;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.error.AutelError;
-import com.autel.common.gimbal.GimbalState;
 import com.autel.common.gimbal.GimbalVersionInfo;
 import com.autel.common.gimbal.GimbalWorkMode;
 import com.autel.sdk.gimbal.AutelGimbal;
@@ -30,7 +29,7 @@ public abstract class GimbalActivity extends BaseActivity<AutelGimbal> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_base_gimbal;
+        return R.layout.ac_base_gimbal;
     }
 
 

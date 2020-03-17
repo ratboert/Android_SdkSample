@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.autel.sdksample.R;
-import com.autel.sdksample.base.mission.AMapMissionActivity;
-import com.autel.sdksample.base.mission.GMapMissionActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -20,7 +18,7 @@ public class MissionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Mission");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mission);
+        setContentView(R.layout.ac_mission);
         findViewById(R.id.GMap).setVisibility(isGoogleMapValidate() ? View.VISIBLE : View.GONE);
     }
 

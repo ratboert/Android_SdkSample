@@ -33,7 +33,7 @@ public class CodecActivity extends BaseActivity<AutelCodec> {
 
     @Override
     protected int getCustomViewResId() {
-        return R.layout.activity_codec;
+        return R.layout.ac_codec;
     }
 
     @Override

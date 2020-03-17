@@ -16,9 +16,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
 import com.autel.common.flycontroller.AttitudeInfo;
-import com.autel.common.mission.xstar.Waypoint;
 import com.autel.sdksample.R;
-import com.autel.sdksample.base.mission.widget.WaypointSettingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ public class AMapMissionActivity extends MapActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setMapContentView(R.layout.activity_mission_amap);
+        setMapContentView(R.layout.ac_mission_amap);
         aMapView = (MapView) findViewById(R.id.aMapView);
         aMapView.onCreate(savedInstanceState);
         mAmap = aMapView.getMap();
