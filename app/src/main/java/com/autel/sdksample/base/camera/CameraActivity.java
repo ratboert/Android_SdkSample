@@ -89,7 +89,7 @@ public class CameraActivity extends AppCompatActivity {
                 if (currentCamera == data2) {
                     return;
                 }
-                currentCamera = data2;git push
+                currentCamera = data2;
                 cameraType.setText(data1.toString());
                 switch (data1) {
                     case R12:
