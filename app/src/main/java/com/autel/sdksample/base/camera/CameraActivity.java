@@ -70,7 +70,6 @@ public class CameraActivity extends AppCompatActivity {
 
     boolean fullScreen = true;
 
-
     private void changeSize() {
         RelativeLayout.LayoutParams params = fullScreen ? new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT) :
                 new RelativeLayout.LayoutParams(300, 150);
