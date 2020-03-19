@@ -74,7 +74,7 @@ public class CameraActivity extends AppCompatActivity {
                 new RelativeLayout.LayoutParams(300, 150);
         codecView.setLayoutParams(params);
         fullScreen = !fullScreen;
-        
+
 //        Log.v("videoDecodeBug","playstatus "+ CodecManager.getInstance().getPlayStatus());
     }
 
@@ -89,7 +89,7 @@ public class CameraActivity extends AppCompatActivity {
                 if (currentCamera == data2) {
                     return;
                 }
-                currentCamera = data2;
+                currentCamera = data2;git push
                 cameraType.setText(data1.toString());
                 switch (data1) {
                     case R12:
