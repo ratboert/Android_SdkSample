@@ -30,7 +30,7 @@ class EdgeBoxOverlay {
 
         workThread.execute {
             val result: IntArray = intArrayOf(0, -1, 0, 0, 0, 0)
-            val thresh = 0.2f
+            val thresh = 0.5f
             var starX: Float = 0f
             var starY: Float = 0f
             var starWidth: Float = 0f
