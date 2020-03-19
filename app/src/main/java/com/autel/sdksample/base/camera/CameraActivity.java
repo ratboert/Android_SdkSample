@@ -69,12 +69,12 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     boolean fullScreen = true;
-
     private void changeSize() {
         RelativeLayout.LayoutParams params = fullScreen ? new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT) :
                 new RelativeLayout.LayoutParams(300, 150);
         codecView.setLayoutParams(params);
         fullScreen = !fullScreen;
+        
 //        Log.v("videoDecodeBug","playstatus "+ CodecManager.getInstance().getPlayStatus());
     }
 
