@@ -24,7 +24,9 @@ import com.autel.sdksample.TestApplication;
 import com.autel.sdksample.base.camera.fragment.CameraNotConnectFragment;
 import com.autel.sdksample.base.camera.fragment.CameraR12Fragment;
 import com.autel.sdksample.base.camera.fragment.CameraXB015Fragment;
-
+import com.autel.sdksample.base.camera.fragment.CameraXT701Fragment;
+import com.autel.sdksample.base.camera.fragment.CameraXT705Fragment;
+import com.autel.sdksample.base.camera.fragment.CameraXT706Fragment;
 
 
 public class CameraActivity extends AppCompatActivity {
@@ -97,6 +99,15 @@ public class CameraActivity extends AppCompatActivity {
                         break;
                     case XB015:
                         changePage(CameraXB015Fragment.class);
+                        break;
+                    case XT701:
+                        changePage(CameraXT701Fragment.class);
+                        break;
+                    case XT705:
+                        changePage(CameraXT705Fragment.class);
+                        break;
+                    case XT706:
+                        changePage(CameraXT706Fragment.class);
                         break;
 
                     default:
