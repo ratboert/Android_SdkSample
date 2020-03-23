@@ -129,7 +129,7 @@ public class CameraXT706Fragment extends CameraBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_camera_xb015, null);
+        View view = inflater.inflate(R.layout.activity_camera_xt706, null);
         xt706 = (AutelXT706) ((CameraActivity) getActivity()).getCurrentCamera();
         rangeManager = xt706.getParameterRangeManager();
         logOut("");
