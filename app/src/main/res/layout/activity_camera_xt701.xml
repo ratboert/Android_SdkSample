@@ -13,91 +13,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20px">
+
             <include
                 android:id="@+id/baseCameraLayout"
                 layout="@layout/ac_camera_base"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/getDisplayMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:text="getDisplayMode"
-                android:textAllCaps="false" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/setDisplayMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textAllCaps="false"
-                    android:text="setDisplayMode" />
-                <Spinner
-                    android:id="@+id/displayModeList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:entries="@array/camera_display_modes"
-                    />
-                <Button
-                    android:id="@+id/FFC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center"
-                    android:textAllCaps="false"
-                    android:text="FFC" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/setIrPosition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="setIrPosition"
-                    android:textAllCaps="false" />
-
-                <EditText
-                    android:id="@+id/positionX"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/camera_spot_metering_x"
-                    android:inputType="number" />
-
-                <EditText
-                    android:id="@+id/positionY"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:hint="@string/camera_spot_metering_y"
-                    android:inputType="number" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/getIrPosition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:text="getIrPosition"
-                android:textAllCaps="false" />
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -260,39 +181,6 @@
 
             <Button
                 android:id="@+id/getColorStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:gravity="center"
-                android:padding="@dimen/text_padding"
-                android:text="getColorStyle"
-                android:textAllCaps="false" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/item_margin_bottom"
-                android:background="@drawable/text_background"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/setIrColorStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/text_padding"
-                    android:text="setIrColorStyle"
-                    android:textAllCaps="false" />
-
-                <Spinner
-                    android:id="@+id/irColorStyleList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/getIrColorStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/item_margin_bottom"

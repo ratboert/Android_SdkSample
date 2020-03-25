@@ -113,4 +113,8 @@
     <!-- authority check -->
     <string name="authority_check_start">start check authority</string>
 
+    <string name="camera_display_mode_normal">Visible Light</string>
+    <string name="camera_display_mode_ir">Infrared</string>
+    <string name="camera_display_mode_pip">Picture in Picture</string>
+
 </resources>

@@ -308,7 +308,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
                         autelR12.getExposure(new CallbackWithOneParam<ExposureCompensation>() {
                             @Override
                             public void onSuccess(ExposureCompensation cameraExposureCompensation) {
-                                logOut("getExposure  onSuccess  " + cameraExposureCompensation);
+                                logOut("getExposure  onSuccess  " + cameraExposureCompensation.getValue());
                             }
 
                             @Override
@@ -1327,7 +1327,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         exposureValueList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraExposureCompensation = (ExposureCompensation) parent.getAdapter().getItem(position);
+                cameraExposureCompensation = ExposureCompensation.find((String)parent.getAdapter().getItem(position));
             }
 
             @Override
@@ -1337,7 +1337,7 @@ public class CameraR12Fragment extends CameraBaseFragment {
         });
 
         shutterList = (Spinner) view.findViewById(R.id.shutterList);
-        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext());
+        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext(), rangeManager.getCameraShutterSpeed());
         shutterList.setAdapter(shutterSpeedAdapter);
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.autel.common.CallbackWithNoParam;
 import com.autel.common.CallbackWithOneParam;
 import com.autel.common.RangePair;
+import com.autel.common.camera.CameraProduct;
 import com.autel.common.camera.XT705.XT705CameraInfo;
 import com.autel.common.camera.XT705.XT705ParameterRangeManager;
 import com.autel.common.camera.base.BaseStateInfo;
@@ -25,6 +26,7 @@ import com.autel.common.camera.base.MediaMode;
 import com.autel.common.camera.base.PhotoFormat;
 import com.autel.common.camera.media.AntiFlicker;
 import com.autel.common.camera.media.AutoExposureLockState;
+import com.autel.common.camera.media.CameraAperture;
 import com.autel.common.camera.media.CameraISO;
 import com.autel.common.camera.media.ColorStyle;
 import com.autel.common.camera.media.ExposureCompensation;
@@ -53,26 +55,26 @@ import com.autel.sdk.camera.AutelXT705;
 import com.autel.sdksample.R;
 import com.autel.sdksample.base.camera.CameraActivity;
 import com.autel.sdksample.base.camera.fragment.adapter.AntiFlickerAdapter;
-import com.autel.sdksample.base.camera.fragment.adapter.AspectRatioAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.AutoExposureLockStateAdapter;
-import com.autel.sdksample.base.camera.fragment.adapter.ColorStyleAdapter;
-import com.autel.sdksample.base.camera.fragment.adapter.ExposureModeAdapter;
+import com.autel.sdksample.base.camera.fragment.adapter.CameraApertureAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.ExposureValueAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.ISOValueAdapter;
+import com.autel.sdksample.base.camera.fragment.adapter.ModelcAspectRatioAdapter;
+import com.autel.sdksample.base.camera.fragment.adapter.ModelcColorStyleAdapter;
+import com.autel.sdksample.base.camera.fragment.adapter.ModelcExposureModeAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.PIVModeAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.PhotoAEBCountAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.PhotoBurstAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.PhotoFormatAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.PhotoStyleAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.PhotoTimelapseIntervalAdapter;
-import com.autel.sdksample.base.camera.fragment.adapter.RealTimeResolutionAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.ShutterSpeedAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.VideoEncodeAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.VideoFormatAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.VideoResolutionFpsAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.VideoSnapshotTimeIntervalAdapter;
-import com.autel.sdksample.base.camera.fragment.adapter.VideoStandardAdapter;
 import com.autel.sdksample.base.camera.fragment.adapter.WhiteBalanceTypeAdapter;
+import com.autel.sdksample.util.ThreadUtils;
 
 import java.util.Arrays;
 
@@ -101,6 +103,7 @@ public class CameraXT705Fragment extends CameraBaseFragment {
     ExposureMode cameraExposureMode = ExposureMode.Auto;
     ExposureCompensation cameraExposureCompensation = ExposureCompensation.NEGATIVE_0p3;
     CameraISO cameraISO = CameraISO.ISO_100;
+    CameraAperture cameraAperture = CameraAperture.Aperture_1p8;
     ShutterSpeed cameraShutterSpeed = ShutterSpeed.ShutterSpeed_1;
     WhiteBalanceType cameraWhiteBalanceType = WhiteBalanceType.AUTO;
     AntiFlicker cameraAntiFlicker = AntiFlicker.AUTO;
@@ -110,14 +113,11 @@ public class CameraXT705Fragment extends CameraBaseFragment {
     PhotoTimelapseInterval photoTimelapseInterval = PhotoTimelapseInterval.SECOND_5;
     PhotoAEBCount photoAEBCount = PhotoAEBCount.CAPTURE_3;
     VideoFormat videoFormat = VideoFormat.MOV;
-    VideoStandard selectedVideoStandard = VideoStandard.NTSC;
-    VideoStandard currentVideoStandard = VideoStandard.NTSC;
     PhotoFormat photoFormat = PhotoFormat.JPEG;
     PhotoFormat currentPhotoFormat = PhotoFormat.JPEG;
     PhotoAspectRatio aspectRatio = PhotoAspectRatio.Aspect_16_9;
     VideoResolutionAndFps videoResolutionAndFps = null;
     VideoEncodeFormat videoEncoding = VideoEncodeFormat.H264;
-    RealTimeVideoResolution realTimeVideoResolution = RealTimeVideoResolution.P_1280X720;
     PIVMode pivMode = PIVMode.Manual;
     VideoSnapshotTimelapseInterval snapshotTimelapseInterval = VideoSnapshotTimelapseInterval.SECOND_5;
     VideoResolutionAndFps currentVideoResolutionAndFps = null;
@@ -129,15 +129,36 @@ public class CameraXT705Fragment extends CameraBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_camera_xb015, null);
+        final View view = inflater.inflate(R.layout.activity_camera_xt705, null);
         xt705 = (AutelXT705) ((CameraActivity) getActivity()).getCurrentCamera();
         rangeManager = xt705.getParameterRangeManager();
         logOut("");
-        initView(view);
-        initClick(view);
-        initXT705Click(view);
-        initData();
+        ThreadUtils.runOnNonUIthread(new Runnable() {
+            @Override
+            public void run() {
+                xt705.getStateInfo(new CallbackWithOneParam<BaseStateInfo>() {
+                    @Override
+                    public void onSuccess(BaseStateInfo baseStateInfo) {
+                        ThreadUtils.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(null != view) {
+                                    initView(view);
+                                    initClick(view);
+                                    initXT705Click(view);
+                                    initData();
+                                }
+                            }
+                        });
+                    }
 
+                    @Override
+                    public void onFailure(AutelError autelError) {
+
+                    }
+                });
+            }
+        });
         return view;
     }
 
@@ -154,17 +175,8 @@ public class CameraXT705Fragment extends CameraBaseFragment {
                     initShuttleSpeedList();
                 }
             });
-            xt705.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
-                @Override
-                public void onFailure(AutelError error) {
-                }
 
-                @Override
-                public void onSuccess(VideoStandard data) {
-                    currentVideoStandard = data;
-                    initVideoResolutionFpsList();
-                }
-            });
+            initVideoResolutionFpsList();
 
             xt705.getPhotoFormat(new CallbackWithOneParam<PhotoFormat>() {
                 @Override
@@ -447,12 +459,48 @@ public class CameraXT705Fragment extends CameraBaseFragment {
                         xt705.getExposure(new CallbackWithOneParam<ExposureCompensation>() {
                             @Override
                             public void onSuccess(ExposureCompensation cameraExposureCompensation) {
-                                logOut("getExposure  onSuccess  " + cameraExposureCompensation);
+                                logOut("getExposure  onSuccess  " + cameraExposureCompensation.getValue());
                             }
 
                             @Override
                             public void onFailure(AutelError autelError) {
                                 logOut("getExposure  description  " + autelError.getDescription());
+                            }
+                        });
+                    }
+                });
+
+        view.findViewById(R.id.setAperture).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        xt705.setIRIS(cameraAperture, new CallbackWithNoParam() {
+                            @Override
+                            public void onSuccess() {
+                                logOut("setAperture  onSuccess  ");
+                            }
+
+                            @Override
+                            public void onFailure(AutelError autelError) {
+                                logOut("setAperture  description  " + autelError.getDescription());
+                            }
+                        });
+                    }
+                });
+
+        view.findViewById(R.id.getAperture).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        xt705.getIRIS(new CallbackWithOneParam<CameraAperture>() {
+                            @Override
+                            public void onFailure(AutelError error) {
+                                logOut("getAperture  description  " + error.getDescription());
+                            }
+
+                            @Override
+                            public void onSuccess(CameraAperture data) {
+                                logOut("getAperture " + data);
                             }
                         });
                     }
@@ -1019,45 +1067,6 @@ public class CameraXT705Fragment extends CameraBaseFragment {
             }
         });
 
-        view.findViewById(R.id.setVideoStandard).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xt705.setVideoStandard(selectedVideoStandard, new CallbackWithNoParam() {
-
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("setVideoStandard  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        logOut("setVideoStandard state onSuccess");
-                        currentVideoStandard = selectedVideoStandard;
-                        initVideoResolutionFpsList();
-                    }
-                });
-            }
-        });
-
-        view.findViewById(R.id.getVideoStandard).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xt705.getVideoStandard(new CallbackWithOneParam<VideoStandard>() {
-                    @Override
-                    public void onFailure(AutelError error) {
-                        logOut("getVideoStandard  description  " + error.getDescription());
-                    }
-
-                    @Override
-                    public void onSuccess(VideoStandard data) {
-                        logOut("getVideoStandard " + data);
-                        currentVideoStandard = data;
-                        initVideoResolutionFpsList();
-                    }
-                });
-            }
-        });
-
         view.findViewById(R.id.setPhotoFormat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1147,39 +1156,6 @@ public class CameraXT705Fragment extends CameraBaseFragment {
             }
         });
 
-//
-//        view.findViewById(R.id.getRealTimeVideoResolution).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                xt705.getRealTimeVideoResolution(new CallbackWithOneParam<RealTimeVideoResolution>() {
-//                    @Override
-//                    public void onFailure(AutelError error) {
-//                        logOut("getRealTimeVideoResolution  description  " + error.getDescription());
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(RealTimeVideoResolution data) {
-//                        logOut("getRealTimeVideoResolution " + data);
-//                    }
-//                });
-//            }
-//        });
-//        view.findViewById(R.id.setRealTimeVideoResolution).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                xt705.setRealTimeVideoResolution(realTimeVideoResolution, new CallbackWithNoParam() {
-//                    @Override
-//                    public void onFailure(AutelError error) {
-//                        logOut("setRealTimeVideoResolution  description  " + error.getDescription());
-//                    }
-//
-//                    @Override
-//                    public void onSuccess() {
-//                        logOut("setRealTimeVideoResolution onSuccess");
-//                    }
-//                });
-//            }
-//        });
         view.findViewById(R.id.getPIVMode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1228,23 +1204,6 @@ public class CameraXT705Fragment extends CameraBaseFragment {
                 });
             }
         });
-
-//        view.findViewById(R.id.getAutoPIVTimelapseInterval).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                xt705.getAutoPIVTimelapseInterval(new CallbackWithOneParam<VideoSnapshotTimelapseInterval>() {
-//                    @Override
-//                    public void onFailure(AutelError error) {
-//                        logOut("getAutoPIVTimelapseInterval  description  " + error.getDescription());
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(VideoSnapshotTimelapseInterval mode) {
-//                        logOut("getAutoPIVTimelapseInterval onSuccess " + mode);
-//                    }
-//                });
-//            }
-//        });
 
         view.findViewById(R.id.setVideoResolutionAndFrameRate).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1303,7 +1262,6 @@ public class CameraXT705Fragment extends CameraBaseFragment {
 
         videoResolutionAndFrameRateList = (Spinner) view.findViewById(R.id.videoResolutionAndFrameRateList);
         videoResolutionFpsAdapter = new VideoResolutionFpsAdapter(getContext());
-        view.findViewById(R.id.getVideoStandard).callOnClick();
     }
 
     private void initVideoResolutionFpsList() {
@@ -1372,20 +1330,6 @@ public class CameraXT705Fragment extends CameraBaseFragment {
             }
         });
 
-        Spinner realTimeVideoResolutionList = (Spinner) parentView.findViewById(R.id.realTimeVideoResolutionList);
-        realTimeVideoResolutionList.setAdapter(new RealTimeResolutionAdapter(getContext()));
-        realTimeVideoResolutionList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                realTimeVideoResolution = (RealTimeVideoResolution) parent.getAdapter().getItem(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         Spinner videoEncodeList = (Spinner) parentView.findViewById(R.id.videoEncodeList);
         videoEncodeList.setAdapter(new VideoEncodeAdapter(getContext()));
         videoEncodeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1401,13 +1345,13 @@ public class CameraXT705Fragment extends CameraBaseFragment {
         });
 
         Spinner aspectRatioList = (Spinner) parentView.findViewById(R.id.aspectRatioList);
-        AspectRatioAdapter aspectRatioAdapter = new AspectRatioAdapter(getContext());
-        aspectRatioAdapter.setData(Arrays.asList(rangeManager.getPhotoAspectRatio()));
+        ModelcAspectRatioAdapter aspectRatioAdapter = new ModelcAspectRatioAdapter(getContext());
+        aspectRatioAdapter.setData(CameraProduct.XT705, null);
         aspectRatioList.setAdapter(aspectRatioAdapter);
         aspectRatioList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                aspectRatio = (PhotoAspectRatio) parent.getAdapter().getItem(position);
+                aspectRatio = PhotoAspectRatio.find((String) parent.getAdapter().getItem(position), CameraProduct.XT705);
             }
 
             @Override
@@ -1422,20 +1366,6 @@ public class CameraXT705Fragment extends CameraBaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 photoFormat = (PhotoFormat) parent.getAdapter().getItem(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        Spinner videoStandardList = (Spinner) parentView.findViewById(R.id.videoStandardList);
-        videoStandardList.setAdapter(new VideoStandardAdapter(getContext()));
-        videoStandardList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedVideoStandard = (VideoStandard) parent.getAdapter().getItem(position);
             }
 
             @Override
@@ -1532,7 +1462,7 @@ public class CameraXT705Fragment extends CameraBaseFragment {
         exposureValueList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraExposureCompensation = (ExposureCompensation) parent.getAdapter().getItem(position);
+                cameraExposureCompensation = ExposureCompensation.find((String)parent.getAdapter().getItem(position));
             }
 
             @Override
@@ -1542,7 +1472,7 @@ public class CameraXT705Fragment extends CameraBaseFragment {
         });
 
         shutterList = (Spinner) parentView.findViewById(R.id.shutterList);
-        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext());
+        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext(), rangeManager.getCameraShutterSpeed());
         shutterList.setAdapter(shutterSpeedAdapter);
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1570,8 +1500,23 @@ public class CameraXT705Fragment extends CameraBaseFragment {
             }
         });
 
+        Spinner apertureList = (Spinner) parentView.findViewById(R.id.ApertureList);
+        apertureList.setAdapter(new CameraApertureAdapter(getContext()));
+        apertureList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                cameraAperture = (CameraAperture) parent.getAdapter().getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         colorStyle = (Spinner) parentView.findViewById(R.id.colorStyleList);
-        colorStyle.setAdapter(new ColorStyleAdapter(getContext()));
+        colorStyle.setAdapter(new ModelcColorStyleAdapter(getContext()));
         colorStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1640,7 +1585,9 @@ public class CameraXT705Fragment extends CameraBaseFragment {
 
 
         exposureModeList = (Spinner) parentView.findViewById(R.id.exposureModeList);
-        exposureModeList.setAdapter(new ExposureModeAdapter(getContext(), Arrays.asList(rangeManager.getCameraExposureMode())));
+        ModelcExposureModeAdapter exposureModeAdapter = new ModelcExposureModeAdapter(getContext());
+        exposureModeAdapter.setData(CameraProduct.XT705);
+        exposureModeList.setAdapter(exposureModeAdapter);
         exposureModeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

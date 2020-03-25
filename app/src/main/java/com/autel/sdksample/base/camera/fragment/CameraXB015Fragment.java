@@ -447,7 +447,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
                         xb015.getExposure(new CallbackWithOneParam<ExposureCompensation>() {
                             @Override
                             public void onSuccess(ExposureCompensation cameraExposureCompensation) {
-                                logOut("getExposure  onSuccess  " + cameraExposureCompensation);
+                                logOut("getExposure  onSuccess  " + cameraExposureCompensation.getValue());
                             }
 
                             @Override
@@ -1532,7 +1532,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
         exposureValueList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cameraExposureCompensation = (ExposureCompensation) parent.getAdapter().getItem(position);
+                cameraExposureCompensation = ExposureCompensation.find((String)parent.getAdapter().getItem(position));
             }
 
             @Override
@@ -1542,7 +1542,7 @@ public class CameraXB015Fragment extends CameraBaseFragment {
         });
 
         shutterList = (Spinner) parentView.findViewById(R.id.shutterList);
-        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext());
+        shutterSpeedAdapter = new ShutterSpeedAdapter(getContext(), rangeManager.getCameraShutterSpeed());
         shutterList.setAdapter(shutterSpeedAdapter);
         shutterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

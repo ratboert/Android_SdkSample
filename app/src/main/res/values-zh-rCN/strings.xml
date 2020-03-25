@@ -105,4 +105,9 @@
     <!-- authority check -->
     <string name="authority_check_start">开始权限认证</string>
 
+
+    <string name="camera_display_mode_normal">可见光</string>
+    <string name="camera_display_mode_ir">红外</string>
+    <string name="camera_display_mode_pip">画中画</string>
+
 </resources>
