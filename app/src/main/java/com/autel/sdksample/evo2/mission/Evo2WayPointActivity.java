@@ -68,8 +68,8 @@ public class Evo2WayPointActivity extends AppCompatActivity implements View.OnCl
         autelMission.missionType = MissionType.Waypoint; //任务类型(Waypoint(航点)、RECTANGLE(矩形)、POLYGON(多边形))
         autelMission.totalFlyTime = 1000; //总飞行时间(单位s)
         autelMission.totalDistance = 10000; //总飞行距离(单位m)
-        autelMission.VerticalFOV = 1.0f;
-        autelMission.HorizontalFOV = 1.0f;
+        autelMission.VerticalFOV = 1.0f; //相机实时心跳数据读取
+        autelMission.HorizontalFOV = 1.0f; //相机实时心跳数据读取
         autelMission.PhotoIntervalMin = 2;
 
         List<Evo2Waypoint> wpList = new ArrayList<>();
