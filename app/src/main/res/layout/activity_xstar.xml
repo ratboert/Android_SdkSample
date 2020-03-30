@@ -132,6 +132,19 @@
                     android:layout_height="match_parent" />
 
                 <TextView
+                    android:id="@+id/evo2MissionTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_background"
+                    android:gravity="center"
+                    android:padding="@dimen/text_padding"
+                    android:text="Evo2 Mission" />
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
                     android:id="@+id/BatteryTest"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

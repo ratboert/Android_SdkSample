@@ -474,7 +474,7 @@ public class CameraXT705Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        xt705.setIRIS(cameraAperture, new CallbackWithNoParam() {
+                        xt705.setCameraAperture(cameraAperture, new CallbackWithNoParam() {
                             @Override
                             public void onSuccess() {
                                 logOut("setAperture  onSuccess  ");
@@ -492,7 +492,7 @@ public class CameraXT705Fragment extends CameraBaseFragment {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        xt705.getIRIS(new CallbackWithOneParam<CameraAperture>() {
+                        xt705.getCameraAperture(new CallbackWithOneParam<CameraAperture>() {
                             @Override
                             public void onFailure(AutelError error) {
                                 logOut("getAperture  description  " + error.getDescription());

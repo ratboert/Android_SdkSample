@@ -9,6 +9,7 @@ import com.autel.sdksample.base.CodecActivity;
 import com.autel.sdksample.base.album.AlbumActivity;
 import com.autel.sdksample.base.camera.CameraActivity;
 import com.autel.sdksample.base.mission.MissionActivity;
+import com.autel.sdksample.evo2.mission.Evo2MissionActivity;
 
 /**
  * Created by A16343 on 2017/9/5.
@@ -65,6 +66,14 @@ public class G2Layout {
                 mContext.startActivity(new Intent(mContext, MissionActivity.class));
             }
         });
+
+        mLayout.findViewById(R.id.evo2MissionTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, Evo2MissionActivity.class));
+            }
+        });
+
         mLayout.findViewById(R.id.BatteryTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
