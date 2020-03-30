@@ -141,6 +141,8 @@ public class Evo2WayPointActivity extends AppCompatActivity implements View.OnCl
             action5.parameters = new int[]{-20, 30, 0, 0, 0, 0, 0};
         }
         list.add(action5);
+        cruiserWaypoint1.actions = list;
+        wpList.add(cruiserWaypoint1);
 
         //航点2（动作：飞跃）
         Evo2Waypoint cruiserWaypoint2 = new Evo2Waypoint(new AutelCoordinate3D(23.1244, 123.12445, 60));
